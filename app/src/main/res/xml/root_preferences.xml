@@ -1,0 +1,64 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:title="Language"
+        app:allowDividerBelow="true">
+        <Preference
+            android:title="Language"
+            android:key="language"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Update"
+        app:allowDividerBelow="true">
+        <Preference
+            android:title="Updater"
+            android:key="updateCheck"
+            android:summary="updatesum"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Help me with this app"
+        app:allowDividerBelow="true">
+        <Preference
+            android:title="Bug report"
+            android:summary="You found a bug? Send it to me!"
+            android:key="reportBug"/>
+        <Preference
+            android:title="Feature suggestion"
+            android:summary="You have a suggestion? Send it to me!"
+            android:key="feature" />
+        <Preference
+            android:title="Share this app"
+            android:summary="Share it with you friends and your friends' friends"
+            android:key="share"/>
+        <Preference
+            android:title="Feedback"
+            android:summary="What is your opinion to this app? Go on and tell me!"
+            android:key="feedback"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Privacy and Licenses"
+        app:allowDividerBelow="true">
+        <Preference
+            android:title="App permissions"
+            android:summary="Find the App's permission here"
+            android:key="permission"/>
+        <Preference
+            android:title="Privacy Policy"
+            android:summary="I CARE ABOUT YOUR PRIVACY!!"
+            android:key="policy"/>
+        <Preference
+            android:title="License"
+            android:summary="Licenses whut?"
+            android:key="license" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Wiki"
+        app:allowDividerBelow="true">
+        <Preference
+            android:title="Wiki page"
+            android:summary="This will lead you to the app's wiki"
+            android:key="wiki"/>
+    </PreferenceCategory>
+</PreferenceScreen>
