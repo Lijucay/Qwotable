@@ -1,34 +1,26 @@
-package com.lijukay.quotesAltDesign;
+package com.lijukay.quotesAltDesign.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.os.Handler;
-import android.util.DisplayMetrics;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.lijukay.quotesAltDesign.activities.Person;
+import com.lijukay.quotesAltDesign.R;
+import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
 import com.lijukay.quotesAltDesign.adapter.AllAdapter;
 import com.lijukay.quotesAltDesign.item.AllItem;
 
@@ -37,19 +29,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
-public class quotes extends Fragment implements RecyclerViewInterface{
+public class quotes extends Fragment implements RecyclerViewInterface {
 
     private RecyclerView recyclerView;
     private AllAdapter adapter;
     private ArrayList<AllItem> items;
     private RequestQueue requestQueue;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerViewInterface recyclerViewInterface;
-    TextView authorTextView, quoteTextView;
 
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,7 +53,7 @@ public class quotes extends Fragment implements RecyclerViewInterface{
         swipeRefreshLayout = v.findViewById(R.id.quotesSRL);
         swipeRefreshLayout.setOnRefreshListener(() -> {
 
-            Toast.makeText(requireActivity(),"Refreshin", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireActivity(),getString(R.string.refresh_message), Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
                 items.clear();
@@ -79,7 +69,7 @@ public class quotes extends Fragment implements RecyclerViewInterface{
     }
 
     private void parseJSON() {
-        String url = "https://lijukay.github.io/Quotes-M3/quotesEN.json";
+        String url = "https://lijukay.github.io/Qwotable/quotes-en.json";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 jsonObject -> {
@@ -95,7 +85,7 @@ public class quotes extends Fragment implements RecyclerViewInterface{
                             items.add(new AllItem(author, quote));
                         }
 
-                        adapter = new AllAdapter(requireActivity(), items, this);
+                        adapter = new AllAdapter(getActivity(), items, this);
                         recyclerView.setAdapter(adapter);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -107,7 +97,7 @@ public class quotes extends Fragment implements RecyclerViewInterface{
     @Override
     public void onItemClick(int position) {
 
-            String url = "https://lijukay.github.io/Quotes-M3/quotesEN.json";
+            String url = "https://lijukay.github.io/Qwotable/quotes-en.json";
 
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -117,11 +107,11 @@ public class quotes extends Fragment implements RecyclerViewInterface{
 
                             JSONObject object = jsonArrayP.getJSONObject(position);
 
-                            String quoteE = object.getString("quoteAll");
                             String authorP = object.getString("authorAll");
 
                             Intent intent = new Intent(requireActivity(), Person.class);
                             intent.putExtra("author", authorP);
+                            intent.putExtra("Activity", "quotes");
                             startActivity(intent);
 
                         } catch (JSONException e) {

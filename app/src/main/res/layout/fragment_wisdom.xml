@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".quotes">
+    tools:context=".fragments.quotes">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
@@ -13,11 +13,13 @@
         android:backgroundTint="#00000000">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingTop="27dp"
+            android:paddingBottom="27dp"
             android:id="@+id/wisdomRV"
-            tools:listitem="@layout/card_wisdom"
-            tools:itemCount="20"/>
+            tools:listitem="@layout/card_wisdom"/>
 
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Qwotable</string>
+    <string name="refresh_message">Aktualisiere, bitte warten…</string>
+    <string name="language_title">Sprache</string>
+    <string name="language_message_temp">Noch nicht verfügbar. Warte auf ein Update, um diese Feature zu benutzen</string>
+    <string name="cant_check_for_updates">Es kann nicht nach Updates gesucht werden</string>
+    <string name="no_update_available">Kein Update verfügbar</string>
+    <string name="update_title">Updater</string>
+    <string name="update_button">Aktualisieren</string>
+    <string name="bug_report_title">Bug melden</string>
+    <string name="bug_report_message">Wenn du einen Bug gefunden hast, tut es mir sehr leid. Ich gebe mein Bestes um diese App zu verbessern. In der Zischenzeit kannst du entscheiden, wie du mich erreichen möchtest um den Bug zu melden.\nMöchtest du Telegram oder Email benutzen?</string>
+    <string name="email_button">Email</string>
+    <string name="telegram_button">Telegram</string>
+    <string name="bug_report_mail_subject">Ein Bug wurde gefunden 🐛</string>
+    <string name="bug_report_mail_message">Hallo Luca,\n\nda ist ein Bug in deiner App. Lass es mich kurz beschreiben.</string>
+    <string name="feature_suggestion_title">Feature vorschlagen</string>
+    <string name="feature_suggestion_message">Du hast ein Vorschlag für ein Feature? Gerne, sende es zu mir.</string>
+    <string name="feature_suggestion_mail_subject">Ich habe einen Vorschlag!</string>
+    <string name="feature_suggestion_mail_message">Ich habe eine super Idee. Hör:</string>
+    <string name="share_sharetext_message">Guck mal, ich habe eine App mit Zitaten und Weisheiten gefunden!\n\nDownloade die App hier: https://github.com/Lijukay/Qwotable</string>
+    <string name="feedback_title">Feedback</string>
+    <string name="feedback_message">Hast du Feedback zu meiner App? Du kannst mir deine Meinung gerne über Telegram oder Email senden. Bitte schreibe nicht bloß \"Ich mag deine App (nicht)\". Sei kreativ. Schreib mir, was du (nicht) magst.</string>
+    <string name="feedback_email_subject">Feedback zu deiner App</string>
+    <string name="feedback_email_message">Hallo,\n\nlausche der Melodie meines Feedbacks</string>
+    <string name="app_permission_title">App Berechtigungen</string>
+    <string name="app_permission_message">Diese App benutzt einige Berechtigungen. Dieser Dialog erklärt dir, warum meine App diese Berechtigungen benötigt.\n\nLesen und schreiben des Speichers: Qwotable benötigt die Berechtigung, den Speicher zu lesen und in ihm zu schreiben, um App-Updates herunterzuladen und zu installieren.\n\nVollen Internet Zugriff: Diese Berechtigung erlaubt es meiner App, Zitate aus der Datei im Internet zu ziehen. Hierbei werden keine Daten gesammelt.\n\nInstallieren unbekannter Pakete: Diese Berechtigung erlaubt es meiner App, das Update zu installieren</string>
+    <string name="privacy_policy_title">Datenschutz</string>
+    <string name="privacy_policy_message">Qwotable ist eine kostenlose Android-Anwendung, die von mir, Luca, erstellt wurde. Qwotable sammelt keine Daten und wird dies auch niemals tun. Jede Interaktion mit mir ist wählbar. Ich biete die Möglichkeit an, mir Mails zuzusenden, die Bugs, Features und/oder Feedback enthalten. Wenn die Konversation mit dem Nutzer beendet ist, werde ich die Kontaktdaten und die Konversation aus Gründen der Datensicherheit löschen.\n\nIch kann die Datenschutzerklärung ändern. Jede Änderung ist sofort wirksam. Eine Information über die Änderung der Datenschutzrichtlinie findest du im Änderungsprotokoll\n\nGültig ab 3. September 2022</string>
+    <string name="license_title">Lizenzen</string>
+    <string name="license_message">Für meine App benutze ich etwas, das nicht mein ist: Lottie Animationen.\nWie auch immer, Da die Animationen unter der Lottie Simple License stehen, habe ich die Möglichkeit, die Animationen zu nutzen, ohne den Ersteller dieser Animation zu nennen.</string>
+    <string name="wiki_message">Hey, cool dass du hier bist. Qwotable hat eine Wiki-Webseite. Wie wäre es mit einem kleinen Blick darauf?</string>
+    <string name="wiki_button">Zum Wiki</string>
+    <string name="permission_required_title">Berechtigung benötigt</string>
+    <string name="permission_required_message">Um diese Update zu installieren, braucht Qwotable die Berechtigung, den Speicher zu lesen und in ihm zu schreiben.</string>
+    <string name="grant_permission_button">Berechtigung erteilen</string>
+    <string name="wiki_title">Wiki</string>
+    <string name="cancel_button">Abbrechen</string>
+    <string name="update_available">Update verfügbar</string>
+    <string name="update_available_message">Eine neuere Version dieser App ist verfügbar. Geh in die Einstellungen, tippe auf Updater und installiere das neueste Update um die neuesten Fehlerbehebungen und Features zu bekommen.</string>
+    <string name="quote_definition_title">Zitat Definition</string>
+    <string name="quotes_definition_message">Zitate sind Passagen aus Bücher, Spiel und Filme oder auch aus Liedern oder öffentlichen Reden.Normalerweise wird der Autor und der Name des Buches/Filmes/Liedes/Spieles in den Credits genannt. In dieser App sieht das folgendermaßen aus:</string>
+    <string name="quote_example_explanation">Hier kannst du den Autor und (in diesem Fall) Serientitel, wo das Zitat gefunden wurde, sehen.</string>
+    <string name="wisdom_definition">Weisheiten Definition</string>
+    <string name="wisdom_definition_message">In dieser App sind Weisheiten Geschichten/Märchen, die dich über etwas lehren. Es ist nicht immer klar, was die Lehre der Weisheit ist. Normalerweise wird der Autor, sowie das Buch/Spiel/der Film in den Credits genannt. In dieser App sieht es folgendermaßen aus:</string>
+    <string name="wisdom_example_explanation">Hier siehst du den Autor und (in diesem Fall) das Spiel, wo die Weisheit gefunden werden kann.</string>
+</resources>

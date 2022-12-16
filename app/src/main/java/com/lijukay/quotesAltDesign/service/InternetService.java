@@ -1,4 +1,4 @@
-package com.lijukay.quotesAltDesign;
+package com.lijukay.quotesAltDesign.service;
 
 import android.app.Service;
 import android.content.Context;
@@ -8,22 +8,22 @@ import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
+
+import com.lijukay.quotesAltDesign.activities.Settings;
 
 public class InternetService extends Service {
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("inside", "onCreate");
     }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        throw new UnsupportedOperationException("not yet implement");
+        throw new UnsupportedOperationException("Unsupported Operation");
     }
 
     @Override

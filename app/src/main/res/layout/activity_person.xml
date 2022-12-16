@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Person"
-    android:background="#ffffff">
+    tools:context=".activities.Person"
+    android:background="#000000">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
@@ -29,9 +29,8 @@
         android:id="@+id/customnamebar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:backgroundTint="#000000"
+        android:backgroundTint="#ffffff"
         app:cardCornerRadius="20dp"
-        app:cardElevation="0dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:text="@string/app_name"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

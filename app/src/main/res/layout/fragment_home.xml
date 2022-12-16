@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".home">
+    tools:context=".fragments.home">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                         android:gravity="center"
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="5dp"
-                        android:text="Update available"
+                        android:text="@string/update_available"
                         android:textColor="@color/md_theme_dark_error"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -52,7 +52,7 @@
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
                         android:paddingBottom="10dp"
-                        android:text="A newer version of this app is available. Go to settings, click on Updater and install the latest update to get the latest bug fixes and features."
+                        android:text="@string/update_available_message"
                         android:textColor="@color/md_theme_dark_error" />
 
                 </LinearLayout>
@@ -79,7 +79,7 @@
                         android:gravity="center"
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="5dp"
-                        android:text="Quote definition"
+                        android:text="@string/quote_definition_title"
                         android:textColor="#ffffff"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -89,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="15dp"
                         android:paddingVertical="10dp"
-                        android:text="Quotes are passages from books, games and movies as well as from songs or public speeches. Usually, the author and the name of the book/movie/song/game is mentioned in the credits. In this app it looks like this:"
+                        android:text="@string/quotes_definition_message"
                         android:textColor="#ffffff" />
 
                     <androidx.cardview.widget.CardView
@@ -108,7 +108,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="10dp"
-                                android:text="The eye sees only what the mind is prepared to comprehend"
+                                android:text="@string/quote_example_quote"
                                 android:textColor="#000000"
                                 android:textSize="17sp" />
 
@@ -118,7 +118,7 @@
                                 android:gravity="end"
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="5dp"
-                                android:text="Itachi Uchiha, Naruto"
+                                android:text="@string/quote_example_author"
                                 android:textColor="#000000"
                                 android:textSize="15sp" />
                         </LinearLayout>
@@ -128,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="15dp"
                         android:paddingVertical="10dp"
-                        android:text="Here you can see the quote, the author and (in this case) the movie where the quote can be found."
+                        android:text="@string/quote_example_explanation"
                         android:textColor="#ffffff" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -156,7 +156,7 @@
                         android:gravity="center"
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="5dp"
-                        android:text="Wisdom definition"
+                        android:text="@string/wisdom_definition"
                         android:textColor="#ffffff"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -165,7 +165,7 @@
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="15dp"
                         android:paddingVertical="10dp"
-                        android:text="In this app, wisdoms are stories/tales that is teaching you of something. It is not always clear, what the wisdom is teaching you.\nUsually, the author, as well as the book/game/movie is mentioned in the credits. In this app it looks like this:"
+                        android:text="@string/wisdom_definition_message"
                         android:textColor="#ffffff" />
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
@@ -181,7 +181,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="10dp"
-                                android:text="When the first wisp of wind brushed across the land, birds that yearned for the sky had wings but no way to fly.\nThey asked the Anemo God:\n'How can we reach the heavens?'\nTo which the Anemo God replied:\n'You have yet to find that which is most important'\nAs the god spoke, the wind thrust the seeds of a dandelion high into the sky. The birds thrust out their wings but the breeze was all to mild.\nLeaving them to stumble across the earth. So they went to the gorge where the wind showed off its wild and incomparable strength.\nThey threw themselves off the cliff and flapped their wings amongst the howling winds, until they where able to fly freely in the sky.\nTo the Anemo God they went, to gleefully say:\n'We understand now! All we needed was a stronger wind to fly'\nIn reply the Anemo God said: 'What you lacked was not wind, but courage. It is courage that has allowed you to become the first flying birds of this world."
+                                android:text="@string/wisdom_example_wisdom"
                                 android:textColor="#000000"
                                 android:textSize="17sp" />
                             <TextView
@@ -190,7 +190,7 @@
                                 android:gravity="end"
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="5dp"
-                                android:text="Unknown author, Genshin Impact"
+                                android:text="@string/wisdom_example_author"
                                 android:textColor="#000000"
                                 android:textSize="15sp" />
                         </LinearLayout>
@@ -200,7 +200,7 @@
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="15dp"
                         android:paddingVertical="10dp"
-                        android:text="Here you can see the quote, the author and (in this case) the game where the wisdom can be found."
+                        android:text="@string/wisdom_example_explanation"
                         android:textColor="#ffffff" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

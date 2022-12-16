@@ -1,28 +1,20 @@
-package com.lijukay.quotesAltDesign;
+package com.lijukay.quotesAltDesign.activities;
+
+import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import android.content.Intent;
-import android.net.wifi.hotspot2.pps.HomeSp;
-import android.os.Bundle;
-import android.view.View;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.lijukay.quotesAltDesign.adapter.PersonAdapter;
-import com.lijukay.quotesAltDesign.item.PersonItem;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.lijukay.quotesAltDesign.R;
+import com.lijukay.quotesAltDesign.fragments.home;
+import com.lijukay.quotesAltDesign.fragments.quotes;
+import com.lijukay.quotesAltDesign.fragments.wisdom;
 
 public class MainActivity extends AppCompatActivity {
-    home home = new home();
-    quotes quotes = new quotes();
-    wisdom wisdom = new wisdom();
+    com.lijukay.quotesAltDesign.fragments.home home = new home();
+    com.lijukay.quotesAltDesign.fragments.quotes quotes = new quotes();
+    com.lijukay.quotesAltDesign.fragments.wisdom wisdom = new wisdom();
     CardView bottomnavigationview;
 
 
@@ -39,29 +31,25 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.quotesImage).setBackgroundColor(getResources().getColor(R.color.black, getTheme()));
         findViewById(R.id.wisdomImage).setBackgroundColor(getResources().getColor(R.color.black, getTheme()));
 
-
         findViewById(R.id.homeImage).setOnClickListener(view -> {
             getSupportFragmentManager().beginTransaction().replace(R.id.framecontainer, home).commit();
             findViewById(R.id.homeImage).setBackgroundColor(getResources().getColor(R.color.selected_image_color, getTheme()));
             findViewById(R.id.quotesImage).setBackgroundColor(getResources().getColor(R.color.black, getTheme()));
             findViewById(R.id.wisdomImage).setBackgroundColor(getResources().getColor(R.color.black, getTheme()));
         });
+
         findViewById(R.id.wisdomImage).setOnClickListener(view -> {
             getSupportFragmentManager().beginTransaction().replace(R.id.framecontainer, wisdom).commit();
             findViewById(R.id.wisdomImage).setBackgroundColor(getResources().getColor(R.color.selected_image_color, getTheme()));
             findViewById(R.id.quotesImage).setBackgroundColor(getResources().getColor(R.color.black, getTheme()));
             findViewById(R.id.homeImage).setBackgroundColor(getResources().getColor(R.color.black, getTheme()));
         });
+
         findViewById(R.id.quotesImage).setOnClickListener(view -> {
             getSupportFragmentManager().beginTransaction().replace(R.id.framecontainer, quotes).commit();
             findViewById(R.id.quotesImage).setBackgroundColor(getResources().getColor(R.color.selected_image_color, getTheme()));
             findViewById(R.id.wisdomImage).setBackgroundColor(getResources().getColor(R.color.black, getTheme()));
             findViewById(R.id.homeImage).setBackgroundColor(getResources().getColor(R.color.black, getTheme()));
         });
-
-
     }
-
-
-
 }

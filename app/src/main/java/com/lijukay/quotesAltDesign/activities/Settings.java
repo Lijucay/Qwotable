@@ -1,8 +1,7 @@
-package com.lijukay.quotesAltDesign;
+package com.lijukay.quotesAltDesign.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,7 +19,11 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +46,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.lijukay.quotesAltDesign.BuildConfig;
+import com.lijukay.quotesAltDesign.service.InternetService;
+import com.lijukay.quotesAltDesign.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -94,7 +99,7 @@ public class Settings extends AppCompatActivity {
 
         swipeRefreshLayout = findViewById(R.id.settingsSRL);
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            Toast.makeText(this, "Refreshing", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.refresh_message), Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
                 Cache cache = mRequestQueueU.getCache();
@@ -115,7 +120,7 @@ public class Settings extends AppCompatActivity {
         internet = isOnline(getApplicationContext());
     }
 
-    public static class SettingsFragment extends PreferenceFragmentCompat {
+    public static class SettingsFragment extends PreferenceFragmentCompat implements com.lijukay.quotesAltDesign.activities.SettingsFragment {
 
         private Button negative;
         private Button positive;
@@ -141,6 +146,14 @@ public class Settings extends AppCompatActivity {
             customDialog = alertDialog2.create();
             //customDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
             customDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+            AlertDialog customWebDialog;
+            View alertCustomWebDialog = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_website, null);
+            AlertDialog.Builder alertDialogWeb = new AlertDialog.Builder(requireContext());
+            alertDialogWeb.setView(alertCustomWebDialog);
+            customWebDialog = alertDialogWeb.create();
+            customWebDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+
             positive = alertCustomDialog.findViewById(R.id.positive_button);
             negative = alertCustomDialog.findViewById(R.id.negative_button);
             neutral = alertCustomDialog.findViewById(R.id.neutral_button);
@@ -163,6 +176,40 @@ public class Settings extends AppCompatActivity {
             Preference privacy_policy = findPreference("policy");
             Preference license = findPreference("license");
             Preference wiki = findPreference("wiki");
+            Preference qwrequest = findPreference("qwrequest");
+
+
+            qwrequest.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(@NonNull Preference preference) {
+                    showCustomDialog();
+                    return false;
+                }
+                private void showCustomDialog() {
+                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
+                    assert lottieAnimationView != null;
+                    lottieAnimationView.setAnimation(R.raw.qwotable);
+                    TextView title = alertCustomDialog.findViewById(R.id.custom_title);
+                    title.setText(getString(R.string.qwrequest_title));
+                    TextView message = alertCustomDialog.findViewById(R.id.message_text);
+                    message.setText(getString(R.string.qwrequest_message));
+
+                    CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
+                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
+                    params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+                    messageCard.setLayoutParams(params);
+                    layout.setVisibility(View.VISIBLE);
+
+                    positive.setText(getString(R.string.email_button));
+                    positive.setOnClickListener(view -> startActivity(composeEmail(email, getString(R.string.qwrequest_email_subject), getString(R.string.qwrequest_email_message))));
+                    negative.setText(getString(R.string.telegram_button));
+                    negative.setOnClickListener(view -> startActivity(new Intent(Intent.ACTION_VIEW, telegram)));
+
+
+                    customDialog.show();
+                }
+            });
 
 
 
@@ -180,9 +227,9 @@ public class Settings extends AppCompatActivity {
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.language);
                     TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    title.setText("Language");
+                    title.setText(getString(R.string.language_title));
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    message.setText("Not available yet");
+                    message.setText(getString(R.string.language_message_temp)); //TODO:ADD POSSIBILITY TO SELECT LANGUAGE + CHANGE THE MESSAGE
 
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
                     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
@@ -199,9 +246,9 @@ public class Settings extends AppCompatActivity {
                 public boolean onPreferenceClick(@NonNull Preference preference) {
 
                     if(!internet){
-                        Toast.makeText(requireContext(), "Can't check for updates", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), getString(R.string.cant_check_for_updates), Toast.LENGTH_SHORT).show();
                     } else if (updateStatus.equals("No update")){
-                        Toast.makeText(requireContext(), "No updates available", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), getString(R.string.no_update_available), Toast.LENGTH_SHORT).show();
                     } else {
                         showCustomDialog();
                     }
@@ -214,7 +261,7 @@ public class Settings extends AppCompatActivity {
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.app_update);
                     TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    title.setText("Updater");
+                    title.setText(getString(R.string.update_title));
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
                     message.setText(changelogMessage);
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
@@ -223,7 +270,7 @@ public class Settings extends AppCompatActivity {
                     messageCard.setLayoutParams(params);
                     layout.setVisibility(View.VISIBLE);
                     negative.setVisibility(View.GONE);
-                    positive.setText("Update");
+                    positive.setText(getString(R.string.update_button));
                     positive.setOnClickListener(view -> {
                         int check = ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
                         if (check == PackageManager.PERMISSION_GRANTED) {
@@ -252,17 +299,17 @@ public class Settings extends AppCompatActivity {
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.bug_report);
                     TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    title.setText("Bug report");
+                    title.setText(getString(R.string.bug_report_title));
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    message.setText("If you found a bug, I am really sorry. I will do my best to make this app better. In the meanwhile, you can decide how to reach me to report the bug you found.\nDo you want to use Telegram or Email?");
+                    message.setText(getString(R.string.bug_report_message));
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
                     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
                     params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
                     messageCard.setLayoutParams(params);
                     layout.setVisibility(View.VISIBLE);
-                    positive.setText("Email");
-                    positive.setOnClickListener(view -> startActivity(composeEmail("luca.krumminga@gmail.com", "Bug has been found", "Hello,\n\nUnfortunately I found a bug:")));
-                    negative.setText("Telegram");
+                    positive.setText(getString(R.string.email_button));
+                    positive.setOnClickListener(view -> startActivity(composeEmail(email, getString(R.string.bug_report_mail_subject), getString(R.string.bug_report_mail_message))));
+                    negative.setText(getString(R.string.telegram_button));
                     negative.setOnClickListener(view -> startActivity(new Intent(Intent.ACTION_VIEW, telegram)));
 
                     customDialog.show();
@@ -285,17 +332,17 @@ public class Settings extends AppCompatActivity {
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.feature_suggestion);
                     TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    title.setText("Feature suggestion");
+                    title.setText(getString(R.string.feature_suggestion_title));
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    message.setText("Have a suggestion?");
+                    message.setText(getString(R.string.feature_suggestion_message));
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
                     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
                     params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
                     messageCard.setLayoutParams(params);
                     layout.setVisibility(View.VISIBLE);
-                    positive.setText("Email");
-                    positive.setOnClickListener(view -> startActivity(composeEmail(email, "Suggestion of a feature", "Hello,\n\nI have a very nice idea. Hear me out:")));
-                    negative.setText("Telegram");
+                    positive.setText(getString(R.string.email_button));
+                    positive.setOnClickListener(view -> startActivity(composeEmail(email, getString(R.string.feature_suggestion_mail_subject), getString(R.string.feature_suggestion_mail_message))));
+                    negative.setText(getString(R.string.telegram_button));
                     negative.setOnClickListener(view -> startActivity(new Intent(Intent.ACTION_VIEW, telegram)));
 
 
@@ -307,7 +354,7 @@ public class Settings extends AppCompatActivity {
             share_app.setOnPreferenceClickListener(preference -> {
                 Intent shareText = new Intent();
                 shareText.setAction(Intent.ACTION_SEND);
-                shareText.putExtra(Intent.EXTRA_TEXT, "https://github.com/Lijukay/Qwotable");
+                shareText.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_sharetext_message));
                 shareText.setType("text/plain");
                 Intent sendText = Intent.createChooser(shareText, null);
                 startActivity(sendText);
@@ -327,17 +374,17 @@ public class Settings extends AppCompatActivity {
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.feedback);
                     TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    title.setText("Feedback");
+                    title.setText(getString(R.string.feedback_title));
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    message.setText("Do you have Feedback for my application? You can easily write your opinion to me by choosing Telegram or Email. Please don't just write \"I (do not) like your app.\"\nBe creative. Tell me what you (do not) like.");
+                    message.setText(getString(R.string.feedback_message));
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
                     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
                     params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
                     messageCard.setLayoutParams(params);
                     layout.setVisibility(View.VISIBLE);
-                    positive.setText("Email");
-                    positive.setOnClickListener(view -> startActivity(composeEmail(email, "About your app", "Hello,\n\nListen to the melodie of my feedback:")));
-                    negative.setText("Telegram");
+                    positive.setText(getString(R.string.email_button));
+                    positive.setOnClickListener(view -> startActivity(composeEmail(email, getString(R.string.feedback_email_subject), getString(R.string.feedback_email_message))));
+                    negative.setText(getString(R.string.telegram_button));
                     negative.setOnClickListener(view -> startActivity(new Intent(Intent.ACTION_VIEW, telegram)));
 
 
@@ -359,9 +406,9 @@ public class Settings extends AppCompatActivity {
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.permissions);
                     TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    title.setText("App's permission");
+                    title.setText(getString(R.string.app_permission_title));
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    message.setText("This app uses some permissions. This page will explain to you why my app needs these permissions.\n\nRead and write storage: The Quotes app needs to be able to read and write to the storage in order to save and install app updates on the device. No data is written to storage.\n\nFull Internet Access: This permission allows my app to get the quotes from my file on the Internet. No data is collected from me.\n\nInstall unknown packages: This permission allows my app to install the update.");
+                    message.setText(getString(R.string.app_permission_message));
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
                     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
                     params.height = 600;
@@ -385,9 +432,9 @@ public class Settings extends AppCompatActivity {
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.privacy_policy);
                     TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    title.setText("Privacy Policy");
+                    title.setText(getString(R.string.privacy_policy_title));
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    message.setText("Quotes is a free Android application, made by me, Luca. Quotes does not collect any data and never will. Every interaction with me is selectable. I am offering the possibility of sending me mails, which includes bugs, features and/or feedback. When the conversation with the user has ended, I will delete the contact data and the conversation due to the security of data.\n\nI may change the Privacy Policy. Every change is effective immediately. An information of the change of the Privacy Policy can be found on the changelog\n\nEffective September 3, 2022");
+                    message.setText(getString(R.string.privacy_policy_message));
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
                     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
                     params.height = 600;
@@ -411,9 +458,9 @@ public class Settings extends AppCompatActivity {
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.license);
                     TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    title.setText("License");
+                    title.setText(getString(R.string.license_title));
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    message.setText("For my application, I used some things that are not mine: Lottie Animations\nHowever, because the files are all signed with the Lottie Simple License I have the chance to not mention the creator which. I normally don't like that but I am too lazy to search every creator now. I will add it in the future.");
+                    message.setText(getString(R.string.license_message));
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
                     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
                     params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
@@ -431,34 +478,40 @@ public class Settings extends AppCompatActivity {
                     showCustomDialog();
                     return false;
                 }
+                @SuppressLint("SetJavaScriptEnabled")
                 private void showCustomDialog() {
-                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
-                    assert lottieAnimationView != null;
-                    lottieAnimationView.setAnimation(R.raw.wiki);
-                    TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    title.setText("Wiki");
-                    TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    message.setText("Hey, cool that you are here. Qwotable has a Wiki-Website. How about having a look?");
-                    CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-                    params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-                    messageCard.setLayoutParams(params);
-                    layout.setVisibility(View.VISIBLE);
-                    positive.setText("To the Wiki");
-                    positive.setOnClickListener(view -> {
-                        Uri wiki1 = Uri.parse("https://lijukay.gitbook.io/qwotable/");
-                        startActivity(new Intent(Intent.ACTION_VIEW, wiki1));
-                    });
-                    negative.setVisibility(View.GONE);
+                    customWebDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    TextView title = alertCustomWebDialog.findViewById(R.id.custom_title_wiki);
+                    title.setText("Qwotable Wiki");
+                    ImageView close = alertCustomWebDialog.findViewById(R.id.close);
 
-                    customDialog.show();
+
+                    WebView webView = alertCustomWebDialog.findViewById(R.id.website);
+                    webView.loadUrl("https://lijukay.gitbook.io/qwotable/");
+                    webView.getSettings().setJavaScriptEnabled(true);
+                    webView.setWebViewClient(new WebViewClient());
+                    webView.getSettings().setAppCacheEnabled(false);
+
+
+                    close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            webView.clearCache(true);
+                            customWebDialog.dismiss();
+                        }
+                    });
+
+                    customWebDialog.show();
                 }
+
             });
 
 
 
+
         }
+
+
 
 
         private void showPermissionDialog() {
@@ -479,17 +532,17 @@ public class Settings extends AppCompatActivity {
             customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
             assert lottieAnimationView != null;
-            lottieAnimationView.setAnimation(R.raw.wiki);
+            lottieAnimationView.setAnimation(R.raw.permissions);
             TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-            title.setText("Permission required");
+            title.setText(getString(R.string.permission_required_title));
             TextView message = alertCustomDialog.findViewById(R.id.message_text);
-            message.setText("In order to update this application, this app needs the permission to read and write storage");
+            message.setText(getString(R.string.permission_required_message));
             CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
             params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
             messageCard.setLayoutParams(params);
             layout.setVisibility(View.VISIBLE);
-            positive.setText("Grant permission");
+            positive.setText(getString(R.string.grant_permission_button));
             positive.setOnClickListener(view -> {
                 Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                 Uri uri = Uri.fromParts("package", requireActivity().getPackageName(), null);

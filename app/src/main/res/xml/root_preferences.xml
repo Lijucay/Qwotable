@@ -35,6 +35,10 @@
             android:title="Feedback"
             android:summary="What is your opinion to this app? Go on and tell me!"
             android:key="feedback"/>
+        <Preference
+            android:title="Qwotable request"
+            android:summary="You have a quote or a wisdom that is not in this app?"
+            android:key="qwrequest"/>
     </PreferenceCategory>
     <PreferenceCategory
         android:title="Privacy and Licenses"

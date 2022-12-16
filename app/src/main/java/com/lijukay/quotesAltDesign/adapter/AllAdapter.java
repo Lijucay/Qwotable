@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lijukay.quotesAltDesign.R;
-import com.lijukay.quotesAltDesign.RecyclerViewInterface;
+import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
 import com.lijukay.quotesAltDesign.item.AllItem;
 
 import java.util.ArrayList;
