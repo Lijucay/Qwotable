@@ -6,6 +6,11 @@
       "message": "Qwotables' possibility of changing the language is yet to be implemented. Until this is done, Qwotables' quotes and wisdom will be in English. However, since the text in the app, that is not to be parsed in a json, is already translated into German, the application will show German text when your device's language is German",
       "date of creation": "18.12.2022",
       "valuable for version": 1
+    }, {
+      "title": "Known issues",
+      "message": "There are no known issues 🥳"
+      "date of creation": "18.12.2022",
+      "valuable for version": 0
     }
   ]
 }
