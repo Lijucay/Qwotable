@@ -24,12 +24,13 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/md_theme_dark_errorContainer"
+                android:backgroundTint="?attr/colorErrorContainer"
                 app:cardCornerRadius="20dp"
                 app:cardUseCompatPadding="true"
                 app:cardElevation="0dp"
                 android:visibility="gone"
                 android:id="@+id/updateCard">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -43,7 +44,7 @@
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="5dp"
                         android:text="@string/update_available"
-                        android:textColor="@color/md_theme_dark_error"
+                        android:textColor="?attr/colorOnErrorContainer"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -53,7 +54,7 @@
                         android:paddingHorizontal="10dp"
                         android:paddingBottom="10dp"
                         android:text="@string/update_available_message"
-                        android:textColor="@color/md_theme_dark_error" />
+                        android:textColor="?attr/colorOnErrorContainer" />
 
                 </LinearLayout>
 
@@ -63,10 +64,51 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="?attr/colorErrorContainer"
                 app:cardCornerRadius="20dp"
                 app:cardUseCompatPadding="true"
                 app:cardElevation="0dp"
-                android:backgroundTint="#000000">
+                android:visibility="gone"
+                android:id="@+id/updateCardBeta">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="5dp"
+                        android:text="@string/update_available"
+                        android:textColor="?attr/colorOnErrorContainer"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/update_available_message_beta"
+                        android:textColor="?attr/colorOnErrorContainer" />
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="0dp"
+                android:backgroundTint="?attr/colorPrimaryContainer">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -80,7 +122,7 @@
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="5dp"
                         android:text="@string/quote_definition_title"
-                        android:textColor="#ffffff"
+                        android:textColor="?attr/colorOnPrimaryContainer"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -90,9 +132,10 @@
                         android:paddingHorizontal="15dp"
                         android:paddingVertical="10dp"
                         android:text="@string/quotes_definition_message"
-                        android:textColor="#ffffff" />
+                        android:textColor="?attr/colorOnPrimaryContainer" />
 
                     <androidx.cardview.widget.CardView
+                        android:backgroundTint="?attr/colorSecondary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="20dp"
@@ -101,15 +144,14 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:background="#ffffff">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="10dp"
                                 android:text="@string/quote_example_quote"
-                                android:textColor="#000000"
+                                android:textColor="?attr/colorOnSecondary"
                                 android:textSize="17sp" />
 
                             <TextView
@@ -119,7 +161,7 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="5dp"
                                 android:text="@string/quote_example_author"
-                                android:textColor="#000000"
+                                android:textColor="?attr/colorOnSecondary"
                                 android:textSize="15sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -129,27 +171,21 @@
                         android:paddingHorizontal="15dp"
                         android:paddingVertical="10dp"
                         android:text="@string/quote_example_explanation"
-                        android:textColor="#ffffff" />
+                        android:textColor="?attr/colorOnPrimaryContainer" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#ffffff">
-            </View>
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="20dp"
                 app:cardUseCompatPadding="true"
                 app:cardElevation="0dp"
-                android:backgroundTint="#000000">
+                android:backgroundTint="?attr/colorPrimaryContainer">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="#000000">
+                    android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -157,7 +193,7 @@
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="5dp"
                         android:text="@string/wisdom_definition"
-                        android:textColor="#ffffff"
+                        android:textColor="?attr/colorOnPrimaryContainer"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                     <TextView
@@ -166,8 +202,9 @@
                         android:paddingHorizontal="15dp"
                         android:paddingVertical="10dp"
                         android:text="@string/wisdom_definition_message"
-                        android:textColor="#ffffff" />
+                        android:textColor="?attr/colorOnPrimaryContainer" />
                     <androidx.cardview.widget.CardView
+                        android:backgroundTint="?attr/colorSecondary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="20dp"
@@ -175,14 +212,13 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:background="#ffffff">
+                            android:orientation="vertical">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="10dp"
                                 android:text="@string/wisdom_example_wisdom"
-                                android:textColor="#000000"
+                                android:textColor="?attr/colorOnSecondary"
                                 android:textSize="17sp" />
                             <TextView
                                 android:layout_width="match_parent"
@@ -191,7 +227,7 @@
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="5dp"
                                 android:text="@string/wisdom_example_author"
-                                android:textColor="#000000"
+                                android:textColor="?attr/colorOnSecondary"
                                 android:textSize="15sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -201,9 +237,29 @@
                         android:paddingHorizontal="15dp"
                         android:paddingVertical="10dp"
                         android:text="@string/wisdom_example_explanation"
-                        android:textColor="#ffffff" />
+                        android:textColor="?attr/colorOnPrimaryContainer" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/information_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="20dp"
+                android:backgroundTint="?attr/colorPrimaryContainer">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:text="@string/information_card"/>
+
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

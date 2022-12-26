@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/titleOnBoarding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/messageOnBoarding"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:text="That's it!"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
+            android:id="@+id/messageOnBoarding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/lottieOnBoarding"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:text="Have fun using Qwotable!"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="15dp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieOnBoarding"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_above="@+id/buttonInfo"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="130dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/fun"/>
+
+        <ImageView
+            android:id="@+id/imageOnBoardingScreen"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_above="@+id/buttonInfo"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="130dp"/>
+
+
+        <TextView
+            android:id="@+id/buttonInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="Tap the button below to use Qwotable"
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginBottom="10dp"
+            android:textSize="15sp"
+            android:layout_marginHorizontal="30dp"/>
+
+    </RelativeLayout>
+
+</FrameLayout>

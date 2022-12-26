@@ -2,29 +2,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        app:title="Language"
+        app:title="@string/language_title"
         app:allowDividerBelow="true">
         <Preference
-            android:title="Language"
+            android:title="@string/language_title"
+            android:summary="Change the language of the app"
             android:key="language"/>
     </PreferenceCategory>
     <PreferenceCategory
         android:title="Update"
         app:allowDividerBelow="true">
         <Preference
-            android:title="Updater"
+            android:title="@string/update_title"
             android:key="updateCheck"
-            android:summary="updatesum"/>
-    </PreferenceCategory>
+            android:summary="@string/update_summary"/>
+        <rikka.material.preference.MaterialSwitchPreference
+            android:title="Beta"
+            app:key="beta"
+            android:summary="Get the latest updates, including beta versions"/>    </PreferenceCategory>
     <PreferenceCategory
         android:title="Help me with this app"
         app:allowDividerBelow="true">
         <Preference
-            android:title="Bug report"
+            android:title="@string/bug_report_title"
             android:summary="You found a bug? Send it to me!"
             android:key="reportBug"/>
         <Preference
-            android:title="Feature suggestion"
+            android:title="@string/feature_suggestion_title"
             android:summary="You have a suggestion? Send it to me!"
             android:key="feature" />
         <Preference
@@ -32,11 +36,11 @@
             android:summary="Share it with you friends and your friends' friends"
             android:key="share"/>
         <Preference
-            android:title="Feedback"
+            android:title="@string/feedback_title"
             android:summary="What is your opinion to this app? Go on and tell me!"
             android:key="feedback"/>
         <Preference
-            android:title="Qwotable request"
+            android:title="@string/qwrequest_title"
             android:summary="You have a quote or a wisdom that is not in this app?"
             android:key="qwrequest"/>
     </PreferenceCategory>
@@ -44,15 +48,15 @@
         android:title="Privacy and Licenses"
         app:allowDividerBelow="true">
         <Preference
-            android:title="App permissions"
+            android:title="@string/app_permission_title"
             android:summary="Find the App's permission here"
             android:key="permission"/>
         <Preference
-            android:title="Privacy Policy"
+            android:title="@string/privacy_policy_title"
             android:summary="I CARE ABOUT YOUR PRIVACY!!"
             android:key="policy"/>
         <Preference
-            android:title="License"
+            android:title="@string/license_title"
             android:summary="Licenses whut?"
             android:key="license" />
     </PreferenceCategory>
@@ -61,7 +65,7 @@
         android:title="Wiki"
         app:allowDividerBelow="true">
         <Preference
-            android:title="Wiki page"
+            android:title="@string/wiki_title"
             android:summary="This will lead you to the app's wiki"
             android:key="wiki"/>
     </PreferenceCategory>

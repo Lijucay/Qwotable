@@ -44,4 +44,18 @@
     <string name="wisdom_definition">Weisheiten Definition</string>
     <string name="wisdom_definition_message">In dieser App sind Weisheiten Geschichten/Märchen, die dich über etwas lehren. Es ist nicht immer klar, was die Lehre der Weisheit ist. Normalerweise wird der Autor, sowie das Buch/Spiel/der Film in den Credits genannt. In dieser App sieht es folgendermaßen aus:</string>
     <string name="wisdom_example_explanation">Hier siehst du den Autor und (in diesem Fall) das Spiel, wo die Weisheit gefunden werden kann.</string>
+    <string name="german">Deutsch</string>
+    <string name="english">Englisch</string>
+    <string name="french">Französisch</string>
+    <string name="lande">Aktuelle Sprache: Deutsch</string>
+    <string name="information_card">Information</string>
+    <string name="qwrequest_email_subject">Hör dir diesen Qwotable an</string>
+    <string name="qwrequest_email_message">Hey, dieser Qwotable ist nicht in der App:</string>
+    <string name="qwrequest_title">Qwotable Anfragen</string>
+    <string name="qwrequest_message">Hast du ein Qwotable gefunden, welches nicht in der App ist? Du kannst ihn mir einfach senden, wenn du möchtest.</string>
+    <string name="quote_example_quote">Wir haben beide vieles gesagt, dass DIR noch leidtun wird.</string>
+    <string name="quote_example_author">GLaDOS, Portals 2</string>
+    <string name="wisdom_example_author">Unbekannter Autor, Genshin Impact</string>
+    <string name="update_available_message_beta">Eine neuere Beta-Version dieser App ist verfügbar. Geh in die Einstellungen, tippe auf Updater und installiere das neueste Beta-Update um die neuesten Fehlerbehebungen und Features zum testen zu bekommen.</string>
+    <string name="update_summary">Checke nach den neusten Updates</string>
 </resources>

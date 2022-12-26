@@ -1,33 +1,31 @@
 <resources>
     <string name="app_name">Qwotable</string>
-    <string name="refresh_message">Refreshing, please wait…</string>
+    <string name="refresh_message">Updating, please wait…</string>
     <string name="language_title">Language</string>
-    <string name="language_message_temp">Not available yet. Wait for an update to use this feature</string>
     <string name="cant_check_for_updates">Can\'t check for updates</string>
     <string name="no_update_available">No update available</string>
     <string name="update_title">Updater</string>
     <string name="update_button">Update</string>
     <string name="bug_report_title">Bug report</string>
-    <string name="bug_report_message">If you found a bug, I am really sorry. I will do my best to make this app better. In the meantime, you can decide how to reach me to report the bug you found.\nDo you want to use Telegram or Email?</string>
+    <string name="bug_report_message">If you found a bug, I am really sorry. I will do my best to make this app better. In the meantime, you can decide how to reach me to report the bug you found. Do you want to use Telegram or Email?</string>
     <string name="email_button">Email</string>
     <string name="telegram_button">Telegram</string>
     <string name="bug_report_mail_subject">A bug has been found 🐛</string>
-    <string name="bug_report_mail_message">Hello Luca,\n\nThere is a bug in your app. Let me quickly describe it to you.</string>
+    <string name="bug_report_mail_message">Hello Luca,  There is a bug in your app. Let me quickly describe it to you.</string>
     <string name="feature_suggestion_title">Feature suggestion</string>
     <string name="feature_suggestion_message">You have a feature suggestion? Sure, send it to me.</string>
     <string name="feature_suggestion_mail_subject">I have a suggestion!</string>
     <string name="feature_suggestion_mail_message">I have a very nice idea. Hear me out:</string>
-    <string name="share_sharetext_message">Look, I found an app with quotes and wisdom.\n\nDownload it here: https://github.com/Lijukay/Qwotable</string>
+    <string name="share_sharetext_message">Look, I found an app with quotes and wisdom.  Download it here: https://github.com/Lijukay/Qwotable</string>
     <string name="feedback_title">Feedback</string>
-    <string name="feedback_message">Do you have Feedback for my application? You can easily write your opinion to me by choosing Telegram or Email. Please do not just write \"I (do not) like your app.\"\nBe creative. Tell me what you (do not) like.</string>
+    <string name="feedback_message">Do you have Feedback for my application? You can easily write your opinion to me by choosing Telegram or Email. Please do not just write \"I (do not) like your app.\" Be creative. Tell me what you (do not) like.</string>
     <string name="feedback_email_subject">Feedback for your app</string>
     <string name="feedback_email_message">Hello,\n\nListen to the melodie of my feedback:</string>
     <string name="app_permission_title">App\'s permissions</string>
-    <string name="app_permission_message">This app uses some permissions. This page will explain to you why my app needs these permissions.\n\nRead and write storage: Qwotable needs to be able to read and write to the storage in order to save and install app updates on the device. No data is written to storage.\n\nFull Internet Access: This permission allows my app to get the quotes from my file on the Internet. No data is collected from me.\n\nInstall unknown packages: This permission allows my app to install the update.</string>
     <string name="privacy_policy_title">Privacy policy</string>
-    <string name="privacy_policy_message">Qwotable is a free Android application, made by me, Luca. Qwotable does not collect any data and never will. Every interaction with me is selectable. I am offering the possibility of sending me mails, which includes bugs, features and/or feedback. When the conversation with the user has ended, I will delete the contact data and the conversation due to the security of data.\n\nI may change the Privacy Policy. Every change is effective immediately. An information of the change of the Privacy Policy can be found on the changelog\n\nEffective December 11, 2022</string>
+    <string name="privacy_policy_message">Qwotable is a free Android application, made by me, Luca. Qwotable does not collect any data and never will. Every interaction with me is selectable. I am offering the possibility of sending me mails, which includes bugs, features and/or feedback. When the conversation with the user has ended, I will delete the contact data and the conversation due to the security of data.  I may change the Privacy Policy. Every change is effective immediately. An information of the change of the Privacy Policy can be found on the changelog  Effective December 11, 2022</string>
     <string name="license_title">Licenses</string>
-    <string name="license_message">For my application, I used some things that are not mine: Lottie Animations\nHowever, because the files are all signed with the Lottie Simple License I have the chance to not mention the creator.</string>
+    <string name="license_message">For my application, I used some things that are not mine: Lottie Animations However, because the files are all signed with the Lottie Simple License I have the chance to not mention the creator.</string>
     <string name="wiki_title">Wiki</string>
     <string name="wiki_message">Hey, cool that you are here. Qwotable has a Wiki-Website. How about having a look?</string>
     <string name="wiki_button">To the wiki</string>
@@ -38,13 +36,15 @@
     <string name="cancel_button">Cancel</string>
     <string name="update_available">Update available</string>
     <string name="update_available_message">A newer version of this app is available. Go to settings, click on Updater and install the latest update to get the latest bug fixes and features.</string>
+    <string name="update_available_message_beta">A newer beta version of this app is available. Go to settings, click on Updater and install the latest beta update to get the latest bug fixes and features to test.</string>
+
     <string name="quote_definition_title">Quote definition</string>
     <string name="quotes_definition_message">Quotes are passages from books, games and movies as well as from songs or public speeches. Usually, the author and the name of the book/movie/song/game is mentioned in the credits. In this app it looks like this:</string>
     <string name="quote_example_quote">The eye sees only what the mind is prepared to comprehend</string>
     <string name="quote_example_author">Itachi Uchiha, Naruto</string>
     <string name="quote_example_explanation">Here you can see the quote, the author and (in this case) the movie where the quote can be found.</string>
     <string name="wisdom_definition">Wisdom definition</string>
-    <string name="wisdom_definition_message">In this app, wisdoms are stories/tales that is teaching you of something. It is not always clear, what the wisdom is teaching you.\nUsually, the author, as well as the book/game/movie is mentioned in the credits. In this app it looks like this:</string>
+    <string name="wisdom_definition_message">In this app, wisdoms are stories/tales that is teaching you of something. It is not always clear, what the wisdom is teaching you. Usually, the author, as well as the book/game/movie is mentioned in the credits. In this app it looks like this:</string>
     <string name="wisdom_example_wisdom">When the first wisp of wind brushed across the land, birds that yearned for the sky had wings but no way to fly.\nThey asked the Anemo God:\n\'How can we reach the heavens?\'\nTo which the Anemo God replied:\n\'You have yet to find that which is most important\'\nAs the god spoke, the wind thrust the seeds of a dandelion high into the sky. The birds thrust out their wings but the breeze was all to mild.\nLeaving them to stumble across the earth. So they went to the gorge where the wind showed off its wild and incomparable strength.\nThey threw themselves off the cliff and flapped their wings amongst the howling winds, until they where able to fly freely in the sky.\nTo the Anemo God they went, to gleefully say:\n\'We understand now! All we needed was a stronger wind to fly\'\nIn reply the Anemo God said: \'What you lacked was not wind, but courage. It is courage that has allowed you to become the first flying birds of this world.</string>
     <string name="wisdom_example_author">Unknown author, Genshin Impact</string>
     <string name="wisdom_example_explanation">Here you can see the quote, the author and (in this case) the game where the wisdom can be found.</string>
@@ -52,4 +52,14 @@
     <string name="qwrequest_email_message">Hey,\n\nThis Qwotable is not in the app:</string>
     <string name="qwrequest_title">Qwotable Request</string>
     <string name="qwrequest_message">You found a Qwotable that is not in this app yet? You can send it to me if you want to.</string>
+    <string name="information_card">Information</string>
+    <string name="app_permission_message">This app uses some permissions. This page will explain to you why my app needs these permissions.  Read and write storage: Qwotable needs to be able to read and write to the storage in order to save and install app updates on the device. No data is written to storage.  Full Internet Access: This permission allows my app to get the quotes from my file on the Internet. No data is collected from me.  Install unknown packages: This permission allows my app to install the update.</string>
+    <string name="language_message_temp">Not available yet. Wait for an update to use this featur</string>
+    <string name="german">German</string>
+    <string name="english">English</string>
+    <string name="french">French</string>
+    <string name="lande">Current language: English</string>
+    <string name="notsupported" translatable="false">Your System-language currently is not supported. The language is set to English.\nSupported languages: English, German, French</string>
+    <string name="update_summary">Check for the latest updates</string>
+
 </resources>

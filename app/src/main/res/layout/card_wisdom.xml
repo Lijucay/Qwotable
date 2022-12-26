@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:strokeWidth="@dimen/stroke_width"
+    app:strokeColor="?attr/colorOnTertiaryContainer"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="20dp"
-    android:backgroundTint="#000000"
-    app:strokeColor="#ffffff"
-    app:strokeWidth="3dp"
+    android:backgroundTint="?attr/colorPrimaryContainer"
     app:cardElevation="0dp">
 
     <LinearLayout
@@ -25,14 +25,14 @@
             android:textSize="25sp"
             android:id="@+id/wisdomTitle"
             android:textStyle="bold"
-            android:textColor="#ffffff"/>
+            android:textColor="?attr/colorOnPrimaryContainer"/>
         <TextView
             android:id="@+id/wisdom"
             android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="If everything works as planned, you will see a wisdom story here. If not, this will show (maybe)"
-            android:textColor="#ffffff"
+            android:textColor="?attr/colorOnPrimaryContainer"
             android:textSize="20dp"/>
         <TextView
             android:id="@+id/author"
@@ -42,7 +42,7 @@
             android:text="Qwotable, Luca"
             android:gravity="end"
             android:padding="10dp"
-            android:textColor="#ffffff"/>
+            android:textColor="?attr/colorOnPrimaryContainer"/>
 </LinearLayout>
 
-</com.google.android.material.card.MaterialCardView>
+</androidx.cardview.widget.CardView>

@@ -1,5 +1,6 @@
 package com.lijukay.quotesAltDesign.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -39,6 +41,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface { //TODO: 
     private RequestQueue requestQueue;
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,6 +60,8 @@ public class wisdom extends Fragment implements RecyclerViewInterface { //TODO: 
             new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
                 items.clear();
+                Cache cache = requestQueue.getCache();
+                cache.clear();
                 adapter.notifyDataSetChanged();
                 parseJSON();
             }, 2000);

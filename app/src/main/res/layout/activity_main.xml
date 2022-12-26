@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.MainActivity"
-    android:background="#000000">
+    tools:context=".activities.MainActivity">
 
 
 
@@ -25,7 +24,7 @@
         app:cardElevation="0dp"
         app:cardCornerRadius="20dp"
         app:cardUseCompatPadding="true"
-        android:backgroundTint="#ffffff"
+        android:backgroundTint="?attr/colorPrimaryContainer"
         android:id="@+id/customtoolbar">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -35,9 +34,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
-                android:textColor="#000000"
+                android:textColor="?attr/colorOnPrimaryContainer"
                 android:textSize="30sp"
                 android:textStyle="bold"
+                android:id="@+id/custom_title_main"
                 android:layout_marginStart="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +58,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
+        app:strokeWidth="3dp"
+        app:strokeColor="#ffffff"
         android:id="@+id/custombnavigation"
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -65,7 +67,7 @@
         app:cardElevation="0dp"
         app:cardUseCompatPadding="true"
         android:layout_alignParentBottom="true"
-        android:backgroundTint="#ffffff"
+        android:backgroundTint="?attr/colorPrimaryContainer"
         android:paddingBottom="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -74,66 +76,45 @@
             android:orientation="horizontal"
             android:layout_gravity="center">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardqf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="15dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/cardbh"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/homeImage"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:id="@+id/quotesImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#000000"
                     android:src="@drawable/ic_quotes"
                     android:padding="5dp"/>
-            </androidx.cardview.widget.CardView>
 
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/cardwf"
-                app:layout_constraintStart_toEndOf="@id/cardqf"
-                app:layout_constraintTop_toTopOf="parent"
-                android:id="@+id/cardbh"
-                app:cardCornerRadius="15dp"
 
-                >
             <ImageView
-                android:background="#000000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/wisdomImage"
+                app:layout_constraintStart_toEndOf="@id/quotesImage"
+                app:layout_constraintTop_toTopOf="parent"
+
                 android:padding="5dp"
                 android:id="@+id/homeImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_home"/>
-            </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardwf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="15dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cardbh"
-
-                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/homeImage"
+
+                    app:layout_constraintTop_toTopOf="parent"
                     android:padding="5dp"
                     android:id="@+id/wisdomImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#000000"
                     android:src="@drawable/ic_wisdom" />
 
-            </androidx.cardview.widget.CardView>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

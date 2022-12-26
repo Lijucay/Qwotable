@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -56,6 +57,8 @@ public class quotes extends Fragment implements RecyclerViewInterface {
             Toast.makeText(requireActivity(),getString(R.string.refresh_message), Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
+                Cache cache = requestQueue.getCache();
+                cache.clear();
                 items.clear();
                 adapter.notifyDataSetChanged();
                 parseJSON();

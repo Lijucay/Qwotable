@@ -11,7 +11,7 @@
         app:cardCornerRadius="20dp"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:backgroundTint="#000000"
+        android:backgroundTint="?attr/colorSecondaryContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,11 +21,13 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:id="@+id/custom_title"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#ffffff"
+                android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="30sp"
                 android:layout_marginStart="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -55,7 +57,7 @@
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lottie_file"
-        android:backgroundTint="#000000"
+        android:backgroundTint="?attr/colorSecondaryContainer"
         android:id="@+id/message_card">
 
         <androidx.core.widget.NestedScrollView
@@ -63,11 +65,87 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp">
 
-            <TextView
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/message_text"
-                android:textColor="#ffffff"/>
+                android:layout_height="match_parent"
+                android:id="@+id/nestedScrollView"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/message_text"
+                    android:visibility="gone"
+                    android:textColor="?attr/colorOnSecondaryContainer"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:id="@+id/themeandlanguage"
+                    android:visibility="gone">
+
+
+
+                    <RelativeLayout
+                        android:id="@+id/german_language"
+                        android:layout_marginBottom="1dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/card_language_theme_top">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="30sp"
+                            android:text="@string/german"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:textColor="?attr/colorTertiaryContainer"/>
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/english_language"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/card_language_theme">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="30sp"
+                            android:text="@string/english"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:textColor="?attr/colorTertiaryContainer"/>
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/french_language"
+                        android:layout_marginTop="1dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/card_language_theme_bottom">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="30sp"
+                            android:text="@string/french"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:textColor="?attr/colorTertiaryContainer"/>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
         </androidx.core.widget.NestedScrollView>
 
 
@@ -89,8 +167,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="@string/cancel_button"
-            android:backgroundTint="#000000"
-            android:textColor="#ffffff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -99,8 +175,6 @@
             android:id="@+id/negative_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:textColor="#ffffff"
             android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/positive_button"
@@ -111,8 +185,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:backgroundTint="#000000"
-            android:textColor="#ffffff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

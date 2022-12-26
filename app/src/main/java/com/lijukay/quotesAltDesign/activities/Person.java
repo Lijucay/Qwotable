@@ -17,9 +17,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.lijukay.quotesAltDesign.R;
+import com.lijukay.quotesAltDesign.adapter.AllAdapter;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
 import com.lijukay.quotesAltDesign.adapter.PersonAdapter;
 import com.lijukay.quotesAltDesign.adapter.wisdomAdapter;
+import com.lijukay.quotesAltDesign.item.AllItem;
 import com.lijukay.quotesAltDesign.item.PersonItem;
 import com.lijukay.quotesAltDesign.item.wisdomItem;
 
@@ -34,10 +36,12 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
     TextView author;
 
     private RecyclerView mRecyclerViewPQ;
-    private PersonAdapter mPQAdapter;
-    private ArrayList<PersonItem> mPQItem;
+    //private PersonAdapter mPQAdapter;
+    private ArrayList<AllItem> mPQItem;
+    //private ArrayList<PersonItem> mPQItem;
     private ArrayList<wisdomItem> items;
     private wisdomAdapter adapter;
+    private AllAdapter adapterAll;
     private RequestQueue mRequestQueuePQ;
     private String pQuotes, activity;
     private SwipeRefreshLayout swipeRefreshLayoutPQ;
@@ -77,7 +81,8 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
 
                 if(activity.equals("quotes")) {
                     mPQItem.clear();
-                    mPQAdapter.notifyDataSetChanged();
+                    //mPQAdapter.notifyDataSetChanged();
+                    adapterAll.notifyDataSetChanged();
                     parseJSONQuotes();
                 } else if (activity.equals("wisdom")){
                     items.clear();
@@ -89,7 +94,6 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
         });
 
         mRequestQueuePQ = Volley.newRequestQueue(this);
-        //mRecyclerViewPQ.setVisibility(View.VISIBLE);
         if(activity.equals("quotes")){
             parseJSONQuotes();
         } else if (activity.equals("wisdom")){
@@ -99,7 +103,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
     }
 
     private void parseJSONQuotes() {
-        String urlPQ = "https://lijukay.github.io/Quotes-M3/quotesEN.json";
+        String urlPQ = "https://lijukay.github.io/Qwotable/quotes-en.json";
 
 
         JsonObjectRequest requestPQ = new JsonObjectRequest(Request.Method.GET, urlPQ, null,
@@ -115,11 +119,12 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                             String quotePQ = pq.getString("quotePQ");
                             String authorPQ = pq.getString("authorPQ");
 
-                            mPQItem.add(new PersonItem(authorPQ, quotePQ));
+                            mPQItem.add(new AllItem(authorPQ, quotePQ));
                         }
 
-                        mPQAdapter = new PersonAdapter(Person.this, mPQItem, this);
-                        mRecyclerViewPQ.setAdapter(mPQAdapter);
+                        //mPQAdapter = new PersonAdapter(Person.this, mPQItem, this);
+                        adapterAll = new AllAdapter(Person.this, mPQItem, this);
+                        mRecyclerViewPQ.setAdapter(adapterAll);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -148,7 +153,6 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
 
                         adapter = new wisdomAdapter(this, items, this);
                         mRecyclerViewPQ.setAdapter(adapter); //I set the adapter of the RecyclerView to Adapter, that way I don't need to create an extra Adapter for Person.
-                        //Todo: Set mRecyclerViewPQ adapter of quotes to quotes adapter
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -159,6 +163,12 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
 
     @Override
     public void onItemClick(int position) {
-        //TODO: Show Dialog
+        //TODO: Log.w("Work required", "Create and show dialog")
     }
+
+    /*TODO: if (adapterWorks){
+       Log.w("All done!", "Everything goes according to plan.")
+       }else if(!adapterWorks){
+       Log.e("NO!", "Find out what the issue is or reset the adapter to mPQAdapter.")
+       }*/
 }
