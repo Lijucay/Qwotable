@@ -1,2 +1,3 @@
 # Qwotable
-Qwotable, for everything that is quotable. Read, share and copy quotes and wisdom.
+
+A newer and better application, that replaces the Quotes apps. It is filled with Quotes and Wisdom in a beautiful design!
