@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -60,24 +61,17 @@ import rikka.material.preference.MaterialSwitchPreference;
 
 public class Settings extends AppCompatActivity {
 
-
-    //------Creating the BroadcastStringForAction------//
     public static final String BroadcastStringForAction = "checkInternet";
-    //------Creating an static Intent------//
     static Intent starterIntent;
-    //------Creating necessary Strings------//
     static String versionNameBeta, versionName, apkUrl, apkBeta, changelogMessage, changelogBeta, languageCode;
-    //------Creating necessary integer------//
     static int versionC, versionA, versionB;
-    //------Creating necessary booleans------//
     static boolean internet;
-    //------Creating a SharedPreference------//
     static SharedPreferences betaSP, language;
-    //------Creating an Editor for a SharedPreference------//
     static SharedPreferences.Editor betaEditor, languageEditor;
-    //------Creating a RequestQueue------//
     private static RequestQueue mRequestQueueU;
-    static boolean betaA, updateStatus;
+    static boolean betaA = false, updateStatus = false;
+
+
     public final BroadcastReceiver InternetReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -115,12 +109,15 @@ public class Settings extends AppCompatActivity {
 
                 if (versionB > versionC) {
                     betaA = true;
-                } else if (versionA > versionC) {
+                }
+
+                if (versionA > versionC) {
                     betaA = false;
                     updateStatus = true;
                 } else {
                     updateStatus = false;
                 }
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -167,10 +164,7 @@ public class Settings extends AppCompatActivity {
                 context.unregisterReceiver(this);
             }
         };
-
         context.registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-
-        //------Even if the connection fails when pressing on the dialog, the manager will enqueue the download and execute it, once it is ready to------//
         downloadManager.enqueue(request);
     }
 
@@ -183,14 +177,11 @@ public class Settings extends AppCompatActivity {
         return intent;
     }
 
-    //------Overriding the onCreate Method------//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //------Todo: Google "What does super.onCreate(savedInstanceState) do?"
         super.onCreate(savedInstanceState);
 
-        //------Get the SharedPreference with the name "Beta" and the mode 0 (=PRIVATE[=only accessible by this application])------//
         betaSP = getSharedPreferences("Beta", 0);
         language = getSharedPreferences("Language", 0);
         //------make the SharedPreference.Editor editing the SharedPreference with the variable-name "betaSP"------//
@@ -244,6 +235,11 @@ public class Settings extends AppCompatActivity {
         startService(serviceIntent);
         //------Checking if the Application is online------//
         internet = isOnline(getApplicationContext());
+
+        parseJSONVersion();
+
+        Log.e("Udpater", updateStatus+"");
+        Log.e("Version", versionA+"");
     }
 
     public boolean isOnline(Context c) {
@@ -457,12 +453,12 @@ public class Settings extends AppCompatActivity {
 
                     if (!internet) {
                         Toast.makeText(requireContext(), getString(R.string.cant_check_for_updates), Toast.LENGTH_SHORT).show();
-                    } else if (betaA) {
-                        showCustomDialog(true);
-                    } else if (updateStatus) {
-                        showCustomDialog(false);
-                    } else {
+                    } else  if (!updateStatus && !betaA && betaSP.getBoolean("beta", false) || !updateStatus && !betaSP.getBoolean("beta", false)){
                         Toast.makeText(requireContext(), getString(R.string.no_update_available), Toast.LENGTH_SHORT).show();
+                    } else if (updateStatus){
+                        showCustomDialog(false);
+                    } else if (betaA && betaSP.getBoolean("beta", false)){
+                        showCustomDialog(true);
                     }
 
                     return false;
