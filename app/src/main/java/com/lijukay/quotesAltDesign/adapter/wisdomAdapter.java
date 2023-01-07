@@ -69,9 +69,10 @@ public class wisdomAdapter extends RecyclerView.Adapter<wisdomAdapter.wisdomView
             mAuthorAll.setOnClickListener(view -> {
                 if (recyclerViewInterface != null){
                     int position = getAdapterPosition();
+                    String type = "author";
 
                     if(position != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(position);
+                        recyclerViewInterface.onItemClick(position, type);
                     }
                 }
             });

@@ -9,12 +9,12 @@
 
 
 
-    <FrameLayout
+    <androidx.viewpager2.widget.ViewPager2
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="-27dp"
         android:layout_marginTop="-27dp"
-        android:id="@+id/framecontainer"
+        android:id="@+id/viewPager"
         android:layout_above="@+id/custombnavigation"
         android:layout_below="@+id/customtoolbar"/>
 
@@ -62,7 +62,7 @@
         app:strokeColor="#ffffff"
         android:id="@+id/custombnavigation"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="95dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="0dp"
         app:cardUseCompatPadding="true"
@@ -70,55 +70,13 @@
         android:backgroundTint="?attr/colorPrimaryContainer"
         android:paddingBottom="10dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-
-
-                <ImageView
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/homeImage"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:id="@+id/quotesImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_quotes"
-                    android:padding="5dp"/>
-
-
-
-            <ImageView
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/wisdomImage"
-                app:layout_constraintStart_toEndOf="@id/quotesImage"
-                app:layout_constraintTop_toTopOf="parent"
-
-                android:padding="5dp"
-                android:id="@+id/homeImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_home"/>
-
-
-                <ImageView
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/homeImage"
-
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:padding="5dp"
-                    android:id="@+id/wisdomImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_wisdom" />
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+            app:labelVisibilityMode="selected"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimaryContainer"
+            app:menu="@menu/bottom_navigation_bar_items"
+            android:id="@+id/bottomNavigation"/>
     </androidx.cardview.widget.CardView>
 
 

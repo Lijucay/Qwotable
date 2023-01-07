@@ -29,6 +29,7 @@
         android:id="@+id/customnamebar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        app:cardElevation="0dp"
         android:backgroundTint="?attr/colorPrimaryContainer"
         app:cardCornerRadius="20dp"
         app:cardUseCompatPadding="true"

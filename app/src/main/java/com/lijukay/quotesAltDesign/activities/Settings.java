@@ -63,11 +63,11 @@ public class Settings extends AppCompatActivity {
 
     public static final String BroadcastStringForAction = "checkInternet";
     static Intent starterIntent;
-    static String versionNameBeta, versionName, apkUrl, apkBeta, changelogMessage, changelogBeta, languageCode;
+    static String versionNameBeta, versionName, apkUrl, apkBeta, changelogMessage, changelogBeta, languageCode, colorS;
     static int versionC, versionA, versionB;
     static boolean internet;
-    static SharedPreferences betaSP, language;
-    static SharedPreferences.Editor betaEditor, languageEditor;
+    static SharedPreferences betaSP, language, color;
+    static SharedPreferences.Editor betaEditor, languageEditor, colorEditor;
     private static RequestQueue mRequestQueueU;
     static boolean betaA = false, updateStatus = false;
 
@@ -130,6 +130,7 @@ public class Settings extends AppCompatActivity {
     }
 
     public static void InstallUpdate(Context context, String url, String versionName) {
+
         //------Set the destination as a string------//
         String destination = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + context.getString(R.string.app_name) + "." + versionName + ".apk";
         //------Set the file uri------//
@@ -184,11 +185,16 @@ public class Settings extends AppCompatActivity {
 
         betaSP = getSharedPreferences("Beta", 0);
         language = getSharedPreferences("Language", 0);
+        color = getSharedPreferences("Colors", 0);
         //------make the SharedPreference.Editor editing the SharedPreference with the variable-name "betaSP"------//
         betaEditor = betaSP.edit();
         languageEditor = language.edit();
+        colorEditor = color.edit();
 
         languageCode = language.getString("language", Locale.getDefault().getLanguage());
+        colorS = color.getString("color", "red");
+
+
         Locale locale = new Locale(languageCode);
         Locale.setDefault(locale);
         Resources resources = this.getResources();
@@ -196,6 +202,17 @@ public class Settings extends AppCompatActivity {
         config.setLocale(locale);
         resources.updateConfiguration(config, resources.getDisplayMetrics());
 
+        switch (color.getString("color", "red")){
+            case "red":
+                setTheme(R.style.AppTheme);
+                break;
+            case "pink":
+                setTheme(R.style.AppThemePink);
+                break;
+            case "green":
+                setTheme(R.style.AppThemeGreen);
+                break;
+        }
 
         //------Set the contentView to the layout of settings_activity------//
         setContentView(R.layout.settings_activity);
@@ -302,6 +319,79 @@ public class Settings extends AppCompatActivity {
             parseJSONVersion();
 
 
+            Preference color = findPreference("colors");
+            assert color != null;
+            color.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(@NonNull Preference preference) {
+                    showCustomDialog();
+                    return false;
+                }
+
+                private void showCustomDialog(){
+                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                    LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
+                    TextView title = alertCustomDialog.findViewById(R.id.custom_title);
+                    TextView message = alertCustomDialog.findViewById(R.id.message_text);
+                    CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
+                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
+                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
+
+                    assert lottieAnimationView != null;
+                    lottieAnimationView.setAnimation(R.raw.qwotable);
+
+                    title.setText("Color");
+
+                    message.setVisibility(View.GONE);
+
+                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
+                    params.height = 800;
+                    messageCard.setLayoutParams(params);
+
+                    layout.setVisibility(View.GONE);
+                    negative.setVisibility(View.VISIBLE);
+
+                    language.setVisibility(View.GONE);
+                    theme.setVisibility(View.VISIBLE);
+
+                    alertCustomDialog.findViewById(R.id.def).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
+                            requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
+                            requireActivity().finishAffinity();
+                            colorEditor.putString("color", "red");
+                            colorEditor.apply();
+                        }
+                    });
+                    alertCustomDialog.findViewById(R.id.pink).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
+                            requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
+                            requireActivity().finishAffinity();
+                            colorEditor.putString("color", "pink");
+                            colorEditor.apply();
+                        }
+                    });
+                    alertCustomDialog.findViewById(R.id.green).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
+                            requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
+                            requireActivity().finishAffinity();
+                            colorEditor.putString("color", "green");
+                            colorEditor.apply();
+                        }
+                    });
+
+                    customDialog.show();
+                }
+
+            });
+
+
             MaterialSwitchPreference beta = findPreference("beta");
             assert beta != null;
 
@@ -341,7 +431,8 @@ public class Settings extends AppCompatActivity {
                     TextView title = alertCustomDialog.findViewById(R.id.custom_title);
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-                    LinearLayout languageandtheme = alertCustomDialog.findViewById(R.id.themeandlanguage);
+                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
+                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
 
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.qwotable);
@@ -358,7 +449,8 @@ public class Settings extends AppCompatActivity {
                     layout.setVisibility(View.VISIBLE);
                     negative.setVisibility(View.VISIBLE);
 
-                    languageandtheme.setVisibility(View.GONE);
+                    language.setVisibility(View.GONE);
+                    theme.setVisibility(View.GONE);
 
                     positive.setText(getString(R.string.email_button));
                     positive.setOnClickListener(view -> startActivity(composeEmail(email, getString(R.string.qwrequest_email_subject), getString(R.string.qwrequest_email_message))));
@@ -401,7 +493,9 @@ public class Settings extends AppCompatActivity {
                     TextView title = alertCustomDialog.findViewById(R.id.custom_title);
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-                    LinearLayout themeandlanguage = alertCustomDialog.findViewById(R.id.themeandlanguage);
+                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
+                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
+
 
 
                     assert lottieAnimationView != null;
@@ -415,7 +509,8 @@ public class Settings extends AppCompatActivity {
                     params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
                     messageCard.setLayoutParams(params);
 
-                    themeandlanguage.setVisibility(View.VISIBLE);
+                    language.setVisibility(View.VISIBLE);
+                    theme.setVisibility(View.GONE);
 
                     layout.setVisibility(View.GONE);
 
@@ -472,9 +567,12 @@ public class Settings extends AppCompatActivity {
                     TextView title = alertCustomDialog.findViewById(R.id.custom_title);
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-                    LinearLayout themeandlanguage = alertCustomDialog.findViewById(R.id.themeandlanguage);
+                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
+                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
 
-                    themeandlanguage.setVisibility(View.GONE);
+
+                    language.setVisibility(View.GONE);
+                    theme.setVisibility(View.GONE);
 
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.app_update);
@@ -542,8 +640,12 @@ public class Settings extends AppCompatActivity {
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
 
-                    LinearLayout themeandlanguage = alertCustomDialog.findViewById(R.id.themeandlanguage);
-                    themeandlanguage.setVisibility(View.GONE);
+                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
+                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
+
+                    language.setVisibility(View.GONE);
+                    theme.setVisibility(View.GONE);
+
 
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.bug_report);
@@ -591,8 +693,13 @@ public class Settings extends AppCompatActivity {
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
 
-                    LinearLayout themeandlanguage = alertCustomDialog.findViewById(R.id.themeandlanguage);
-                    themeandlanguage.setVisibility(View.GONE);
+                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
+                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
+
+
+                    language.setVisibility(View.GONE);
+                    theme.setVisibility(View.GONE);
+
 
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.feature_suggestion);
@@ -657,8 +764,13 @@ public class Settings extends AppCompatActivity {
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
 
-                    LinearLayout themeandlanguage = alertCustomDialog.findViewById(R.id.themeandlanguage);
-                    themeandlanguage.setVisibility(View.GONE);
+                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
+                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
+
+
+                    language.setVisibility(View.GONE);
+                    theme.setVisibility(View.GONE);
+
 
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.feedback);
@@ -703,8 +815,13 @@ public class Settings extends AppCompatActivity {
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
 
-                    LinearLayout themeandlanguage = alertCustomDialog.findViewById(R.id.themeandlanguage);
-                    themeandlanguage.setVisibility(View.GONE);
+                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
+                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
+
+
+                    language.setVisibility(View.GONE);
+                    theme.setVisibility(View.GONE);
+
 
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.permissions);
@@ -747,8 +864,12 @@ public class Settings extends AppCompatActivity {
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
 
-                    LinearLayout themeandlanguage = alertCustomDialog.findViewById(R.id.themeandlanguage);
-                    themeandlanguage.setVisibility(View.GONE);
+                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
+                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
+
+
+                    language.setVisibility(View.GONE);
+                    theme.setVisibility(View.GONE);
 
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.privacy_policy);
@@ -790,9 +911,13 @@ public class Settings extends AppCompatActivity {
                     TextView title = alertCustomDialog.findViewById(R.id.custom_title);
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-                    LinearLayout themeandlanguage = alertCustomDialog.findViewById(R.id.themeandlanguage);
+                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
+                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
 
-                    themeandlanguage.setVisibility(View.GONE);
+
+                    language.setVisibility(View.GONE);
+                    theme.setVisibility(View.GONE);
+
 
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.license);
@@ -834,8 +959,13 @@ public class Settings extends AppCompatActivity {
                     TextView message = alertCustomDialog.findViewById(R.id.message_text);
                     CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
 
-                    LinearLayout themeandlanguage = alertCustomDialog.findViewById(R.id.themeandlanguage);
-                    themeandlanguage.setVisibility(View.GONE);
+                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
+                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
+
+
+                    language.setVisibility(View.GONE);
+                    theme.setVisibility(View.GONE);
+
 
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.wiki);
@@ -940,8 +1070,13 @@ public class Settings extends AppCompatActivity {
 
             negative.setVisibility(View.GONE);
 
-            LinearLayout themeandlanguage = alertCustomDialog.findViewById(R.id.themeandlanguage);
-            themeandlanguage.setVisibility(View.GONE);
+            LinearLayout language = alertCustomDialog.findViewById(R.id.language);
+            LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
+
+
+            language.setVisibility(View.GONE);
+            theme.setVisibility(View.GONE);
+
 
             customDialog.show();
         }

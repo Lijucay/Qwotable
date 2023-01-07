@@ -12,11 +12,12 @@
         android:id="@+id/homeSRL">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="27dp"
+        android:clipToPadding="false"
+        android:paddingBottom="27dp">
 
         <LinearLayout
-            android:paddingTop="27dp"
-            android:paddingBottom="27dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -141,28 +142,43 @@
                         app:cardCornerRadius="20dp"
                         app:cardUseCompatPadding="true">
 
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
                                 android:padding="10dp"
+                                android:id="@+id/quote"
                                 android:text="@string/quote_example_quote"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:textColor="?attr/colorOnSecondary"
-                                android:textSize="17sp" />
+                                android:textSize="20sp"/>
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="end"
+                                android:textSize="15sp"
+                                android:id="@+id/authore_quote"
                                 android:paddingHorizontal="10dp"
-                                android:paddingVertical="5dp"
+                                android:paddingTop="5dp"
                                 android:text="@string/quote_example_author"
-                                android:textColor="?attr/colorOnSecondary"
-                                android:textSize="15sp" />
+                                android:textColor="?attr/colorOnSecondary"/>
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="15sp"
+                                android:id="@+id/found_in"
+                                android:paddingHorizontal="10dp"
+                                android:text="@string/quote_example_foundIn"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="5dp"
+                                android:textColor="?attr/colorOnSecondary"/>
+
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                     <TextView
@@ -209,26 +225,52 @@
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="20dp"
                         app:cardUseCompatPadding="true">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
+
+
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="10dp"
-                                android:text="@string/wisdom_example_wisdom"
-                                android:textColor="?attr/colorOnSecondary"
-                                android:textSize="17sp" />
-                            <TextView
+                                android:paddingHorizontal="10dp"
+                                android:paddingTop="10dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="end"
+                                android:gravity="center"
+                                android:textSize="25sp"
+                                android:id="@+id/wisdomTitle"
+                                android:text="@string/wisdom_example_title"
+                                android:textStyle="bold"
+                                android:textColor="?attr/colorOnSecondary"/>
+                            <TextView
+                                android:id="@+id/wisdom"
+                                android:paddingTop="10dp"
                                 android:paddingHorizontal="10dp"
-                                android:paddingVertical="5dp"
-                                android:text="@string/wisdom_example_author"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/wisdom_example_wisdom"
                                 android:textColor="?attr/colorOnSecondary"
-                                android:textSize="15sp" />
+                                android:textSize="20sp"/>
+                            <TextView
+                                android:id="@+id/author"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="15sp"
+                                android:paddingTop="5dp"
+                                android:paddingHorizontal="10dp"
+                                android:text="@string/wisdom_example_author"
+                                android:textColor="?attr/colorOnSecondary"/>
+                            <TextView
+                                android:id="@+id/found_in_wisdom"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="15sp"
+                                android:paddingTop="5dp"
+                                android:paddingHorizontal="10dp"
+                                android:paddingBottom="10dp"
+                                android:text="@string/wisdom_example_found_in"
+                                android:textColor="?attr/colorOnSecondary"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                     <TextView

@@ -1,6 +1,7 @@
 package com.lijukay.quotesAltDesign.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.splashscreen.SplashScreen;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -27,6 +28,9 @@ public class OnBoardingScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding_screen);
 

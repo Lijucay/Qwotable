@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -12,76 +12,68 @@
             android:id="@+id/titleOnBoarding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/messageOnBoarding"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
-            android:gravity="center"
-            android:text="That's it!"
             android:textColor="?attr/colorPrimary"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_marginEnd="30dp"
             android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/messageOnBoarding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/lottieOnBoarding"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
             android:gravity="center"
-            android:text="Have fun using Qwotable!"
             android:textColor="?attr/colorPrimary"
-            android:textSize="15dp" />
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleOnBoarding" />
 
         <com.airbnb.lottie.LottieAnimationView
+            android:layout_marginTop="20dp"
             android:id="@+id/lottieOnBoarding"
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:layout_above="@+id/buttonInfo"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="130dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/messageOnBoarding"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/fun"/>
+            app:lottie_loop="true"/>
 
-        <ImageView
-            android:id="@+id/imageOnBoardingScreen"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_above="@+id/buttonInfo"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="130dp"/>
 
+            <ImageView
+                android:layout_marginTop="20dp"
+                android:id="@+id/imageOnBoardingScreen"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/messageOnBoarding"/>
 
         <TextView
+
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:id="@+id/buttonInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="30dp"
             android:gravity="center"
             android:text="Tap the button below to use Qwotable"
             android:textColor="?attr/colorPrimary"
-            android:layout_marginBottom="10dp"
             android:textSize="15sp"
-            android:layout_marginHorizontal="30dp"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="30dp"/>
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

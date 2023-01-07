@@ -16,21 +16,33 @@
 
         <TextView
             android:padding="10dp"
-            android:id="@+id/quoteAQ"
+            android:id="@+id/quote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="If everything works as planned, you will see a quote here. If not, this will show (maybe)"
             android:textColor="?attr/colorOnPrimaryContainer"
             android:textSize="20sp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Qwotable, Luca"
-            android:id="@+id/authorAQ"
-            android:gravity="end"
-            android:padding="10dp"
-            android:textColor="?attr/colorOnPrimaryContainer"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:id="@+id/author"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="5dp"
+                android:textColor="?attr/colorOnPrimaryContainer"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:id="@+id/found_in"
+                android:paddingHorizontal="10dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="5dp"
+                android:textColor="?attr/colorOnPrimaryContainer"/>
+
     </LinearLayout>
+
 
 </androidx.cardview.widget.CardView>

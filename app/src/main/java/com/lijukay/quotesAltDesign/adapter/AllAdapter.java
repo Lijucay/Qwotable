@@ -41,9 +41,15 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.AllViewHolder> {
 
         String allQuote = currentItemAll.getQuoteAll();
         String allAuthor = currentItemAll.getAuthorAll();
+        String foundIn = currentItemAll.getFoundIn();
+        if (foundIn.equals("")){
+            holderAll.mFoundIn.setVisibility(View.GONE);
+            holderAll.mAuthorAll.setPadding(10, 5, 10, 10);
+        }
 
         holderAll.mQuoteAll.setText(allQuote);
         holderAll.mAuthorAll.setText(allAuthor);
+        holderAll.mFoundIn.setText(foundIn);
     }
 
     @Override
@@ -54,19 +60,33 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.AllViewHolder> {
     public static class AllViewHolder extends RecyclerView.ViewHolder{
         public final TextView mQuoteAll;
         public final TextView mAuthorAll;
+        public final TextView mFoundIn;
 
 
         public AllViewHolder(@NonNull View itemViewAll, RecyclerViewInterface recyclerViewInterface) {
             super(itemViewAll);
-            mQuoteAll = itemViewAll.findViewById(R.id.quoteAQ);
-            mAuthorAll = itemViewAll.findViewById(R.id.authorAQ);
+            mQuoteAll = itemViewAll.findViewById(R.id.quote);
+            mAuthorAll = itemViewAll.findViewById(R.id.author);
+            mFoundIn = itemViewAll.findViewById(R.id.found_in);
 
             mAuthorAll.setOnClickListener(view -> {
                 if (recyclerViewInterface != null){
                     int position = getAdapterPosition();
+                    String type = "author";
 
                     if(position != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(position);
+                        recyclerViewInterface.onItemClick(position, type);
+                    }
+                }
+            });
+
+            mFoundIn.setOnClickListener(view -> {
+                if (recyclerViewInterface != null){
+                    int position = getAdapterPosition();
+                    String type = "Found in";
+
+                    if (position != RecyclerView.NO_POSITION){
+                        recyclerViewInterface.onItemClick(position, type);
                     }
                 }
             });

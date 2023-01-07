@@ -2,12 +2,15 @@ package com.lijukay.quotesAltDesign.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -18,11 +21,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.adapter.AllAdapter;
-import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
-import com.lijukay.quotesAltDesign.adapter.PersonAdapter;
 import com.lijukay.quotesAltDesign.adapter.wisdomAdapter;
+import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
 import com.lijukay.quotesAltDesign.item.AllItem;
-import com.lijukay.quotesAltDesign.item.PersonItem;
 import com.lijukay.quotesAltDesign.item.wisdomItem;
 
 import org.json.JSONArray;
@@ -30,21 +31,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Person extends AppCompatActivity implements RecyclerViewInterface {
-    String authorP;
-    TextView author;
-
+    private String authorP;
     private RecyclerView mRecyclerViewPQ;
-    //private PersonAdapter mPQAdapter;
     private ArrayList<AllItem> mPQItem;
-    //private ArrayList<PersonItem> mPQItem;
     private ArrayList<wisdomItem> items;
     private wisdomAdapter adapter;
     private AllAdapter adapterAll;
     private RequestQueue mRequestQueuePQ;
-    private String pQuotes, activity;
+    private String pQuotes, activity, type;
     private SwipeRefreshLayout swipeRefreshLayoutPQ;
+    private SharedPreferences language, color;
 
 
 
@@ -53,22 +52,48 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        language = getSharedPreferences("Language", 0);
+
+        color = getSharedPreferences("Colors", 0);
+
+        switch (color.getString("color", "red")){
+            case "red":
+                setTheme(R.style.AppTheme);
+                break;
+            case "pink":
+                setTheme(R.style.AppThemePink);
+                break;
+            case "green":
+                setTheme(R.style.AppThemeGreen);
+                break;
+        }
+
         setContentView(R.layout.activity_person);
 
         Intent intent = getIntent();
 
+        type = intent.getStringExtra("type");
+
         authorP = intent.getStringExtra("author");
+
         activity = intent.getStringExtra("Activity");
 
 
-        author = findViewById(R.id.personname);
+        TextView author = findViewById(R.id.personname);
         author.setText(authorP);
 
         findViewById(R.id.setting).setOnClickListener(view -> startActivity(new Intent(Person.this, Settings.class)));
 
         mRecyclerViewPQ = findViewById(R.id.personRV);
         mRecyclerViewPQ.setHasFixedSize(true);
-        mRecyclerViewPQ.setLayoutManager(new LinearLayoutManager(this));
+        boolean tablet = getResources().getBoolean(R.bool.isTablet);
+        if (tablet){
+            mRecyclerViewPQ.setLayoutManager(new GridLayoutManager(this, 2));
+        } else {
+            mRecyclerViewPQ.setLayoutManager(new LinearLayoutManager(this));
+
+        }
 
         mPQItem = new ArrayList<>();
         items = new ArrayList<>();
@@ -83,7 +108,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                     mPQItem.clear();
                     //mPQAdapter.notifyDataSetChanged();
                     adapterAll.notifyDataSetChanged();
-                    parseJSONQuotes();
+                    parseJSONQuotes(type);
                 } else if (activity.equals("wisdom")){
                     items.clear();
                     adapter.notifyDataSetChanged();
@@ -95,18 +120,29 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
 
         mRequestQueuePQ = Volley.newRequestQueue(this);
         if(activity.equals("quotes")){
-            parseJSONQuotes();
+            parseJSONQuotes(type);
         } else if (activity.equals("wisdom")){
             parseJSON();
         }
 
     }
 
-    private void parseJSONQuotes() {
-        String urlPQ = "https://lijukay.github.io/Qwotable/quotes-en.json";
+    private void parseJSONQuotes(String type) {
+        if (type.equals("author")){
+
+            String url;
+
+            if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")){
+                url = "https://lijukay.github.io/Qwotable/author-de.json";
+            } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")){
+                url = "https://lijukay.github.io/Qwotable/author-en.json";
+            } else {
+                url = "https://lijukay.github.io/Qwotable/author-en.json";
+            }
 
 
-        JsonObjectRequest requestPQ = new JsonObjectRequest(Request.Method.GET, urlPQ, null,
+
+        JsonObjectRequest requestPQ = new JsonObjectRequest(Request.Method.GET, url, null,
                 responsePQ -> {
                     try {
                         pQuotes = authorP;
@@ -116,10 +152,11 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                         for (int a = 0; a < jsonArrayPQ.length(); a++) {
                             JSONObject pq = jsonArrayPQ.getJSONObject(a);
 
-                            String quotePQ = pq.getString("quotePQ");
-                            String authorPQ = pq.getString("authorPQ");
+                            String quotePQ = pq.getString("quote");
+                            String authorPQ = pq.getString("author");
+                            String foundIn = pq.getString("found in");
 
-                            mPQItem.add(new AllItem(authorPQ, quotePQ));
+                            mPQItem.add(new AllItem(authorPQ, quotePQ, foundIn));
                         }
 
                         //mPQAdapter = new PersonAdapter(Person.this, mPQItem, this);
@@ -130,6 +167,45 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                     }
                 }, Throwable::printStackTrace);
         mRequestQueuePQ.add(requestPQ);
+        } else if (type.equals("found in")){
+
+            String url;
+
+            if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")){
+                url = "https://lijukay.github.io/Qwotable/found-in-de.json";
+            } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")){
+                url = "https://lijukay.github.io/Qwotable/found-in-en.json";
+            } else {
+                url = "https://lijukay.github.io/Qwotable/found-in-en.json";
+            }
+
+
+            JsonObjectRequest requestPQ = new JsonObjectRequest(Request.Method.GET, url, null,
+                    responsePQ -> {
+                        try {
+                            pQuotes = authorP;
+                            JSONArray jsonArrayPQ = responsePQ.getJSONArray(pQuotes);
+
+
+                            for (int a = 0; a < jsonArrayPQ.length(); a++) {
+                                JSONObject pq = jsonArrayPQ.getJSONObject(a);
+
+                                String quotePQ = pq.getString("quote");
+                                String authorPQ = pq.getString("author");
+                                String foundIn = pq.getString("found in");
+
+                                mPQItem.add(new AllItem(authorPQ, quotePQ, foundIn));
+                            }
+
+                            //mPQAdapter = new PersonAdapter(Person.this, mPQItem, this);
+                            adapterAll = new AllAdapter(Person.this, mPQItem, this);
+                            mRecyclerViewPQ.setAdapter(adapterAll);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }, Throwable::printStackTrace);
+            mRequestQueuePQ.add(requestPQ);
+        }
     }
 
     private void parseJSON() {
@@ -162,13 +238,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
 
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, String type) {
         //TODO: Log.w("Work required", "Create and show dialog")
     }
-
-    /*TODO: if (adapterWorks){
-       Log.w("All done!", "Everything goes according to plan.")
-       }else if(!adapterWorks){
-       Log.e("NO!", "Find out what the issue is or reset the adapter to mPQAdapter.")
-       }*/
 }

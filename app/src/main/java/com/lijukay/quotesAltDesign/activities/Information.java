@@ -1,11 +1,13 @@
 package com.lijukay.quotesAltDesign.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -26,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Information extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
@@ -34,16 +37,39 @@ public class Information extends AppCompatActivity {
     private ArrayList<InformationItem> items;
     RecyclerView recyclerView;
     InformationAdapter adapter;
+    SharedPreferences color, language;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        color = getSharedPreferences("Colors", 0);
+
+        language = getSharedPreferences("language", 0);  //TODO: ADD MULTILANGUAGE SUPPORT
+
+        switch (color.getString("color", "red")){
+            case "red":
+                setTheme(R.style.AppTheme);
+                break;
+            case "pink":
+                setTheme(R.style.AppThemePink);
+                break;
+            case "green":
+                setTheme(R.style.AppThemeGreen);
+                break;
+        }
+
         setContentView(R.layout.activity_information);
 
         recyclerView = findViewById(R.id.informationRV);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        boolean tablet = getResources().getBoolean(R.bool.isTablet);
+        if (tablet){
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        } else {
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        }
         items = new ArrayList<>();
 
         swipeRefreshLayout = findViewById(R.id.informationSRL);

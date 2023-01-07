@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -13,6 +14,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Cache;
@@ -48,10 +50,17 @@ public class wisdom extends Fragment implements RecyclerViewInterface { //TODO: 
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_wisdom, container, false);
 
+
+
         recyclerView = v.findViewById(R.id.wisdomRV);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        boolean tablet = getResources().getBoolean(R.bool.isTablet);
+        if (tablet){
+            recyclerView.setLayoutManager(new GridLayoutManager(requireContext().getApplicationContext(), 2));
+        } else {
+            recyclerView.setLayoutManager(new LinearLayoutManager(requireContext().getApplicationContext()));
 
+        }
         items = new ArrayList<>();
         swipeRefreshLayout = v.findViewById(R.id.wisdomSRL);
         swipeRefreshLayout.setOnRefreshListener(() -> {
@@ -92,6 +101,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface { //TODO: 
                             String title = object.getString("titleAll");
 
                             items.add(new wisdomItem(author, quote, title));
+
                         }
 
                         adapter = new wisdomAdapter(getActivity(), items, this); //TODO: After implements RecyclerViewInterface chanfe null to this
@@ -105,7 +115,10 @@ public class wisdom extends Fragment implements RecyclerViewInterface { //TODO: 
 
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, String type) {
+
+        if (type.equals("author")){
+
 
         String url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
 
@@ -129,6 +142,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface { //TODO: 
                     }
                 }, Throwable::printStackTrace);
         requestQueue.add(jsonObjectRequest);
+        }
 
     }
 }

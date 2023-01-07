@@ -40,13 +40,13 @@
 
     <string name="quote_definition_title">Quote definition</string>
     <string name="quotes_definition_message">Quotes are passages from books, games and movies as well as from songs or public speeches. Usually, the author and the name of the book/movie/song/game is mentioned in the credits. In this app it looks like this:</string>
-    <string name="quote_example_quote">The eye sees only what the mind is prepared to comprehend</string>
-    <string name="quote_example_author">Itachi Uchiha, Naruto</string>
+    <string name="quote_example_quote">Horse: \"Life is difficult, but you are loved.\"</string>
+    <string name="quote_example_author" translatable="false">Charlie Mackery</string>
+    <string name="quote_example_foundIn" translatable="false">The boy, the mole, the fox and the horse</string>
     <string name="quote_example_explanation">Here you can see the quote, the author and (in this case) the movie where the quote can be found.</string>
     <string name="wisdom_definition">Wisdom definition</string>
     <string name="wisdom_definition_message">In this app, wisdoms are stories/tales that is teaching you of something. It is not always clear, what the wisdom is teaching you. Usually, the author, as well as the book/game/movie is mentioned in the credits. In this app it looks like this:</string>
-    <string name="wisdom_example_wisdom">When the first wisp of wind brushed across the land, birds that yearned for the sky had wings but no way to fly.\nThey asked the Anemo God:\n\'How can we reach the heavens?\'\nTo which the Anemo God replied:\n\'You have yet to find that which is most important\'\nAs the god spoke, the wind thrust the seeds of a dandelion high into the sky. The birds thrust out their wings but the breeze was all to mild.\nLeaving them to stumble across the earth. So they went to the gorge where the wind showed off its wild and incomparable strength.\nThey threw themselves off the cliff and flapped their wings amongst the howling winds, until they where able to fly freely in the sky.\nTo the Anemo God they went, to gleefully say:\n\'We understand now! All we needed was a stronger wind to fly\'\nIn reply the Anemo God said: \'What you lacked was not wind, but courage. It is courage that has allowed you to become the first flying birds of this world.</string>
-    <string name="wisdom_example_author">Unknown author, Genshin Impact</string>
+    <string name="wisdom_example_author" translatable="false">Charlie Mackery</string>
     <string name="wisdom_example_explanation">Here you can see the quote, the author and (in this case) the game where the wisdom can be found.</string>
     <string name="qwrequest_email_subject">Listen to this Qwotable!</string>
     <string name="qwrequest_email_message">Hey,\n\nThis Qwotable is not in the app:</string>
@@ -61,5 +61,34 @@
     <string name="lande">Current language: English</string>
     <string name="notsupported" translatable="false">Your System-language currently is not supported. The language is set to English.\nSupported languages: English, German, French</string>
     <string name="update_summary">Check for the latest updates</string>
+    <string name="wisdom">Wisdom</string>
+    <string name="quotes">Quotes</string>
+    <string name="information">Information</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="settings">Settings</string>
+
+    <string name="welcome_title">Welcome…</string>
+    <string name="welcome_message">… to Qwotable. In the following, you will see features and instructions of Qwotable.</string>
+    <string name="no_ads_title">No ads</string>
+    <string name="no_ads_message">Qwotable is an ad free application for you to relax and focuse on Qwotable\'s content!</string>
+    <string name="relax_title">Made for you to relax</string>
+    <string name="relax_message">Qwotable\'s content are quotes and wisdom. It is made for you to relax and fill your brain with deep sentences.</string>
+    <string name="many_qwotables_title">Many Qwotables</string>
+    <string name="many_qwotables_message">Qwotable has a lot of quotable stuff that will be updated from time to time. You will recognize it, because the newer the Qwotable, the more on the top it will be!</string>
+    <string name="author_pages_title">Author pages</string>
+    <string name="author_pages_message">Besides the quotes and wisdom pages, Qwotable offers a page with the quotes and wisdom, based on the author. You simply have to tap on the authors name to get there!</string>
+    <string name="information_title">Information</string>
+    <string name="information_message">Get the latest information of Qwotable in the Information page. For that, all you need to do is to swipe down to the bottom of the Homepage and click on "Information"</string>
+    <string name="thats_it_title">That\'s it!</string>
+    <string name="thats_it_message">Have fun using Qwotable!</string>
+    <string name="slide_button_message">Simply click on the button below on or swipe to go on.</string>
+    <string name="slide_button_end">Tap the button below to use Qwotable</string>
+    <string name="error_message">There was an error getting the Qwotables from the file online. Have a look at the information\'s page. If there isn\'t already an entry about this error, feel free to contact me. As soon as I see the issue, I will add an information and take care to fix it as soon as possible!</string>
+    <string name="error_title">Oh no!</string>
+    <string name="wisdom_example_wisdom">Boy: \"What is the bravest thing you\'ve ever said?\"\nHorse: \"Help. Asking for help isn\'t giving up, it is refusing to give up.\"</string>
+    <string name="wisdom_example_found_in" translatable="false">The boy, the mole, the fox and the horse</string>
+    <string name="wisdom_example_title">About help</string>
+
 
 </resources>

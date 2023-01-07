@@ -10,6 +10,14 @@
             android:key="language"/>
     </PreferenceCategory>
     <PreferenceCategory
+        app:title="Theme"
+        app:allowDividerBelow="true">
+        <Preference
+            android:title="Colors"
+            android:summary="Change the colors of the app"
+            android:key="colors"/>
+    </PreferenceCategory>
+    <PreferenceCategory
         android:title="Update"
         app:allowDividerBelow="true">
         <Preference

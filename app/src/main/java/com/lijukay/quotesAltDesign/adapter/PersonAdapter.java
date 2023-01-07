@@ -61,9 +61,10 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PQViewHold
             itemViewPQ.setOnClickListener(view -> {
                 if (recyclerViewInterface != null){
                     int position = getAdapterPosition();
+                    String type = "Person";
 
                     if(position != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(position);
+                        recyclerViewInterface.onItemClick(position, type);
                     }
                 }
             });

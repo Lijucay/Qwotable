@@ -55,4 +55,11 @@
     <string name="refresh_message">Mettre à jour, s\'il te plaît attendre…</string>
     <string name="update_available_message_beta">Une beta-version plus récente de cette application est disponible. Va dans les paramètres, cliquez sur Updater et installe la dernière mise à jour pour obtenir les dernières corrections de bugs et fonctionnalités pour essayer.</string>
     <string name="update_summary">Regarde pour les mise à jours plus récente</string>
+    <string name="settings">Paramètres</string>
+    <string name="quotes">Citation</string>
+    <string name="information">Information</string>
+    <string name="welcome_title">Bienvenue...</string>
+    <string name="thats_it_title">C\'est tout!</string>
+    <string name="information_title">Information</string>
+    <string name="no_ads_title">Ne pas des advertisements</string>
 </resources>

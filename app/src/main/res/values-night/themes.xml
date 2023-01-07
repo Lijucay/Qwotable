@@ -28,13 +28,128 @@
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
 
-        <item name="android:statusBarColor">@color/md_theme_dark_secondaryContainer</item>
+        <item name="android:statusBarColor">@color/md_theme_dark_background</item>
         <item name="android:windowLightStatusBar">false</item>
 
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.Rikka.Material3</item>
         <item name="android:windowActivityTransitions">true</item>
 
+
     </style>
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Set the splash screen background, animated icon, and animation duration. -->
+        <item name="windowSplashScreenBackground">@color/md_theme_light_background</item>
+
+        <!-- Use windowSplashScreenAnimatedIcon to add either a drawable or an
+             animated drawable. One of these is required. -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <!-- Required for animated icons -->
+        <item name="windowSplashScreenAnimationDuration">200</item>
+
+        <!-- Set the theme of the Activity that directly follows your splash screen. -->
+        <!-- Required -->
+        <item name="postSplashScreenTheme">@style/AppTheme</item>
+    </style>
+
+    <style name="AppThemePink" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">#FFB1C8</item>
+        <item name="colorOnPrimary">#650033</item>
+        <item name="colorPrimaryContainer">#8E004A</item>
+        <item name="colorOnPrimaryContainer">#FFD9E2</item>
+        <item name="colorSecondary">#FFB1C8</item>
+        <item name="colorOnSecondary">#650033</item>
+        <item name="colorSecondaryContainer">#8E004A</item>
+        <item name="colorOnSecondaryContainer">#FFD9E2</item>
+        <item name="colorTertiary">#FFB1C8</item>
+        <item name="colorOnTertiary">#650033</item>
+        <item name="colorTertiaryContainer">#8E004A</item>
+        <item name="colorOnTertiaryContainer">#FFD9E2</item>
+        <item name="colorError">#FFB4AB</item>
+        <item name="colorErrorContainer">#93000A</item>
+        <item name="colorOnError">#690005</item>
+        <item name="colorOnErrorContainer">#FFDAD6</item>
+        <item name="android:colorBackground">#3E0021</item>
+        <item name="colorOnBackground">#FFD9E4</item>
+        <item name="colorSurface">#3E0021</item>
+        <item name="colorOnSurface">#FFD9E4</item>
+        <item name="colorSurfaceVariant">#514347</item>
+        <item name="colorOnSurfaceVariant">#D5C2C6</item>
+        <item name="colorOutline">#9E8C90</item>
+        <item name="colorOnSurfaceInverse">#3E0021</item>
+        <item name="colorSurfaceInverse">#FFD9E4</item>
+        <item name="colorPrimaryInverse">#B51663</item>
+
+        <item name="android:statusBarColor">#3E0021</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="AppThemeGreen" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">#72DE56</item>
+        <item name="colorOnPrimary">#063900</item>
+        <item name="colorPrimaryContainer">#0D5300</item>
+        <item name="colorOnPrimaryContainer">#8DFC6F</item> <!--8DFC6F-->
+        <item name="colorSecondary">#59E06E</item>
+        <item name="colorOnSecondary">#00390F</item>
+        <item name="colorSecondaryContainer">#00531A</item>
+        <item name="colorOnSecondaryContainer">#77FE87</item>
+        <item name="colorTertiary">#6BDE69</item>
+        <item name="colorOnTertiary">#003908</item>
+        <item name="colorTertiaryContainer">#00530F</item>
+        <item name="colorOnTertiaryContainer">#88FC82</item>
+        <item name="colorError">#FFB4AB</item>
+        <item name="colorErrorContainer">#93000A</item>
+        <item name="colorOnError">#690005</item>
+        <item name="colorOnErrorContainer">#FFDAD6</item>
+        <item name="android:colorBackground">#002200</item>
+        <item name="colorOnBackground">#B0F49E</item>
+        <item name="colorSurface">#002200</item>
+        <item name="colorOnSurface">#B0F49E</item>
+        <item name="colorSurfaceVariant">#43483F</item>
+        <item name="colorOnSurfaceVariant">#C3C8BC</item>
+        <item name="colorOutline">#8D9387</item>
+        <item name="colorOnSurfaceInverse">#002200</item>
+        <item name="colorSurfaceInverse">#B0F49E</item>
+        <item name="colorPrimaryInverse">#146E00</item>
+
+        <item name="android:statusBarColor">#002200</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!--<style name="AppThemePurple" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">#D7BAFF</item>
+        <item name="colorOnPrimary">#440088</item>
+        <item name="colorPrimaryContainer">#6100BD</item>
+        <item name="colorOnPrimaryContainer">#EDDCFF</item>
+        <item name="colorSecondary">#E6B4FF</item>
+        <item name="colorOnSecondary">#4F0076</item>
+        <item name="colorSecondaryContainer">#7100A6</item>
+        <item name="colorOnSecondaryContainer">#F5D9FF</item>
+        <item name="colorTertiary">#DAB9FF</item>
+        <item name="colorOnTertiary">#460084</item>
+        <item name="colorTertiaryContainer">#6400B9</item>
+        <item name="colorOnTertiaryContainer">#EEDBFF</item>
+        <item name="colorError">#FFB4AB</item>
+        <item name="colorErrorContainer">#93000A</item>
+        <item name="colorOnError">#690005</item>
+        <item name="colorOnErrorContainer">#FFDAD6</item>
+        <item name="android:colorBackground">#24005A</item>
+        <item name="colorOnBackground">#EADDFF</item>
+        <item name="colorSurface">#24005A</item>
+        <item name="colorOnSurface">#EADDFF</item>
+        <item name="colorSurfaceVariant">#4A454E</item>
+        <item name="colorOnSurfaceVariant">#CCC4CF</item>
+        <item name="colorOutline">#958E99</item>
+        <item name="colorOnSurfaceInverse">#24005A</item>
+        <item name="colorSurfaceInverse">#EADDFF</item>
+        <item name="colorPrimaryInverse">#7C28E1</item>
+
+        <item name="android:statusBarColor">#24005A</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+    </style>-->
+
+
 
 
 </resources>

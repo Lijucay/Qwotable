@@ -2,6 +2,8 @@ package com.lijukay.quotesAltDesign.fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -26,13 +28,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 public class home extends Fragment {
 
     int versionCode, versionCurrent, versionB;
     RequestQueue mRequestQueue;
     View v;
     SwipeRefreshLayout swipeRefreshLayout;
-    SharedPreferences beta;
+    SharedPreferences beta, language;
+    private String lang;
+    static Intent start;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,8 +53,9 @@ public class home extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
                 Cache cache = mRequestQueue.getCache();
                 cache.clear();
-
                 parseJSON();
+                getLanguage();
+
             }, 2000);
         });
 
@@ -63,6 +70,17 @@ public class home extends Fragment {
 
         return v;
 
+    }
+
+    private void getLanguage() {
+        language = requireActivity().getSharedPreferences("Language", 0);
+        lang = language.getString("language", Locale.getDefault().getLanguage());
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Resources resources = this.getResources();
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 
 
