@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.Request;
@@ -89,7 +90,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
         mRecyclerViewPQ.setHasFixedSize(true);
         boolean tablet = getResources().getBoolean(R.bool.isTablet);
         if (tablet){
-            mRecyclerViewPQ.setLayoutManager(new GridLayoutManager(this, 2));
+            mRecyclerViewPQ.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         } else {
             mRecyclerViewPQ.setLayoutManager(new LinearLayoutManager(this));
 

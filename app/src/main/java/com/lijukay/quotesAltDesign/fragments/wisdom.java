@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
@@ -56,7 +57,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface { //TODO: 
         recyclerView.setHasFixedSize(true);
         boolean tablet = getResources().getBoolean(R.bool.isTablet);
         if (tablet){
-            recyclerView.setLayoutManager(new GridLayoutManager(requireContext().getApplicationContext(), 2));
+            recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext().getApplicationContext()));
 

@@ -11,7 +11,8 @@
     </PreferenceCategory>
     <PreferenceCategory
         app:title="Theme"
-        app:allowDividerBelow="true">
+        app:allowDividerBelow="true"
+        app:key="theme">
         <Preference
             android:title="Colors"
             android:summary="Change the colors of the app"

@@ -15,6 +15,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -37,6 +38,7 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -70,7 +72,6 @@ public class Settings extends AppCompatActivity {
     static SharedPreferences.Editor betaEditor, languageEditor, colorEditor;
     private static RequestQueue mRequestQueueU;
     static boolean betaA = false, updateStatus = false;
-
 
     public final BroadcastReceiver InternetReceiver = new BroadcastReceiver() {
         @Override
@@ -193,7 +194,6 @@ public class Settings extends AppCompatActivity {
 
         languageCode = language.getString("language", Locale.getDefault().getLanguage());
         colorS = color.getString("color", "red");
-
 
         Locale locale = new Locale(languageCode);
         Locale.setDefault(locale);
@@ -318,9 +318,14 @@ public class Settings extends AppCompatActivity {
 
             parseJSONVersion();
 
-
+            PreferenceCategory theme = findPreference("theme");
             Preference color = findPreference("colors");
             assert color != null;
+            assert theme != null;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
+                theme.setVisible(false);
+            } else {
+                theme.setVisible(true);
             color.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
@@ -341,12 +346,17 @@ public class Settings extends AppCompatActivity {
                     assert lottieAnimationView != null;
                     lottieAnimationView.setAnimation(R.raw.qwotable);
 
-                    title.setText("Color");
+                    title.setText(getString(R.string.color_theme_title));
 
                     message.setVisibility(View.GONE);
 
                     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-                    params.height = 800;
+                    boolean tablet = getResources().getBoolean(R.bool.isTablet);
+                    if (tablet){
+                        params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+                    } else {
+                        params.height = 800;
+                    }
                     messageCard.setLayoutParams(params);
 
                     layout.setVisibility(View.GONE);
@@ -355,41 +365,33 @@ public class Settings extends AppCompatActivity {
                     language.setVisibility(View.GONE);
                     theme.setVisibility(View.VISIBLE);
 
-                    alertCustomDialog.findViewById(R.id.def).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
-                            requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
-                            requireActivity().finishAffinity();
-                            colorEditor.putString("color", "red");
-                            colorEditor.apply();
-                        }
+                    alertCustomDialog.findViewById(R.id.def).setOnClickListener(v -> {
+                        requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
+                        requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
+                        requireActivity().finishAffinity();
+                        colorEditor.putString("color", "red");
+                        colorEditor.apply();
                     });
-                    alertCustomDialog.findViewById(R.id.pink).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
-                            requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
-                            requireActivity().finishAffinity();
-                            colorEditor.putString("color", "pink");
-                            colorEditor.apply();
-                        }
+                    alertCustomDialog.findViewById(R.id.pink).setOnClickListener(v -> {
+                        requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
+                        requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
+                        requireActivity().finishAffinity();
+                        colorEditor.putString("color", "pink");
+                        colorEditor.apply();
                     });
-                    alertCustomDialog.findViewById(R.id.green).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
-                            requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
-                            requireActivity().finishAffinity();
-                            colorEditor.putString("color", "green");
-                            colorEditor.apply();
-                        }
+                    alertCustomDialog.findViewById(R.id.green).setOnClickListener(v -> {
+                        requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
+                        requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
+                        requireActivity().finishAffinity();
+                        colorEditor.putString("color", "green");
+                        colorEditor.apply();
                     });
 
                     customDialog.show();
                 }
 
             });
+            }
 
 
             MaterialSwitchPreference beta = findPreference("beta");
@@ -560,6 +562,7 @@ public class Settings extends AppCompatActivity {
 
                 }
 
+                @SuppressLint("SetTextI18n")
                 private void showCustomDialog(boolean beta) {
                     customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -583,9 +586,9 @@ public class Settings extends AppCompatActivity {
 
 
                     if (betaSP.getBoolean("beta", false) && beta) {
-                        message.setText(changelogBeta);
+                        message.setText( "Update " + BuildConfig.VERSION_NAME +" to " + versionNameBeta+ "\n\n" + changelogBeta);
                     } else {
-                        message.setText(changelogMessage);
+                        message.setText("Update " + BuildConfig.VERSION_NAME + " to "+ versionName + "\n\n" + changelogMessage);
                     }
 
                     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
@@ -599,15 +602,11 @@ public class Settings extends AppCompatActivity {
 
                     positive.setText(getString(R.string.update_button));
                     positive.setOnClickListener(view -> {
-                        //int check = ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                        if (/*check == PackageManager.PERMISSION_GRANTED &&*/ beta && betaSP.getBoolean("beta", false)) {
+                        if (beta && betaSP.getBoolean("beta", false)) {
                             InstallUpdate(requireActivity(), apkBeta, versionNameBeta);
-                        } else /*if (check == PackageManager.PERMISSION_GRANTED)*/ {
+                        } else {
                             InstallUpdate(requireActivity(), apkUrl, versionName);
-                        } /*else {
-                            customDialog.dismiss();
-                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, requestCode);
-                        }*/
+                        }
                     });
 
                     customDialog.show();
@@ -832,7 +831,12 @@ public class Settings extends AppCompatActivity {
                     message.setText(getString(R.string.app_permission_message));
 
                     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-                    params.height = 600;
+                    boolean tablet = getResources().getBoolean(R.bool.isTablet);
+                    if (tablet){
+                        params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+                    } else {
+                        params.height = 600;
+                    }
 
                     messageCard.setLayoutParams(params);
 
@@ -881,7 +885,12 @@ public class Settings extends AppCompatActivity {
 
 
                     ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-                    params.height = 600;
+                    boolean tablet = getResources().getBoolean(R.bool.isTablet);
+                    if (tablet){
+                        params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+                    } else {
+                        params.height = 600;
+                    }
 
                     messageCard.setLayoutParams(params);
 
