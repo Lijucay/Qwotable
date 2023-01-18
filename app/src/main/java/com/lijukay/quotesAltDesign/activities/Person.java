@@ -3,14 +3,12 @@ package com.lijukay.quotesAltDesign.activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -21,7 +19,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.lijukay.quotesAltDesign.R;
-import com.lijukay.quotesAltDesign.adapter.AllAdapter;
+import com.lijukay.quotesAltDesign.adapter.QuotesAdapter;
 import com.lijukay.quotesAltDesign.adapter.wisdomAdapter;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
 import com.lijukay.quotesAltDesign.item.AllItem;
@@ -40,7 +38,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
     private ArrayList<AllItem> mPQItem;
     private ArrayList<wisdomItem> items;
     private wisdomAdapter adapter;
-    private AllAdapter adapterAll;
+    private QuotesAdapter adapterAll;
     private RequestQueue mRequestQueuePQ;
     private String pQuotes, activity, type;
     private SwipeRefreshLayout swipeRefreshLayoutPQ;
@@ -161,7 +159,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                         }
 
                         //mPQAdapter = new PersonAdapter(Person.this, mPQItem, this);
-                        adapterAll = new AllAdapter(Person.this, mPQItem, this);
+                        adapterAll = new QuotesAdapter(Person.this, mPQItem, this);
                         mRecyclerViewPQ.setAdapter(adapterAll);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -199,7 +197,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                             }
 
                             //mPQAdapter = new PersonAdapter(Person.this, mPQItem, this);
-                            adapterAll = new AllAdapter(Person.this, mPQItem, this);
+                            adapterAll = new QuotesAdapter(Person.this, mPQItem, this);
                             mRecyclerViewPQ.setAdapter(adapterAll);
                         } catch (JSONException e) {
                             e.printStackTrace();

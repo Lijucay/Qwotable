@@ -46,7 +46,7 @@ public class Information extends AppCompatActivity {
 
         color = getSharedPreferences("Colors", 0);
 
-        language = getSharedPreferences("language", 0);  //TODO: ADD MULTILANGUAGE SUPPORT
+        language = getSharedPreferences("language", 0);
 
         switch (color.getString("color", "red")){
             case "red":

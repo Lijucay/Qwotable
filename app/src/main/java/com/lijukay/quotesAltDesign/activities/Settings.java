@@ -67,11 +67,14 @@ public class Settings extends AppCompatActivity {
     static Intent starterIntent;
     static String versionNameBeta, versionName, apkUrl, apkBeta, changelogMessage, changelogBeta, languageCode, colorS;
     static int versionC, versionA, versionB;
-    static boolean internet;
     static SharedPreferences betaSP, language, color;
     static SharedPreferences.Editor betaEditor, languageEditor, colorEditor;
     private static RequestQueue mRequestQueueU;
-    static boolean betaA = false, updateStatus = false;
+    static boolean betaA = false, updateStatus = false, internet;
+    static AlertDialog customDialog;
+
+    @SuppressLint("StaticFieldLeak")
+    static View alertCustomDialog;
 
     public final BroadcastReceiver InternetReceiver = new BroadcastReceiver() {
         @Override
@@ -179,6 +182,7 @@ public class Settings extends AppCompatActivity {
         return intent;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -216,6 +220,13 @@ public class Settings extends AppCompatActivity {
 
         //------Set the contentView to the layout of settings_activity------//
         setContentView(R.layout.settings_activity);
+
+        alertCustomDialog = LayoutInflater.from(this).inflate(R.layout.dialog_bg, null);
+        AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(this);
+        alertDialog2.setView(alertCustomDialog);
+        customDialog = alertDialog2.create();
+        customDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        customDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
         //------IF ANYONE KNOWS WHAT THE CONDITION OF THE IF LOOP HERE IS, PWEASE EXPLAIN ME!------//
         if (savedInstanceState == null) {
@@ -296,13 +307,8 @@ public class Settings extends AppCompatActivity {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             //int requestCode = 100; //TODO: Ask if plan works on older android devices or if it causes errors
 
-            AlertDialog customDialog;
-            View alertCustomDialog = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_bg, null);
-            AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(requireContext());
-            alertDialog2.setView(alertCustomDialog);
-            customDialog = alertDialog2.create();
-            customDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-            customDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+
 
             positive = alertCustomDialog.findViewById(R.id.positive_button);
             negative = alertCustomDialog.findViewById(R.id.negative_button);
@@ -1103,6 +1109,16 @@ public class Settings extends AppCompatActivity {
 
             if (requestCode == PERMISSION_REQUEST_CODE_WRITE_EXTERNAL && (grantResults.length <= 0 || grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 InstallUpdate(requireActivity(), apkUrl, versionName);
+            }
+        }
+
+        @Override
+        public void onConfigurationChanged(@NonNull Configuration newConfig){
+            super.onConfigurationChanged(newConfig);
+            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+                customDialog.dismiss();
+            } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+                customDialog.dismiss();
             }
         }
     }

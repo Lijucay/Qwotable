@@ -23,12 +23,11 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    SharedPreferences language, color;
-    String lang;
-
+    SharedPreferences languageSharedPreference, colorSharedPreference;
+    String languageString;
     BottomNavigationView bottomnavigationview;
     ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
-    ViewPager2 views;
+    ViewPager2 viewPager2;
 
 
     @SuppressLint("NonConstantResourceId")
@@ -36,18 +35,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        language = getSharedPreferences("Language", 0);
-        lang = language.getString("language", Locale.getDefault().getLanguage());
-        Locale locale = new Locale(lang);
+        languageSharedPreference = getSharedPreferences("Language", 0);
+        languageString = languageSharedPreference.getString("language", Locale.getDefault().getLanguage());
+        Locale locale = new Locale(languageString);
         Locale.setDefault(locale);
         Resources resources = this.getResources();
         Configuration config = resources.getConfiguration();
         config.setLocale(locale);
         resources.updateConfiguration(config, resources.getDisplayMetrics());
 
-        color = getSharedPreferences("Colors", 0);
+        colorSharedPreference = getSharedPreferences("Colors", 0);
 
-        switch (color.getString("color", "red")){
+        switch (colorSharedPreference.getString("color", "red")){
             case "red":
                 setTheme(R.style.AppTheme);
                 break;
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.setting).setOnClickListener(view -> startActivity(new Intent(MainActivity.this, Settings.class)));
         bottomnavigationview = findViewById(R.id.bottomNavigation);
-        views = findViewById(R.id.viewPager);
+        viewPager2 = findViewById(R.id.viewPager);
 
         TextView title = findViewById(R.id.custom_title_main);
         title.setText(getString(R.string.app_name));
@@ -76,29 +75,29 @@ public class MainActivity extends AppCompatActivity {
 
         MainAdapter adapter = new MainAdapter(this, fragmentArrayList);
 
-        views.setAdapter(adapter);
+        viewPager2.setAdapter(adapter);
 
-        views.setCurrentItem(1);
+        viewPager2.setCurrentItem(1);
         bottomnavigationview.setSelectedItemId(R.id.homeNav);
 
         bottomnavigationview.setOnItemSelectedListener(item -> {
 
             switch (item.getItemId()){
                 case R.id.quotesNav:
-                    views.setCurrentItem(0);
+                    viewPager2.setCurrentItem(0);
                     break;
                 case R.id.homeNav:
-                    views.setCurrentItem(1);
+                    viewPager2.setCurrentItem(1);
                     break;
                 case R.id.wisdomNav:
-                    views.setCurrentItem(2);
+                    viewPager2.setCurrentItem(2);
                     break;
             }
 
             return true;
         });
 
-        views.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 switch (position){

@@ -12,6 +12,7 @@ import android.os.SystemClock;
 import androidx.annotation.Nullable;
 
 import com.lijukay.quotesAltDesign.activities.Settings;
+import com.lijukay.quotesAltDesign.fragments.home;
 
 public class InternetService extends Service {
 
@@ -48,6 +49,8 @@ public class InternetService extends Service {
             broadCastIntent.setAction(Settings.BroadcastStringForAction);
             broadCastIntent.putExtra("online_status", ""+isOnline(InternetService.this));
             sendBroadcast(broadCastIntent);
+            Intent broadCastIntentMain = new Intent();
+            broadCastIntentMain.setAction(home.BroadcastStringForAction);
         }
     };
 }

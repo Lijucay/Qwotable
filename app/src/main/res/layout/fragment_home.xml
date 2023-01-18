@@ -9,14 +9,13 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/homeSRL">
+        android:id="@+id/homeSwipeRefreshLayout">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="27dp"
         android:clipToPadding="false"
         android:paddingBottom="27dp">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,48 +29,7 @@
                 app:cardUseCompatPadding="true"
                 app:cardElevation="0dp"
                 android:visibility="gone"
-                android:id="@+id/updateCard">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="5dp"
-                        android:text="@string/update_available"
-                        android:textColor="?attr/colorOnErrorContainer"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="10dp"
-                        android:paddingBottom="10dp"
-                        android:text="@string/update_available_message"
-                        android:textColor="?attr/colorOnErrorContainer" />
-
-                </LinearLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="?attr/colorErrorContainer"
-                app:cardCornerRadius="20dp"
-                app:cardUseCompatPadding="true"
-                app:cardElevation="0dp"
-                android:visibility="gone"
-                android:id="@+id/updateCardBeta">
-
+                android:id="@+id/updateCardView">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -84,6 +42,7 @@
                         android:gravity="center"
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="5dp"
+                        android:id="@+id/update_title"
                         android:text="@string/update_available"
                         android:textColor="?attr/colorOnErrorContainer"
                         android:textSize="18sp"
@@ -94,14 +53,12 @@
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
                         android:paddingBottom="10dp"
-                        android:text="@string/update_available_message_beta"
+                        android:id="@+id/update_message"
                         android:textColor="?attr/colorOnErrorContainer" />
-
                 </LinearLayout>
 
 
             </androidx.cardview.widget.CardView>
-
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
