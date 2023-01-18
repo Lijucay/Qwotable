@@ -14,12 +14,17 @@
     }, {
       "title": "No quotes",
       "message": "Due to a few changes on how Qwotable displays quotes in the future, I made some changes to the file, the quotes are getting parsed from. Pwease excuse that until the next update, Qwotable can't display any quotes.",
-      "date of creation": "28.12.22",
+      "date of creation": "28.12.2022",
       "valuable for version": 2
     }, {
       "title": "Important news to the color scheme feature",
       "message": "Due to some limitations on older Android devices, the color scheme will be disabled for every Android device that runs Android 9 and below. Currently,  it is the only possibility to guarantee a good experience",
-      "date of creation": "05.01.22",
+      "date of creation": "05.01.2023",
+      "valuable for version": 0
+    }, {
+      "title": "No wisdom",
+      "message": "Due to a few changes on how Qwotable displays wisdom in the future, I made some changes to the file, the wisdom are getting parsed from. Please excuse that until the next update, Qwotable can't display any wisdom.",
+      "date of creation": "18.01.2023",
       "valuable for version": 0
     }
   ]
