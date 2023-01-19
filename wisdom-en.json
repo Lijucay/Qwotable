@@ -15,12 +15,12 @@
     }, {
       "quote": "Mole: \"Sometimes I want to say \"I love you all\", but I find it difficult.\"\nBoy: \"Do you?\"\nMole: \"Yes, so I say something like \"I'm glad we're all here\".\"\nBoy: \"Okay\"\nMole: \"I'm glad we're all here.\"\nBoy: \"We're so glad you're here too.\"",
       "author": "Charlie Mackery",
-      "found in": "The boy, the mole, the fox and the horse"
+      "found in": "The boy, the mole, the fox and the horse",
       "title": "How to say \"I love you\""
     }, {
       "quote": "Boy: \"What is the bravest thing you've ever said?\"\nHorse: \"Help. Asking for help isn't giving up, it is to refusing to give up.\"",
       "author": "Charlie Mackery",
-      "found in": "The boy, the mole, the fox and the horse"
+      "found in": "The boy, the mole, the fox and the horse",
       "title": "Asking for help isn't giving up"
     }
   ],
@@ -37,7 +37,8 @@
   [
     {
       "wisdom": "Wake up to reality. Nothing ever goes as planned in this accursed world. The longer you live the more you will realize that the only things that truly exist in this reality are merely pain, suffering and futility.[...] Listen, everywhere you look in this world, wherever there is light, there will always be shadows to be found as well. As long as there is a concept of victors, the vanquished will also exist. The selfish intent of wanting to preserve peace initiates wars and hatred is born in order to protect love. There are nexuses, causual relationships that cannot be seperated.",
-      "author": "Madara Uchiha, Naruto",
+      "author": "Madara Uchiha",
+      "found in": "Naruto",
       "titleAll": "The (unplannable) reality"
     }
   ]
