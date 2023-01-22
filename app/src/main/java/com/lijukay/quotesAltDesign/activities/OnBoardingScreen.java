@@ -2,13 +2,17 @@ package com.lijukay.quotesAltDesign.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
+import androidx.core.text.HtmlCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.Html;
 import android.transition.Slide;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -26,6 +30,7 @@ public class OnBoardingScreen extends AppCompatActivity {
     Button previous, next;
     private int currentPage;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -67,6 +72,26 @@ public class OnBoardingScreen extends AppCompatActivity {
 
         //Call Method addDotsIndicator and give it 0 as position
         addDotsIndicator(0);
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int widthPixels = metrics.widthPixels;
+        int heightPixels = metrics.heightPixels;
+
+        float scaleFactor = metrics.density;
+
+        float widthDp = widthPixels / scaleFactor;
+        float heightDp = heightPixels / scaleFactor;
+
+        float smallestWidth = Math.min(widthDp, heightDp);
+
+        if (smallestWidth >= 600) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+
+        }
+        else if (smallestWidth < 600) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
     }
 
     //Creating a method called addDotsIndicator which returns nothing (void)
@@ -77,7 +102,7 @@ public class OnBoardingScreen extends AppCompatActivity {
 
         for (int i = 0; i < mDots.length; i++){
             mDots[i] = new TextView(this);
-            mDots[i].setText(Html.fromHtml("&#8226"));
+            mDots[i].setText(HtmlCompat.fromHtml("&#8226", HtmlCompat.FROM_HTML_MODE_LEGACY));
             mDots[i].setTextSize(35);
             mDots[i].setTextColor(getResources().getColor(R.color.md_theme_light_primaryContainer, getTheme()));
             linearLayout.addView(mDots[i]);
@@ -105,23 +130,23 @@ public class OnBoardingScreen extends AppCompatActivity {
                 previous.setEnabled(false);
                 previous.setVisibility(View.INVISIBLE);
                 next.setText("Next");
+                //Set the action that happens when the buttons are clicked
+                next.setOnClickListener(v -> onBoarding.setCurrentItem(currentPage + 1));
             } else if (position == mDots.length -1){//As mDots.length starts as one but but the Array of pages starts with 0, we will get an OutOfBounds Exeption
                 //So what we have to do is to make the get the length -1
                 next.setEnabled(true);
                 previous.setEnabled(true);
                 previous.setVisibility(View.VISIBLE);
                 next.setText("Start");
-                next.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(OnBoardingScreen.this, MainActivity.class));
-                    }
-                });
+                next.setOnClickListener(v -> startActivity(new Intent(OnBoardingScreen.this, MainActivity.class)));
             } else {
                 next.setEnabled(true);
                 previous.setEnabled(true);
                 previous.setVisibility(View.VISIBLE);
                 next.setText("Next");
+                //Set the action that happens when the buttons are clicked
+                next.setOnClickListener(v -> onBoarding.setCurrentItem(currentPage + 1));
+                previous.setOnClickListener(v -> onBoarding.setCurrentItem(currentPage - 1));
             }
         }
 

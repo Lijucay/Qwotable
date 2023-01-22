@@ -75,6 +75,8 @@ public class home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
+
         v = inflater.inflate(R.layout.fragment_home, container, false);
 
         Intent serviceIntent = new Intent(requireContext(), InternetService.class);

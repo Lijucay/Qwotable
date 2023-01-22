@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:strokeWidth="@dimen/stroke_width"
-    app:strokeColor="?attr/colorOnTertiaryContainer"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="20dp"
@@ -15,12 +14,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
         <TextView
             android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
             android:gravity="center"
             android:textSize="25sp"
             android:id="@+id/wisdomTitle"
@@ -31,18 +28,33 @@
             android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="If everything works as planned, you will see a wisdom story here. If not, this will show (maybe)"
             android:textColor="?attr/colorOnPrimaryContainer"
-            android:textSize="20dp"/>
+            android:textSize="20sp"/>
+
         <TextView
-            android:id="@+id/author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:text="Qwotable, Luca"
-            android:gravity="end"
-            android:padding="10dp"
+            android:textSize="15sp"
+            android:id="@+id/author"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="5dp"
             android:textColor="?attr/colorOnPrimaryContainer"/>
-</LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:id="@+id/found_in_wisdomc"
+            android:paddingHorizontal="10dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="5dp"
+            android:textColor="?attr/colorOnPrimaryContainer"/>
+
+
+
+    </LinearLayout>
+
+
 
 </androidx.cardview.widget.CardView>

@@ -3,9 +3,12 @@ package com.lijukay.quotesAltDesign.activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,18 +49,45 @@ public class MainActivity extends AppCompatActivity {
 
         colorSharedPreference = getSharedPreferences("Colors", 0);
 
-        switch (colorSharedPreference.getString("color", "red")){
-            case "red":
-                setTheme(R.style.AppTheme);
-                break;
-            case "pink":
-                setTheme(R.style.AppThemePink);
-                break;
-            case "green":
-                setTheme(R.style.AppThemeGreen);
-                break;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
+            setTheme(R.style.AppTheme);
+        } else {
+            switch (colorSharedPreference.getString("color", "red")){
+                case "red":
+                    setTheme(R.style.AppTheme);
+                    break;
+                case "pink":
+                    setTheme(R.style.AppThemePink);
+                    break;
+                case "green":
+                    setTheme(R.style.AppThemeGreen);
+                    break;
+            }
         }
 
+        /*boolean tablet = getResources().getBoolean(R.bool.isTablet);*/
+
+
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int widthPixels = metrics.widthPixels;
+        int heightPixels = metrics.heightPixels;
+
+        float scaleFactor = metrics.density;
+
+        float widthDp = widthPixels / scaleFactor;
+        float heightDp = heightPixels / scaleFactor;
+
+        float smallestWidth = Math.min(widthDp, heightDp);
+
+        if (smallestWidth >= 600) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+
+        }
+        else if (smallestWidth < 600) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
 
 
         setContentView(R.layout.activity_main);

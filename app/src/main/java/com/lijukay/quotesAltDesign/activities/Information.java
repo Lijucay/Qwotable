@@ -8,9 +8,14 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.telephony.TelephonyManager;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
 
@@ -40,54 +45,77 @@ public class Information extends AppCompatActivity {
     InformationAdapter adapter;
     SharedPreferences color, language;
 
+    @SuppressLint({"NotifyDataSetChanged", "SourceLockedOrientationActivity"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         color = getSharedPreferences("Colors", 0);
-
         language = getSharedPreferences("language", 0);
 
-        switch (color.getString("color", "red")){
-            case "red":
-                setTheme(R.style.AppTheme);
-                break;
-            case "pink":
-                setTheme(R.style.AppThemePink);
-                break;
-            case "green":
-                setTheme(R.style.AppThemeGreen);
-                break;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
+            setTheme(R.style.AppTheme);
+        } else {
+            switch (color.getString("color", "red")){
+                case "red":
+                    setTheme(R.style.AppTheme);
+                    break;
+                case "pink":
+                    setTheme(R.style.AppThemePink);
+                    break;
+                case "green":
+                    setTheme(R.style.AppThemeGreen);
+                    break;
+            }
+        }
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int widthPixels = metrics.widthPixels;
+        int heightPixels = metrics.heightPixels;
+
+        float scaleFactor = metrics.density;
+
+        float widthDp = widthPixels / scaleFactor;
+        float heightDp = heightPixels / scaleFactor;
+
+        float smallestWidth = Math.min(widthDp, heightDp);
+
+        if (smallestWidth >= 600) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+
+        }
+        else if (smallestWidth < 600) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
         setContentView(R.layout.activity_information);
 
         recyclerView = findViewById(R.id.informationRV);
-        recyclerView.setHasFixedSize(true);
         boolean tablet = getResources().getBoolean(R.bool.isTablet);
         if (tablet){
+            //If the device is a tablet, instead of using a LinearLayout, use a StaggeredGridLayout, so the layout does not look ugly//
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        } else {
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        } else {
+            //If the device is not a tablet, use a LinearLayout as the device is to small to show two spans of content//
+            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         }
+        recyclerView.setHasFixedSize(true);
+
         items = new ArrayList<>();
 
         swipeRefreshLayout = findViewById(R.id.informationSRL);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onRefresh() {
-                Toast.makeText(Information.this, getString(R.string.refresh_message), Toast.LENGTH_SHORT).show();
-                new Handler().postDelayed(() -> {
-                    swipeRefreshLayout.setRefreshing(false);
-                    Cache cache = mRequestQueue.getCache();
-                    adapter.notifyDataSetChanged();
-                    items.clear();
-                    cache.clear();
-                    parseJSON();
-                }, 2000);
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            Toast.makeText(Information.this, getString(R.string.refresh_message), Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(() -> {
+                swipeRefreshLayout.setRefreshing(false);
+                Cache cache = mRequestQueue.getCache();
+                adapter.notifyDataSetChanged();
+                items.clear();
+                cache.clear();
+                parseJSON();
+            }, 2000);
         });
 
 

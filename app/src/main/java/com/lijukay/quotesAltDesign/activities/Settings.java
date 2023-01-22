@@ -1,5 +1,6 @@
 package com.lijukay.quotesAltDesign.activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
@@ -7,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -15,10 +17,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -206,21 +210,45 @@ public class Settings extends AppCompatActivity {
         config.setLocale(locale);
         resources.updateConfiguration(config, resources.getDisplayMetrics());
 
-        switch (color.getString("color", "red")){
-            case "red":
-                setTheme(R.style.AppTheme);
-                break;
-            case "pink":
-                setTheme(R.style.AppThemePink);
-                break;
-            case "green":
-                setTheme(R.style.AppThemeGreen);
-                break;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
+            setTheme(R.style.AppTheme);
+        } else {
+            switch (color.getString("color", "red")){
+                case "red":
+                    setTheme(R.style.AppTheme);
+                    break;
+                case "pink":
+                    setTheme(R.style.AppThemePink);
+                    break;
+                case "green":
+                    setTheme(R.style.AppThemeGreen);
+                    break;
+            }
         }
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int widthPixels = metrics.widthPixels;
+        int heightPixels = metrics.heightPixels;
+
+        float scaleFactor = metrics.density;
+
+        float widthDp = widthPixels / scaleFactor;
+        float heightDp = heightPixels / scaleFactor;
+
+        float smallestWidth = Math.min(widthDp, heightDp);
+
+
 
         //------Set the contentView to the layout of settings_activity------//
         setContentView(R.layout.settings_activity);
 
+        if (smallestWidth >= 600) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+        }
+        else if (smallestWidth < 600) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         alertCustomDialog = LayoutInflater.from(this).inflate(R.layout.dialog_bg, null);
         AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(this);
         alertDialog2.setView(alertCustomDialog);
@@ -306,9 +334,6 @@ public class Settings extends AppCompatActivity {
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             //int requestCode = 100; //TODO: Ask if plan works on older android devices or if it causes errors
-
-
-
 
             positive = alertCustomDialog.findViewById(R.id.positive_button);
             negative = alertCustomDialog.findViewById(R.id.negative_button);

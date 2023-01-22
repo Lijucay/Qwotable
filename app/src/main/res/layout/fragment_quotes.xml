@@ -40,6 +40,7 @@
             app:lottie_loop="true"/>
 
         <TextView
+            android:id="@+id/titleError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
@@ -48,10 +49,18 @@
             android:gravity="center"/>
 
         <TextView
+            android:id="@+id/messageError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="There was an issue while getting your Qwotable. Please have a look at the information's page. If I already know about the issue, there will be an information there, if not, feel free to contact me.\nI will do my best to make it all work again as soon as possible."/>
+
+        <Button
+            android:id="@+id/retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Try again"
+            android:layout_marginTop="10dp"/>
 
 
 

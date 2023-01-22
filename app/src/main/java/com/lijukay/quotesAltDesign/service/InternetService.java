@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 
 import com.lijukay.quotesAltDesign.activities.Settings;
 import com.lijukay.quotesAltDesign.fragments.home;
+import com.lijukay.quotesAltDesign.fragments.quotes;
+import com.lijukay.quotesAltDesign.fragments.wisdom;
 
 public class InternetService extends Service {
 
@@ -51,6 +53,16 @@ public class InternetService extends Service {
             sendBroadcast(broadCastIntent);
             Intent broadCastIntentMain = new Intent();
             broadCastIntentMain.setAction(home.BroadcastStringForAction);
+            broadCastIntentMain.putExtra("online_status", ""+isOnline(InternetService.this));
+            sendBroadcast(broadCastIntentMain);
+            Intent broadCastIntentQuote = new Intent();
+            broadCastIntentQuote.setAction(quotes.BroadCastStringForAction);
+            broadCastIntentQuote.putExtra("online_status", ""+isOnline(InternetService.this));
+            sendBroadcast(broadCastIntentQuote);
+            Intent broadCastIntentWisdom = new Intent();
+            broadCastIntentWisdom.setAction(wisdom.BroadCastStringForAction);
+            broadCastIntentWisdom.putExtra("online_status", ""+isOnline(InternetService.this));
+            sendBroadcast(broadCastIntentWisdom);
         }
     };
 }
