@@ -386,7 +386,7 @@ public class Settings extends AppCompatActivity {
                     if (tablet){
                         params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
                     } else {
-                        params.height = 800;
+                        params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
                     }
                     messageCard.setLayoutParams(params);
 
