@@ -26,6 +26,11 @@
       "message": "Due to a few changes on how Qwotable displays wisdom in the future, I made some changes to the file, the wisdom are getting parsed from. Please excuse that until the next update, Qwotable can't display any wisdom.",
       "date of creation": "18.01.2023",
       "valuable for version": 0
+    }, {
+      "title": "Wisdom disappear",
+      "message": "On tablets: The wisdom are disappearing when the dialog for copy and share is shown. It is yet not clear what causes this bug but I'll do my best to fix this.",
+      "date of creation": "23.01.23",
+      "valuable for version": 5
     }
   ]
 }
