@@ -2,8 +2,6 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: ''
-assignees: ''
 
 ---
 
@@ -11,7 +9,7 @@ assignees: ''
 A clear and concise description of what the bug is.
 
 **To Reproduce**
-Steps to reproduce the behavior:
+Steps to reproduce the behavior you encountered:
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
@@ -24,15 +22,11 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+ - App-Version [e.g. 22] (To find this: Open Settings, scroll to the end. There is a text)
 
 **Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+ - Device: [e.g. Samsung Galaxy A50]
+ - OS + OS-Version: [e.g. OneUI 5] (If you are not sure, you can leave this as it is)
 
 **Additional context**
 Add any other context about the problem here.
