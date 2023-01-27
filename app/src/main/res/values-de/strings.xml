@@ -9,7 +9,7 @@
     <string name="update_title">Updater</string>
     <string name="update_button">Aktualisieren</string>
     <string name="bug_report_title">Bug melden</string>
-    <string name="bug_report_message">Wenn du einen Bug gefunden hast, tut es mir sehr leid. Ich gebe mein Bestes um diese App zu verbessern. In der Zischenzeit kannst du entscheiden, wie du mich erreichen möchtest um den Bug zu melden.\nMöchtest du Telegram oder Email benutzen?</string>
+    <string name="bug_report_message">Wenn du einen Bug gefunden hast, tut es mir sehr leid. Ich gebe mein Bestes um diese App zu verbessern. In der Zwischenzeit kannst du entscheiden, wie du mich erreichen möchtest um den Bug zu melden.\nMöchtest du Telegram oder Email benutzen?</string>
     <string name="email_button">Email</string>
     <string name="telegram_button">Telegram</string>
     <string name="bug_report_mail_subject">Ein Bug wurde gefunden 🐛</string>

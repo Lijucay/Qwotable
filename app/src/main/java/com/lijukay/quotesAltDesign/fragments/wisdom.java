@@ -3,7 +3,6 @@ package com.lijukay.quotesAltDesign.fragments;
 import static android.content.Context.CLIPBOARD_SERVICE;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -11,8 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -20,26 +17,22 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.activities.Person;
 import com.lijukay.quotesAltDesign.adapter.wisdomAdapter;
@@ -54,6 +47,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import www.sanju.motiontoast.MotionToast;
+import www.sanju.motiontoast.MotionToastStyle;
+
 
 public class wisdom extends Fragment implements RecyclerViewInterface {
 
@@ -64,12 +60,12 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
     private SwipeRefreshLayout swipeRefreshLayout;
     private SharedPreferences language;
     private LinearLayout error;
-
     public static String BroadCastStringForAction = "checkInternet";
     private IntentFilter mIntentFilter;
     boolean internet;
     View v;
     private TextView errorMessage, errorTitle;
+    private LinearProgressIndicator progressIndicator;
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
@@ -80,6 +76,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_wisdom, container, false);
 
+        progressIndicator = v.findViewById(R.id.progress);
 
         errorTitle = v.findViewById(R.id.titleError);
         errorMessage = v.findViewById(R.id.messageError);
@@ -106,7 +103,15 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
         swipeRefreshLayout = v.findViewById(R.id.wisdomSRL);
         swipeRefreshLayout.setOnRefreshListener(() -> {
 
-            Toast.makeText(requireActivity(),getString(R.string.refresh_message), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(requireActivity(),getString(R.string.refresh_message), Toast.LENGTH_SHORT).show();
+            MotionToast.Companion.darkToast(requireActivity(),
+                    getString(R.string.refresh_title),
+                    getString(R.string.refresh_message),
+                    MotionToastStyle.INFO,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular));
+
             new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
                 items.clear();
@@ -132,14 +137,19 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
     }
 
     private void parseJSON() {
+        progressIndicator.setVisibility(View.VISIBLE);
+
         String url;
-        if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")){
+
+        url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
+
+        /*if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")){
             url = "https://lijukay.github.io/Qwotable/wisdom-de.json";
         } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")){
             url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
         } else {
             url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
-        }
+        }*/
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 jsonObject -> {
@@ -160,7 +170,15 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
 
                         adapter = new wisdomAdapter(getActivity(), items, this);
                         recyclerView.setAdapter(adapter);
+                        progressIndicator.setVisibility(View.GONE);
                     } catch (JSONException e) {
+                        //If there is an issue with the file, an error layout will be shown
+                        swipeRefreshLayout.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.GONE);
+                        error.setVisibility(View.VISIBLE);
+                        errorMessage.setText(getString(R.string.error_while_parsing_message));
+                        errorTitle.setText(getString(R.string.error_while_parsing_title));
+                        v.findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
                         e.printStackTrace();
                     }
                 }, Throwable::printStackTrace);
@@ -170,7 +188,6 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
 
     @Override
     public void onItemClick(int position, String type) {
-
         switch (type) {
             case "author": {
                 String url;
@@ -236,99 +253,122 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
                 requestQueue.add(jsonObjectRequest);
                 break;
             }
-            case "wisdom": {
-                String url;
-                if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                    url = "https://lijukay.github.io/Qwotable/wisdom-de.json";
-                } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                    url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
+            case "copy": {
+                if (internet){
+                    String url;
+
+                    if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
+                        url = "https://lijukay.github.io/Qwotable/wisdom-de.json";
+                    } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
+                        url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
+                    } else {
+                        url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
+                    }
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                            jsonObject -> {
+                                try {
+                                    JSONArray jsonArray = jsonObject.getJSONArray("Wisdom");
+                                    JSONObject object = jsonArray.getJSONObject(position);
+                                    String wisdom = object.getString("wisdom");
+                                    String author = object.getString("author");
+                                    String title = object.getString("title");
+
+                                    copyText(title + "\n\n" + wisdom + "\n\n" + author);
+                                } catch (JSONException e) {
+                                    //Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message), Toast.LENGTH_SHORT).show();
+                                    MotionToast.Companion.darkToast(requireActivity(),
+                                            getString(R.string.error_while_parsing_title),
+                                            getString(R.string.error_while_parsing_toast_message),
+                                            MotionToastStyle.WARNING,
+                                            MotionToast.GRAVITY_BOTTOM,
+                                            MotionToast.LONG_DURATION,
+                                            ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular));
+
+                                    e.printStackTrace();
+                                }
+                            }, Throwable::printStackTrace);
+                    requestQueue.add(jsonObjectRequest);
                 } else {
-                    url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
+                    //Toast.makeText(requireContext(), "Connect to the internet first", Toast.LENGTH_SHORT).show();
+                    MotionToast.Companion.darkToast(requireActivity(),
+                            getString(R.string.no_internet_title),
+                            getString(R.string.no_internet_toast_message),
+                            MotionToastStyle.ERROR,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.LONG_DURATION,
+                            ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular));
                 }
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                        jsonObject -> {
-                            try {
-                                JSONArray jsonArray = jsonObject.getJSONArray("Wisdom");
-                                 JSONObject object = jsonArray.getJSONObject(position);
-                                  String wisdom = object.getString("wisdom");
-                                  String author = object.getString("author");
-                                  String foundIn = object.getString("found in");
-                                  String title = object.getString("title");
-
-                                  showDialog(wisdom, author, foundIn, title);
-
-
-                                  adapter = new wisdomAdapter(getActivity(), items, this);
-                                  recyclerView.setAdapter(adapter);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }, Throwable::printStackTrace);
-                requestQueue.add(jsonObjectRequest);
                 break;
             }
+            case "share":{
+                if (internet){
+                    String url;
+
+                    if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
+                        url = "https://lijukay.github.io/Qwotable/wisdom-de.json";
+                    } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
+                        url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
+                    } else {
+                        url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
+                    }
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                            jsonObject -> {
+                                try {
+                                    JSONArray jsonArray = jsonObject.getJSONArray("Wisdom");
+                                    JSONObject object = jsonArray.getJSONObject(position);
+                                    String wisdom = object.getString("wisdom");
+                                    String author = object.getString("author");
+
+                                    Intent shareText = new Intent();
+                                    shareText.setAction(Intent.ACTION_SEND);
+                                    shareText.putExtra(Intent.EXTRA_TEXT, wisdom + "\n\n~" + author);
+                                    shareText.setType("text/plain");
+                                    Intent sendText = Intent.createChooser(shareText, null);
+                                    startActivity(sendText);
+
+                                } catch (JSONException e) {
+                                    //Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message), Toast.LENGTH_SHORT).show();
+                                    MotionToast.Companion.darkToast(requireActivity(),
+                                            getString(R.string.error_while_parsing_title),
+                                            getString(R.string.error_while_parsing_toast_message),
+                                            MotionToastStyle.WARNING,
+                                            MotionToast.GRAVITY_BOTTOM,
+                                            MotionToast.LONG_DURATION,
+                                            ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular));
+
+                                    e.printStackTrace();
+                                }
+                            }, Throwable::printStackTrace);
+                    requestQueue.add(jsonObjectRequest);
+                } else {
+                    //Toast.makeText(requireContext(), "Connect to the internet first", Toast.LENGTH_SHORT).show();
+                    MotionToast.Companion.darkToast(requireActivity(),
+                            getString(R.string.no_internet_title),
+                            getString(R.string.no_internet_toast_message),
+                            MotionToastStyle.ERROR,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.LONG_DURATION,
+                            ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular));
+                }
+                break;
+            }
+
+
         }
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void showDialog(String wisdom, String author, String foundIn, String title) {
-        Dialog dialog = new Dialog(requireContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_bg);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-
-        LottieAnimationView lottieAnimationView = dialog.findViewById(R.id.lottie_file);
-        lottieAnimationView.setVisibility(View.GONE);
-
-
-        TextView messageText = dialog.findViewById(R.id.message_text);
-        messageText.setVisibility(View.VISIBLE);
-        messageText.setText(title + "\n\n" + wisdom + "\n\n" + author + "\n\n" + foundIn);
-
-        CardView messageCard = dialog.findViewById(R.id.message_card);
-        messageCard.setVisibility(View.VISIBLE);
-
-        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-        layoutParams.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-
-        messageCard.setLayoutParams(layoutParams);
-
-        TextView titleText = dialog.findViewById(R.id.custom_title);
-        titleText.setVisibility(View.VISIBLE);
-        titleText.setText("More Options - Quotes"); //TODO: String
-
-        Button copy = dialog.findViewById(R.id.positive_button);
-        copy.setText("Copy"); //Todo: String
-
-        Button share = dialog.findViewById(R.id.negative_button);
-        share.setText("Share"); //Todo: String
-
-        Button cancel = dialog.findViewById(R.id.neutral_button);
-
-        cancel.setOnClickListener(v -> dialog.dismiss());
-
-        copy.setOnClickListener(view -> copyText(wisdom + "\n\n~ " + author));
-
-        share.setOnClickListener(view -> {
-            Intent shareText = new Intent();
-            shareText.setAction(Intent.ACTION_SEND);
-            shareText.putExtra(Intent.EXTRA_TEXT, wisdom + "\n\n~" + author);
-            shareText.setType("text/plain");
-            Intent sendText = Intent.createChooser(shareText, null);
-            startActivity(sendText);
-            //todo: create class for sharing Qwotables in a picture with a QR-Code
-        });
-
-        dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
     private void copyText(String wisdom) {
         ClipboardManager clipboard = (ClipboardManager) requireActivity().getSystemService(CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("Wisdom", wisdom);
         clipboard.setPrimaryClip(clip);
-        Toast.makeText(requireContext(), "Qwotable was copied", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(requireContext(), getString(R.string.qwotable_copied_toast_message), Toast.LENGTH_SHORT).show();
+        MotionToast.Companion.darkToast(requireActivity(),
+                getString(R.string.qwotable_copied_toast_title),
+                getString(R.string.qwotable_copied_toast_message),
+                MotionToastStyle.SUCCESS,
+                MotionToast.GRAVITY_BOTTOM,
+                MotionToast.LONG_DURATION,
+                ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular));
     }
 
     @SuppressLint("SetTextI18n")
@@ -339,10 +379,8 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
             swipeRefreshLayout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
             error.setVisibility(View.VISIBLE);
-            errorTitle.setText("No internet");
-            //Todo: String
-            errorMessage.setText("Connect to the internet to see wisdom");
-            //Todo: String
+            errorTitle.setText(getString(R.string.no_internet_title));
+            errorMessage.setText(getString(R.string.no_internet_message_wisdom));
             //If there is no internet, this line checks every 2000 millis, if there still is no internet//
             v.findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
         } else {

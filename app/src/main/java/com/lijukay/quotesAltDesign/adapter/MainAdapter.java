@@ -26,4 +26,5 @@ public class MainAdapter extends FragmentStateAdapter {
     public int getItemCount() {
         return arr.size();
     }
+
 }

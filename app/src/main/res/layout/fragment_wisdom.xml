@@ -6,6 +6,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.quotes">
 
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:indeterminate="true" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,10 +23,7 @@
             android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="27dp"
-            android:paddingBottom="27dp"
-            android:id="@+id/wisdomRV"
-            tools:listitem="@layout/card_wisdom"/>
+            android:id="@+id/wisdomRV"/>
 
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

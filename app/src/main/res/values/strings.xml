@@ -67,6 +67,7 @@
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="settings">Settings</string>
+    <string name="start">Start</string>
 
     <string name="welcome_title">Welcome…</string>
     <string name="welcome_message">… to Qwotable. In the following, you will see features and instructions of Qwotable.</string>
@@ -90,6 +91,21 @@
     <string name="wisdom_example_found_in" translatable="false">The boy, the mole, the fox and the horse</string>
     <string name="wisdom_example_title">About help</string>
     <string name="color_theme_title">Color</string>
-
-
+    <string name="no_internet_title">No internet</string>
+    <string name="no_internet_message_quotes">Connect to the internet to see quotes</string>
+    <string name="no_internet_message_wisdom">Connect to the internet to see wisdom</string>
+    <string name="error_while_parsing_title">Oh no!</string>
+    <string name="error_while_parsing_message">Error while receiving the Qwotables. If there isn\'t already an information on the information-page, feel free to contact me.</string>
+    <string name="more_options_quotes">More options - Quotes</string>
+    <string name="more_options_wisdom">More options - Wisdom</string>
+    <string name="copy_qwotable">Copy</string>
+    <string name="share_qwotable">Share</string>
+    <string name="refresh_title">Updating</string>
+    <string name="qwotable_copied_toast_title">Success!</string>
+    <string name="qwotable_copied_toast_message">Qwotable was copied</string>
+    <string name="no_internet_toast_message">Connect to the internet first</string>
+    <string name="error_while_parsing_toast_message">Can\'t get Qwotables currently</string>
+    <string name="beta_summary_true">You want to get beta updates</string>
+    <string name="beta_summary_false">You don\'t want to get beta updates</string>
+    <string name="bug_report_summary">You found a bug? Click here to send it to me</string>
 </resources>

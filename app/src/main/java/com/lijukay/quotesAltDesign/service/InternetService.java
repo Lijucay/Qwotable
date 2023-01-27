@@ -11,6 +11,8 @@ import android.os.SystemClock;
 
 import androidx.annotation.Nullable;
 
+import com.lijukay.quotesAltDesign.activities.Information;
+import com.lijukay.quotesAltDesign.activities.Person;
 import com.lijukay.quotesAltDesign.activities.Settings;
 import com.lijukay.quotesAltDesign.fragments.home;
 import com.lijukay.quotesAltDesign.fragments.quotes;
@@ -42,6 +44,8 @@ public class InternetService extends Service {
         return ni != null && ni.isConnectedOrConnecting();
     }
 
+
+
     final Handler handler = new Handler();
     private final Runnable periodicUpdate = new Runnable() {
         @Override
@@ -63,6 +67,14 @@ public class InternetService extends Service {
             broadCastIntentWisdom.setAction(wisdom.BroadCastStringForAction);
             broadCastIntentWisdom.putExtra("online_status", ""+isOnline(InternetService.this));
             sendBroadcast(broadCastIntentWisdom);
+            Intent broadCastIntentInformation = new Intent();
+            broadCastIntentInformation.setAction(Information.BroadCastStringForAction);
+            broadCastIntentInformation.putExtra("online_status", ""+isOnline(InternetService.this));
+            sendBroadcast(broadCastIntentInformation);
+            Intent broadCastIntentPerson = new Intent();
+            broadCastIntentPerson.setAction(Person.BroadCastStringForAction);
+            broadCastIntentPerson.putExtra("online_status", ""+isOnline(InternetService.this));
+            sendBroadcast(broadCastIntentPerson);
         }
     };
 }

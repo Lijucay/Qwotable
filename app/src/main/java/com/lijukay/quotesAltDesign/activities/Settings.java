@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -52,6 +53,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.elevation.SurfaceColors;
 import com.lijukay.quotesAltDesign.BuildConfig;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.service.InternetService;
@@ -75,10 +79,8 @@ public class Settings extends AppCompatActivity {
     static SharedPreferences.Editor betaEditor, languageEditor, colorEditor;
     private static RequestQueue mRequestQueueU;
     static boolean betaA = false, updateStatus = false, internet;
-    static AlertDialog customDialog;
 
     @SuppressLint("StaticFieldLeak")
-    static View alertCustomDialog;
 
     public final BroadcastReceiver InternetReceiver = new BroadcastReceiver() {
         @Override
@@ -186,7 +188,7 @@ public class Settings extends AppCompatActivity {
         return intent;
     }
 
-    @SuppressLint("InflateParams")
+    @SuppressLint({"InflateParams", "SourceLockedOrientationActivity"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -243,18 +245,21 @@ public class Settings extends AppCompatActivity {
         //------Set the contentView to the layout of settings_activity------//
         setContentView(R.layout.settings_activity);
 
+        MaterialToolbar materialToolbar = findViewById(R.id.topAppBar);
+        setSupportActionBar(materialToolbar);
+
+        materialToolbar.setNavigationOnClickListener(v -> onBackPressed());
+
+        int color = SurfaceColors.SURFACE_2.getColor(this);
+        getWindow().setStatusBarColor(color);
+        getWindow().setNavigationBarColor(color);
+
         if (smallestWidth >= 600) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         }
         else if (smallestWidth < 600) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
-        alertCustomDialog = LayoutInflater.from(this).inflate(R.layout.dialog_bg, null);
-        AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(this);
-        alertDialog2.setView(alertCustomDialog);
-        customDialog = alertDialog2.create();
-        customDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        customDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
         //------IF ANYONE KNOWS WHAT THE CONDITION OF THE IF LOOP HERE IS, PWEASE EXPLAIN ME!------//
         if (savedInstanceState == null) {
@@ -293,9 +298,6 @@ public class Settings extends AppCompatActivity {
         internet = isOnline(getApplicationContext());
 
         parseJSONVersion();
-
-        Log.e("Udpater", updateStatus+"");
-        Log.e("Version", versionA+"");
     }
 
     public boolean isOnline(Context c) {
@@ -324,23 +326,42 @@ public class Settings extends AppCompatActivity {
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
 
-        private Button negative, positive, neutral;
+        private Button negative;
         private ConstraintLayout layout;
         private Uri telegram;
         private String email;
-
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             //int requestCode = 100; //TODO: Ask if plan works on older android devices or if it causes errors
 
-            positive = alertCustomDialog.findViewById(R.id.positive_button);
-            negative = alertCustomDialog.findViewById(R.id.negative_button);
-            neutral = alertCustomDialog.findViewById(R.id.neutral_button);
-            layout = alertCustomDialog.findViewById(R.id.buttons);
+            CharSequence[] items = {
+                    getString(R.string.german),
+                    getString(R.string.english),
+                    getString(R.string.french)
+            };
+            CharSequence[] colors;
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R){
+                colors =
+                        new CharSequence[]
+                                {
+                                        "Red",
+                                        "Pink",
+                                        "Green"
+                                };
+            } else {
+                colors =
+                        new CharSequence[]
+                                {
+                                        "Dynamic (Follows system)",
+                                        "Pink",
+                                        "Green"
+                                };
+            }
+            int checkedColor = 0;
 
-            neutral.setOnClickListener(view -> customDialog.dismiss());
+            int checkedItem = -1;
 
             telegram = Uri.parse("https://t.me/Lijukay");
 
@@ -349,79 +370,53 @@ public class Settings extends AppCompatActivity {
 
             parseJSONVersion();
 
-            PreferenceCategory theme = findPreference("theme");
+            switch (color.getString("color", "red")){
+                case "red":
+                    break;
+                case "pink":
+                    checkedColor = 1;
+                    break;
+                case "green":
+                    checkedColor = 2;
+                    break;
+            }
+
             Preference color = findPreference("colors");
             assert color != null;
-            assert theme != null;
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
-                theme.setVisible(false);
+                color.setVisible(false);
             } else {
-                theme.setVisible(true);
-            color.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(@NonNull Preference preference) {
-                    showCustomDialog();
+                color.setVisible(true);
+                int finalCheckedColor = checkedColor;
+                color.setOnPreferenceClickListener(preference -> {
+
+                    new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                            .setTitle(getString(R.string.color_theme_title))
+                                    .setSingleChoiceItems(colors, finalCheckedColor, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            switch (which){
+                                                case 0:
+                                                    colorEditor.putString("color", "red");
+                                                    break;
+                                                case 1:
+                                                    colorEditor.putString("color", "pink");
+                                                    break;
+                                                case 2:
+                                                    colorEditor.putString("color", "green");
+                                            }
+                                        }
+                                    })
+                            .setPositiveButton("Okay", (dialog, which) -> {
+                                colorEditor.apply();
+                                requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
+                                requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
+                                requireActivity().finishAffinity();
+                            })
+                            .setNeutralButton(getString(R.string.cancel_button), (dialog, which) -> dialog.dismiss())
+                            .show();
                     return false;
-                }
-
-                private void showCustomDialog(){
-                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
-                    TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
-                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
-
-                    assert lottieAnimationView != null;
-                    lottieAnimationView.setAnimation(R.raw.qwotable);
-
-                    title.setText(getString(R.string.color_theme_title));
-
-                    message.setVisibility(View.GONE);
-
-                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-                    boolean tablet = getResources().getBoolean(R.bool.isTablet);
-                    if (tablet){
-                        params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-                    } else {
-                        params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-                    }
-                    messageCard.setLayoutParams(params);
-
-                    layout.setVisibility(View.GONE);
-                    negative.setVisibility(View.VISIBLE);
-
-                    language.setVisibility(View.GONE);
-                    theme.setVisibility(View.VISIBLE);
-
-                    alertCustomDialog.findViewById(R.id.def).setOnClickListener(v -> {
-                        requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
-                        requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
-                        requireActivity().finishAffinity();
-                        colorEditor.putString("color", "red");
-                        colorEditor.apply();
-                    });
-                    alertCustomDialog.findViewById(R.id.pink).setOnClickListener(v -> {
-                        requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
-                        requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
-                        requireActivity().finishAffinity();
-                        colorEditor.putString("color", "pink");
-                        colorEditor.apply();
-                    });
-                    alertCustomDialog.findViewById(R.id.green).setOnClickListener(v -> {
-                        requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
-                        requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
-                        requireActivity().finishAffinity();
-                        colorEditor.putString("color", "green");
-                        colorEditor.apply();
-                    });
-
-                    customDialog.show();
-                }
-
-            });
+                });
             }
 
 
@@ -446,53 +441,36 @@ public class Settings extends AppCompatActivity {
                 return true;
             });
 
+
             Preference qwrequest = findPreference("qwrequest");
             assert qwrequest != null;
-            qwrequest.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(@NonNull Preference preference) {
+            qwrequest.setOnPreferenceClickListener(preference -> {
 
-                    showCustomDialog();
+                new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                        .setTitle(getString(R.string.qwrequest_title))
+                        .setMessage(getString(R.string.qwrequest_message))
+                        .setIcon(R.drawable.ic_baseline_question_mark_24)
+                        .setPositiveButton(getString(R.string.telegram_button), (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, telegram)))
+                        .setNegativeButton(getString(R.string.email_button), (dialog, which) -> startActivity(composeEmail(email, getString(R.string.feature_suggestion_mail_subject), getString(R.string.feature_suggestion_mail_message))))
+                        .setNeutralButton(getString(R.string.cancel_button), (dialog, which) -> dialog.dismiss())
+                        .show();
 
-                    return false;
-                }
 
-                private void showCustomDialog() {
-                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
-                    TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
-                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
-
-                    assert lottieAnimationView != null;
-                    lottieAnimationView.setAnimation(R.raw.qwotable);
-
-                    title.setText(getString(R.string.qwrequest_title));
-
-                    message.setVisibility(View.VISIBLE);
-                    message.setText(getString(R.string.qwrequest_message));
-
-                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-                    params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-                    messageCard.setLayoutParams(params);
-
-                    layout.setVisibility(View.VISIBLE);
-                    negative.setVisibility(View.VISIBLE);
-
-                    language.setVisibility(View.GONE);
-                    theme.setVisibility(View.GONE);
-
-                    positive.setText(getString(R.string.email_button));
-                    positive.setOnClickListener(view -> startActivity(composeEmail(email, getString(R.string.qwrequest_email_subject), getString(R.string.qwrequest_email_message))));
-                    negative.setText(getString(R.string.telegram_button));
-                    negative.setOnClickListener(view -> startActivity(new Intent(Intent.ACTION_VIEW, telegram)));
-
-                    customDialog.show();
-                }
+                return false;
             });
+
+
+            switch (language.getString("language", Locale.getDefault().getLanguage())){
+                case "de":
+                    checkedItem = 0;
+                    break;
+                case "en":
+                    checkedItem = 1;
+                    break;
+                case "fr":
+                    checkedItem = 2;
+                    break;
+            }
 
 
             Preference language = findPreference("language");
@@ -512,248 +490,99 @@ public class Settings extends AppCompatActivity {
                     break;
             }
 
-            language.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(@NonNull Preference preference) {
-                    showCustomDialog();
-                    return false;
-                }
+            int finalCheckedItem = checkedItem;
+            language.setOnPreferenceClickListener(preference -> {
 
-                private void showCustomDialog() {
-                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
-                    TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
-                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
-
-
-
-                    assert lottieAnimationView != null;
-                    lottieAnimationView.setAnimation(R.raw.language);
-
-                    title.setText(getString(R.string.language_title));
-
-                    message.setVisibility(View.GONE);
-
-                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-                    params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-                    messageCard.setLayoutParams(params);
-
-                    language.setVisibility(View.VISIBLE);
-                    theme.setVisibility(View.GONE);
-
-                    layout.setVisibility(View.GONE);
-
-                    alertCustomDialog.findViewById(R.id.german_language).setOnClickListener(v -> {
-                        languageEditor.putString("language", "de").apply();
-                        requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
-                        requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
-                        requireActivity().finishAffinity();
-                    });
-
-                    alertCustomDialog.findViewById(R.id.english_language).setOnClickListener(v ->{
-                        languageEditor.putString("language", "en").apply();
-                        requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
-                        requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
-                        requireActivity().finishAffinity();
-                    });
-
-                    alertCustomDialog.findViewById(R.id.french_language).setOnClickListener(v -> {
-                        languageEditor.putString("language", "fr").apply();
-                        requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
-                        requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
-                        requireActivity().finishAffinity();
-                    });
-
-                    customDialog.show();
-                }
+                new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                        .setTitle(getString(R.string.language_title))
+                                .setSingleChoiceItems(items, finalCheckedItem, (dialog, which) -> {
+                                    switch (which){
+                                        case 0:
+                                            languageEditor.putString("language", "de");
+                                            break;
+                                        case 1:
+                                            languageEditor.putString("language", "en");
+                                            break;
+                                        case 2:
+                                            languageEditor.putString("language", "fr");
+                                            break;
+                                    }
+                                })
+                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                languageEditor.apply();
+                                requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
+                                requireActivity().overridePendingTransition(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
+                                requireActivity().finishAffinity();
+                            }
+                        })
+                                        .setNeutralButton(getString(R.string.cancel_button), (dialog, which) -> dialog.dismiss())
+                                                .show();
+                return false;
             });
 
             Preference updater = findPreference("updateCheck");
 
             assert updater != null;
-            updater.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(@NonNull Preference preference) {
+            updater.setOnPreferenceClickListener(preference -> {
 
-                    if (!internet) {
-                        Toast.makeText(requireContext(), getString(R.string.cant_check_for_updates), Toast.LENGTH_SHORT).show();
-                    } else  if (!updateStatus && !betaA && betaSP.getBoolean("beta", false) || !updateStatus && !betaSP.getBoolean("beta", false)){
-                        Toast.makeText(requireContext(), getString(R.string.no_update_available), Toast.LENGTH_SHORT).show();
-                    } else if (updateStatus){
-                        showCustomDialog(false);
-                    } else if (betaA && betaSP.getBoolean("beta", false)){
-                        showCustomDialog(true);
-                    }
+                if (!internet) {
+                    Toast.makeText(requireContext(), getString(R.string.cant_check_for_updates), Toast.LENGTH_SHORT).show();
+                } else  if (!updateStatus && !betaA && betaSP.getBoolean("beta", false) || !updateStatus && !betaSP.getBoolean("beta", false)){
+                    Toast.makeText(requireContext(), getString(R.string.no_update_available), Toast.LENGTH_SHORT).show();
+                } else if (updateStatus){
+                    new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                            .setTitle(getString(R.string.update_title))
+                                    .setMessage(BuildConfig.VERSION_NAME +" -> " + versionName + "\n\n" +changelogMessage)
+                                            .setIcon(R.drawable.ic_baseline_system_update_24)
+                                                    .setPositiveButton(getString(R.string.update_button), (dialog, which) -> InstallUpdate(requireActivity(), apkUrl, versionName))
+                                                            .setNeutralButton(getString(R.string.cancel_button), (dialog, which) -> dialog.dismiss())
+                                                                    .show();
 
-                    return false;
+                } else if (betaA && betaSP.getBoolean("beta", false)){
+                    new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                            .setTitle(getString(R.string.update_title))
+                            .setMessage(BuildConfig.VERSION_NAME +" -> " + versionNameBeta + "\n\n" +changelogBeta)
+                            .setIcon(R.drawable.ic_baseline_system_update_24)
+                            .setPositiveButton(getString(R.string.update_button), (dialog, which) -> InstallUpdate(requireActivity(), apkBeta, versionNameBeta))
+                            .setNeutralButton(getString(R.string.cancel_button), (dialog, which) -> dialog.dismiss())
+                            .show();
 
                 }
 
-                @SuppressLint("SetTextI18n")
-                private void showCustomDialog(boolean beta) {
-                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                return false;
 
-                    LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
-                    TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
-                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
-
-
-                    language.setVisibility(View.GONE);
-                    theme.setVisibility(View.GONE);
-
-                    assert lottieAnimationView != null;
-                    lottieAnimationView.setAnimation(R.raw.app_update);
-
-                    title.setText(getString(R.string.update_title));
-
-                    message.setVisibility(View.VISIBLE);
-
-
-                    if (betaSP.getBoolean("beta", false) && beta) {
-                        message.setText( "Update " + BuildConfig.VERSION_NAME +" to " + versionNameBeta+ "\n\n" + changelogBeta);
-                    } else {
-                        message.setText("Update " + BuildConfig.VERSION_NAME + " to "+ versionName + "\n\n" + changelogMessage);
-                    }
-
-                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-                    params.height = 400;
-
-                    messageCard.setLayoutParams(params);
-
-                    layout.setVisibility(View.VISIBLE);
-
-                    negative.setVisibility(View.GONE);
-
-                    positive.setText(getString(R.string.update_button));
-                    positive.setOnClickListener(view -> {
-                        if (beta && betaSP.getBoolean("beta", false)) {
-                            InstallUpdate(requireActivity(), apkBeta, versionNameBeta);
-                        } else {
-                            InstallUpdate(requireActivity(), apkUrl, versionName);
-                        }
-                    });
-
-                    customDialog.show();
-                }
             });
-
-
-            //TODO: OPTIMIZE EVERYTHING BELOW HERE!
 
             Preference bug_report = findPreference("reportBug");
 
             assert bug_report != null;
-            bug_report.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-
-                @Override
-                public boolean onPreferenceClick(@NonNull Preference preference) {
-
-                    showCustomDialog();
-
-                    return false;
-
-                }
-
-                private void showCustomDialog() {
-
-                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
-                    TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-
-                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
-                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
-
-                    language.setVisibility(View.GONE);
-                    theme.setVisibility(View.GONE);
-
-
-                    assert lottieAnimationView != null;
-                    lottieAnimationView.setAnimation(R.raw.bug_report);
-
-                    title.setText(getString(R.string.bug_report_title));
-
-                    message.setVisibility(View.VISIBLE);
-                    message.setText(getString(R.string.bug_report_message));
-
-
-                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-                    params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-
-                    messageCard.setLayoutParams(params);
-
-                    layout.setVisibility(View.VISIBLE);
-
-                    positive.setText(getString(R.string.email_button));
-                    positive.setOnClickListener(view -> startActivity(composeEmail(email, getString(R.string.bug_report_mail_subject), getString(R.string.bug_report_mail_message))));
-
-                    negative.setVisibility(View.VISIBLE);
-                    negative.setText(getString(R.string.telegram_button));
-                    negative.setOnClickListener(view -> startActivity(new Intent(Intent.ACTION_VIEW, telegram)));
-
-                    customDialog.show();
-                }
-
-
+            bug_report.setOnPreferenceClickListener(preference -> {
+                new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                        .setTitle(getString(R.string.bug_report_title))
+                        .setMessage(getString(R.string.bug_report_message))
+                        .setIcon(R.drawable.ic_baseline_bug_report_24)
+                        .setPositiveButton(getString(R.string.telegram_button), (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, telegram)))
+                        .setNegativeButton(getString(R.string.email_button), (dialog, which) -> startActivity(composeEmail(email, getString(R.string.bug_report_mail_subject), getString(R.string.bug_report_mail_message))))
+                        .setNeutralButton(getString(R.string.cancel_button), (dialog, which) -> dialog.dismiss())
+                        .show();
+                return false;
             });
 
 
             Preference feature_suggestion = findPreference("feature");
             assert feature_suggestion != null;
-            feature_suggestion.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(@NonNull Preference preference) {
-                    showCustomDialog();
-                    return false;
-                }
-
-                private void showCustomDialog() {
-                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
-                    TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-
-                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
-                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
-
-
-                    language.setVisibility(View.GONE);
-                    theme.setVisibility(View.GONE);
-
-
-                    assert lottieAnimationView != null;
-                    lottieAnimationView.setAnimation(R.raw.feature_suggestion);
-
-                    title.setText(getString(R.string.feature_suggestion_title));
-
-                    message.setVisibility(View.VISIBLE);
-                    message.setText(getString(R.string.feature_suggestion_message));
-
-                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-                    params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-
-                    messageCard.setLayoutParams(params);
-
-                    layout.setVisibility(View.VISIBLE);
-
-                    positive.setText(getString(R.string.email_button));
-                    positive.setOnClickListener(view -> startActivity(composeEmail(email, getString(R.string.feature_suggestion_mail_subject), getString(R.string.feature_suggestion_mail_message))));
-
-                    negative.setText(getString(R.string.telegram_button));
-                    negative.setOnClickListener(view -> startActivity(new Intent(Intent.ACTION_VIEW, telegram)));
-
-                    customDialog.show();
-                }
+            feature_suggestion.setOnPreferenceClickListener(preference -> {
+                new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                        .setTitle(getString(R.string.feature_suggestion_title))
+                        .setMessage(getString(R.string.feature_suggestion_message))
+                        .setIcon(R.drawable.ic_baseline_auto_awesome_24)
+                        .setPositiveButton(getString(R.string.telegram_button), (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, telegram)))
+                        .setNegativeButton(getString(R.string.email_button), (dialog, which) -> startActivity(composeEmail(email, getString(R.string.feature_suggestion_mail_subject), getString(R.string.feature_suggestion_mail_message))))
+                        .setNeutralButton(getString(R.string.cancel_button), (dialog, which) -> dialog.dismiss())
+                        .show();
+                return false;
             });
 
             Preference share_app = findPreference("share");
@@ -776,375 +605,93 @@ public class Settings extends AppCompatActivity {
             Preference feedback = findPreference("feedback");
 
             assert feedback != null;
-            feedback.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(@NonNull Preference preference) {
+            feedback.setOnPreferenceClickListener(preference -> {
 
-                    showCustomDialog();
+                new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                        .setTitle(getString(R.string.feedback_title))
+                        .setMessage(getString(R.string.feedback_message))
+                        .setIcon(R.drawable.ic_baseline_feedback_24)
+                        .setPositiveButton(getString(R.string.telegram_button), (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, telegram)))
+                        .setNegativeButton(getString(R.string.email_button), (dialog, which) -> startActivity(composeEmail(email, getString(R.string.feedback_email_subject), getString(R.string.feedback_email_message))))
+                        .setNeutralButton(getString(R.string.cancel_button), (dialog, which) -> dialog.dismiss())
+                        .show();
 
-                    return false;
+                return false;
 
-                }
-
-                private void showCustomDialog() {
-                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
-                    TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-
-                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
-                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
-
-
-                    language.setVisibility(View.GONE);
-                    theme.setVisibility(View.GONE);
-
-
-                    assert lottieAnimationView != null;
-                    lottieAnimationView.setAnimation(R.raw.feedback);
-
-                    title.setText(getString(R.string.feedback_title));
-
-                    message.setVisibility(View.VISIBLE);
-                    message.setText(getString(R.string.feedback_message));
-
-
-                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-                    params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-                    messageCard.setLayoutParams(params);
-
-                    layout.setVisibility(View.VISIBLE);
-
-                    positive.setText(getString(R.string.email_button));
-                    positive.setOnClickListener(view -> startActivity(composeEmail(email, getString(R.string.feedback_email_subject), getString(R.string.feedback_email_message))));
-
-                    negative.setText(getString(R.string.telegram_button));
-                    negative.setOnClickListener(view -> startActivity(new Intent(Intent.ACTION_VIEW, telegram)));
-
-                    customDialog.show();
-                }
             });
 
             Preference app_permission = findPreference("permission");
             assert app_permission != null;
-            app_permission.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(@NonNull Preference preference) {
-                    showCustomDialog();
-                    return false;
-                }
+            app_permission.setOnPreferenceClickListener(preference -> {
 
-                private void showCustomDialog() {
+                new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                        .setTitle(getString(R.string.app_permission_title))
+                        .setMessage(getString(R.string.app_permission_message))
+                        .setIcon(R.drawable.ic_baseline_gpp_good_24)
+                        .setPositiveButton("Okay", (dialog, which) -> dialog.dismiss())
+                        .show();
 
-                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
-                    TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-
-                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
-                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
-
-
-                    language.setVisibility(View.GONE);
-                    theme.setVisibility(View.GONE);
-
-
-                    assert lottieAnimationView != null;
-                    lottieAnimationView.setAnimation(R.raw.permissions);
-
-                    title.setText(getString(R.string.app_permission_title));
-
-                    message.setVisibility(View.VISIBLE);
-                    message.setText(getString(R.string.app_permission_message));
-
-                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-                    boolean tablet = getResources().getBoolean(R.bool.isTablet);
-                    if (tablet){
-                        params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-                    } else {
-                        params.height = 600;
-                    }
-
-                    messageCard.setLayoutParams(params);
-
-                    layout.setVisibility(View.GONE);
-
-                    customDialog.show();
-                }
+                return false;
             });
 
             Preference privacy_policy = findPreference("policy");
 
             assert privacy_policy != null;
-            privacy_policy.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(@NonNull Preference preference) {
+            privacy_policy.setOnPreferenceClickListener(preference -> {
 
-                    showCustomDialog();
-
-                    return false;
-
-                }
-
-                private void showCustomDialog() {
-
-                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
-                    TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-
-                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
-                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
+                new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                        .setTitle(getString(R.string.privacy_policy_title))
+                        .setMessage(getString(R.string.privacy_policy_message))
+                        .setIcon(R.drawable.ic_baseline_gpp_maybe_24)
+                        .setPositiveButton("Okay", (dialog, which) -> dialog.dismiss())
+                        .show();
 
 
-                    language.setVisibility(View.GONE);
-                    theme.setVisibility(View.GONE);
+                return false;
 
-                    assert lottieAnimationView != null;
-                    lottieAnimationView.setAnimation(R.raw.privacy_policy);
-
-                    title.setText(getString(R.string.privacy_policy_title));
-
-                    message.setVisibility(View.VISIBLE);
-                    message.setText(getString(R.string.privacy_policy_message));
-
-
-                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-                    boolean tablet = getResources().getBoolean(R.bool.isTablet);
-                    if (tablet){
-                        params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-                    } else {
-                        params.height = 600;
-                    }
-
-                    messageCard.setLayoutParams(params);
-
-                    layout.setVisibility(View.GONE);
-
-                    customDialog.show();
-                }
             });
 
             Preference license = findPreference("license");
 
             assert license != null;
-            license.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(@NonNull Preference preference) {
+            license.setOnPreferenceClickListener(preference -> {
 
-                    showCustomDialog();
+                new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                        .setTitle(getString(R.string.license_title))
+                        .setMessage(getString(R.string.license_message))
+                        .setIcon(R.drawable.ic_baseline_local_police_24)
+                        .setPositiveButton("Okay", (dialog, which) -> dialog.dismiss())
+                        .show();
 
-                    return false;
-                }
-
-                private void showCustomDialog() {
-
-                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
-                    TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
-                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
-
-
-                    language.setVisibility(View.GONE);
-                    theme.setVisibility(View.GONE);
-
-
-                    assert lottieAnimationView != null;
-                    lottieAnimationView.setAnimation(R.raw.license);
-
-                    title.setText(getString(R.string.license_title));
-
-                    message.setVisibility(View.VISIBLE);
-                    message.setText(getString(R.string.license_message));
-
-                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-                    params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-
-                    messageCard.setLayoutParams(params);
-
-                    layout.setVisibility(View.GONE);
-
-                    customDialog.show();
-                }
+                return false;
             });
 
             Preference wiki = findPreference("wiki");
 
             assert wiki != null;
-            wiki.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(@NonNull Preference preference) {
+            wiki.setOnPreferenceClickListener(preference -> {
 
-                    showCustomDialog();
+                new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                        .setTitle(getString(R.string.wiki_title))
+                        .setMessage(getString(R.string.wiki_message))
+                        .setIcon(R.drawable.ic_baseline_web_stories_24)
+                        .setPositiveButton(getString(R.string.wiki_button), (dialog, which) -> {
+                            String url = "https://lijukay.gitbook.io/qwotable/";
 
-                    return false;
-                }
+                            CustomTabColorSchemeParams colorSchemeParams = new CustomTabColorSchemeParams.Builder().setToolbarColor(getResources().getColor(R.color.md_theme_dark_onPrimary, requireActivity().getTheme())).build();
 
-                private void showCustomDialog() {
-
-                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
-                    TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-                    TextView message = alertCustomDialog.findViewById(R.id.message_text);
-                    CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-
-                    LinearLayout language = alertCustomDialog.findViewById(R.id.language);
-                    LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
-
-
-                    language.setVisibility(View.GONE);
-                    theme.setVisibility(View.GONE);
-
-
-                    assert lottieAnimationView != null;
-                    lottieAnimationView.setAnimation(R.raw.wiki);
-
-                    title.setText(getString(R.string.wiki_title));
-
-                    message.setVisibility(View.VISIBLE);
-                    message.setText(getString(R.string.wiki_message));
-
-                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-                    params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-
-                    messageCard.setLayoutParams(params);
-
-                    layout.setVisibility(View.VISIBLE);
-
-                    negative.setVisibility(View.GONE);
-
-                    positive.setText(getText(R.string.wiki_button));
-                    positive.setOnClickListener(view -> {
-                        String url = "https://lijukay.gitbook.io/qwotable/";
-
-                        CustomTabColorSchemeParams colorSchemeParams = new CustomTabColorSchemeParams.Builder().setToolbarColor(getResources().getColor(R.color.md_theme_dark_onPrimary, requireActivity().getTheme())).build();
-
-                        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                        builder.setCloseButtonPosition(CustomTabsIntent.CLOSE_BUTTON_POSITION_DEFAULT);
-                        builder.setStartAnimations(requireContext(), rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
-                        builder.setExitAnimations(requireContext(), rikka.core.R.anim.fade_out, rikka.core.R.anim.fade_in);
-                        builder.setDefaultColorSchemeParams(colorSchemeParams);
-                        CustomTabsIntent customTabsIntent = builder.build();
-                        customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
-                    });
-
-                    customDialog.show();
-                }
-
-
+                            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                            builder.setCloseButtonPosition(CustomTabsIntent.CLOSE_BUTTON_POSITION_DEFAULT);
+                            builder.setStartAnimations(requireContext(), rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);
+                            builder.setExitAnimations(requireContext(), rikka.core.R.anim.fade_out, rikka.core.R.anim.fade_in);
+                            builder.setDefaultColorSchemeParams(colorSchemeParams);
+                            CustomTabsIntent customTabsIntent = builder.build();
+                            customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
+                        })
+                        .setNeutralButton(getString(R.string.cancel_button), (dialog, which) -> dialog.dismiss())
+                        .show();
+                return false;
             });
-
-        }
-
-
-        private void showPermissionDialog() {
-
-            AlertDialog customDialog;
-
-            View alertCustomDialog = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_bg, null);
-
-            AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(requireContext());
-            alertDialog2.setView(alertCustomDialog);
-
-            customDialog = alertDialog2.create();
-            //customDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-            customDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-
-            positive = alertCustomDialog.findViewById(R.id.positive_button);
-
-            negative = alertCustomDialog.findViewById(R.id.negative_button);
-
-            neutral = alertCustomDialog.findViewById(R.id.neutral_button);
-
-            layout = alertCustomDialog.findViewById(R.id.buttons);
-
-            neutral.setOnClickListener(view -> customDialog.dismiss());
-
-            customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-            LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
-
-            assert lottieAnimationView != null;
-            lottieAnimationView.setAnimation(R.raw.permissions);
-
-            TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-            title.setText(getString(R.string.permission_required_title));
-
-            TextView message = alertCustomDialog.findViewById(R.id.message_text);
-            message.setText(getString(R.string.permission_required_message));
-
-            CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-
-            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-            params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-
-            messageCard.setLayoutParams(params);
-
-            layout.setVisibility(View.VISIBLE);
-
-            positive.setText(getString(R.string.grant_permission_button));
-            positive.setOnClickListener(view -> {
-                Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-
-                Uri uri = Uri.fromParts("package", requireActivity().getPackageName(), null);
-
-                intent.setData(uri);
-
-                startActivity(intent);
-
-                customDialog.dismiss();
-
-                Toast.makeText(requireActivity(), "Go to \"Permission\" > \"Storage\" > \"Allow\"", Toast.LENGTH_SHORT).show();
-            });
-
-            negative.setVisibility(View.GONE);
-
-            LinearLayout language = alertCustomDialog.findViewById(R.id.language);
-            LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
-
-
-            language.setVisibility(View.GONE);
-            theme.setVisibility(View.GONE);
-
-
-            customDialog.show();
-        }
-
-        @SuppressWarnings("deprecation")
-        @SuppressLint({"MissingSuperCall"})
-        @Override
-        public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-            int PERMISSION_REQUEST_CODE_WRITE_EXTERNAL = 100;
-
-            if (requestCode == PERMISSION_REQUEST_CODE_WRITE_EXTERNAL && (grantResults.length <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED)) {
-                showPermissionDialog();
-            }
-
-            if (requestCode == PERMISSION_REQUEST_CODE_WRITE_EXTERNAL && (grantResults.length <= 0 || grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                InstallUpdate(requireActivity(), apkUrl, versionName);
-            }
-        }
-
-        @Override
-        public void onConfigurationChanged(@NonNull Configuration newConfig){
-            super.onConfigurationChanged(newConfig);
-            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
-                customDialog.dismiss();
-            } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-                customDialog.dismiss();
-            }
         }
     }
 }

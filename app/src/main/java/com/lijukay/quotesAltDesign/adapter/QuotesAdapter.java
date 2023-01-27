@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,7 +45,6 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.AllViewHol
         String foundIn = currentItemAll.getFoundIn();
         if (foundIn.equals("")){
             holderAll.mFoundIn.setVisibility(View.GONE);
-            holderAll.mAuthorAll.setPadding(10, 5, 10, 10);
         }
 
         holderAll.mQuoteAll.setText(allQuote);
@@ -61,6 +61,9 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.AllViewHol
         public final TextView mQuoteAll;
         public final TextView mAuthorAll;
         public final TextView mFoundIn;
+        public final Button copy;
+        public final Button share;
+        //public final Button saveAsImage;
 
 
         public AllViewHolder(@NonNull View itemViewAll, RecyclerViewInterface recyclerViewInterface) {
@@ -68,6 +71,23 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.AllViewHol
             mQuoteAll = itemViewAll.findViewById(R.id.quote);
             mAuthorAll = itemViewAll.findViewById(R.id.author);
             mFoundIn = itemViewAll.findViewById(R.id.found_in);
+            copy = itemViewAll.findViewById(R.id.copy);
+            share = itemViewAll.findViewById(R.id.share);
+            //saveAsImage = itemViewAll.findViewById(R.id.saveAsImage);
+
+            /*saveAsImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (recyclerViewInterface != null){
+                        int position = getAdapterPosition();
+                        String type = "save";
+
+                        if(position != RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(position, type);
+                        }
+                    }
+                }
+            });*/
 
             mAuthorAll.setOnClickListener(view -> {
                 if (recyclerViewInterface != null){
@@ -91,16 +111,28 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.AllViewHol
                 }
             });
 
-            mQuoteAll.setOnClickListener(v -> {
+            copy.setOnClickListener(v -> {
                 if(recyclerViewInterface != null){
                     int position = getAdapterPosition();
-                    String type = "Quote";
+                    String type = "copy";
 
                     if (position != RecyclerView.NO_POSITION){
                         recyclerViewInterface.onItemClick(position, type);
                     }
                 }
             });
+
+            share.setOnClickListener(v -> {
+                if(recyclerViewInterface != null){
+                    int position = getAdapterPosition();
+                    String type = "share";
+
+                    if (position != RecyclerView.NO_POSITION){
+                        recyclerViewInterface.onItemClick(position, type);
+                    }
+                }
+            });
+
 
         }
     }

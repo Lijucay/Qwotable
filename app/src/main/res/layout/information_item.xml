@@ -1,47 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    style="?attr/materialCardViewOutlinedStyle"
+    android:layout_margin="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardUseCompatPadding="true"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="0dp"
-    android:backgroundTint="?attr/colorPrimaryContainer">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
-            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/titleInfo"
-            android:text="Title"
-            android:textSize="25sp"
-            android:textColor="?attr/colorOnPrimaryContainer"
-            android:textStyle="bold"
-            android:gravity="center"/>
+            style="?attr/textAppearanceTitleLarge"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textStyle="bold" />
         <TextView
-            android:padding="10dp"
+            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/messageInfo"
-            android:textSize="20sp"
-            android:text="This is the information, given by me. Whenever something special happens or is about to happen, you can read it here"
-            android:textColor="?attr/colorOnPrimaryContainer"/>
+            style="?attr/textAppearanceTitleMedium"
+            android:textColor="?android:attr/textColorSecondary"/>
         <TextView
+            android:layout_marginTop="8dp"
             android:id="@+id/dateInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:gravity="end"
-            android:textColor="?attr/colorOnPrimaryContainer"
-            android:text="18.12.2022"
-            android:textSize="15sp"/>
+            style="?attr/textAppearanceBodyMedium"
+            android:textColor="?android:attr/textColorSecondary" />
 
     </LinearLayout>
 
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

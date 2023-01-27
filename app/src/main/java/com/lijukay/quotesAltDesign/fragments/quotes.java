@@ -2,8 +2,8 @@ package com.lijukay.quotesAltDesign.fragments;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -11,36 +11,30 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.activities.Person;
 import com.lijukay.quotesAltDesign.adapter.QuotesAdapter;
@@ -51,7 +45,6 @@ import com.lijukay.quotesAltDesign.service.InternetService;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -68,8 +61,11 @@ public class quotes extends Fragment implements RecyclerViewInterface {
     public static String BroadCastStringForAction = "checkInternet";
     private IntentFilter mIntentFilter;
     boolean internet;
-    View v;
+    private View v;
     private TextView errorMessage, errorTitle;
+    boolean tablet;
+    private LinearProgressIndicator progressIndicator;
+    int permission;
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
@@ -80,6 +76,9 @@ public class quotes extends Fragment implements RecyclerViewInterface {
 
         //Inflating the layout//
         v = inflater.inflate(R.layout.fragment_quotes, container, false);
+
+        permission = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
 
         errorTitle = v.findViewById(R.id.titleError);
         errorMessage = v.findViewById(R.id.messageError);
@@ -92,13 +91,15 @@ public class quotes extends Fragment implements RecyclerViewInterface {
         mIntentFilter.addAction(BroadCastStringForAction);
         internet = isOnline(requireActivity().getApplicationContext());
 
+        progressIndicator = v.findViewById(R.id.progress);
+        progressIndicator.setVisibility(View.GONE);
 
         //finding the Recyclerview in the inflated layout//
         recyclerView = v.findViewById(R.id.quotesRV);
         //allow the RecyclerView to avoid invalidating the whole layout when its adapter contents change//
         recyclerView.setHasFixedSize(true);
         //Checking, if the used device is a tablet (or a big device)
-        boolean tablet = getResources().getBoolean(R.bool.isTablet);
+        tablet = getResources().getBoolean(R.bool.isTablet);
         if (tablet){
             //If the device is a tablet, instead of using a LinearLayout, use a StaggeredGridLayout, so the layout does not look ugly//
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -156,10 +157,8 @@ public class quotes extends Fragment implements RecyclerViewInterface {
             swipeRefreshLayout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
             error.setVisibility(View.VISIBLE);
-            errorTitle.setText("No internet");
-            //Todo: String
-            errorMessage.setText("Connect to the internet to see quotes.");
-            //Todo: String
+            errorTitle.setText(getString(R.string.no_internet_title));
+            errorMessage.setText(getString(R.string.no_internet_message_quotes));
             //If there is no internet, this line checks every 2000 millis, if there still is no internet//
             v.findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
         } else {
@@ -173,14 +172,16 @@ public class quotes extends Fragment implements RecyclerViewInterface {
     }
 
     private void parseJSON() {
+        progressIndicator.setVisibility(View.VISIBLE);
         //Creating a local String called url//
         String url;
 
+        url = "https://lijukay.github.io/Qwotable/quotes-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
         //checking the value of the language-preference, which, if not changed in the settings, is the system's language//
-        if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")){
+        /*if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")){
             //If the language, either system's language, of if already changed, the app language is set to "de" (German)
             //The app will parse the quotes from the German JSON-File on this link//
-            //TODO: Try if url = "https://lijukay.github.io/Qwotable/quotes-" +Locale.getDefault().getLanguage()+ ".json" works
+            //TODO: Try if url = "https://lijukay.github.io/Qwotable/quotes-" +Locale.getDefault().getLanguage()+ ".json" works - Seems like it is
             url = "https://lijukay.github.io/Qwotable/quotes-de.json";
         } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")){
             //If the language, either system's language, of if already changed, the app language is set to "fr" (French)
@@ -189,7 +190,7 @@ public class quotes extends Fragment implements RecyclerViewInterface {
         } else {
             //If the language is none of the above, it will parse the English-File//
             url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-        }
+        }*/
 
         //Creating a new JSON-Object request//
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -215,15 +216,15 @@ public class quotes extends Fragment implements RecyclerViewInterface {
                         adapter = new QuotesAdapter(getActivity(), items, this);
                         //set the RecyclerView's adapter to the created adapter//
                         recyclerView.setAdapter(adapter);
+                        progressIndicator.setVisibility(View.GONE);
                     } catch (JSONException e) {
                         //If there is an issue with the file, an error layout will be shown
                         swipeRefreshLayout.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.GONE);
                         error.setVisibility(View.VISIBLE);
-                        errorMessage.setText("There was an issue while getting your Qwotable. Please have a look at the information's page. If I already know about the issue, there will be an information there, if not, feel free to contact me.\nI will do my best to make it all work again as soon as possible.");
-                        //TODO: String
-                        errorTitle.setText("Oh no!");
-                        //TODO:String
+                        errorMessage.setText(getString(R.string.error_while_parsing_message));
+                        errorTitle.setText(getString(R.string.error_while_parsing_title));
+                        v.findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
                         e.printStackTrace();
                     }
                 }, Throwable::printStackTrace);
@@ -255,7 +256,7 @@ public class quotes extends Fragment implements RecyclerViewInterface {
                                 Intent intent = new Intent(requireActivity(), Person.class);
                                 intent.putExtra("author", authorP);
                                 intent.putExtra("type", "author");
-                                intent.putExtra("Activity", "quotes");
+                                intent.putExtra("Activity", "Quotes");
                                 startActivity(intent);
 
                             } catch (JSONException e) {
@@ -287,7 +288,7 @@ public class quotes extends Fragment implements RecyclerViewInterface {
                                 Intent intent = new Intent(requireActivity(), Person.class);
                                 intent.putExtra("author", authorP);
                                 intent.putExtra("type", "found in");
-                                intent.putExtra("Activity", "quotes");
+                                intent.putExtra("Activity", "Quotes");
                                 startActivity(intent);
 
                             } catch (JSONException e) {
@@ -298,95 +299,148 @@ public class quotes extends Fragment implements RecyclerViewInterface {
 
                 break;
             }
-            case "Quote": {
-                if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                    url = "https://lijukay.github.io/Qwotable/quotes-de.json";
-                } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                    url = "https://lijukay.github.io/Qwotable/quotes-en.json";
+            case "copy": {
+                if (internet) {
+                    if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
+                        url = "https://lijukay.github.io/Qwotable/quotes-de.json";
+                    } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
+                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
+                    } else {
+                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
+                    }
+
+
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                            jsonObject -> {
+                                try {
+                                    JSONArray jsonArray = jsonObject.getJSONArray("Quotes");
+                                    JSONObject object = jsonArray.getJSONObject(position);
+
+                                    String quote = object.getString("quote");
+                                    String author = object.getString("author");
+
+                                    copyText(quote + "\n\n~ " + author);
+                                } catch (JSONException e) {
+                                    Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message), Toast.LENGTH_SHORT).show();
+                                    e.printStackTrace();
+                                }
+                            }, Throwable::printStackTrace);
+                    requestQueue.add(jsonObjectRequest);
+
                 } else {
-                    url = "https://lijukay.github.io/Qwotable/quotes-en.json";
+                    Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
                 }
-
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                        jsonObject -> {
-                            try {
-                                JSONArray jsonArray = jsonObject.getJSONArray("Quotes");
-                                JSONObject object = jsonArray.getJSONObject(position);
-
-                                String quote = object.getString("quote");
-                                String author = object.getString("author");
-                                String foundIn = object.getString("found in");
-
-                                showDialogs(quote, author, foundIn);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }, Throwable::printStackTrace);
-                requestQueue.add(jsonObjectRequest);
                 break;
             }
+            case "share": {
+                if (internet) {
+                    if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
+                        url = "https://lijukay.github.io/Qwotable/quotes-de.json";
+                    } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
+                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
+                    } else {
+                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
+                    }
+
+
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                            jsonObject -> {
+                                try {
+                                    JSONArray jsonArray = jsonObject.getJSONArray("Quotes");
+                                    JSONObject object = jsonArray.getJSONObject(position);
+
+                                    String quote = object.getString("quote");
+                                    String author = object.getString("author");
+
+                                    Intent shareText = new Intent();
+                                    shareText.setAction(Intent.ACTION_SEND);
+                                    shareText.putExtra(Intent.EXTRA_TEXT, quote + "\n\n~" + author);
+                                    shareText.setType("text/plain");
+                                    Intent sendText = Intent.createChooser(shareText, null);
+                                    startActivity(sendText);
+
+                                } catch (JSONException e) {
+                                    Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message), Toast.LENGTH_SHORT).show();
+                                    e.printStackTrace();
+                                }
+                            }, Throwable::printStackTrace);
+                    requestQueue.add(jsonObjectRequest);
+
+                } else {
+                    Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
+                }
+            }
+            break;
+            /*case "save": {
+                if (internet) {
+                    if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
+                        url = "https://lijukay.github.io/Qwotable/quotes-de.json";
+                    } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
+                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
+                    } else {
+                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
+                    }
+
+
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                            jsonObject -> {
+                                try {
+                                    JSONArray jsonArray = jsonObject.getJSONArray("Quotes");
+                                    JSONObject object = jsonArray.getJSONObject(position);
+
+                                    String quote = object.getString("quote");
+                                    String author = object.getString("author");
+
+                                    saveImage(quote, author);
+                                } catch (JSONException e) {
+                                    Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message), Toast.LENGTH_SHORT).show();
+                                    e.printStackTrace();
+                                }
+                            }, Throwable::printStackTrace);
+                    requestQueue.add(jsonObjectRequest);
+
+                } else {
+                    Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
+                }
+            }
+            break;*/
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    private void showDialogs(String quote, String author, String foundIn) {
-        Dialog dialog = new Dialog(requireContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_bg);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+    /*private void saveImage(String quote, String author) {
+        // Erstelle einen Bitmap mit der Größe der gewünschten Bildgröße
+        Bitmap bitmap = Bitmap.createBitmap(500, 500, Bitmap.Config.ARGB_8888);
+        bitmap.eraseColor(0xffffff);
+        Canvas canvas = new Canvas(bitmap);
 
-        LottieAnimationView lottieAnimationView = dialog.findViewById(R.id.lottie_file);
-        lottieAnimationView.setVisibility(View.GONE);
+        // Erstelle eine Textbereich mit der Größe des Bitmaps
+        StaticLayout layout = new StaticLayout(quote + "\n\n" + author, new TextPaint(), bitmap.getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+        // Zeichne die Strings auf den Canvas
+        layout.draw(canvas);
 
+        // Speichere den Bitmap als PNG
+        File root = Environment.getExternalStorageDirectory();
+        Calendar calendar = Calendar.getInstance();
+        int minute = calendar.get(Calendar.MINUTE);
+        File cachePath = new File(root.getAbsolutePath() + "/DCIM/Camera/image"+ "Qwotable" + minute + ".png");
+        try {
+            cachePath.createNewFile();
+            Log.e("hnf", cachePath.createNewFile()+"");
+            FileOutputStream ostream = new FileOutputStream(cachePath);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, ostream);
+            ostream.close();
+            Toast.makeText(requireContext(), "Done", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }*/
 
-        TextView messageText = dialog.findViewById(R.id.message_text);
-        messageText.setVisibility(View.VISIBLE);
-        messageText.setText(quote + "\n\n" + author + "\n\n" + foundIn);
-
-        CardView messageCard = dialog.findViewById(R.id.message_card);
-        messageCard.setVisibility(View.VISIBLE);
-
-        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-        layoutParams.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-
-        messageCard.setLayoutParams(layoutParams);
-
-        TextView titleText = dialog.findViewById(R.id.custom_title);
-        titleText.setVisibility(View.VISIBLE);
-        titleText.setText("More Options - Quotes"); //TODO: String
-
-        Button copy = dialog.findViewById(R.id.positive_button);
-        copy.setText("Copy"); //Todo: String
-
-        Button share = dialog.findViewById(R.id.negative_button);
-        share.setText("Share"); //Todo: String
-
-        Button cancel = dialog.findViewById(R.id.neutral_button);
-
-        cancel.setOnClickListener(v -> dialog.dismiss());
-
-        copy.setOnClickListener(view -> copyText(quote + "\n\n~ " + author));
-
-        share.setOnClickListener(view -> {
-            Intent shareText = new Intent();
-            shareText.setAction(Intent.ACTION_SEND);
-            shareText.putExtra(Intent.EXTRA_TEXT, quote + "\n\n~" + author);
-            shareText.setType("text/plain");
-            Intent sendText = Intent.createChooser(shareText, null);
-            startActivity(sendText);
-            //todo: create class for sharing Qwotables in a picture with a QR-Code
-        });
-
-        dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-    }
 
     private void copyText(String quote) {
         ClipboardManager clipboard = (ClipboardManager) requireActivity().getSystemService(CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("Quotes", quote);
         clipboard.setPrimaryClip(clip);
-        Toast.makeText(requireContext(), "Qwotable was copied", Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireContext(), getString(R.string.qwotable_copied_toast_message), Toast.LENGTH_SHORT).show();
     }
 
     public final BroadcastReceiver InternetReceiver = new BroadcastReceiver() {

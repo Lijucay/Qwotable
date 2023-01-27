@@ -40,6 +40,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.lijukay.quotesAltDesign.BuildConfig;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.activities.Information;
@@ -59,15 +60,9 @@ public class home extends Fragment {
     View v;
     SwipeRefreshLayout swipeRefreshLayout;
     SharedPreferences betaSharedPreference, languageSharedPreference;
-    CardView updateCardView;
     public static String BroadcastStringForAction = "checkInternet";
     private IntentFilter mIntentFilter;
     boolean internet;
-    AlertDialog customDialog;
-    View alertCustomDialog;
-    private ConstraintLayout layout;
-    private Button negative;
-    private Button positive;
     String versionNameBeta, versionName, changelogBeta, changelogMessage, apkBeta, apkUrl;
 
 
@@ -99,18 +94,6 @@ public class home extends Fragment {
             }, 2000);
         });
 
-        alertCustomDialog = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_bg, null);
-        AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(requireContext());
-        alertDialog2.setView(alertCustomDialog);
-        customDialog = alertDialog2.create();
-        customDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        customDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-
-        layout = alertCustomDialog.findViewById(R.id.buttons);
-        positive = alertCustomDialog.findViewById(R.id.positive_button);
-        negative = alertCustomDialog.findViewById(R.id.negative_button);
-        Button neutral = alertCustomDialog.findViewById(R.id.neutral_button);
-        neutral.setOnClickListener(v -> customDialog.dismiss());
 
         betaSharedPreference = requireActivity().getSharedPreferences("Beta", 0);
 
@@ -121,17 +104,6 @@ public class home extends Fragment {
         parseJSON();
 
         v.findViewById(R.id.information_card).setOnClickListener(v -> startActivity(new Intent(getActivity(), Information.class)));
-
-        updateCardView = v.findViewById(R.id.updateCardView);
-        updateCardView.setOnClickListener(v -> {
-            if (!internet) {
-                Toast.makeText(requireContext(), getString(R.string.cant_check_for_updates), Toast.LENGTH_SHORT).show();
-            } else  if (versionBeta > versionCurrent && !betaSharedPreference.getBoolean("beta", false) || versionBeta <= versionCode && betaSharedPreference.getBoolean("beta", false)){
-                showUpdateDialog(false);
-            } else if (versionBeta > versionCurrent && betaSharedPreference.getBoolean("beta", false)){
-                showUpdateDialog(true);
-            }
-        });
         return v;
     }
 
@@ -161,54 +133,6 @@ public class home extends Fragment {
         super.onResume();
         requireContext().registerReceiver(InternetReceiver, mIntentFilter);
     }
-
-    private void showUpdateDialog(boolean beta) {
-        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        LottieAnimationView lottieAnimationView = alertCustomDialog.findViewById(R.id.lottie_file);
-        TextView title = alertCustomDialog.findViewById(R.id.custom_title);
-        TextView message = alertCustomDialog.findViewById(R.id.message_text);
-        CardView messageCard = alertCustomDialog.findViewById(R.id.message_card);
-        LinearLayout language = alertCustomDialog.findViewById(R.id.language);
-        LinearLayout theme = alertCustomDialog.findViewById(R.id.theme);
-
-
-        language.setVisibility(View.GONE);
-        theme.setVisibility(View.GONE);
-
-        assert lottieAnimationView != null;
-        lottieAnimationView.setAnimation(R.raw.app_update);
-
-        title.setText(getString(R.string.update_title));
-
-        message.setVisibility(View.VISIBLE);
-
-
-        if (betaSharedPreference.getBoolean("beta", false) && beta) {
-            message.setText( "Update " + BuildConfig.VERSION_NAME +" to " + versionNameBeta+ "\n\n" + changelogBeta);
-        } else {
-            message.setText("Update " + BuildConfig.VERSION_NAME + " to "+ versionName + "\n\n" + changelogMessage);
-        }
-
-        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) messageCard.getLayoutParams();
-        params.height = 400;
-
-        messageCard.setLayoutParams(params);
-
-        layout.setVisibility(View.VISIBLE);
-
-        negative.setVisibility(View.GONE);
-
-        positive.setText(getString(R.string.update_button));
-        positive.setOnClickListener(view -> {
-            if (beta && betaSharedPreference.getBoolean("beta", false)) {
-                InstallUpdate(requireActivity(), apkBeta, versionNameBeta);
-            } else {
-                InstallUpdate(requireActivity(), apkUrl, versionName);
-            }
-        });
-
-        customDialog.show();    }
 
     private void getLanguage() {
         languageSharedPreference = requireActivity().getSharedPreferences("Language", 0);
@@ -252,11 +176,44 @@ public class home extends Fragment {
                     updateCardView.setVisibility(View.VISIBLE);
                     TextView updateText = v.findViewById(R.id.update_message);
                     updateText.setText(R.string.update_available_message);
+                    updateCardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (!internet) {
+                                Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
+                            } else {
+                                new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                                        .setTitle(getString(R.string.update_title))
+                                        .setMessage(BuildConfig.VERSION_NAME +" -> " + versionName + "\n\n" +changelogMessage)
+                                        .setIcon(R.drawable.ic_baseline_system_update_24)
+                                        .setPositiveButton(getString(R.string.update_button), (dialog, which) -> InstallUpdate(requireActivity(), apkUrl, versionName))
+                                        .setNeutralButton(getString(R.string.cancel_button), (dialog, which) -> dialog.dismiss())
+                                        .show();
+                            }
+
+                        }
+                    });
                 } else if (versionBeta > versionCurrent && betaSharedPreference.getBoolean("beta", false)){
                     CardView updateCardView = v.findViewById(R.id.updateCardView);
                     updateCardView.setVisibility(View.VISIBLE);
                     TextView updateText = v.findViewById(R.id.update_message);
                     updateText.setText(R.string.update_available_message_beta);
+                    updateCardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (!internet) {
+                                Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
+                            } else {
+                                new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                                        .setTitle(getString(R.string.update_title))
+                                        .setMessage(BuildConfig.VERSION_NAME +" -> " + versionNameBeta + "\n\n" +changelogBeta)
+                                        .setIcon(R.drawable.ic_baseline_system_update_24)
+                                        .setPositiveButton(getString(R.string.update_button), (dialog, which) -> InstallUpdate(requireActivity(), apkBeta, versionNameBeta))
+                                        .setNeutralButton(getString(R.string.cancel_button), (dialog, which) -> dialog.dismiss())
+                                        .show();
+                            }
+                        }
+                    });
                 } else {
                     v.findViewById(R.id.updateCardView).setVisibility(View.GONE);
                 }

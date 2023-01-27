@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -61,6 +62,8 @@ public class wisdomAdapter extends RecyclerView.Adapter<wisdomAdapter.wisdomView
         public final TextView mWisdom;
         public final TextView mFoundIn;
         public final TextView mAuthor;
+        public final Button share;
+        public final Button copy;
 
 
         public wisdomViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
@@ -69,6 +72,31 @@ public class wisdomAdapter extends RecyclerView.Adapter<wisdomAdapter.wisdomView
             mWisdom = itemView.findViewById(R.id.wisdom);
             mFoundIn = itemView.findViewById(R.id.found_in_wisdomc);
             mAuthor = itemView.findViewById(R.id.author);
+            copy = itemView.findViewById(R.id.copy);
+            share = itemView.findViewById(R.id.share);
+
+            copy.setOnClickListener(v -> {
+                if (recyclerViewInterface != null){
+                    int position = getAdapterPosition();
+                    String type = "copy";
+
+                    if(position != RecyclerView.NO_POSITION){
+                        recyclerViewInterface.onItemClick(position, type);
+                    }
+                }
+            });
+
+            share.setOnClickListener(v -> {
+                if (recyclerViewInterface != null){
+                    int position = getAdapterPosition();
+                    String type = "share";
+
+                    if(position != RecyclerView.NO_POSITION){
+                        recyclerViewInterface.onItemClick(position, type);
+                    }
+                }
+            });
+
 
             mAuthor.setOnClickListener(view -> {
                 if (recyclerViewInterface != null){
@@ -90,14 +118,6 @@ public class wisdomAdapter extends RecyclerView.Adapter<wisdomAdapter.wisdomView
                 }
             });
 
-            mWisdom.setOnClickListener(v -> {
-                int position = getAdapterPosition();
-                String type = "wisdom";
-
-                if (position != RecyclerView.NO_POSITION){
-                    recyclerViewInterface.onItemClick(position, type);
-                }
-            });
         }
     }
 }

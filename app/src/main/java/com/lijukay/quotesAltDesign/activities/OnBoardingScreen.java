@@ -1,24 +1,22 @@
 package com.lijukay.quotesAltDesign.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.splashscreen.SplashScreen;
-import androidx.core.text.HtmlCompat;
-import androidx.viewpager.widget.ViewPager;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.text.Html;
-import android.transition.Slide;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.splashscreen.SplashScreen;
+import androidx.core.text.HtmlCompat;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.elevation.SurfaceColors;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.adapter.SliderAdapter;
 
@@ -34,7 +32,13 @@ public class OnBoardingScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+
+        int color = SurfaceColors.SURFACE_2.getColor(this);
+        getWindow().setStatusBarColor(color);
+        getWindow().setNavigationBarColor(color);
+
+
+        setTheme(R.style.AppTheme);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding_screen);
@@ -111,6 +115,7 @@ public class OnBoardingScreen extends AppCompatActivity {
         if (mDots.length > 0){
             mDots[position].setTextColor(getResources().getColor(R.color.md_theme_dark_primaryContainer, getTheme()));
         }
+        linearLayout.setVisibility(View.GONE);
     }
 
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
@@ -129,7 +134,7 @@ public class OnBoardingScreen extends AppCompatActivity {
                 next.setEnabled(true);
                 previous.setEnabled(false);
                 previous.setVisibility(View.INVISIBLE);
-                next.setText("Next");
+                next.setText(getString(R.string.next));
                 //Set the action that happens when the buttons are clicked
                 next.setOnClickListener(v -> onBoarding.setCurrentItem(currentPage + 1));
             } else if (position == mDots.length -1){//As mDots.length starts as one but but the Array of pages starts with 0, we will get an OutOfBounds Exeption
@@ -137,13 +142,13 @@ public class OnBoardingScreen extends AppCompatActivity {
                 next.setEnabled(true);
                 previous.setEnabled(true);
                 previous.setVisibility(View.VISIBLE);
-                next.setText("Start");
+                next.setText(getString(R.string.start));
                 next.setOnClickListener(v -> startActivity(new Intent(OnBoardingScreen.this, MainActivity.class)));
             } else {
                 next.setEnabled(true);
                 previous.setEnabled(true);
                 previous.setVisibility(View.VISIBLE);
-                next.setText("Next");
+                next.setText(getString(R.string.next));
                 //Set the action that happens when the buttons are clicked
                 next.setOnClickListener(v -> onBoarding.setCurrentItem(currentPage + 1));
                 previous.setOnClickListener(v -> onBoarding.setCurrentItem(currentPage - 1));

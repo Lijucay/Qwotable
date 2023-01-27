@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="?attr/materialCardViewOutlinedStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardUseCompatPadding="true"
-    app:cardCornerRadius="20dp"
-    android:backgroundTint="?attr/colorPrimaryContainer"
-    app:cardElevation="0dp">
+    android:layout_margin="8dp">
 
 
     <LinearLayout
@@ -14,35 +12,70 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:padding="10dp"
-            android:id="@+id/quote"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="?attr/colorOnPrimaryContainer"
-            android:textSize="20sp"/>
+            android:orientation="vertical"
+            android:padding="16dp">
+
+
+
+            <TextView
+                android:id="@+id/quote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="?android:textColorSecondary"
+                android:textStyle="bold"/>
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
                 android:id="@+id/author"
-                android:paddingHorizontal="10dp"
-                android:paddingTop="5dp"
-                android:textColor="?attr/colorOnPrimaryContainer"/>
-
+                android:layout_marginTop="16dp"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
                 android:id="@+id/found_in"
-                android:paddingHorizontal="10dp"
-                android:paddingBottom="10dp"
-                android:paddingTop="5dp"
-                android:textColor="?attr/colorOnPrimaryContainer"/>
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?android:attr/textColorSecondary"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/copy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Copy"
+                style="@style/Widget.Material3.Button.TonalButton.Icon"
+                app:icon="@drawable/ic_baseline_content_copy_24"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share"
+                style="@style/Widget.Material3.Button.TonalButton.Icon"
+                app:icon="@drawable/ic_baseline_share_24" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
 
-</androidx.cardview.widget.CardView>
+
+
+
+</com.google.android.material.card.MaterialCardView>

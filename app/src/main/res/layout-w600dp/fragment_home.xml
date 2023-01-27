@@ -3,272 +3,252 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.home">
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/homeSwipeRefreshLayout">
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="27dp"
-            android:clipToPadding="false"
-            android:paddingBottom="27dp">
+            android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.CardView.Filled"
                     android:backgroundTint="?attr/colorErrorContainer"
-                    app:cardCornerRadius="20dp"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="0dp"
+                    android:layout_margin="8dp"
                     android:visibility="gone"
                     android:id="@+id/updateCardView">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:paddingHorizontal="10dp"
-                            android:paddingVertical="5dp"
-                            android:id="@+id/update_title"
-                            android:text="@string/update_available"
+                            android:textStyle="bold"
+                            android:text="Update available"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                             android:textColor="?attr/colorOnErrorContainer"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:id="@+id/update_title" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingHorizontal="10dp"
-                            android:paddingBottom="10dp"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                             android:id="@+id/update_message"
+                            android:layout_marginTop="16dp"
                             android:textColor="?attr/colorOnErrorContainer" />
                     </LinearLayout>
 
 
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                <GridLayout
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:columnCount="2">
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="20dp"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="0dp"
-                    android:layout_columnWeight="1"
-                    android:backgroundTint="?attr/colorPrimaryContainer">
+                    style="?attr/materialCardViewFilledStyle"
+                    android:layout_margin="8dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical">
-
-                        <TextView
+                        <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingHorizontal="10dp"
-                            android:paddingVertical="5dp"
-                            android:text="@string/quote_definition_title"
-                            android:textColor="?attr/colorOnPrimaryContainer"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingHorizontal="15dp"
-                            android:paddingVertical="10dp"
-                            android:text="@string/quotes_definition_message"
-                            android:textColor="?attr/colorOnPrimaryContainer" />
-
-                        <androidx.cardview.widget.CardView
-                            android:backgroundTint="?attr/colorSecondary"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:cardCornerRadius="20dp"
-                            app:cardUseCompatPadding="true">
-
+                            style="?attr/materialCardViewOutlinedStyle">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
+                                android:orientation="vertical"
+                                android:padding="16dp">
                                 <TextView
-                                    android:padding="10dp"
                                     android:id="@+id/quote"
-                                    android:text="@string/quote_example_quote"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="?attr/colorOnSecondary"
-                                    android:textSize="20sp"/>
-
+                                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                                    android:textColor="?android:textColorSecondary"
+                                    android:textStyle="bold"
+                                    android:text="Horse: \'Life is difficult, but you are loved.\'"
+                                    />
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textSize="15sp"
                                     android:id="@+id/authore_quote"
-                                    android:paddingHorizontal="10dp"
-                                    android:paddingTop="5dp"
-                                    android:text="@string/quote_example_author"
-                                    android:textColor="?attr/colorOnSecondary"/>
-
-
+                                    android:layout_marginTop="16dp"
+                                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                                    android:textColor="?android:attr/textColorSecondary"
+                                    android:text="Charlie Mackery"
+                                    />
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textSize="15sp"
                                     android:id="@+id/found_in"
-                                    android:paddingHorizontal="10dp"
-                                    android:text="@string/quote_example_foundIn"
-                                    android:paddingBottom="10dp"
-                                    android:paddingTop="5dp"
-                                    android:textColor="?attr/colorOnSecondary"/>
+                                    android:layout_marginTop="8dp"
+                                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                                    android:textColor="?android:attr/textColorSecondary"
+                                    android:text="The boy, the mole, the fox and the horse"
+                                    />
 
                             </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-                        <TextView
+                        </com.google.android.material.card.MaterialCardView>
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingHorizontal="15dp"
-                            android:paddingVertical="10dp"
-                            android:text="@string/quote_example_explanation"
-                            android:textColor="?attr/colorOnPrimaryContainer" />
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                style="?attr/textAppearanceTitleLarge"
+                                android:textColor="?android:attr/textColorSecondary"
+                                android:text="Quote definition"
+                                />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:textAppearance="?attr/textAppearanceBodyMedium"
+                                android:textColor="?android:attr/textColorSecondary"
+                                android:text="Quotes are passages from books, games and movies as well as from songs or public speeches. Usually, the author and the name of the book/movie/song/game is mentioned in the credits. In this app it looks like the example above."
+                                />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:textAppearance="?attr/textAppearanceBodyMedium"
+                                android:textColor="?android:attr/textColorSecondary"
+                                android:text="Here you can see the quote, the author and (in this case) the movie where the quote can be found."
+                                />
+                        </LinearLayout>
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:layout_columnWeight="1"
-                    android:layout_width="0dp"
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="20dp"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="0dp"
-                    android:backgroundTint="?attr/colorPrimaryContainer">
+                    style="?attr/materialCardViewFilledStyle"
+                    android:layout_margin="8dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical">
-                        <TextView
+                        <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingHorizontal="10dp"
-                            android:paddingVertical="5dp"
-                            android:text="@string/wisdom_definition"
-                            android:textColor="?attr/colorOnPrimaryContainer"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingHorizontal="15dp"
-                            android:paddingVertical="10dp"
-                            android:text="@string/wisdom_definition_message"
-                            android:textColor="?attr/colorOnPrimaryContainer" />
-                        <androidx.cardview.widget.CardView
-                            android:backgroundTint="?attr/colorSecondary"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:cardCornerRadius="20dp"
-                            app:cardUseCompatPadding="true">
-
+                            style="?attr/materialCardViewOutlinedStyle">
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
+                                android:orientation="vertical"
+                                android:padding="16dp">
 
                                 <TextView
-                                    android:paddingHorizontal="10dp"
-                                    android:paddingTop="10dp"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:textSize="25sp"
                                     android:id="@+id/wisdomTitle"
-                                    android:text="@string/wisdom_example_title"
+                                    android:text="About help"
                                     android:textStyle="bold"
-                                    android:textColor="?attr/colorOnSecondary"/>
+                                    style="?attr/textAppearanceTitleLarge"
+                                    android:textColor="?android:attr/textColorSecondary"/>
                                 <TextView
                                     android:id="@+id/wisdom"
-                                    android:paddingTop="10dp"
-                                    android:paddingHorizontal="10dp"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/wisdom_example_wisdom"
-                                    android:textColor="?attr/colorOnSecondary"
-                                    android:textSize="20sp"/>
+                                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                                    android:text="Boy: 'What is the bravest thing you've ever said?' Horse: 'Help. Asking for help isn't giving up, it is refusing to give up.'"
+                                    android:textStyle="bold"
+                                    android:layout_marginTop="16dp"
+                                    android:textColor="?android:attr/textColorSecondary"/>
                                 <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:id="@+id/author"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="15sp"
-                                    android:paddingTop="5dp"
-                                    android:paddingHorizontal="10dp"
-                                    android:text="@string/wisdom_example_author"
-                                    android:textColor="?attr/colorOnSecondary"/>
+                                    android:layout_marginTop="16dp"
+                                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                                    android:textColor="?android:attr/textColorSecondary"
+                                    android:text="Charlie Mackery"
+                                    />
                                 <TextView
-                                    android:id="@+id/found_in_wisdom"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textSize="15sp"
-                                    android:paddingTop="5dp"
-                                    android:paddingHorizontal="10dp"
-                                    android:paddingBottom="10dp"
-                                    android:text="@string/wisdom_example_found_in"
-                                    android:textColor="?attr/colorOnSecondary"/>
+                                    android:id="@+id/found_in_wisdomc"
+                                    android:layout_marginTop="8dp"
+                                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                                    android:textColor="?android:attr/textColorSecondary"
+                                    android:text="The boy, the mole, the fox and the horse"
+                                    />
                             </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-                        <TextView
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingHorizontal="15dp"
-                            android:paddingVertical="10dp"
-                            android:text="@string/wisdom_example_explanation"
-                            android:textColor="?attr/colorOnPrimaryContainer" />
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_margin="16dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Wisdom definition"
+                                style="?attr/textAppearanceTitleLarge"
+                                android:textStyle="bold"
+                                android:textColor="?android:attr/textColorSecondary"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:textAppearance="?attr/textAppearanceBodyMedium"
+                                android:textColor="?android:attr/textColorSecondary"
+                                android:text="In this app, wisdoms are stories/tales that is teaching you of something. It is not always clear, what the wisdom is teaching you. Usually, the author, as well as the book/game/movie is mentioned in the credits. In this app it looks like in the example above."
+                                />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:textAppearance="?attr/textAppearanceBodyMedium"
+                                android:textColor="?android:attr/textColorSecondary"
+                                android:text="Here you can see the quote, the author and (in this case) the game where the wisdom can be found."/>
+
+                        </LinearLayout>
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
-                </GridLayout>
-                <androidx.cardview.widget.CardView
+
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/information_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true"
-                    app:cardCornerRadius="20dp"
-                    android:backgroundTint="?attr/colorPrimaryContainer">
+                    style="?attr/materialCardViewOutlinedStyle"
+                    android:layout_margin="8dp">
 
                     <TextView
+                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:gravity="center"
+                        android:text="Information"
                         android:textStyle="bold"
-                        android:padding="10dp"
-                        android:textColor="?attr/colorOnPrimaryContainer"
-                        android:text="@string/information_card"/>
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:textAppearance="?attr/textAppearanceTitleLarge"/>
 
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
-
         </androidx.core.widget.NestedScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 </FrameLayout>

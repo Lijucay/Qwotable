@@ -1,13 +1,25 @@
 package com.lijukay.quotesAltDesign.activities;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,16 +29,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.elevation.SurfaceColors;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.adapter.QuotesAdapter;
 import com.lijukay.quotesAltDesign.adapter.wisdomAdapter;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
 import com.lijukay.quotesAltDesign.item.AllItem;
 import com.lijukay.quotesAltDesign.item.wisdomItem;
+import com.lijukay.quotesAltDesign.service.InternetService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,16 +53,20 @@ import java.util.Locale;
 
 public class Person extends AppCompatActivity implements RecyclerViewInterface {
     private String authorP;
-    private RecyclerView mRecyclerViewPQ;
+    private RecyclerView recyclerView;
     private ArrayList<AllItem> mPQItem;
     private ArrayList<wisdomItem> items;
     private wisdomAdapter adapter;
     private QuotesAdapter adapterAll;
-    private RequestQueue mRequestQueuePQ;
-    private String pQuotes, activity, type;
-    private SwipeRefreshLayout swipeRefreshLayoutPQ;
+    private RequestQueue requestQueue;
+    private String pQuotes, activity, type2;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private SharedPreferences language;
-
+    public static String BroadCastStringForAction = "checkInternet";
+    private IntentFilter mIntentFilter;
+    boolean internet;
+    LinearLayout error;
+    TextView errorTitle, errorMessage;
 
     @SuppressLint({"NotifyDataSetChanged", "SourceLockedOrientationActivity"})
     @Override
@@ -95,57 +115,74 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
 
         setContentView(R.layout.activity_person);
 
+        error = findViewById(R.id.error);
+        //As it is not necessary to be visible when the app is starting, the layout's visibility is set to "gone"//
+        error.setVisibility(View.GONE);
+        errorTitle = findViewById(R.id.titleError);
+        errorMessage = findViewById(R.id.messageError);
+
+        mIntentFilter = new IntentFilter();
+        //------Action of this IntentFilter: Checking the internet------//
+        mIntentFilter.addAction(BroadCastStringForAction);
+        //------Referring to the class where the service is written down and starting the service------//
+        Intent serviceIntent = new Intent(this, InternetService.class);
+        startService(serviceIntent);
+        //------Checking if the Application is online------//
+        internet = isOnline(getApplicationContext());
+
         Intent intent = getIntent();
 
-        type = intent.getStringExtra("type");
+        type2 = intent.getStringExtra("type");
 
         authorP = intent.getStringExtra("author");
 
         activity = intent.getStringExtra("Activity");
 
+        MaterialToolbar materialToolbar = findViewById(R.id.topAppBar);
+        setSupportActionBar(materialToolbar);
+        materialToolbar.setNavigationOnClickListener(v -> onBackPressed());
+        materialToolbar.setTitle(authorP);
 
-        TextView author = findViewById(R.id.personname);
-        author.setText(authorP);
-        findViewById(R.id.setting).setOnClickListener(view -> startActivity(new Intent(Person.this, Settings.class)));
 
-        mRecyclerViewPQ = findViewById(R.id.personRV);
-        mRecyclerViewPQ.setHasFixedSize(true);
+        int colorS = SurfaceColors.SURFACE_2.getColor(this);
+        getWindow().setStatusBarColor(colorS);
+        getWindow().setNavigationBarColor(colorS);
+
+        recyclerView = findViewById(R.id.personRV);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setVisibility(View.VISIBLE);
         boolean tablet = getResources().getBoolean(R.bool.isTablet);
         if (tablet){
-            mRecyclerViewPQ.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+            recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         } else {
-            mRecyclerViewPQ.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
 
         mPQItem = new ArrayList<>();
         items = new ArrayList<>();
 
-        swipeRefreshLayoutPQ = findViewById(R.id.personSRL);
-        swipeRefreshLayoutPQ.setOnRefreshListener(() -> {
+        swipeRefreshLayout = findViewById(R.id.personSRL);
+        swipeRefreshLayout.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
             Toast.makeText(Person.this, getString(R.string.refresh_message), Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(() -> {
-                swipeRefreshLayoutPQ.setRefreshing(false);
-
-                if(activity.equals("quotes")) {
-                    mPQItem.clear();
-                    //mPQAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+                Cache cache = requestQueue.getCache();
+                cache.clear();
+                if (activity.equals("Quotes")){
                     adapterAll.notifyDataSetChanged();
-                    parseJSONQuotes(type);
+                    mPQItem.clear();
                 } else if (activity.equals("wisdom")){
-                    items.clear();
                     adapter.notifyDataSetChanged();
-                    parseJSON(type);
+                    items.clear();
                 }
+                checkInternet();
 
             }, 2000);
         });
 
-        mRequestQueuePQ = Volley.newRequestQueue(this);
-        if(activity.equals("quotes")){
-            parseJSONQuotes(type);
-        } else if (activity.equals("wisdom")){
-            parseJSON(type);
-        }
+        requestQueue = Volley.newRequestQueue(this);
+        checkInternet();
 
     }
 
@@ -181,14 +218,20 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                             mPQItem.add(new AllItem(authorPQ, quotePQ, foundIn));
                         }
 
-                        //mPQAdapter = new PersonAdapter(Person.this, mPQItem, this);
                         adapterAll = new QuotesAdapter(Person.this, mPQItem, this);
-                        mRecyclerViewPQ.setAdapter(adapterAll);
+                        recyclerView.setAdapter(adapterAll);
                     } catch (JSONException e) {
+                        swipeRefreshLayout.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.GONE);
+                        error.setVisibility(View.VISIBLE);
+                        errorMessage.setText(getString(R.string.error_while_parsing_message));
+                        //TODO: String
+                        errorTitle.setText(R.string.error_while_parsing_title);
+                        findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
                         e.printStackTrace();
                     }
                 }, Throwable::printStackTrace);
-        mRequestQueuePQ.add(requestPQ);
+        requestQueue.add(requestPQ);
         } else if (type.equals("found in")){
 
             String url;
@@ -221,12 +264,18 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
 
                             //mPQAdapter = new PersonAdapter(Person.this, mPQItem, this);
                             adapterAll = new QuotesAdapter(Person.this, mPQItem, this);
-                            mRecyclerViewPQ.setAdapter(adapterAll);
+                            recyclerView.setAdapter(adapterAll);
                         } catch (JSONException e) {
+                            swipeRefreshLayout.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.GONE);
+                            error.setVisibility(View.VISIBLE);
+                            errorMessage.setText(getString(R.string.error_while_parsing_message));
+                            errorTitle.setText(getString(R.string.error_while_parsing_title));
+                            findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
                             e.printStackTrace();
                         }
                     }, Throwable::printStackTrace);
-            mRequestQueuePQ.add(requestPQ);
+            requestQueue.add(requestPQ);
         }
     }
 
@@ -261,12 +310,19 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                             }
 
                             adapter = new wisdomAdapter(this, items, this);
-                            mRecyclerViewPQ.setAdapter(adapter); //I set the adapter of the RecyclerView to Adapter, that way I don't need to create an extra Adapter for Person.
+                            recyclerView.setAdapter(adapter); //I set the adapter of the RecyclerView to Adapter, that way I don't need to create an extra Adapter for Person.
                         } catch (JSONException e) {
+                            swipeRefreshLayout.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.GONE);
+                            error.setVisibility(View.VISIBLE);
+                            errorMessage.setText(getString(R.string.error_while_parsing_message));
+                            //TODO: String
+                            errorTitle.setText(getString(R.string.error_while_parsing_title));
+                            findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
                             e.printStackTrace();
                         }
                     }, Throwable::printStackTrace);
-            mRequestQueuePQ.add(jsonObjectRequest);
+            requestQueue.add(jsonObjectRequest);
         } else {
             if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")){
                 url = "https://lijukay.github.io/Qwotable/wisdom-de.json";
@@ -294,21 +350,264 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                             }
 
                             adapter = new wisdomAdapter(this, items, this);
-                            mRecyclerViewPQ.setAdapter(adapter); //I set the adapter of the RecyclerView to Adapter, that way I don't need to create an extra Adapter for Person.
+                            recyclerView.setAdapter(adapter); //I set the adapter of the RecyclerView to Adapter, that way I don't need to create an extra Adapter for Person.
                         } catch (JSONException e) {
+                            swipeRefreshLayout.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.GONE);
+                            error.setVisibility(View.VISIBLE);
+                            errorMessage.setText(getString(R.string.error_while_parsing_message));
+                            errorTitle.setText(getString(R.string.error_while_parsing_title));
+                            findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
                             e.printStackTrace();
                         }
                     }, Throwable::printStackTrace);
-            mRequestQueuePQ.add(jsonObjectRequest);
+            requestQueue.add(jsonObjectRequest);
         }
-
-        //TODO: create found in for wisdom
-
     }
 
+    public final BroadcastReceiver InternetReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(BroadCastStringForAction)) {
+                internet = intent.getStringExtra("online_status").equals("true");
+            }
+        }
+    };
+
+    public boolean isOnline(Context c) {
+        ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        return ni != null && ni.isConnectedOrConnecting();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        registerReceiver(InternetReceiver, mIntentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(InternetReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(InternetReceiver, mIntentFilter);
+    }
+
+    private void checkInternet(){
+        if (!internet){
+            swipeRefreshLayout.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
+            error.setVisibility(View.VISIBLE);
+            errorTitle.setText(getString(R.string.no_internet_title));
+            errorMessage.setText(getString(R.string.no_internet_toast_message));
+            findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
+        } else {
+            swipeRefreshLayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+            error.setVisibility(View.GONE);
+            if (activity.equals("Quotes")){
+                parseJSONQuotes(type2);
+            } else if (activity.equals("wisdom")){
+                parseJSON(type2);
+            }
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.settings_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.settingsMenu){
+            startActivity(new Intent(Person.this, Settings.class));
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     public void onItemClick(int position, String type) {
-        //TODO: Log.w("Work required", "Create and show dialog")
+        if (activity.equals("Quotes")){
+            switch (type) {
+                case "author": {
+                    String url;
+                    if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
+                        url = "https://lijukay.github.io/Qwotable/quotes-de.json";
+                    } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
+                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
+                    } else {
+                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
+                    }
+
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                            jsonObject -> {
+                                try {
+                                    JSONArray jsonArrayP = jsonObject.getJSONArray("Quotes");
+
+                                    JSONObject object = jsonArrayP.getJSONObject(position);
+
+                                    String authorP = object.getString("author");
+
+                                    Intent intent = new Intent(this, Person.class);
+                                    intent.putExtra("author", authorP);
+                                    intent.putExtra("type", "author");
+                                    intent.putExtra("Activity", "Quotes");
+                                    startActivity(intent);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }, Throwable::printStackTrace);
+                    requestQueue.add(jsonObjectRequest);
+
+                    break;
+                }
+                case "Found in": {
+                    String url;
+                    if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
+                        url = "https://lijukay.github.io/Qwotable/quotes-de.json";
+                    } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
+                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
+                    } else {
+                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
+                    }
+
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                            jsonObject -> {
+                                try {
+                                    JSONArray jsonArrayP = jsonObject.getJSONArray("Quotes");
+
+                                    JSONObject object = jsonArrayP.getJSONObject(position);
+
+                                    String authorP = object.getString("found in");
+
+                                    Intent intent = new Intent(this, Person.class);
+                                    intent.putExtra("author", authorP);
+                                    intent.putExtra("type", "found in");
+                                    intent.putExtra("Activity", "Quotes");
+                                    startActivity(intent);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }, Throwable::printStackTrace);
+                    requestQueue.add(jsonObjectRequest);
+
+                    break;
+                }
+                case "copy": {
+                        if (internet) {
+                            String url;
+                            if (type2.equals("author")){
+                                if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
+                                    url = "https://lijukay.github.io/Qwotable/author-de.json";
+                                } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
+                                    url = "https://lijukay.github.io/Qwotable/author-en.json";
+                                } else {
+                                    url = "https://lijukay.github.io/Qwotable/author-en.json";
+                                }
+                            } else {
+                                if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
+                                    url = "https://lijukay.github.io/Qwotable/found-in-de.json";
+                                } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
+                                    url = "https://lijukay.github.io/Qwotable/found-in-en.json";
+                                } else {
+                                    url = "https://lijukay.github.io/Qwotable/found-in-en.json";
+                                }
+                            }
+
+                            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                                    jsonObject -> {
+                                        try {
+                                            pQuotes = authorP;
+                                            JSONArray jsonArray = jsonObject.getJSONArray(pQuotes);
+                                            JSONObject object = jsonArray.getJSONObject(position);
+
+                                            String quote = object.getString("quote");
+                                            String author = object.getString("author");
+
+                                            copyText(quote + "\n\n~ " + author);
+                                        } catch (JSONException e) {
+                                            Toast.makeText(this, getString(R.string.error_while_parsing_toast_message), Toast.LENGTH_SHORT).show();
+                                            e.printStackTrace();
+                                        }
+                                    }, Throwable::printStackTrace);
+                            requestQueue.add(jsonObjectRequest);
+
+                        } else {
+                            Toast.makeText(this, getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    break;
+                case "share": {
+                    if (internet) {
+                        String url;
+                        if (type2.equals("author")){
+                            if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
+                                url = "https://lijukay.github.io/Qwotable/author-de.json";
+                            } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
+                                url = "https://lijukay.github.io/Qwotable/author-en.json";
+                            } else {
+                                url = "https://lijukay.github.io/Qwotable/author-en.json";
+                            }
+                        } else {
+                            if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
+                                url = "https://lijukay.github.io/Qwotable/found-in-de.json";
+                            } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
+                                url = "https://lijukay.github.io/Qwotable/found-in-en.json";
+                            } else {
+                                url = "https://lijukay.github.io/Qwotable/found-in-en.json";
+                            }
+                        }
+
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                                jsonObject -> {
+                                    try {
+                                        pQuotes = authorP;
+                                        JSONArray jsonArray = jsonObject.getJSONArray(pQuotes);
+                                        JSONObject object = jsonArray.getJSONObject(position);
+
+                                        String quote = object.getString("quote");
+                                        String author = object.getString("author");
+
+                                        Intent shareText = new Intent();
+                                        shareText.setAction(Intent.ACTION_SEND);
+                                        shareText.putExtra(Intent.EXTRA_TEXT, quote + "\n\n~" + author);
+                                        shareText.setType("text/plain");
+                                        Intent sendText = Intent.createChooser(shareText, null);
+                                        startActivity(sendText);
+
+                                    } catch (JSONException e) {
+                                        Toast.makeText(this, getString(R.string.error_while_parsing_toast_message), Toast.LENGTH_SHORT).show();
+                                        e.printStackTrace();
+                                    }
+                                }, Throwable::printStackTrace);
+                        requestQueue.add(jsonObjectRequest);
+
+                    } else {
+                        Toast.makeText(this, getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+            }
+        }
     }
+
+    private void copyText(String quote) {
+        ClipboardManager clipboard = (ClipboardManager) this.getSystemService(CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("Quotes", quote);
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(this, getString(R.string.qwotable_copied_toast_message), Toast.LENGTH_SHORT).show();
+    }
+
+
 }

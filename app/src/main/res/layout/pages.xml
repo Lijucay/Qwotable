@@ -9,12 +9,13 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:gravity="center"
             android:id="@+id/titleOnBoarding"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="30sp"
             android:textStyle="bold"
+            style="?attr/textAppearanceTitleLarge"
+            android:textColor="?android:attr/textColorSecondary"
             android:layout_marginTop="30dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
@@ -23,15 +24,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:gravity="center"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginTop="20dp"
             android:id="@+id/messageOnBoarding"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="15sp"
+            android:layout_marginTop="16dp"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?android:attr/textColorSecondary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleOnBoarding" />
@@ -58,7 +59,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/messageOnBoarding"/>
 
         <TextView
-
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:id="@+id/buttonInfo"
@@ -67,8 +67,9 @@
             android:layout_marginHorizontal="30dp"
             android:gravity="center"
             android:text="Tap the button below to use Qwotable"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="15sp"
+            android:layout_marginTop="16dp"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?android:attr/textColorSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
