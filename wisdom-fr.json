@@ -1,0 +1,11 @@
+{
+  "Wisdom":
+  [
+   {
+      "wisdom": "wisdomMessage",
+      "author": "authorName",
+      "found in": "foundInMessage",
+      "title": "titleMessage"
+    }
+  ]
+}
