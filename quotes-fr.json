@@ -1,0 +1,10 @@
+{
+  "Quotes":
+  [
+    {
+      "quote": "quoteMessage",
+      "author": "authorName",
+      "found in": "foundInMessage",
+    }
+  ]
+}
