@@ -16,7 +16,7 @@ Qwotables very own wiki explains the criteria of quotes and wisdom.
 
 # License
 
-Copyright (C) <2023>  <Lijukay>
+Copyright (C) 2023  Lijukay
 
     This program is free software: you can redistribute it and/or modify
 
