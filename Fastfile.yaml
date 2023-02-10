@@ -1,7 +1,0 @@
-default_platform: android
-  
-  platform :android do
-  lane :get_project_metadata do
-gradle(task: 'properties')
-  end
-  end

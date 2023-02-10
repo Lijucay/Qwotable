@@ -36,3 +36,18 @@ platform :android do
     upload_to_play_store
   end
 end
+
+  platform :android do
+  desc "Get Metadata"
+  lane :get_project_metadata do
+    gradle(task: 'properties')
+  end
+  end
+
+platform :android do
+  desc "Get project metadata"
+  lane :get_metadata do
+    gradle(task: "properties")
+    get_project_metadata
+  end
+end
