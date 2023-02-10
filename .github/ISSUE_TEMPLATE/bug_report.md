@@ -1,3 +1,12 @@
+---
+name: Bug report
+about: Report a bug
+title: Bug report
+labels: bug report
+assignees: ''
+
+---
+
 **Describe the bug**
 
 A clear and concise description of what the bug is.
