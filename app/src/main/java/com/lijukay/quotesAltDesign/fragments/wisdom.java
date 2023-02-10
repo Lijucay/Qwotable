@@ -19,8 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,9 +46,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Locale;
-
-import www.sanju.motiontoast.MotionToast;
-import www.sanju.motiontoast.MotionToastStyle;
 
 
 public class wisdom extends Fragment implements RecyclerViewInterface {
@@ -103,14 +100,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
         swipeRefreshLayout = v.findViewById(R.id.wisdomSRL);
         swipeRefreshLayout.setOnRefreshListener(() -> {
 
-            //Toast.makeText(requireActivity(),getString(R.string.refresh_message), Toast.LENGTH_SHORT).show();
-            MotionToast.Companion.darkToast(requireActivity(),
-                    getString(R.string.refresh_title),
-                    getString(R.string.refresh_message),
-                    MotionToastStyle.INFO,
-                    MotionToast.GRAVITY_BOTTOM,
-                    MotionToast.LONG_DURATION,
-                    ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular));
+            Toast.makeText(requireActivity(), getString(R.string.toast_message_wisdom), Toast.LENGTH_SHORT).show();
 
             new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
@@ -143,14 +133,6 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
 
         url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
 
-        /*if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")){
-            url = "https://lijukay.github.io/Qwotable/wisdom-de.json";
-        } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")){
-            url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
-        } else {
-            url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
-        }*/
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 jsonObject -> {
                     try {
@@ -176,7 +158,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
                         swipeRefreshLayout.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.GONE);
                         error.setVisibility(View.VISIBLE);
-                        errorMessage.setText(getString(R.string.error_while_parsing_message));
+                        errorMessage.setText(getString(R.string.error_while_parsing_wisdom));
                         errorTitle.setText(getString(R.string.error_while_parsing_title));
                         v.findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
                         e.printStackTrace();
@@ -190,14 +172,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
     public void onItemClick(int position, String type) {
         switch (type) {
             case "author": {
-                String url;
-                if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                    url = "https://lijukay.github.io/Qwotable/wisdom-de.json";
-                } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                    url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
-                } else {
-                    url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
-                }
+                String url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
 
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                         jsonObject -> {
@@ -222,14 +197,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
                 break;
             }
             case "found in": {
-                String url;
-                if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                    url = "https://lijukay.github.io/Qwotable/wisdom-de.json";
-                } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                    url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
-                } else {
-                    url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
-                }
+                String url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
 
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                         jsonObject -> {
@@ -255,15 +223,8 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
             }
             case "copy": {
                 if (internet){
-                    String url;
+                    String url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
 
-                    if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                        url = "https://lijukay.github.io/Qwotable/wisdom-de.json";
-                    } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                        url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
-                    } else {
-                        url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
-                    }
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                             jsonObject -> {
                                 try {
@@ -275,42 +236,21 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
 
                                     copyText(title + "\n\n" + wisdom + "\n\n" + author);
                                 } catch (JSONException e) {
-                                    //Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message), Toast.LENGTH_SHORT).show();
-                                    MotionToast.Companion.darkToast(requireActivity(),
-                                            getString(R.string.error_while_parsing_title),
-                                            getString(R.string.error_while_parsing_toast_message),
-                                            MotionToastStyle.WARNING,
-                                            MotionToast.GRAVITY_BOTTOM,
-                                            MotionToast.LONG_DURATION,
-                                            ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular));
-
+                                    Toast.makeText(requireContext(), getString(R.string.error_while_parsing_wisdom_toast_message), Toast.LENGTH_SHORT).show();
                                     e.printStackTrace();
                                 }
                             }, Throwable::printStackTrace);
                     requestQueue.add(jsonObjectRequest);
                 } else {
-                    //Toast.makeText(requireContext(), "Connect to the internet first", Toast.LENGTH_SHORT).show();
-                    MotionToast.Companion.darkToast(requireActivity(),
-                            getString(R.string.no_internet_title),
-                            getString(R.string.no_internet_toast_message),
-                            MotionToastStyle.ERROR,
-                            MotionToast.GRAVITY_BOTTOM,
-                            MotionToast.LONG_DURATION,
-                            ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular));
+                    Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
+
                 }
                 break;
             }
             case "share":{
                 if (internet){
-                    String url;
+                    String url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
 
-                    if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                        url = "https://lijukay.github.io/Qwotable/wisdom-de.json";
-                    } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                        url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
-                    } else {
-                        url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
-                    }
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                             jsonObject -> {
                                 try {
@@ -327,33 +267,16 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
                                     startActivity(sendText);
 
                                 } catch (JSONException e) {
-                                    //Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message), Toast.LENGTH_SHORT).show();
-                                    MotionToast.Companion.darkToast(requireActivity(),
-                                            getString(R.string.error_while_parsing_title),
-                                            getString(R.string.error_while_parsing_toast_message),
-                                            MotionToastStyle.WARNING,
-                                            MotionToast.GRAVITY_BOTTOM,
-                                            MotionToast.LONG_DURATION,
-                                            ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular));
-
+                                    Toast.makeText(requireContext(), getString(R.string.error_while_parsing_wisdom_toast_message), Toast.LENGTH_SHORT).show();
                                     e.printStackTrace();
                                 }
                             }, Throwable::printStackTrace);
                     requestQueue.add(jsonObjectRequest);
                 } else {
-                    //Toast.makeText(requireContext(), "Connect to the internet first", Toast.LENGTH_SHORT).show();
-                    MotionToast.Companion.darkToast(requireActivity(),
-                            getString(R.string.no_internet_title),
-                            getString(R.string.no_internet_toast_message),
-                            MotionToastStyle.ERROR,
-                            MotionToast.GRAVITY_BOTTOM,
-                            MotionToast.LONG_DURATION,
-                            ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular));
+                    Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
                 }
                 break;
             }
-
-
         }
     }
 
@@ -361,14 +284,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
         ClipboardManager clipboard = (ClipboardManager) requireActivity().getSystemService(CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("Wisdom", wisdom);
         clipboard.setPrimaryClip(clip);
-        //Toast.makeText(requireContext(), getString(R.string.qwotable_copied_toast_message), Toast.LENGTH_SHORT).show();
-        MotionToast.Companion.darkToast(requireActivity(),
-                getString(R.string.qwotable_copied_toast_title),
-                getString(R.string.qwotable_copied_toast_message),
-                MotionToastStyle.SUCCESS,
-                MotionToast.GRAVITY_BOTTOM,
-                MotionToast.LONG_DURATION,
-                ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular));
+        Toast.makeText(requireContext(), "Qwotable copied to clipboard", Toast.LENGTH_SHORT).show();
     }
 
     @SuppressLint("SetTextI18n")
@@ -379,8 +295,8 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
             swipeRefreshLayout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
             error.setVisibility(View.VISIBLE);
-            errorTitle.setText(getString(R.string.no_internet_title));
-            errorMessage.setText(getString(R.string.no_internet_message_wisdom));
+            errorTitle.setText(getString(R.string.no_internet_error_title));
+            errorMessage.setText(getString(R.string.no_internet_error_message_wisdom));
             //If there is no internet, this line checks every 2000 millis, if there still is no internet//
             v.findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
         } else {
@@ -421,5 +337,4 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
         super.onResume();
         requireContext().registerReceiver(InternetReceiver, mIntentFilter);
     }
-
 }

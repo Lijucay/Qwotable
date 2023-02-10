@@ -34,6 +34,7 @@
 
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.Rikka.Material3</item>
         <item name="android:windowActivityTransitions">true</item>
+
     </style>
 
     <style name="ActivityAnim" parent="@android:style/Animation.Activity">
@@ -50,7 +51,7 @@
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <!-- Set the splash screen background, animated icon, and animation duration. -->
-        <item name="windowSplashScreenBackground">@color/md_theme_light_background</item>
+        <item name="windowSplashScreenBackground">#ffffff</item>
 
         <!-- Use windowSplashScreenAnimatedIcon to add either a drawable or an
              animated drawable. One of these is required. -->
@@ -96,6 +97,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
 
+
     </style>
 
     <style name="AppThemeGreen" parent="Theme.Material3.Light.NoActionBar">
@@ -129,44 +131,7 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-
     </style>
-
-    <!--<style name="AppThemePurple" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="colorPrimary">#7C28E1</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="colorPrimaryContainer">#EDDCFF</item>
-        <item name="colorOnPrimaryContainer">#280056</item>
-        <item name="colorSecondary">#8E26C7</item>
-        <item name="colorOnSecondary">#FFFFFF</item>
-        <item name="colorSecondaryContainer">#F5D9FF</item>
-        <item name="colorOnSecondaryContainer">#30004A</item>
-        <item name="colorTertiary">#7F2AD9</item>
-        <item name="colorOnTertiary">#FFFFFF</item>
-        <item name="colorTertiaryContainer">#EEDBFF</item>
-        <item name="colorOnTertiaryContainer">#2A0053</item>
-        <item name="colorError">#FFB4AB</item>
-        <item name="colorErrorContainer">#93000A</item>
-        <item name="colorOnError">#690005</item>
-        <item name="colorOnErrorContainer">#FFDAD6</item>
-        <item name="android:colorBackground">#FFFBFF</item>
-        <item name="colorOnBackground">#24005A</item>
-        <item name="colorSurface">#FFFBFF</item>
-        <item name="colorOnSurface">#24005A</item>
-        <item name="colorSurfaceVariant">#4A454E</item>
-        <item name="colorOnSurfaceVariant">#7B757F</item>
-        <item name="colorOutline">#7B757F</item>
-        <item name="colorOnSurfaceInverse">#F6EDFF</item>
-        <item name="colorSurfaceInverse">#3A1D71</item>
-        <item name="colorPrimaryInverse">#D7BAFF</item>
-
-        <item name="android:statusBarColor">#FFFBFF</item>
-        <item name="android:windowLightStatusBar">true</item>
-
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.Rikka.Material3</item>
-
-    </style>-->
-
 
 </resources>
 

@@ -15,7 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,12 +60,13 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
     private RequestQueue requestQueue;
     private String pQuotes, activity, type2;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private SharedPreferences language;
-    public static String BroadCastStringForAction = "checkInternet";
     private IntentFilter mIntentFilter;
-    boolean internet;
-    LinearLayout error;
-    TextView errorTitle, errorMessage;
+    private boolean internet;
+    private LinearLayout error;
+    private TextView errorTitle, errorMessage;
+
+    public SharedPreferences language, color;
+    public static String BroadCastStringForAction = "checkInternet";
 
     @SuppressLint({"NotifyDataSetChanged", "SourceLockedOrientationActivity"})
     @Override
@@ -75,7 +75,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
 
         language = getSharedPreferences("Language", 0);
 
-        SharedPreferences color = getSharedPreferences("Colors", 0);
+        color = getSharedPreferences("Colors", 0);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
             setTheme(R.style.AppTheme);
@@ -97,17 +97,12 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int widthPixels = metrics.widthPixels;
         int heightPixels = metrics.heightPixels;
-
         float scaleFactor = metrics.density;
-
         float widthDp = widthPixels / scaleFactor;
         float heightDp = heightPixels / scaleFactor;
-
         float smallestWidth = Math.min(widthDp, heightDp);
-
         if (smallestWidth >= 600) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-
         }
         else if (smallestWidth < 600) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -116,7 +111,6 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
         setContentView(R.layout.activity_person);
 
         error = findViewById(R.id.error);
-        //As it is not necessary to be visible when the app is starting, the layout's visibility is set to "gone"//
         error.setVisibility(View.GONE);
         errorTitle = findViewById(R.id.titleError);
         errorMessage = findViewById(R.id.messageError);
@@ -164,7 +158,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
         swipeRefreshLayout = findViewById(R.id.personSRL);
         swipeRefreshLayout.setVisibility(View.VISIBLE);
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            Toast.makeText(Person.this, getString(R.string.refresh_message), Toast.LENGTH_SHORT).show();
+            Toast.makeText(Person.this, getString(R.string.toast_message_person), Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
                 Cache cache = requestQueue.getCache();
@@ -189,17 +183,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
     private void parseJSONQuotes(String type) {
         if (type.equals("author")){
 
-            String url;
-
-            if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")){
-                url = "https://lijukay.github.io/Qwotable/author-de.json";
-            } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")){
-                url = "https://lijukay.github.io/Qwotable/author-en.json";
-            } else {
-                url = "https://lijukay.github.io/Qwotable/author-en.json";
-            }
-
-
+            String url = "https://lijukay.github.io/Qwotable/author-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
 
         JsonObjectRequest requestPQ = new JsonObjectRequest(Request.Method.GET, url, null,
                 responsePQ -> {
@@ -224,9 +208,9 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                         swipeRefreshLayout.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.GONE);
                         error.setVisibility(View.VISIBLE);
-                        errorMessage.setText(getString(R.string.error_while_parsing_message));
+                        errorMessage.setText(getString(R.string.error_while_parsing_message_person));
                         //TODO: String
-                        errorTitle.setText(R.string.error_while_parsing_title);
+                        errorTitle.setText(getString(R.string.error_while_parsing_title));
                         findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
                         e.printStackTrace();
                     }
@@ -234,15 +218,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
         requestQueue.add(requestPQ);
         } else if (type.equals("found in")){
 
-            String url;
-
-            if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")){
-                url = "https://lijukay.github.io/Qwotable/found-in-de.json";
-            } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")){
-                url = "https://lijukay.github.io/Qwotable/found-in-en.json";
-            } else {
-                url = "https://lijukay.github.io/Qwotable/found-in-en.json";
-            }
+            String url = "https://lijukay.github.io/Qwotable/found-in-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
 
 
             JsonObjectRequest requestPQ = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -269,7 +245,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                             swipeRefreshLayout.setVisibility(View.GONE);
                             recyclerView.setVisibility(View.GONE);
                             error.setVisibility(View.VISIBLE);
-                            errorMessage.setText(getString(R.string.error_while_parsing_message));
+                            errorMessage.setText(getString(R.string.error_while_parsing_message_person));
                             errorTitle.setText(getString(R.string.error_while_parsing_title));
                             findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
                             e.printStackTrace();
@@ -284,14 +260,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
         String url;
 
         if (type.equals("found in")){
-            if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")){
-                url = "https://lijukay.github.io/Qwotable/wisdom-de.json";
-            } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")){
-                url = "https://lijukay.github.io/Qwotable/found-in-w-de.json";
-            } else {
-                url = "https://lijukay.github.io/Qwotable/found-in-w-en.json";
-            }
-
+            url = "https://lijukay.github.io/Qwotable/found-in-w-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                     jsonObject -> {
                         try {
@@ -315,7 +284,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                             swipeRefreshLayout.setVisibility(View.GONE);
                             recyclerView.setVisibility(View.GONE);
                             error.setVisibility(View.VISIBLE);
-                            errorMessage.setText(getString(R.string.error_while_parsing_message));
+                            errorMessage.setText(getString(R.string.error_while_parsing_message_person));
                             //TODO: String
                             errorTitle.setText(getString(R.string.error_while_parsing_title));
                             findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
@@ -324,13 +293,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                     }, Throwable::printStackTrace);
             requestQueue.add(jsonObjectRequest);
         } else {
-            if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")){
-                url = "https://lijukay.github.io/Qwotable/wisdom-de.json";
-            } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")){
-                url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
-            } else {
-                url = "https://lijukay.github.io/Qwotable/wisdom-en.json";
-            }
+            url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                     jsonObject -> {
@@ -355,7 +318,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                             swipeRefreshLayout.setVisibility(View.GONE);
                             recyclerView.setVisibility(View.GONE);
                             error.setVisibility(View.VISIBLE);
-                            errorMessage.setText(getString(R.string.error_while_parsing_message));
+                            errorMessage.setText(getString(R.string.error_while_parsing_message_person));
                             errorTitle.setText(getString(R.string.error_while_parsing_title));
                             findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
                             e.printStackTrace();
@@ -403,8 +366,8 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
             swipeRefreshLayout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
             error.setVisibility(View.VISIBLE);
-            errorTitle.setText(getString(R.string.no_internet_title));
-            errorMessage.setText(getString(R.string.no_internet_toast_message));
+            errorTitle.setText(getString(R.string.no_internet_error_title));
+            errorMessage.setText(getString(R.string.no_internet_error_message_person));
             findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
         } else {
             swipeRefreshLayout.setVisibility(View.VISIBLE);
@@ -439,14 +402,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
         if (activity.equals("Quotes")){
             switch (type) {
                 case "author": {
-                    String url;
-                    if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                        url = "https://lijukay.github.io/Qwotable/quotes-de.json";
-                    } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-                    } else {
-                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-                    }
+                    String url = "https://lijukay.github.io/Qwotable/quotes-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
 
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                             jsonObject -> {
@@ -472,14 +428,8 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                     break;
                 }
                 case "Found in": {
-                    String url;
-                    if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                        url = "https://lijukay.github.io/Qwotable/quotes-de.json";
-                    } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-                    } else {
-                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-                    }
+                    String url = "https://lijukay.github.io/Qwotable/quotes-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
+
 
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                             jsonObject -> {
@@ -508,21 +458,9 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                         if (internet) {
                             String url;
                             if (type2.equals("author")){
-                                if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                                    url = "https://lijukay.github.io/Qwotable/author-de.json";
-                                } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                                    url = "https://lijukay.github.io/Qwotable/author-en.json";
-                                } else {
-                                    url = "https://lijukay.github.io/Qwotable/author-en.json";
-                                }
+                                url = "https://lijukay.github.io/Qwotable/author-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
                             } else {
-                                if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                                    url = "https://lijukay.github.io/Qwotable/found-in-de.json";
-                                } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                                    url = "https://lijukay.github.io/Qwotable/found-in-en.json";
-                                } else {
-                                    url = "https://lijukay.github.io/Qwotable/found-in-en.json";
-                                }
+                                url = "https://lijukay.github.io/Qwotable/found-in-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
                             }
 
                             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -537,7 +475,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
 
                                             copyText(quote + "\n\n~ " + author);
                                         } catch (JSONException e) {
-                                            Toast.makeText(this, getString(R.string.error_while_parsing_toast_message), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(this, getString(R.string.error_while_parsing_toast_message_person), Toast.LENGTH_SHORT).show();
                                             e.printStackTrace();
                                         }
                                     }, Throwable::printStackTrace);
@@ -552,21 +490,9 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                     if (internet) {
                         String url;
                         if (type2.equals("author")){
-                            if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                                url = "https://lijukay.github.io/Qwotable/author-de.json";
-                            } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                                url = "https://lijukay.github.io/Qwotable/author-en.json";
-                            } else {
-                                url = "https://lijukay.github.io/Qwotable/author-en.json";
-                            }
+                            url = "https://lijukay.github.io/Qwotable/author-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
                         } else {
-                            if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                                url = "https://lijukay.github.io/Qwotable/found-in-de.json";
-                            } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                                url = "https://lijukay.github.io/Qwotable/found-in-en.json";
-                            } else {
-                                url = "https://lijukay.github.io/Qwotable/found-in-en.json";
-                            }
+                            url = "https://lijukay.github.io/Qwotable/found-in-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
                         }
 
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -579,15 +505,15 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                                         String quote = object.getString("quote");
                                         String author = object.getString("author");
 
-                                        Intent shareText = new Intent();
+                                        /*Intent shareText = new Intent();
                                         shareText.setAction(Intent.ACTION_SEND);
                                         shareText.putExtra(Intent.EXTRA_TEXT, quote + "\n\n~" + author);
                                         shareText.setType("text/plain");
                                         Intent sendText = Intent.createChooser(shareText, null);
-                                        startActivity(sendText);
+                                        startActivity(sendText);*/
 
                                     } catch (JSONException e) {
-                                        Toast.makeText(this, getString(R.string.error_while_parsing_toast_message), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(this, getString(R.string.error_while_parsing_toast_message_person), Toast.LENGTH_SHORT).show();
                                         e.printStackTrace();
                                     }
                                 }, Throwable::printStackTrace);
@@ -606,8 +532,10 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
         ClipboardManager clipboard = (ClipboardManager) this.getSystemService(CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("Quotes", quote);
         clipboard.setPrimaryClip(clip);
-        Toast.makeText(this, getString(R.string.qwotable_copied_toast_message), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.qwotable_copied_toast_message_person), Toast.LENGTH_SHORT).show();
     }
 
+    public void share(){
+    }
 
 }

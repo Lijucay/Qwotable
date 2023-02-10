@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="Copy"
+                android:text="@string/copy_button"
                 style="@style/Widget.Material3.Button.TonalButton.Icon"
                 app:icon="@drawable/ic_baseline_content_copy_24"/>
 
@@ -72,16 +72,12 @@
                 android:id="@+id/share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Share"
+                android:text="@string/share_button"
                 style="@style/Widget.Material3.Button.TonalButton.Icon"
                 app:icon="@drawable/ic_baseline_share_24"/>
 
         </LinearLayout>
 
-
-
     </LinearLayout>
-
-
 
 </com.google.android.material.card.MaterialCardView>

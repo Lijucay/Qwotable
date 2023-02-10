@@ -1,7 +1,5 @@
 package com.lijukay.quotesAltDesign.fragments;
 
-import static rikka.material.app.DayNightDelegate.getApplicationContext;
-
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,8 +8,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -21,20 +17,14 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -65,12 +55,9 @@ public class home extends Fragment {
     boolean internet;
     String versionNameBeta, versionName, changelogBeta, changelogMessage, apkBeta, apkUrl;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
 
         v = inflater.inflate(R.layout.fragment_home, container, false);
 
@@ -84,7 +71,7 @@ public class home extends Fragment {
 
         swipeRefreshLayout = v.findViewById(R.id.homeSwipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            Toast.makeText(requireContext(), getString(R.string.refresh_message), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getString(R.string.toast_message_home), Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
                 Cache cache = mRequestQueue.getCache();
@@ -93,7 +80,6 @@ public class home extends Fragment {
                 getLanguage();
             }, 2000);
         });
-
 
         betaSharedPreference = requireActivity().getSharedPreferences("Beta", 0);
 
@@ -170,48 +156,41 @@ public class home extends Fragment {
 
 
 
-                //todo: parse versionName, changelog, link to show them on showUpdateDialog()
                 if (versionCode > versionCurrent){
                     CardView updateCardView = v.findViewById(R.id.updateCardView);
                     updateCardView.setVisibility(View.VISIBLE);
                     TextView updateText = v.findViewById(R.id.update_message);
-                    updateText.setText(R.string.update_available_message);
-                    updateCardView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (!internet) {
-                                Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
-                            } else {
-                                new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
-                                        .setTitle(getString(R.string.update_title))
-                                        .setMessage(BuildConfig.VERSION_NAME +" -> " + versionName + "\n\n" +changelogMessage)
-                                        .setIcon(R.drawable.ic_baseline_system_update_24)
-                                        .setPositiveButton(getString(R.string.update_button), (dialog, which) -> InstallUpdate(requireActivity(), apkUrl, versionName))
-                                        .setNeutralButton(getString(R.string.cancel_button), (dialog, which) -> dialog.dismiss())
-                                        .show();
-                            }
-
+                    updateText.setText(getString(R.string.update_card_home_title));
+                    updateCardView.setOnClickListener(v -> {
+                        if (!internet) {
+                            Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
+                        } else {
+                            new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                                    .setTitle(getString(R.string.updater_dialog_title))
+                                    .setMessage(BuildConfig.VERSION_NAME +" -> " + versionName + "\n\n" +changelogMessage)
+                                    .setIcon(R.drawable.ic_baseline_system_update_24)
+                                    .setPositiveButton(getString(R.string.updater_positive_button), (dialog, which) -> InstallUpdate(requireActivity(), apkUrl, versionName))
+                                    .setNeutralButton(getString(R.string.updater_negative_button), (dialog, which) -> dialog.dismiss())
+                                    .show();
                         }
+
                     });
                 } else if (versionBeta > versionCurrent && betaSharedPreference.getBoolean("beta", false)){
                     CardView updateCardView = v.findViewById(R.id.updateCardView);
                     updateCardView.setVisibility(View.VISIBLE);
                     TextView updateText = v.findViewById(R.id.update_message);
-                    updateText.setText(R.string.update_available_message_beta);
-                    updateCardView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (!internet) {
-                                Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
-                            } else {
-                                new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
-                                        .setTitle(getString(R.string.update_title))
-                                        .setMessage(BuildConfig.VERSION_NAME +" -> " + versionNameBeta + "\n\n" +changelogBeta)
-                                        .setIcon(R.drawable.ic_baseline_system_update_24)
-                                        .setPositiveButton(getString(R.string.update_button), (dialog, which) -> InstallUpdate(requireActivity(), apkBeta, versionNameBeta))
-                                        .setNeutralButton(getString(R.string.cancel_button), (dialog, which) -> dialog.dismiss())
-                                        .show();
-                            }
+                    updateText.setText(getString(R.string.update_card_home_beta_title));
+                    updateCardView.setOnClickListener(v -> {
+                        if (!internet) {
+                            Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
+                        } else {
+                            new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                                    .setTitle(getString(R.string.updater_dialog_title))
+                                    .setMessage(BuildConfig.VERSION_NAME +" -> " + versionNameBeta + "\n\n" +changelogBeta)
+                                    .setIcon(R.drawable.ic_baseline_system_update_24)
+                                    .setPositiveButton(getString(R.string.updater_positive_button), (dialog, which) -> InstallUpdate(requireActivity(), apkBeta, versionNameBeta))
+                                    .setNeutralButton(getString(R.string.updater_negative_button), (dialog, which) -> dialog.dismiss())
+                                    .show();
                         }
                     });
                 } else {

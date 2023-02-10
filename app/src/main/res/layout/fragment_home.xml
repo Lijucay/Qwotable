@@ -37,7 +37,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:textStyle="bold"
-                        android:text="Update available"
+                        android:text="@string/update_card_update_available"
                         android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                         android:textColor="?attr/colorOnErrorContainer"
                         android:id="@+id/update_title" />
@@ -81,7 +81,7 @@
                             android:textAppearance="?attr/textAppearanceTitleMedium"
                             android:textColor="?android:textColorSecondary"
                             android:textStyle="bold"
-                            android:text="Horse: \'Life is difficult, but you are loved.\'"
+                            android:text="@string/quote_example_quote"
                             />
                         <TextView
                             android:layout_width="match_parent"
@@ -90,7 +90,7 @@
                             android:layout_marginTop="16dp"
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             android:textColor="?android:attr/textColorSecondary"
-                            android:text="Charlie Mackery"
+                            android:text="@string/quote_example_author"
                             />
                         <TextView
                             android:layout_width="match_parent"
@@ -99,7 +99,7 @@
                             android:layout_marginTop="8dp"
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             android:textColor="?android:attr/textColorSecondary"
-                            android:text="The boy, the mole, the fox and the horse"
+                            android:text="@string/quote_example_found_in"
                             />
 
                     </LinearLayout>
@@ -116,7 +116,7 @@
                             android:textStyle="bold"
                             style="?attr/textAppearanceTitleLarge"
                             android:textColor="?android:attr/textColorSecondary"
-                            android:text="Quote definition"
+                            android:text="@string/quote_definition_title"
                             />
 
                         <TextView
@@ -125,7 +125,7 @@
                             android:layout_marginTop="16dp"
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             android:textColor="?android:attr/textColorSecondary"
-                            android:text="Quotes are passages from books, games and movies as well as from songs or public speeches. Usually, the author and the name of the book/movie/song/game is mentioned in the credits. In this app it looks like the example above."
+                            android:text="@string/quote_definition_message"
                             />
                         <TextView
                             android:layout_width="match_parent"
@@ -133,7 +133,7 @@
                             android:layout_marginTop="16dp"
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             android:textColor="?android:attr/textColorSecondary"
-                            android:text="Here you can see the quote, the author and (in this case) the movie where the quote can be found."
+                            android:text="@string/quote_definition_message_part_2"
                             />
                     </LinearLayout>
                 </LinearLayout>
@@ -164,7 +164,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/wisdomTitle"
-                                android:text="About help"
+                                android:text="@string/wisdom_example_title"
                                 android:textStyle="bold"
                                 style="?attr/textAppearanceTitleLarge"
                                 android:textColor="?android:attr/textColorSecondary"/>
@@ -173,7 +173,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?attr/textAppearanceTitleMedium"
-                                android:text="Boy: 'What is the bravest thing you've ever said?' Horse: 'Help. Asking for help isn't giving up, it is refusing to give up.'"
+                                android:text="@string/wisdom_example_wisdom"
                                 android:textStyle="bold"
                                 android:layout_marginTop="16dp"
                                 android:textColor="?android:attr/textColorSecondary"/>
@@ -184,7 +184,7 @@
                                 android:layout_marginTop="16dp"
                                 android:textAppearance="?attr/textAppearanceBodyMedium"
                                 android:textColor="?android:attr/textColorSecondary"
-                                android:text="Charlie Mackery"
+                                android:text="@string/wisdom_example_author"
                                />
                             <TextView
                                 android:layout_width="match_parent"
@@ -193,7 +193,7 @@
                                 android:layout_marginTop="8dp"
                                 android:textAppearance="?attr/textAppearanceBodyMedium"
                                 android:textColor="?android:attr/textColorSecondary"
-                                android:text="The boy, the mole, the fox and the horse"
+                                android:text="@string/wisdom_example_found_in"
                                />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
@@ -207,7 +207,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Wisdom definition"
+                            android:text="@string/wisdom_definition_title"
                             style="?attr/textAppearanceTitleLarge"
                             android:textStyle="bold"
                             android:textColor="?android:attr/textColorSecondary"/>
@@ -217,7 +217,7 @@
                             android:layout_marginTop="16dp"
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             android:textColor="?android:attr/textColorSecondary"
-                            android:text="In this app, wisdoms are stories/tales that is teaching you of something. It is not always clear, what the wisdom is teaching you. Usually, the author, as well as the book/game/movie is mentioned in the credits. In this app it looks like in the example above."
+                            android:text="@string/wisdom_definition_message"
                             />
                         <TextView
                             android:layout_width="match_parent"
@@ -225,7 +225,7 @@
                             android:layout_marginTop="16dp"
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             android:textColor="?android:attr/textColorSecondary"
-                            android:text="Here you can see the quote, the author and (in this case) the game where the wisdom can be found."/>
+                            android:text="@string/wisdom_definition_message_part_2"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -242,7 +242,7 @@
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Information"
+                    android:text="@string/information_card"
                     android:textStyle="bold"
                     android:textColor="?android:attr/textColorSecondary"
                     android:textAppearance="?attr/textAppearanceTitleLarge"/>

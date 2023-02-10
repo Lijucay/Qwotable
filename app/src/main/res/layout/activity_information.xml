@@ -33,7 +33,7 @@
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/information"
+            app:title="Information"
             app:menu="@menu/settings_menu"
             android:background="?attr/colorSurface"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"/>
@@ -45,7 +45,6 @@
         android:id="@+id/error"
         android:gravity="center"
         android:orientation="vertical">
-
 
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="300dp"
@@ -59,7 +58,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-            android:text="Oh no!"
             android:textColor="?attr/colorOnPrimaryContainer"
             android:gravity="center"/>
 
@@ -67,19 +65,15 @@
             android:id="@+id/messageError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="There was an issue while getting your Qwotable. Please have a look at the information's page. If I already know about the issue, there will be an information there, if not, feel free to contact me.\nI will do my best to make it all work again as soon as possible."/>
+            android:gravity="center"/>
 
         <Button
             android:id="@+id/retry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Try again"
+            android:text="@string/error_button_try_again"
             android:layout_marginTop="10dp"/>
 
-
-
     </LinearLayout>
-
 
 </RelativeLayout>

@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="Quotes"
+        android:title="@string/quotes_item"
         android:id="@+id/quotesNav"
         android:icon="@drawable/ic_quotes"/>
 
     <item
-        android:title="Home"
+        android:title="@string/home_item"
         android:id="@+id/homeNav"
         android:icon="@drawable/ic_home"/>
 
     <item
-        android:title="Wisdom"
+        android:title="@string/wisdom_item"
         android:id="@+id/wisdomNav"
         android:icon="@drawable/ic_wisdom"/>
 

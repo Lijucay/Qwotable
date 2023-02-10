@@ -56,7 +56,8 @@
                 android:layout_height="300dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/messageOnBoarding"/>
+                app:layout_constraintTop_toBottomOf="@+id/messageOnBoarding"
+                android:contentDescription="@string/content_description_pages" />
 
         <TextView
             android:layout_marginStart="30dp"
@@ -66,7 +67,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:gravity="center"
-            android:text="Tap the button below to use Qwotable"
             android:layout_marginTop="16dp"
             android:textAppearance="?attr/textAppearanceBodyMedium"
             android:textColor="?android:attr/textColorSecondary"

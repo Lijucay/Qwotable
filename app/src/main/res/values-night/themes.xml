@@ -28,11 +28,13 @@
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
 
-        <item name="android:statusBarColor">@color/md_theme_dark_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
 
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.Rikka.Material3</item>
         <item name="android:windowActivityTransitions">true</item>
+
+        <item name="android:navigationBarColor">@android:color/transparent</item>
 
 
     </style>
@@ -80,8 +82,9 @@
         <item name="colorSurfaceInverse">#FFD9E4</item>
         <item name="colorPrimaryInverse">#B51663</item>
 
-        <item name="android:statusBarColor">#3E0021</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
     <style name="AppThemeGreen" parent="Theme.Material3.Dark.NoActionBar">
@@ -112,8 +115,9 @@
         <item name="colorSurfaceInverse">#B0F49E</item>
         <item name="colorPrimaryInverse">#146E00</item>
 
-        <item name="android:statusBarColor">#002200</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
     <!--<style name="AppThemePurple" parent="Theme.Material3.Dark.NoActionBar">

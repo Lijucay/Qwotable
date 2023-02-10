@@ -46,27 +46,47 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class Information extends AppCompatActivity {
-    SwipeRefreshLayout swipeRefreshLayout;
-    RequestQueue mRequestQueue;
-    int versionCurrent, versionCode;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private RequestQueue mRequestQueue;
+    private int versionCurrent, versionCode;
     private ArrayList<InformationItem> items;
-    RecyclerView recyclerView;
-    InformationAdapter adapter;
-    SharedPreferences color, language;
-    public static String BroadCastStringForAction = "checkInternet";
-    boolean internet;
-    LinearLayout error;
+    private RecyclerView recyclerView;
+    private InformationAdapter adapter;
+    private boolean internet;
+    private LinearLayout error;
     private IntentFilter mIntentFilter;
-    TextView errorTitle, errorMessage;
+    private TextView errorTitle, errorMessage;
+
+    public static String BroadCastStringForAction = "checkInternet";
+    public SharedPreferences color, language;
+
+
 
     @SuppressLint({"NotifyDataSetChanged", "SourceLockedOrientationActivity"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
-        color = getSharedPreferences("Colors", 0);
-        language = getSharedPreferences("language", 0);
+        language = getSharedPreferences("language", 0); //Todo: Parse Information in German
 
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int widthPixels = metrics.widthPixels;
+        int heightPixels = metrics.heightPixels;
+        float scaleFactor = metrics.density;
+        float widthDp = widthPixels / scaleFactor;
+        float heightDp = heightPixels / scaleFactor;
+        float smallestWidth = Math.min(widthDp, heightDp);
+        if (smallestWidth >= 600) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+        }
+        else if (smallestWidth < 600) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+
+        color = getSharedPreferences("Colors", 0);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
             setTheme(R.style.AppTheme);
         } else {
@@ -83,60 +103,33 @@ public class Information extends AppCompatActivity {
             }
         }
 
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        int widthPixels = metrics.widthPixels;
-        int heightPixels = metrics.heightPixels;
-
-        float scaleFactor = metrics.density;
-
-        float widthDp = widthPixels / scaleFactor;
-        float heightDp = heightPixels / scaleFactor;
-
-        float smallestWidth = Math.min(widthDp, heightDp);
-
-        if (smallestWidth >= 600) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-
-        }
-        else if (smallestWidth < 600) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-
         setContentView(R.layout.activity_information);
 
+        int color = SurfaceColors.SURFACE_2.getColor(this);
         MaterialToolbar materialToolbar = findViewById(R.id.topAppBar);
-        setSupportActionBar(materialToolbar);
+        boolean tablet = getResources().getBoolean(R.bool.isTablet);
+        Intent serviceIntent = new Intent(this, InternetService.class);
 
+        setSupportActionBar(materialToolbar);
         materialToolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-        int color = SurfaceColors.SURFACE_2.getColor(this);
         getWindow().setStatusBarColor(color);
         getWindow().setNavigationBarColor(color);
 
         error = findViewById(R.id.error);
-        //As it is not necessary to be visible when the app is starting, the layout's visibility is set to "gone"//
         error.setVisibility(View.GONE);
         errorTitle = findViewById(R.id.titleError);
         errorMessage = findViewById(R.id.messageError);
 
         mIntentFilter = new IntentFilter();
-        //------Action of this IntentFilter: Checking the internet------//
         mIntentFilter.addAction(BroadCastStringForAction);
-        //------Referring to the class where the service is written down and starting the service------//
-        Intent serviceIntent = new Intent(this, InternetService.class);
         startService(serviceIntent);
-        //------Checking if the Application is online------//
         internet = isOnline(getApplicationContext());
 
         recyclerView = findViewById(R.id.informationRV);
-        boolean tablet = getResources().getBoolean(R.bool.isTablet);
         if (tablet){
-            //If the device is a tablet, instead of using a LinearLayout, use a StaggeredGridLayout, so the layout does not look ugly//
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-
         } else {
-            //If the device is not a tablet, use a LinearLayout as the device is to small to show two spans of content//
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         }
         recyclerView.setHasFixedSize(true);
@@ -145,7 +138,7 @@ public class Information extends AppCompatActivity {
 
         swipeRefreshLayout = findViewById(R.id.informationSRL);
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            Toast.makeText(Information.this, getString(R.string.refresh_message), Toast.LENGTH_SHORT).show();
+            Toast.makeText(Information.this, getString(R.string.toast_message_information), Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
                 Cache cache = mRequestQueue.getCache();
@@ -156,37 +149,34 @@ public class Information extends AppCompatActivity {
             }, 2000);
         });
 
-
         versionCurrent = BuildConfig.VERSION_CODE;
         mRequestQueue = Volley.newRequestQueue(this);
+
         checkInternet();
     }
 
     private void checkInternet(){
+
         if (!internet){
-            //If there is no internet, the recyclerview and the refreshLayout are gone, but the error view is visible//
             swipeRefreshLayout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
             error.setVisibility(View.VISIBLE);
-            errorTitle.setText("No internet");
+            errorTitle.setText(getString(R.string.no_internet_error_title));
             //Todo: String
-            errorMessage.setText("Connect to the internet to see information.");
+            errorMessage.setText(getString(R.string.no_internet_message_information));
             //Todo: String
-            //If there is no internet, this line checks every 2000 millis, if there still is no internet//
             findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
         } else {
-            //If there is internet, the Visibility of the swipeRefreshLayout and the recyclerView is set to Visible and the error view disappears//
             swipeRefreshLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
             error.setVisibility(View.GONE);
-            //parsing the JSON as internet is available
             parseJSON();
         }
     }
 
     private void parseJSON() {
-        String urlPQ = "https://lijukay.github.io/Qwotable/information-en.json";
 
+        String urlPQ = "https://lijukay.github.io/Qwotable/information-en.json";
 
         JsonObjectRequest requestPQ = new JsonObjectRequest(Request.Method.GET, urlPQ, null,
                 responsePQ -> {
@@ -210,13 +200,19 @@ public class Information extends AppCompatActivity {
                         recyclerView.setAdapter(adapter);
 
                     } catch (JSONException e) {
+
                         swipeRefreshLayout.setVisibility(View.GONE);
+
                         recyclerView.setVisibility(View.GONE);
+
                         error.setVisibility(View.VISIBLE);
-                        errorMessage.setText("There was an issue while getting your Qwotable. Please have a look at the information's page. If I already know about the issue, there will be an information there, if not, feel free to contact me.\nI will do my best to make it all work again as soon as possible.");
-                        //TODO: String
-                        errorTitle.setText("Oh no!");
+
+                        errorMessage.setText(getString(R.string.error_while_parsing_message_information));
+
+                        errorTitle.setText(getString(R.string.error_while_parsing_title));
+
                         findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
+
                         e.printStackTrace();
                     }
                 }, Throwable::printStackTrace);
@@ -261,6 +257,7 @@ public class Information extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.settings_menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.settingsMenu){
@@ -270,5 +267,4 @@ public class Information extends AppCompatActivity {
             return super.onOptionsItemSelected(item);
         }
     }
-
 }

@@ -18,10 +18,12 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,6 +36,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.activities.Person;
@@ -124,7 +129,7 @@ public class quotes extends Fragment implements RecyclerViewInterface {
         //Creating the onRefreshListener, which handles what should happen when the layout is refreshed//
         swipeRefreshLayout.setOnRefreshListener(() -> {
             //Create a Toast that shows the information text ("Updating, please wait...")//
-            Toast.makeText(requireActivity(),getString(R.string.refresh_message), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireActivity(), getString(R.string.toast_message_quotes), Toast.LENGTH_SHORT).show();
             //Creating a new handler//
             new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
@@ -157,9 +162,8 @@ public class quotes extends Fragment implements RecyclerViewInterface {
             swipeRefreshLayout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
             error.setVisibility(View.VISIBLE);
-            errorTitle.setText(getString(R.string.no_internet_title));
-            errorMessage.setText(getString(R.string.no_internet_message_quotes));
-            //If there is no internet, this line checks every 2000 millis, if there still is no internet//
+            errorTitle.setText(getString(R.string.no_internet_error_title));
+            errorMessage.setText(getString(R.string.no_internet_error_message_quotes));
             v.findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
         } else {
             //If there is internet, the Visibility of the swipeRefreshLayout and the recyclerView is set to Visible and the error view disappears//
@@ -177,20 +181,6 @@ public class quotes extends Fragment implements RecyclerViewInterface {
         String url;
 
         url = "https://lijukay.github.io/Qwotable/quotes-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
-        //checking the value of the language-preference, which, if not changed in the settings, is the system's language//
-        /*if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")){
-            //If the language, either system's language, of if already changed, the app language is set to "de" (German)
-            //The app will parse the quotes from the German JSON-File on this link//
-            //TODO: Try if url = "https://lijukay.github.io/Qwotable/quotes-" +Locale.getDefault().getLanguage()+ ".json" works - Seems like it is
-            url = "https://lijukay.github.io/Qwotable/quotes-de.json";
-        } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")){
-            //If the language, either system's language, of if already changed, the app language is set to "fr" (French)
-            //The app will parse the quotes from the English JSON-File on this link ('cause there is no French version of this file yet)//
-            url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-        } else {
-            //If the language is none of the above, it will parse the English-File//
-            url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-        }*/
 
         //Creating a new JSON-Object request//
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -222,7 +212,7 @@ public class quotes extends Fragment implements RecyclerViewInterface {
                         swipeRefreshLayout.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.GONE);
                         error.setVisibility(View.VISIBLE);
-                        errorMessage.setText(getString(R.string.error_while_parsing_message));
+                        errorMessage.setText(getString(R.string.error_while_parsing_quotes));
                         errorTitle.setText(getString(R.string.error_while_parsing_title));
                         v.findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
                         e.printStackTrace();
@@ -233,17 +223,9 @@ public class quotes extends Fragment implements RecyclerViewInterface {
 
     @Override
     public void onItemClick(int position, String type) {
-        String url;
+        String url = "https://lijukay.github.io/Qwotable/quotes-" + language.getString("language", Locale.getDefault().getLanguage()) +".json";
         switch (type) {
             case "author": {
-                if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                    url = "https://lijukay.github.io/Qwotable/quotes-de.json";
-                } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                    url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-                } else {
-                    url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-                }
-
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                         jsonObject -> {
                             try {
@@ -259,6 +241,7 @@ public class quotes extends Fragment implements RecyclerViewInterface {
                                 intent.putExtra("Activity", "Quotes");
                                 startActivity(intent);
 
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -268,14 +251,6 @@ public class quotes extends Fragment implements RecyclerViewInterface {
                 break;
             }
             case "Found in": {
-                if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                    url = "https://lijukay.github.io/Qwotable/quotes-de.json";
-                } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                    url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-                } else {
-                    url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-                }
-
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                         jsonObject -> {
                             try {
@@ -301,15 +276,6 @@ public class quotes extends Fragment implements RecyclerViewInterface {
             }
             case "copy": {
                 if (internet) {
-                    if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                        url = "https://lijukay.github.io/Qwotable/quotes-de.json";
-                    } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-                    } else {
-                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-                    }
-
-
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                             jsonObject -> {
                                 try {
@@ -321,7 +287,7 @@ public class quotes extends Fragment implements RecyclerViewInterface {
 
                                     copyText(quote + "\n\n~ " + author);
                                 } catch (JSONException e) {
-                                    Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message_quotes), Toast.LENGTH_SHORT).show();
                                     e.printStackTrace();
                                 }
                             }, Throwable::printStackTrace);
@@ -334,15 +300,6 @@ public class quotes extends Fragment implements RecyclerViewInterface {
             }
             case "share": {
                 if (internet) {
-                    if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                        url = "https://lijukay.github.io/Qwotable/quotes-de.json";
-                    } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-                    } else {
-                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-                    }
-
-
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                             jsonObject -> {
                                 try {
@@ -360,7 +317,7 @@ public class quotes extends Fragment implements RecyclerViewInterface {
                                     startActivity(sendText);
 
                                 } catch (JSONException e) {
-                                    Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message_quotes), Toast.LENGTH_SHORT).show();
                                     e.printStackTrace();
                                 }
                             }, Throwable::printStackTrace);
@@ -371,76 +328,17 @@ public class quotes extends Fragment implements RecyclerViewInterface {
                 }
             }
             break;
-            /*case "save": {
-                if (internet) {
-                    if (language.getString("language", Locale.getDefault().getLanguage()).equals("de")) {
-                        url = "https://lijukay.github.io/Qwotable/quotes-de.json";
-                    } else if (language.getString("language", Locale.getDefault().getLanguage()).equals("fr")) {
-                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-                    } else {
-                        url = "https://lijukay.github.io/Qwotable/quotes-en.json";
-                    }
 
-
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                            jsonObject -> {
-                                try {
-                                    JSONArray jsonArray = jsonObject.getJSONArray("Quotes");
-                                    JSONObject object = jsonArray.getJSONObject(position);
-
-                                    String quote = object.getString("quote");
-                                    String author = object.getString("author");
-
-                                    saveImage(quote, author);
-                                } catch (JSONException e) {
-                                    Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message), Toast.LENGTH_SHORT).show();
-                                    e.printStackTrace();
-                                }
-                            }, Throwable::printStackTrace);
-                    requestQueue.add(jsonObjectRequest);
-
-                } else {
-                    Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
-                }
-            }
-            break;*/
         }
     }
 
-    /*private void saveImage(String quote, String author) {
-        // Erstelle einen Bitmap mit der Größe der gewünschten Bildgröße
-        Bitmap bitmap = Bitmap.createBitmap(500, 500, Bitmap.Config.ARGB_8888);
-        bitmap.eraseColor(0xffffff);
-        Canvas canvas = new Canvas(bitmap);
-
-        // Erstelle eine Textbereich mit der Größe des Bitmaps
-        StaticLayout layout = new StaticLayout(quote + "\n\n" + author, new TextPaint(), bitmap.getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
-        // Zeichne die Strings auf den Canvas
-        layout.draw(canvas);
-
-        // Speichere den Bitmap als PNG
-        File root = Environment.getExternalStorageDirectory();
-        Calendar calendar = Calendar.getInstance();
-        int minute = calendar.get(Calendar.MINUTE);
-        File cachePath = new File(root.getAbsolutePath() + "/DCIM/Camera/image"+ "Qwotable" + minute + ".png");
-        try {
-            cachePath.createNewFile();
-            Log.e("hnf", cachePath.createNewFile()+"");
-            FileOutputStream ostream = new FileOutputStream(cachePath);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, ostream);
-            ostream.close();
-            Toast.makeText(requireContext(), "Done", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
 
     private void copyText(String quote) {
         ClipboardManager clipboard = (ClipboardManager) requireActivity().getSystemService(CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("Quotes", quote);
         clipboard.setPrimaryClip(clip);
-        Toast.makeText(requireContext(), getString(R.string.qwotable_copied_toast_message), Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireContext(), getString(R.string.quote_copied_toast_message), Toast.LENGTH_SHORT).show();
     }
 
     public final BroadcastReceiver InternetReceiver = new BroadcastReceiver() {

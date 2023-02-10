@@ -1,111 +1,164 @@
 <resources>
+    <!--App name-->
     <string name="app_name">Qwotable</string>
-    <string name="refresh_message">Updating, please wait…</string>
-    <string name="language_title">Language</string>
-    <string name="cant_check_for_updates">Can\'t check for updates</string>
-    <string name="no_update_available">No update available</string>
-    <string name="update_title">Updater</string>
-    <string name="update_button">Update</string>
-    <string name="bug_report_title">Bug report</string>
-    <string name="bug_report_message">If you found a bug, I am really sorry. I will do my best to make this app better. In the meantime, you can decide how to reach me to report the bug you found. Do you want to use Telegram or Email?</string>
-    <string name="email_button">Email</string>
-    <string name="telegram_button">Telegram</string>
-    <string name="bug_report_mail_subject">A bug has been found 🐛</string>
-    <string name="bug_report_mail_message">Hello Luca,  There is a bug in your app. Let me quickly describe it to you.</string>
-    <string name="feature_suggestion_title">Feature suggestion</string>
-    <string name="feature_suggestion_message">You have a feature suggestion? Sure, send it to me.</string>
-    <string name="feature_suggestion_mail_subject">I have a suggestion!</string>
-    <string name="feature_suggestion_mail_message">I have a very nice idea. Hear me out:</string>
-    <string name="share_sharetext_message">Look, I found an app with quotes and wisdom.  Download it here: https://github.com/Lijukay/Qwotable</string>
-    <string name="feedback_title">Feedback</string>
-    <string name="feedback_message">Do you have Feedback for my application? You can easily write your opinion to me by choosing Telegram or Email. Please do not just write \"I (do not) like your app.\" Be creative. Tell me what you (do not) like.</string>
-    <string name="feedback_email_subject">Feedback for your app</string>
-    <string name="feedback_email_message">Hello,\n\nListen to the melodie of my feedback:</string>
-    <string name="app_permission_title">App\'s permissions</string>
-    <string name="privacy_policy_title">Privacy policy</string>
-    <string name="privacy_policy_message">Qwotable is a free Android application, made by me, Luca. Qwotable does not collect any data and never will. Every interaction with me is selectable. I am offering the possibility of sending me mails, which includes bugs, features and/or feedback. When the conversation with the user has ended, I will delete the contact data and the conversation due to the security of data.  I may change the Privacy Policy. Every change is effective immediately. An information of the change of the Privacy Policy can be found on the changelog  Effective December 11, 2022</string>
-    <string name="license_title">Licenses</string>
-    <string name="license_message">For my application, I used some things that are not mine: Lottie Animations However, because the files are all signed with the Lottie Simple License I have the chance to not mention the creator.</string>
-    <string name="wiki_title">Wiki</string>
-    <string name="wiki_message">Hey, cool that you are here. Qwotable has a Wiki-Website. How about having a look?</string>
-    <string name="wiki_button">To the wiki</string>
-    <!--Check if necessary-->
-    <string name="permission_required_title">Permission required</string>
-    <string name="permission_required_message">In order to update this application, this app needs the permission to read and write storage</string>
-    <string name="grant_permission_button">Grant permission</string>
-    <string name="cancel_button">Cancel</string>
-    <string name="update_available">Update available</string>
-    <string name="update_available_message">A newer version of this app is available. Go to settings, click on Updater and install the latest update to get the latest bug fixes and features.</string>
-    <string name="update_available_message_beta">A newer beta version of this app is available. Go to settings, click on Updater and install the latest beta update to get the latest bug fixes and features to test.</string>
 
-    <string name="quote_definition_title">Quote definition</string>
-    <string name="quotes_definition_message">Quotes are passages from books, games and movies as well as from songs or public speeches. Usually, the author and the name of the book/movie/song/game is mentioned in the credits. In this app it looks like this:</string>
-    <string name="quote_example_quote">Horse: \"Life is difficult, but you are loved.\"</string>
-    <string name="quote_example_author" translatable="false">Charlie Mackery</string>
-    <string name="quote_example_foundIn" translatable="false">The boy, the mole, the fox and the horse</string>
-    <string name="quote_example_explanation">Here you can see the quote, the author and (in this case) the movie where the quote can be found.</string>
-    <string name="wisdom_definition">Wisdom definition</string>
-    <string name="wisdom_definition_message">In this app, wisdoms are stories/tales that is teaching you of something. It is not always clear, what the wisdom is teaching you. Usually, the author, as well as the book/game/movie is mentioned in the credits. In this app it looks like this:</string>
-    <string name="wisdom_example_author" translatable="false">Charlie Mackery</string>
-    <string name="wisdom_example_explanation">Here you can see the quote, the author and (in this case) the game where the wisdom can be found.</string>
-    <string name="qwrequest_email_subject">Listen to this Qwotable!</string>
-    <string name="qwrequest_email_message">Hey,\n\nThis Qwotable is not in the app:</string>
-    <string name="qwrequest_title">Qwotable Request</string>
-    <string name="qwrequest_message">You found a Qwotable that is not in this app yet? You can send it to me if you want to.</string>
-    <string name="information_card">Information</string>
-    <string name="app_permission_message">This app uses some permissions. This page will explain to you why my app needs these permissions.  Read and write storage: Qwotable needs to be able to read and write to the storage in order to save and install app updates on the device. No data is written to storage.  Full Internet Access: This permission allows my app to get the quotes from my file on the Internet. No data is collected from me.  Install unknown packages: This permission allows my app to install the update.</string>
-    <string name="language_message_temp">Not available yet. Wait for an update to use this featur</string>
-    <string name="german">German</string>
-    <string name="english">English</string>
-    <string name="french">French</string>
-    <string name="lande">Current language: English</string>
-    <string name="notsupported" translatable="false">Your System-language currently is not supported. The language is set to English.\nSupported languages: English, German, French</string>
-    <string name="update_summary">Check for the latest updates</string>
-    <string name="wisdom">Wisdom</string>
-    <string name="quotes">Quotes</string>
-    <string name="information">Information</string>
-    <string name="previous">Previous</string>
-    <string name="next">Next</string>
-    <string name="settings">Settings</string>
-    <string name="start">Start</string>
-
+    <!--SliderAdapter-->
     <string name="welcome_title">Welcome…</string>
     <string name="welcome_message">… to Qwotable. In the following, you will see features and instructions of Qwotable.</string>
     <string name="no_ads_title">No ads</string>
-    <string name="no_ads_message">Qwotable is an ad free application for you to relax and focuse on Qwotable\'s content!</string>
+    <string name="no_ads_message">Qwotable is an ad-free application for you to relax and focus on Qwotable\'s content!</string>
     <string name="relax_title">Made for you to relax</string>
     <string name="relax_message">Qwotable\'s content are quotes and wisdom. It is made for you to relax and fill your brain with deep sentences.</string>
     <string name="many_qwotables_title">Many Qwotables</string>
     <string name="many_qwotables_message">Qwotable has a lot of quotable stuff that will be updated from time to time. You will recognize it, because the newer the Qwotable, the more on the top it will be!</string>
     <string name="author_pages_title">Author pages</string>
-    <string name="author_pages_message">Besides the quotes and wisdom pages, Qwotable offers a page with the quotes and wisdom, based on the author. You simply have to tap on the authors name to get there!</string>
+    <string name="author_pages_message">Besides the quotes and wisdom pages, Qwotable offers a page with the quotes and wisdom, based on the author. You simply have to tap on the authors name to get there! Same goes for the found-in.</string>
     <string name="information_title">Information</string>
     <string name="information_message">Get the latest information of Qwotable in the Information page. For that, all you need to do is to swipe down to the bottom of the Homepage and click on "Information"</string>
     <string name="thats_it_title">That\'s it!</string>
     <string name="thats_it_message">Have fun using Qwotable!</string>
     <string name="slide_button_message">Simply click on the button below on or swipe to go on.</string>
     <string name="slide_button_end">Tap the button below to use Qwotable</string>
-    <string name="error_message">There was an error getting the Qwotables from the file online. Have a look at the information\'s page. If there isn\'t already an entry about this error, feel free to contact me. As soon as I see the issue, I will add an information and take care to fix it as soon as possible!</string>
-    <string name="error_title">Oh no!</string>
-    <string name="wisdom_example_wisdom">Boy: \"What is the bravest thing you\'ve ever said?\"\nHorse: \"Help. Asking for help isn\'t giving up, it is refusing to give up.\"</string>
-    <string name="wisdom_example_found_in" translatable="false">The boy, the mole, the fox and the horse</string>
-    <string name="wisdom_example_title">About help</string>
-    <string name="color_theme_title">Color</string>
-    <string name="no_internet_title">No internet</string>
-    <string name="no_internet_message_quotes">Connect to the internet to see quotes</string>
-    <string name="no_internet_message_wisdom">Connect to the internet to see wisdom</string>
+
+    <!--OnBoardingScreen.java-->
+    <string name="next_button">Next</string>
+    <string name="start_button">Start</string>
+    <string name="previous_button">Previous</string>
+
+    <!--Information.java-->
+    <string name="toast_message_information">Getting information, please wait…</string>
+    <string name="no_internet_message_information">Connect to the internet to see information</string>
+    <string name="error_while_parsing_message_information">"There was an error while getting the current information. I try my best to make it work again asap"</string>
+
+    <!--Person.java-->
+    <string name="toast_message_person">Getting Qwotable, please wait…</string>
+    <string name="error_while_parsing_message_person">There was an error while parsing the Qwotable. If it keeps happening, have a look at Information. If there is no post about the issue already, feel free to write an error entry</string>
+    <string name="no_internet_error_message_person">Connect to the internet to see Qwotable</string>
+    <string name="error_while_parsing_toast_message_person">Unable to get Qwotable currently</string>
+    <string name="qwotable_copied_toast_message_person">Qwotable copied to clipboard</string>
+
+    <!--Settings.java-->
+    <string name="toast_message_settings">Getting information, please wait…</string>
+    <string name="positive_button_text_set">Set</string>
+    <string name="neutral_button_text_cancel">Cancel</string>
+    <string name="beta_switch_preference_summary_positive">You want to get beta updates</string>
+    <string name="beta_switch_preference_summary_negative">You don\'t want to get beta updates</string>
+    <string name="qwotable_request_dialog_title">Request a Qwotable</string>
+    <string name="qwotable_request_dialog_message">If you think a quote or a wisdom is not in this app currently, but you want it to be here, you can request it.</string>
+    <string name="language_preference_summary_language_supported">Current language: English</string>
+    <string name="language_preference_summary_language_unsupported" translatable="false">Your system language currently is not officially supported, therefore the language has been set to English</string>
+    <string name="google_forms_button" translatable="false">Google Forms</string>
+    <string name="github_button" translatable="false">GitHub</string>
+    <string name="no_update_toast_message">There is no update available</string>
+    <string name="updater_dialog_title">Updater</string>
+    <string name="updater_positive_button">Update now</string>
+    <string name="updater_negative_button">Do it later</string>
+    <string name="report_a_bug_dialog_title">Report a bug</string>
+    <string name="report_a_bug_dialog_message">I am sorry, if you found a bug. Please send it to me. Make sure to have screenshots (optional, works only in GitHub) and also a step-by-step instruction, so I can reproduce the bug (required).</string>
+    <string name="request_a_feature_dialog_title">Request a feature</string>
+    <string name="request_a_feature_dialog_message">If you think, you have found a feature that is a must-have for this application, feel free to request it. Who knows, maybe I will add it ;)</string>
+    <string name="share_message">Look! I have found an Android application, that has quotes and wisdom!</string>
+    <string name="feedback_dialog_title">Feedback</string>
+    <string name="feedback_dialog_message">You want to give me feedback to my app? Sure!</string>
+    <string name="permission_dialog_title">Permissions of Qwotable</string>
+    <string name="permission_dialog_message">Qwotable needs following permissions:\n\nFull internet access:\nSince Qwotable gets its data from the internet, it is required to check, if an internet connection is available.\n\nInstall unknown apps:\nThis is required, so Qwotable is able to install the update.</string>
+    <string name="positive_button_okay_text" translatable="false">Okay</string>
+    <string name="privacy_dialog_title">Your privacy</string>
+    <string name="privacy_dialog_message">Qwotable is a free Android application, made by me, Luca.\nQwotable does not collect any data and never will.\nEvery interaction with me is selectable.\n\nI may change the Privacy Policy.\nEvery change is effective immediately.\nAn information of the change of the Privacy Policy can be found on the changelog\n\nEffective January 29, 2023</string>
+    <string name="licenses_dialog_title">Licenses</string>
+    <string name="licenses_dialog_message">Like other apps, Qwotable uses content that is not mine. In the following, this dialog will tell you about the used content:\n\nLottie Animations: Lottie animations are the moving pictures that are playing in the presentation-screen and the error screen. The Lottie animations I used are signed under the Lottie Simple License, therefore it is not necessary to give credits to every creator. Though I am thankful for their work, I must confess that I can\'t remember every author.\n\nRikka-Material: With Rikka-material, I mean the content of the settings activity such as the categories and switch.</string>
+    <string name="wiki_dialog_title" translatable="false">Wiki</string>
+    <string name="wiki_dialog_message">Qwotable has its own Wiki-page, created thanks to GitBook. There you will find extra information to Qwotable.</string>
+    <string name="wiki_button">To the wiki</string>
+
+    <!--home.java-->
+    <string name="toast_message_home">Update, please wait…</string>
+    <string name="update_card_home_title">A new version of this app is available. Go to Settings, click on Updater and then on Update now, or simply click on this card.</string>
+    <string name="update_card_home_beta_title">A newer beta version of this app is available.  Go to Settings, click on Updater and then on Update now, or simply click on this card</string>
+    
+    <!--quotes.java-->
+    <string name="toast_message_quotes">Getting quotes, please wait…</string>
+    <string name="no_internet_error_message_quotes">Connect to the internet to see quotes</string>
+    <string name="error_while_parsing_quotes">There was an error while trying to get the quotes. If there is not already an information, feel free to report the issue.</string>
+    <string name="error_while_parsing_toast_message_quotes">Unable to get quotes currently</string>
+    <string name="quote_copied_toast_message">Quote copied to clipboard</string>
+    
+    <!--wisdom.java-->
+    <string name="toast_message_wisdom">Getting wisdom, please wait…</string>
+    <string name="error_while_parsing_wisdom">There was an error while trying to get the wisdom. If there is not already an information, feel free to report the issue.</string>
+    <string name="no_internet_error_message_wisdom">Connect to the internet to see wisdom</string>
+
+    <!--Unspecified-->
+    <string name="no_internet_error_title">No internet</string>
     <string name="error_while_parsing_title">Oh no!</string>
-    <string name="error_while_parsing_message">Error while receiving the Qwotables. If there isn\'t already an information on the information-page, feel free to contact me.</string>
-    <string name="more_options_quotes">More options - Quotes</string>
-    <string name="more_options_wisdom">More options - Wisdom</string>
-    <string name="copy_qwotable">Copy</string>
-    <string name="share_qwotable">Share</string>
-    <string name="refresh_title">Updating</string>
-    <string name="qwotable_copied_toast_title">Success!</string>
-    <string name="qwotable_copied_toast_message">Qwotable was copied</string>
-    <string name="no_internet_toast_message">Connect to the internet first</string>
-    <string name="error_while_parsing_toast_message">Can\'t get Qwotables currently</string>
-    <string name="beta_summary_true">You want to get beta updates</string>
-    <string name="beta_summary_false">You don\'t want to get beta updates</string>
-    <string name="bug_report_summary">You found a bug? Click here to send it to me</string>
+    <string name="no_internet_toast_message">Please connect to the internet first</string>
+    <string name="error_button_try_again">Try again</string>
+    <string name="copy_button">Copy</string>
+    <string name="share_button">Share</string>
+
+    <!--fragment_home-->
+    <string name="update_card_update_available">Update available</string>
+    <string name="quote_example_quote">Horse: \'Life is difficult, but you are loved.\'</string>
+    <string name="quote_example_author" translatable="false">Charlie Mackery</string>
+    <string name="quote_example_found_in">The boy, the mole, the fox and the horse</string>
+    <string name="quote_definition_title">Quote definition</string>
+    <string name="quote_definition_message">Quotes are passages from books, games and movies as well as from songs or public speeches. Usually, the author and the name of the book/movie/song/game is mentioned in the credits. In this app it looks like the example above.</string>
+    <string name="quote_definition_message_part_2">Here you can see the quote, the author and (in this case) the movie where the quote can be found.</string>
+    <string name="wisdom_example_title">About help</string>
+    <string name="wisdom_example_wisdom">Boy: \'What is the bravest thing you\'ve ever said?\' Horse: \'Help. Asking for help isn\'t giving up, it is refusing to give up.\'</string>
+    <string name="wisdom_example_author" translatable="false">Charlie Mackery</string>
+    <string name="wisdom_example_found_in">The boy, the mole, the fox and the horse</string>
+    <string name="wisdom_definition_title">Wisdom definition</string>
+    <string name="wisdom_definition_message">In this app, wisdoms are stories/tales that is teaching you of something. It is not always clear, what the wisdom is teaching you. Usually, the author, as well as the book/game/movie is mentioned in the credits. In this app it looks like in the example above.</string>
+    <string name="wisdom_definition_message_part_2">Here you can see the wisdom, the author and (in this case) the game where the wisdom can be found.</string>
+    <string name="information_card">Information</string>
+
+    <!--pages.xml-->
+    <string name="content_description_pages">Presentation image example</string>
+
+    <!--bottom_navigation_bar_items.xml-->
+    <string name="quotes_item">Quotes</string>
+    <string name="home_item" translatable="false">Home</string>
+    <string name="wisdom_item">Wisdom</string>
+
+    <!--settings_menu-->
+    <string name="settings_item">Settings</string>
+
+    <!--root_preferences.xml-->
+    <string name="theme_and_language_preference_category">Language and Theme</string>
+    <string name="language_preference_title">Language</string>
+    <string name="colors_preference_title">Colors</string>
+    <string name="app_news_preference_category">App news</string>
+    <string name="updater_preference_title">Updater</string>
+    <string name="updater_preference_summary">Check for newer versions of the application</string>
+    <string name="beta_switch_preference_title" translatable="false">Beta</string>
+    <string name="changelog_preference_title" translatable="false">Changelogs</string>
+    <string name="changelog_preference_summary">See the changelog of previous changes</string>
+    <string name="app_support_preference_category">Help me with the app</string>
+    <string name="report_a_bug_preference_title">Report a bug</string>
+    <string name="report_a_bug_preference_summary">You found a bug? Send it to me!</string>
+    <string name="suggest_a_feature_preference_title">Suggest a feature</string>
+    <string name="suggest_a_feature_preference_summary">You have a suggestion? Send it to me!</string>
+    <string name="share_the_app_preference_title">Share this app</string>
+    <string name="share_the_app_preference_summary">Share it with you friends and your friends\' friends</string>
+    <string name="feedback_preference_title">Send feedback</string>
+    <string name="feedback_preference_summary">What is your opinion to this app? Go on and tell me!</string>
+    <string name="request_qwotable_preference_title">Request a qwotable</string>
+    <string name="request_qwotable_preference_summary">You have a quote or a wisdom that is not in this app?</string>
+    <string name="privacy_and_licenses_preference_category">Privacy and Licenses</string>
+    <string name="permissions_preference_title">Permissions of the app</string>
+    <string name="permissions_preference_summary">Find the App\'s permission here</string>
+    <string name="privacy_preference_title">Your privacy</string>
+    <string name="privacy_preference_summary">Read about the importance of your privacy to me.</string>
+    <string name="licenses_preference_title">Licenses</string>
+    <string name="licenses_preference_summary">What Licenses?</string>
+    <string name="wiki_category_and_preference" translatable="false">Wiki</string>
+    <string name="wiki_preference_summary">A wiki of the application!</string>
+    <string name="error_while_parsing_wisdom_toast_message">Unable to get wisdom currently</string>
+    <string name="color_preference_summary">Current color:</string>
+    <string name="color_red">Red</string>
+    <string name="color_dynamic">Dynamic</string>
+    <string name="color_pink">Pink</string>
+    <string name="color_green">Green</string>
+
 </resources>

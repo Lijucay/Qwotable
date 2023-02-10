@@ -23,18 +23,16 @@
         app:liftOnScroll="true"
         android:background="?attr/colorSurface"
         android:elevation="4dp">
+
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorSurface"
-                app:title="Qwotable"
+                app:title="@string/app_name"
                 app:menu="@menu/settings_menu"/>
 
-
     </com.google.android.material.appbar.AppBarLayout>
-
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
@@ -43,7 +41,5 @@
         app:labelVisibilityMode="selected"
         app:menu="@menu/bottom_navigation_bar_items"
         android:id="@+id/bottom_navigation"/>
-
-
 
 </RelativeLayout>

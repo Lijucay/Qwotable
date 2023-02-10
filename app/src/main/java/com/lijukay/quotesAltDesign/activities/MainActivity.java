@@ -1,39 +1,24 @@
 package com.lijukay.quotesAltDesign.activities;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.LinearGradient;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.Shader;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.elevation.SurfaceColors;
 import com.google.android.material.navigationrail.NavigationRailView;
 import com.lijukay.quotesAltDesign.R;
@@ -42,20 +27,18 @@ import com.lijukay.quotesAltDesign.fragments.home;
 import com.lijukay.quotesAltDesign.fragments.quotes;
 import com.lijukay.quotesAltDesign.fragments.wisdom;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    SharedPreferences languageSharedPreference, colorSharedPreference;
-    String languageString;
-    BottomNavigationView bottomnavigationview;
-    NavigationRailView navigationRailView;
-    ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
-    ViewPager2 viewPager2;
-    boolean tablet;
 
+    private BottomNavigationView bottomnavigationview;
+    private NavigationRailView navigationRailView;
+    private final ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
+    private ViewPager2 viewPager2;
+    private boolean tablet;
+
+    public SharedPreferences languageSharedPreference, colorSharedPreference;
 
     @SuppressLint({"NonConstantResourceId", "SourceLockedOrientationActivity"})
     @Override
@@ -63,8 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         languageSharedPreference = getSharedPreferences("Language", 0);
-        languageString = languageSharedPreference.getString("language", Locale.getDefault().getLanguage());
-        Locale locale = new Locale(languageString);
+        Locale locale = new Locale(languageSharedPreference.getString("language", Locale.getDefault().getLanguage()));
         Locale.setDefault(locale);
         Resources resources = this.getResources();
         Configuration config = resources.getConfiguration();
@@ -72,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         resources.updateConfiguration(config, resources.getDisplayMetrics());
 
         colorSharedPreference = getSharedPreferences("Colors", 0);
-
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             setTheme(R.style.AppTheme);
         } else {
@@ -89,24 +70,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        /*boolean tablet = getResources().getBoolean(R.bool.isTablet);*/
-
-
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int widthPixels = metrics.widthPixels;
         int heightPixels = metrics.heightPixels;
-
         float scaleFactor = metrics.density;
-
         float widthDp = widthPixels / scaleFactor;
         float heightDp = heightPixels / scaleFactor;
-
         float smallestWidth = Math.min(widthDp, heightDp);
-
         if (smallestWidth >= 600) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-
         } else if (smallestWidth < 600) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
@@ -133,9 +106,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         viewPager2 = findViewById(R.id.viewPager);
-
-        //TextView title = findViewById(R.id.custom_title_main);
-        //title.setText(getString(R.string.app_name));
 
         fragmentArrayList.add(new quotes());
         fragmentArrayList.add(new home());
@@ -253,6 +223,4 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, MainActivity.class));
         }
     }
-
-
 }
