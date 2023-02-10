@@ -1,0 +1,28 @@
+name: Get App Metadata
+
+on: [push]
+
+jobs:
+  get_metadata:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+
+      - name: Install Fastlane
+        run: |
+          sudo gem install fastlane -NV
+      - name: Get App Metadata
+        run: |
+          fastlane gradle properties > metadata.txt
+      - name: Commit Metadata
+        uses: actions/checkout@v2
+        with:
+          ref: main
+          path: metadata.txt
