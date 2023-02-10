@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Validate metadata
+    - name: Checkout Code
     - uses: actions/checkout@v3
+    
+    - name: Validate Fastlane Supply Metadata
     - uses: ashutoshgngwr/validate-fastlane-supply-metadata@v2
