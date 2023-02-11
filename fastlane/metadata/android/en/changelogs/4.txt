@@ -1,0 +1,14 @@
+<p>Bug fixes:</p>
+<p><br>Changing color theme to red again for devices running Android 9 and lower</p>
+<p>The next button on the OnBoardingScreen does not start the app anymore, just because the last page was already inflated, when the user decides to go to the previous page</p>
+<p>The status bar now shows the correct color, when the pink theme is used and the device is in light-mode</p>
+<p>The color-dialog's card now wraps the height of its content</p>
+<p><br>Changes:</p>
+<p><br>Disable landscape-mode for smartphones</p>
+<p><br>New:</p>
+<p><br>Wisdom does now parse German wisdom as well</p>
+<p>Home-Layout for tablets</p>
+<p>Dialog to share and copy wisdom</p>
+<p>Error screen for quotes and wisdom fragment when offline</p>
+<p>General error screen for wisdom</p>
+<p>Retry button for the error screen</p>

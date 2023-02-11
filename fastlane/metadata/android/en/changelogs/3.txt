@@ -1,0 +1,6 @@
+<p>Changes:</p>
+<p><br>The updater changelog message now displays the current version to version available. For example:
+<br>Version 2.1 to Version 3</p>
+<p><br>New:</p>
+<p><br>A tablet design has been created</p>
+<p>Hiding theme option for devices running Android 9 and lower, due to some issues</p>

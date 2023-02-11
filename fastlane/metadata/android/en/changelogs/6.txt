@@ -1,0 +1,5 @@
+<p>Changes:</p>
+<p><br>Fixing dark mode not working</p>
+<p><br>New:</p>
+<p><br>Readding German translation</p>
+<p>Adding a summary for the color preference, based on the color you are using</p>

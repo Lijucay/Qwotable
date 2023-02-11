@@ -1,0 +1,5 @@
+<p>Changes:</p>
+<p><br>Color theme: It is not black and white anymore, due to some problems with the MaterialSwitchPreference from the Rikka-Material3-library.</p>
+<p>Instead of being debug-apps, I now added a signature to the app. For everyone, who already installed the app: You need to uninstall the app before redownloading.</p>
+<p><br>New:<p>
+<p><br>Adding a beta-switch to get an info, when a new beta update is available</p>

@@ -1,0 +1,12 @@
+<p>Bug - Fixes:</p>
+<p><br>Support of the OnBoardingScreen for smaller devices</p>
+<p><br>Changes:</p>
+<p><br>Replacing the Frame-Layout with a so called ViewPager</p>
+<p>Quotes now show two credit-texts. The first one shows the author and the second one shows the media where it can be found</p>
+<p>The example card's layout now follows the layout of the actual Qwotable cards</p>
+<p><br>New:</p>
+<p><br>Adding language support for French and German</p>
+<p>Adding the possibility of changing the app color</p>
+<p>Updater for full releases + beta releases</p>
+<p>Switch for beta releases</p>
+<p>Card on home now shows if it is a beta update or a non-beta update</p>

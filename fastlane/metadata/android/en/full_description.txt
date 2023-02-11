@@ -1,0 +1,3 @@
+<p>Qwotable is an open-source application full of quotable content, in a modern UI with features, such as copy, share and save.
+<br>Qwotable offers the possibility of changing the in-app language (available languages: English, German, French), which automatically changes the source from where quotes and wisdom are getting parsed
+<br>Qwotable's content and the app are getting updates constantly

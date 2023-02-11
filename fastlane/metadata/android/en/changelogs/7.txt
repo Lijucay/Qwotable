@@ -1,0 +1,6 @@
+<p>Bug fixes:</p>
+<p><br>Language and Color dialog's translations are now correct</p>
+<p><br>Changes:</p>
+<p><br>Changing the style of the CardViews</p>
+<p><br>New:<p>
+<p><br>Adding French language</p>

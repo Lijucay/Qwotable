@@ -1,0 +1,9 @@
+<p>Changes:</p>
+<p><br>The design og Qwotable has been changed to the design language of Material 3.</p>
+<p>The dialog for copy and share Qwotable has been replaced by buttons on the card</p>
+<p>Colors and Languages are merged to be in one category called "Language and Theme"</p>
+<p>Making some improvements to the tablet layout</P>
+<p><br>New:<p>
+<p><br>A navigation icon has been added to every activity. It will lead you back to the previous activity or fragment</p>
+<p>Another (yet unclickable) preference has been added that will, in future updates, show previous changelogs.</p>
+<p>Dynamic color is now available for every device running Android 12 and higher. It currently replaces the red theme.</p>
