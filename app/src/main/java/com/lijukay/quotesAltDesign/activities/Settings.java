@@ -1,164 +1,38 @@
 package com.lijukay.quotesAltDesign.activities;
 
 import android.annotation.SuppressLint;
-import android.app.DownloadManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabColorSchemeParams;
 import androidx.browser.customtabs.CustomTabsIntent;
-import androidx.core.content.FileProvider;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.android.volley.Cache;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.elevation.SurfaceColors;
-import com.lijukay.quotesAltDesign.BuildConfig;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.service.InternetService;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
 import java.util.Locale;
-
-import rikka.material.preference.MaterialSwitchPreference;
 
 public class Settings extends AppCompatActivity {
 
-    public static final String BroadcastStringForAction = "checkInternet";
     static Intent starterIntent;
-    //static String versionNameBeta, versionName, apkUrl, apkBeta, changelogMessage, changelogBeta
     static String languageCode, colorS;
-    //static int versionC, versionA, versionB;
     static SharedPreferences betaSP, language, sharedPreferencesColors;
     static SharedPreferences.Editor betaEditor, languageEditor, colorEditor;
-    //private static RequestQueue mRequestQueueU;
-    //static boolean betaA = false, updateStatus = false, internet;
 
-    @SuppressLint("StaticFieldLeak")
-
-    /*public final BroadcastReceiver InternetReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(BroadcastStringForAction)) {
-                internet = intent.getStringExtra("online_status").equals("true");
-            }
-        }
-    };*/
-    //------Creating the SwipeRefreshLayout------//
-    private SwipeRefreshLayout swipeRefreshLayout;
-    //------Creating an IntentFilter------//
-    private IntentFilter mIntentFilter;
-
-    /*private static void parseJSONVersion() {
-        String url = "https://lijukay.github.io/PrUp/prUp.json";
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, jsonObject -> {
-            try {
-                JSONArray jsonArray = jsonObject.getJSONArray("Qwotable");
-
-                for (int a = 0; a < jsonArray.length(); a++) {
-
-                    JSONObject v = jsonArray.getJSONObject(a);
-
-                    versionC = BuildConfig.VERSION_CODE;
-                    versionA = v.getInt("versionsCode");
-                    versionB = v.getInt("versionsCodeBeta");
-                    apkUrl = v.getString("apkUrl");
-                    apkBeta = v.getString("apkUrlBeta");
-                    changelogMessage = v.getString("changelog");
-                    changelogBeta = v.getString("changelogBeta");
-                    versionName = v.getString("versionsName");
-                    versionNameBeta = v.getString("versionsNameBeta");
-                }
-
-                if (versionB > versionC) {
-                    betaA = true;
-                }
-
-                if (versionA > versionC) {
-                    betaA = false;
-                    updateStatus = true;
-                } else {
-                    updateStatus = false;
-                }
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }, Throwable::printStackTrace);
-        mRequestQueueU.add(jsonObjectRequest);
-
-
-    }*/
-
-    /*public static void InstallUpdate(Context context, String url, String versionName) {
-
-        //------Set the destination as a string------//
-        String destination = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + context.getString(R.string.app_name) + "." + versionName + ".apk";
-        //------Set the file uri------//
-        Uri fileUri = Uri.parse("file://" + destination);
-
-        File file = new File(destination);
-
-        if (file.exists()) //noinspection ResultOfMethodCallIgnored
-            file.delete();
-
-        DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-
-        request.setMimeType("application/vnd.android.package-archive");
-        request.setTitle(context.getString(R.string.app_name) + " Update");
-        request.setDescription(versionName);
-        request.setDestinationUri(fileUri);
-
-        BroadcastReceiver onComplete = new BroadcastReceiver() {
-            public void onReceive(Context ctxt, Intent intent) {
-
-                Uri apkFileUri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", new File(destination));
-
-                Intent install = new Intent(Intent.ACTION_VIEW);
-
-                install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                install.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
-                install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                install.setDataAndType(apkFileUri, "application/vnd.android.package-archive");
-
-                context.startActivity(install);
-                context.unregisterReceiver(this);
-            }
-        };
-        context.registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-        downloadManager.enqueue(request);
-    }*/
 
     @SuppressLint({"InflateParams", "SourceLockedOrientationActivity"})
     @Override
@@ -211,9 +85,6 @@ public class Settings extends AppCompatActivity {
 
         float smallestWidth = Math.min(widthDp, heightDp);
 
-
-
-        //------Set the contentView to the layout of settings_activity------//
         setContentView(R.layout.settings_activity);
 
         MaterialToolbar materialToolbar = findViewById(R.id.topAppBar);
@@ -232,68 +103,21 @@ public class Settings extends AppCompatActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-        //------IF ANYONE KNOWS WHAT THE CONDITION OF THE IF LOOP HERE IS, PWEASE EXPLAIN ME!------//
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.settings, new SettingsFragment()).commit();
         }
 
         ActionBar actionBar = getSupportActionBar();
-        //------Check if actionBar is null------//
         if (actionBar != null) {
-            //------IF ANYONE KNOWS WHAT THIS THING DOES, PWEASE EXPLAIN. I HAVE NO IDEA!------//
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        /*mRequestQueueU = Volley.newRequestQueue(this);
-        swipeRefreshLayout = findViewById(R.id.settingsSRL);
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            Toast.makeText(this, getString(R.string.toast_message_settings), Toast.LENGTH_SHORT).show();
-            new Handler().postDelayed(() -> {
-                swipeRefreshLayout.setRefreshing(false);
-                Cache cache = mRequestQueueU.getCache();
-                cache.clear();
-                parseJSONVersion();
-            }, 2000);
-        });*/
 
-        //------getIntent() returns the intent that started the activity------//
         starterIntent = getIntent();
-
-        mIntentFilter = new IntentFilter();
-        //------Action of this IntentFilter: Checking the internet------//
-        mIntentFilter.addAction(BroadcastStringForAction);
-        //------Referring to the class where the service is written down and starting the service------//
         Intent serviceIntent = new Intent(this, InternetService.class);
         startService(serviceIntent);
-        //------Checking if the Application is online------//
-        //internet = isOnline(getApplicationContext());
-
-        //parseJSONVersion();
     }
 
-    /*public boolean isOnline(Context c) {
-        ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo ni = cm.getActiveNetworkInfo();
-        return ni != null && ni.isConnectedOrConnecting();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        registerReceiver(InternetReceiver, mIntentFilter);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(InternetReceiver);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(InternetReceiver, mIntentFilter);
-    }*/
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
 
@@ -397,29 +221,6 @@ public class Settings extends AppCompatActivity {
                 });
             }
 
-
-            /*MaterialSwitchPreference beta = findPreference("beta");
-            assert beta != null;
-
-            if (beta.isChecked()){
-                beta.setSummary(getString(R.string.beta_switch_preference_summary_positive));
-            } else {
-                beta.setSummary(getString(R.string.beta_switch_preference_summary_negative));
-            }
-
-            beta.setOnPreferenceChangeListener((preference, newValue) -> {
-                if (!beta.isChecked()){
-                    beta.setSummary(getString(R.string.beta_switch_preference_summary_positive));
-                } else {
-                    beta.setSummary(getString(R.string.beta_switch_preference_summary_negative));
-                }
-                betaEditor.putBoolean("beta", !beta.isChecked());
-                betaEditor.apply();
-
-                return true;
-            });*/
-
-
             Preference qwrequest = findPreference("qwrequest");
             assert qwrequest != null;
             qwrequest.setOnPreferenceClickListener(preference -> {
@@ -497,38 +298,6 @@ public class Settings extends AppCompatActivity {
                         .show();
                 return false;
             });
-
-            /*Preference updater = findPreference("updateCheck");
-
-            assert updater != null;
-            updater.setOnPreferenceClickListener(preference -> {
-
-                if (!internet) {
-                    Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
-                } else  if (!updateStatus && !betaA && betaSP.getBoolean("beta", false) || !updateStatus && !betaSP.getBoolean("beta", false)){
-                    Toast.makeText(requireContext(), getString(R.string.no_update_toast_message), Toast.LENGTH_SHORT).show();
-                } else if (updateStatus){
-                    new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
-                            .setTitle(getString(R.string.updater_dialog_title))
-                            .setMessage(BuildConfig.VERSION_NAME +" -> " + versionName + "\n\n" +changelogMessage)
-                            .setIcon(R.drawable.ic_baseline_system_update_24)
-                            .setPositiveButton(getString(R.string.updater_positive_button), (dialog, which) -> InstallUpdate(requireActivity(), apkUrl, versionName))
-                            .setNeutralButton(getString(R.string.updater_negative_button), (dialog, which) -> dialog.dismiss())
-                            .show();
-                } else if (betaA && betaSP.getBoolean("beta", false)){
-                    new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
-                            .setTitle(getString(R.string.updater_dialog_title))
-                            .setMessage(BuildConfig.VERSION_NAME +" -> " + versionNameBeta + "\n\n" +changelogBeta)
-                            .setIcon(R.drawable.ic_baseline_system_update_24)
-                            .setPositiveButton(R.string.updater_positive_button, (dialog, which) -> InstallUpdate(requireActivity(), apkBeta, versionNameBeta))
-                            .setNeutralButton(R.string.updater_negative_button, (dialog, which) -> dialog.dismiss())
-                            .show();
-
-                }
-
-                return false;
-
-            });*/
 
             Preference bug_report = findPreference("reportBug");
 

@@ -13,8 +13,6 @@ import androidx.annotation.Nullable;
 
 import com.lijukay.quotesAltDesign.activities.Information;
 import com.lijukay.quotesAltDesign.activities.Person;
-import com.lijukay.quotesAltDesign.activities.Settings;
-import com.lijukay.quotesAltDesign.fragments.home;
 import com.lijukay.quotesAltDesign.fragments.quotes;
 import com.lijukay.quotesAltDesign.fragments.wisdom;
 
@@ -51,10 +49,6 @@ public class InternetService extends Service {
         @Override
         public void run() {
             handler.postDelayed(periodicUpdate, 1000 - SystemClock.elapsedRealtime()%1000);
-            Intent broadCastIntent = new Intent();
-            broadCastIntent.setAction(Settings.BroadcastStringForAction);
-            broadCastIntent.putExtra("online_status", ""+isOnline(InternetService.this));
-            sendBroadcast(broadCastIntent);
             Intent broadCastIntentQuote = new Intent();
             broadCastIntentQuote.setAction(quotes.BroadCastStringForAction);
             broadCastIntentQuote.putExtra("online_status", ""+isOnline(InternetService.this));

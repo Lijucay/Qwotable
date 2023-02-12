@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.item.InformationItem;
 
-import java.time.temporal.Temporal;
 import java.util.ArrayList;
 
 public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.InfoViewHolder> {

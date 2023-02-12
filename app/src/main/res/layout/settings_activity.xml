@@ -4,12 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <!--<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/appBarLayout"
-        android:id="@+id/settingsSRL">    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
-
         <FrameLayout
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:id="@+id/settings"
@@ -45,23 +39,5 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <!--<com.google.android.material.appbar.AppBarLayout
-        android:fitsSystemWindows="true"
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:liftOnScroll="true"
-        android:background="?attr/colorSurface"
-        android:elevation="4dp">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="Settings"
-            android:background="?attr/colorSurface"/>
-    </com.google.android.material.appbar.AppBarLayout>-->
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

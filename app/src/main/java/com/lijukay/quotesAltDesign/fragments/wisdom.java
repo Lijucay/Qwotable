@@ -70,7 +70,6 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
                              Bundle savedInstanceState) {
 
         language = requireActivity().getSharedPreferences("Language", 0);
-        // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_wisdom, container, false);
 
         progressIndicator = v.findViewById(R.id.progress);
@@ -83,7 +82,6 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
         requireContext().startService(serviceIntent);
 
         mIntentFilter = new IntentFilter();
-        //------Action of this IntentFilter: Checking the internet------//
         mIntentFilter.addAction(BroadCastStringForAction);
         internet = isOnline(requireActivity().getApplicationContext());
 
@@ -114,9 +112,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
         });
         requestQueue = Volley.newRequestQueue(requireContext());
 
-        //Finding the "error"-layout, that means the layout which is visible when there aren't any contents to show//
         error = v.findViewById(R.id.error);
-        //As it is not necessary to be visible when the app is starting, the layout's visibility is set to "gone"//
         error.setVisibility(View.GONE);
 
         checkInternet();
@@ -155,7 +151,6 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
                         recyclerView.setAdapter(adapter);
                         progressIndicator.setVisibility(View.GONE);
                     } catch (JSONException e) {
-                        //If there is an issue with the file, an error layout will be shown
                         swipeRefreshLayout.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.GONE);
                         error.setVisibility(View.VISIBLE);
@@ -260,22 +255,17 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
 
     @SuppressLint("SetTextI18n")
     private void checkInternet(){
-        //checking if internet is true or false//
         if (!internet){
-            //If there is no internet, the recyclerview and the refreshLayout are gone, but the error view is visible//
             swipeRefreshLayout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
             error.setVisibility(View.VISIBLE);
             errorTitle.setText(getString(R.string.no_internet_error_title));
             errorMessage.setText(getString(R.string.no_internet_error_message_wisdom));
-            //If there is no internet, this line checks every 2000 millis, if there still is no internet//
             v.findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
         } else {
-            //If there is internet, the Visibility of the swipeRefreshLayout and the recyclerView is set to Visible and the error view disappears//
             swipeRefreshLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
             error.setVisibility(View.GONE);
-            //parsing the JSON as internet is available
             parseJSON();
         }
     }

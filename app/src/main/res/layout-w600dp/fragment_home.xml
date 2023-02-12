@@ -16,43 +16,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <!--<com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.Material3.CardView.Filled"
-                    android:backgroundTint="?attr/colorErrorContainer"
-                    android:layout_margin="8dp"
-                    android:visibility="gone"
-                    android:id="@+id/updateCardView">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:textStyle="bold"
-                            android:text="@string/update_card_update_available"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                            android:textColor="?attr/colorOnErrorContainer"
-                            android:id="@+id/update_title" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                            android:id="@+id/update_message"
-                            android:layout_marginTop="16dp"
-                            android:textColor="?attr/colorOnErrorContainer" />
-                    </LinearLayout>
-
-
-                </com.google.android.material.card.MaterialCardView>-->
-
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

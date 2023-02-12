@@ -13,7 +13,7 @@ public class Prescreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+        SplashScreen.installSplashScreen(this);
 
         setContentView(R.layout.activity_prescreen);
         startActivity(new Intent(this, OnBoardingScreen.class));
