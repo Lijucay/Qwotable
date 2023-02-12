@@ -298,37 +298,6 @@ public class quotes extends Fragment implements RecyclerViewInterface {
                 }
                 break;
             }
-            case "share": {
-                if (internet) {
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                            jsonObject -> {
-                                try {
-                                    JSONArray jsonArray = jsonObject.getJSONArray("Quotes");
-                                    JSONObject object = jsonArray.getJSONObject(position);
-
-                                    String quote = object.getString("quote");
-                                    String author = object.getString("author");
-
-                                    Intent shareText = new Intent();
-                                    shareText.setAction(Intent.ACTION_SEND);
-                                    shareText.putExtra(Intent.EXTRA_TEXT, quote + "\n\n~" + author);
-                                    shareText.setType("text/plain");
-                                    Intent sendText = Intent.createChooser(shareText, null);
-                                    startActivity(sendText);
-
-                                } catch (JSONException e) {
-                                    Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message_quotes), Toast.LENGTH_SHORT).show();
-                                    e.printStackTrace();
-                                }
-                            }, Throwable::printStackTrace);
-                    requestQueue.add(jsonObjectRequest);
-
-                } else {
-                    Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
-                }
-            }
-            break;
-
         }
     }
 

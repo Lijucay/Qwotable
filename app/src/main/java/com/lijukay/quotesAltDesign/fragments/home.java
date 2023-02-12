@@ -1,59 +1,34 @@
 package com.lijukay.quotesAltDesign.fragments;
 
-import android.app.DownloadManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.cardview.widget.CardView;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.android.volley.Cache;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.lijukay.quotesAltDesign.BuildConfig;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.activities.Information;
 import com.lijukay.quotesAltDesign.service.InternetService;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
 import java.util.Locale;
 
 public class home extends Fragment {
 
-    int versionCode, versionCurrent, versionBeta;
-    RequestQueue mRequestQueue;
+    //int versionCode, versionCurrent, versionBeta;
+    //RequestQueue mRequestQueue;
     View v;
-    SwipeRefreshLayout swipeRefreshLayout;
-    SharedPreferences betaSharedPreference, languageSharedPreference;
-    public static String BroadcastStringForAction = "checkInternet";
-    private IntentFilter mIntentFilter;
-    boolean internet;
-    String versionNameBeta, versionName, changelogBeta, changelogMessage, apkBeta, apkUrl;
+    //SwipeRefreshLayout swipeRefreshLayout;
+    //SharedPreferences betaSharedPreference,
+    SharedPreferences languageSharedPreference;
+    //public static String BroadcastStringForAction = "checkInternet";
+    //private IntentFilter mIntentFilter;
+    //boolean internet;
+    //String versionNameBeta, versionName, changelogBeta, changelogMessage, apkBeta, apkUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,12 +39,12 @@ public class home extends Fragment {
         Intent serviceIntent = new Intent(requireContext(), InternetService.class);
         requireContext().startService(serviceIntent);
 
-        mIntentFilter = new IntentFilter();
+        //mIntentFilter = new IntentFilter();
         //------Action of this IntentFilter: Checking the internet------//
-        mIntentFilter.addAction(BroadcastStringForAction);
-        internet = isOnline(requireActivity().getApplicationContext());
+        //mIntentFilter.addAction(BroadcastStringForAction);
+        //internet = isOnline(requireActivity().getApplicationContext());
 
-        swipeRefreshLayout = v.findViewById(R.id.homeSwipeRefreshLayout);
+        /*swipeRefreshLayout = v.findViewById(R.id.homeSwipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             Toast.makeText(requireContext(), getString(R.string.toast_message_home), Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(() -> {
@@ -77,7 +52,6 @@ public class home extends Fragment {
                 Cache cache = mRequestQueue.getCache();
                 cache.clear();
                 parseJSON();
-                getLanguage();
             }, 2000);
         });
 
@@ -87,13 +61,15 @@ public class home extends Fragment {
 
         mRequestQueue = Volley.newRequestQueue(requireContext());
 
-        parseJSON();
+        parseJSON();*/
+
+        getLanguage();
 
         v.findViewById(R.id.information_card).setOnClickListener(v -> startActivity(new Intent(getActivity(), Information.class)));
         return v;
     }
 
-    public final BroadcastReceiver InternetReceiver = new BroadcastReceiver() {
+    /*public final BroadcastReceiver InternetReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(BroadcastStringForAction)) {
@@ -118,7 +94,7 @@ public class home extends Fragment {
     public void onResume() {
         super.onResume();
         requireContext().registerReceiver(InternetReceiver, mIntentFilter);
-    }
+    }*/
 
     private void getLanguage() {
         languageSharedPreference = requireActivity().getSharedPreferences("Language", 0);
@@ -136,7 +112,7 @@ public class home extends Fragment {
         resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 
-    private void parseJSON() {
+    /*private void parseJSON() {
         String url = "https://lijukay.github.io/PrUp/prUp.json";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
@@ -241,6 +217,6 @@ public class home extends Fragment {
         };
         context.registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         downloadManager.enqueue(request);
-    }
+    }*/
 
 }

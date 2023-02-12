@@ -49,7 +49,7 @@
     <string name="google_forms_button" translatable="false">Google Forms</string>
     <string name="github_button" translatable="false">GitHub</string>
     <string name="no_update_toast_message">There is no update available</string>
-    <string name="updater_dialog_title">Updater</string>
+    <string name="updater_dialog_title" translatable="false">Updater</string>
     <string name="updater_positive_button">Update now</string>
     <string name="updater_negative_button">Do it later</string>
     <string name="report_a_bug_dialog_title">Report a bug</string>
@@ -60,12 +60,12 @@
     <string name="feedback_dialog_title">Feedback</string>
     <string name="feedback_dialog_message">You want to give me feedback to my app? Sure!</string>
     <string name="permission_dialog_title">Permissions of Qwotable</string>
-    <string name="permission_dialog_message">Qwotable needs following permissions:\n\nFull internet access:\nSince Qwotable gets its data from the internet, it is required to check, if an internet connection is available.\n\nInstall unknown apps:\nThis is required, so Qwotable is able to install the update.</string>
+    <string name="permission_dialog_message">Qwotable needs following permissions:  Full internet access: Since Qwotable gets its data from the internet, it is required to check, if an internet connection is available.  Install unknown apps: This is required, so Qwotable is able to install the update.</string>
     <string name="positive_button_okay_text" translatable="false">Okay</string>
     <string name="privacy_dialog_title">Your privacy</string>
-    <string name="privacy_dialog_message">Qwotable is a free Android application, made by me, Luca.\nQwotable does not collect any data and never will.\nEvery interaction with me is selectable.\n\nI may change the Privacy Policy.\nEvery change is effective immediately.\nAn information of the change of the Privacy Policy can be found on the changelog\n\nEffective January 29, 2023</string>
+    <string name="privacy_dialog_message">Qwotable is a free Android application, made by me, Luca. Qwotable does not collect any data and never will. Every interaction with me is selectable.  I may change the Privacy Policy. Every change is effective immediately. An information of the change of the Privacy Policy can be found on the changelog  Effective January 29, 2023</string>
     <string name="licenses_dialog_title">Licenses</string>
-    <string name="licenses_dialog_message">Like other apps, Qwotable uses content that is not mine. In the following, this dialog will tell you about the used content:\n\nLottie Animations: Lottie animations are the moving pictures that are playing in the presentation-screen and the error screen. The Lottie animations I used are signed under the Lottie Simple License, therefore it is not necessary to give credits to every creator. Though I am thankful for their work, I must confess that I can\'t remember every author.\n\nRikka-Material: With Rikka-material, I mean the content of the settings activity such as the categories and switch.</string>
+    <string name="licenses_dialog_message">Like other apps, Qwotable uses content that is not mine. In the following, this dialog will tell you about the used content:  Lottie Animations: Lottie animations are the moving pictures that are playing in the presentation-screen and the error screen. The Lottie animations I used are signed under the Lottie Simple License, therefore it is not necessary to give credits to every creator. Though I am thankful for their work, I must confess that I can\'t remember every author.  Rikka-Material: With Rikka-material, I mean the content of the settings activity such as the categories and switch.</string>
     <string name="wiki_dialog_title" translatable="false">Wiki</string>
     <string name="wiki_dialog_message">Qwotable has its own Wiki-page, created thanks to GitBook. There you will find extra information to Qwotable.</string>
     <string name="wiki_button">To the wiki</string>
@@ -90,7 +90,6 @@
     <!--Unspecified-->
     <string name="no_internet_error_title">No internet</string>
     <string name="error_while_parsing_title">Oh no!</string>
-    <string name="no_internet_toast_message">Please connect to the internet first</string>
     <string name="error_button_try_again">Try again</string>
     <string name="copy_button">Copy</string>
     <string name="share_button">Share</string>
@@ -110,7 +109,7 @@
     <string name="wisdom_definition_title">Wisdom definition</string>
     <string name="wisdom_definition_message">In this app, wisdoms are stories/tales that is teaching you of something. It is not always clear, what the wisdom is teaching you. Usually, the author, as well as the book/game/movie is mentioned in the credits. In this app it looks like in the example above.</string>
     <string name="wisdom_definition_message_part_2">Here you can see the wisdom, the author and (in this case) the game where the wisdom can be found.</string>
-    <string name="information_card">Information</string>
+    <string name="information_card" translatable="false">Information</string>
 
     <!--pages.xml-->
     <string name="content_description_pages">Presentation image example</string>
@@ -128,7 +127,7 @@
     <string name="language_preference_title">Language</string>
     <string name="colors_preference_title">Colors</string>
     <string name="app_news_preference_category">App news</string>
-    <string name="updater_preference_title">Updater</string>
+    <string name="updater_preference_title" translatable="false">Updater</string>
     <string name="updater_preference_summary">Check for newer versions of the application</string>
     <string name="beta_switch_preference_title" translatable="false">Beta</string>
     <string name="changelog_preference_title" translatable="false">Changelogs</string>
@@ -160,5 +159,6 @@
     <string name="color_pink">Pink</string>
     <string name="color_green">Green</string>
     <string name="slide_button_message">Simply click on the button below on or swipe to go on.</string>
-
+    <string name="no_internet_toast_message">Please connect to the internet first</string>
+    <string name="app_restart_dialog_message">The app will restart</string>
 </resources>

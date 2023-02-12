@@ -13,7 +13,7 @@
             android:icon="@drawable/ic_baseline_colors_24"
             android:key="colors"/>
     </PreferenceCategory>
-    <PreferenceCategory
+    <!--<PreferenceCategory
         android:title="@string/app_news_preference_category"
         app:allowDividerBelow="true">
         <Preference
@@ -31,7 +31,7 @@
             app:key="changelog"
             android:enabled="false"
             android:summary="@string/changelog_preference_summary"/>
-    </PreferenceCategory>
+    </PreferenceCategory>-->
     <PreferenceCategory
         android:title="@string/app_support_preference_category"
         app:allowDividerBelow="true">

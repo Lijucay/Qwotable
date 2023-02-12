@@ -55,10 +55,6 @@ public class InternetService extends Service {
             broadCastIntent.setAction(Settings.BroadcastStringForAction);
             broadCastIntent.putExtra("online_status", ""+isOnline(InternetService.this));
             sendBroadcast(broadCastIntent);
-            Intent broadCastIntentMain = new Intent();
-            broadCastIntentMain.setAction(home.BroadcastStringForAction);
-            broadCastIntentMain.putExtra("online_status", ""+isOnline(InternetService.this));
-            sendBroadcast(broadCastIntentMain);
             Intent broadCastIntentQuote = new Intent();
             broadCastIntentQuote.setAction(quotes.BroadCastStringForAction);
             broadCastIntentQuote.putExtra("online_status", ""+isOnline(InternetService.this));

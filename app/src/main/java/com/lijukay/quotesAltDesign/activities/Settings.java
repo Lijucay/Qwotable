@@ -54,29 +54,30 @@ public class Settings extends AppCompatActivity {
 
     public static final String BroadcastStringForAction = "checkInternet";
     static Intent starterIntent;
-    static String versionNameBeta, versionName, apkUrl, apkBeta, changelogMessage, changelogBeta, languageCode, colorS;
-    static int versionC, versionA, versionB;
+    //static String versionNameBeta, versionName, apkUrl, apkBeta, changelogMessage, changelogBeta
+    static String languageCode, colorS;
+    //static int versionC, versionA, versionB;
     static SharedPreferences betaSP, language, sharedPreferencesColors;
     static SharedPreferences.Editor betaEditor, languageEditor, colorEditor;
-    private static RequestQueue mRequestQueueU;
-    static boolean betaA = false, updateStatus = false, internet;
+    //private static RequestQueue mRequestQueueU;
+    //static boolean betaA = false, updateStatus = false, internet;
 
     @SuppressLint("StaticFieldLeak")
 
-    public final BroadcastReceiver InternetReceiver = new BroadcastReceiver() {
+    /*public final BroadcastReceiver InternetReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(BroadcastStringForAction)) {
                 internet = intent.getStringExtra("online_status").equals("true");
             }
         }
-    };
+    };*/
     //------Creating the SwipeRefreshLayout------//
     private SwipeRefreshLayout swipeRefreshLayout;
     //------Creating an IntentFilter------//
     private IntentFilter mIntentFilter;
 
-    private static void parseJSONVersion() {
+    /*private static void parseJSONVersion() {
         String url = "https://lijukay.github.io/PrUp/prUp.json";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, jsonObject -> {
@@ -117,9 +118,9 @@ public class Settings extends AppCompatActivity {
         mRequestQueueU.add(jsonObjectRequest);
 
 
-    }
+    }*/
 
-    public static void InstallUpdate(Context context, String url, String versionName) {
+    /*public static void InstallUpdate(Context context, String url, String versionName) {
 
         //------Set the destination as a string------//
         String destination = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + context.getString(R.string.app_name) + "." + versionName + ".apk";
@@ -157,7 +158,7 @@ public class Settings extends AppCompatActivity {
         };
         context.registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         downloadManager.enqueue(request);
-    }
+    }*/
 
     @SuppressLint({"InflateParams", "SourceLockedOrientationActivity"})
     @Override
@@ -243,7 +244,7 @@ public class Settings extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        mRequestQueueU = Volley.newRequestQueue(this);
+        /*mRequestQueueU = Volley.newRequestQueue(this);
         swipeRefreshLayout = findViewById(R.id.settingsSRL);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             Toast.makeText(this, getString(R.string.toast_message_settings), Toast.LENGTH_SHORT).show();
@@ -253,7 +254,7 @@ public class Settings extends AppCompatActivity {
                 cache.clear();
                 parseJSONVersion();
             }, 2000);
-        });
+        });*/
 
         //------getIntent() returns the intent that started the activity------//
         starterIntent = getIntent();
@@ -265,12 +266,12 @@ public class Settings extends AppCompatActivity {
         Intent serviceIntent = new Intent(this, InternetService.class);
         startService(serviceIntent);
         //------Checking if the Application is online------//
-        internet = isOnline(getApplicationContext());
+        //internet = isOnline(getApplicationContext());
 
-        parseJSONVersion();
+        //parseJSONVersion();
     }
 
-    public boolean isOnline(Context c) {
+    /*public boolean isOnline(Context c) {
         ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
         return ni != null && ni.isConnectedOrConnecting();
@@ -292,7 +293,7 @@ public class Settings extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         registerReceiver(InternetReceiver, mIntentFilter);
-    }
+    }*/
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
 
@@ -303,26 +304,26 @@ public class Settings extends AppCompatActivity {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
 
             CharSequence[] items = {
-                    "German",
+                    "Deutsch",
                     "English",
-                    "French"
+                    "Français"
             };
             CharSequence[] colors;
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R){
                 colors =
                         new CharSequence[]
                                 {
-                                        "Red",
-                                        "Pink",
-                                        "Green"
+                                        getString(R.string.color_red),
+                                        getString(R.string.color_pink),
+                                        getString(R.string.color_green)
                                 };
             } else {
                 colors =
                         new CharSequence[]
                                 {
-                                        "Dynamic (Follows system)",
-                                        "Pink",
-                                        "Green"
+                                        getString(R.string.color_dynamic),
+                                        getString(R.string.color_pink),
+                                        getString(R.string.color_green)
                                 };
             }
             int checkedColor = 0;
@@ -339,7 +340,7 @@ public class Settings extends AppCompatActivity {
             githubFeedback = Uri.parse("https://github.com/Lijukay/Qwotable/issues/new?assignees=&labels=feedback&template=feedback.md&title=Feedback");
 
 
-            parseJSONVersion();
+            //parseJSONVersion();
             Preference color = findPreference("colors");
             assert color != null;
             String colorSummary = getString(R.string.color_red);
@@ -371,18 +372,18 @@ public class Settings extends AppCompatActivity {
                 color.setOnPreferenceClickListener(preference -> {
                     new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
                             .setTitle(getString(R.string.colors_preference_title))
-                                    .setSingleChoiceItems(colors, finalCheckedColor, (dialog, which) -> {
-                                        switch (which){
-                                            case 0:
-                                                colorEditor.putString("color", "red");
-                                                break;
-                                            case 1:
-                                                colorEditor.putString("color", "pink");
-                                                break;
-                                            case 2:
-                                                colorEditor.putString("color", "green");
-                                        }
-                                    })
+                            .setSingleChoiceItems(colors, finalCheckedColor, (dialog, which) -> {
+                                switch (which){
+                                    case 0:
+                                        colorEditor.putString("color", "red");
+                                        break;
+                                    case 1:
+                                        colorEditor.putString("color", "pink");
+                                        break;
+                                    case 2:
+                                        colorEditor.putString("color", "green");
+                                }
+                            })
                             .setPositiveButton(getString(R.string.positive_button_text_set), (dialog, which) -> {
                                 colorEditor.apply();
                                 requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
@@ -397,7 +398,7 @@ public class Settings extends AppCompatActivity {
             }
 
 
-            MaterialSwitchPreference beta = findPreference("beta");
+            /*MaterialSwitchPreference beta = findPreference("beta");
             assert beta != null;
 
             if (beta.isChecked()){
@@ -416,7 +417,7 @@ public class Settings extends AppCompatActivity {
                 betaEditor.apply();
 
                 return true;
-            });
+            });*/
 
 
             Preference qwrequest = findPreference("qwrequest");
@@ -497,7 +498,7 @@ public class Settings extends AppCompatActivity {
                 return false;
             });
 
-            Preference updater = findPreference("updateCheck");
+            /*Preference updater = findPreference("updateCheck");
 
             assert updater != null;
             updater.setOnPreferenceClickListener(preference -> {
@@ -527,7 +528,7 @@ public class Settings extends AppCompatActivity {
 
                 return false;
 
-            });
+            });*/
 
             Preference bug_report = findPreference("reportBug");
 

@@ -33,6 +33,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.elevation.SurfaceColors;
 import com.lijukay.quotesAltDesign.R;
@@ -136,6 +137,8 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
         setSupportActionBar(materialToolbar);
         materialToolbar.setNavigationOnClickListener(v -> onBackPressed());
         materialToolbar.setTitle(authorP);
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsing);
+        collapsingToolbarLayout.setTitle(authorP);
 
 
         int colorS = SurfaceColors.SURFACE_2.getColor(this);
@@ -401,59 +404,9 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
     public void onItemClick(int position, String type) {
         if (activity.equals("Quotes")){
             switch (type) {
-                case "author": {
-                    String url = "https://lijukay.github.io/Qwotable/quotes-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
-
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                            jsonObject -> {
-                                try {
-                                    JSONArray jsonArrayP = jsonObject.getJSONArray("Quotes");
-
-                                    JSONObject object = jsonArrayP.getJSONObject(position);
-
-                                    String authorP = object.getString("author");
-
-                                    Intent intent = new Intent(this, Person.class);
-                                    intent.putExtra("author", authorP);
-                                    intent.putExtra("type", "author");
-                                    intent.putExtra("Activity", "Quotes");
-                                    startActivity(intent);
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }, Throwable::printStackTrace);
-                    requestQueue.add(jsonObjectRequest);
-
+                case "author":
+                case "Found in":
                     break;
-                }
-                case "Found in": {
-                    String url = "https://lijukay.github.io/Qwotable/quotes-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
-
-
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                            jsonObject -> {
-                                try {
-                                    JSONArray jsonArrayP = jsonObject.getJSONArray("Quotes");
-
-                                    JSONObject object = jsonArrayP.getJSONObject(position);
-
-                                    String authorP = object.getString("found in");
-
-                                    Intent intent = new Intent(this, Person.class);
-                                    intent.putExtra("author", authorP);
-                                    intent.putExtra("type", "found in");
-                                    intent.putExtra("Activity", "Quotes");
-                                    startActivity(intent);
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }, Throwable::printStackTrace);
-                    requestQueue.add(jsonObjectRequest);
-
-                    break;
-                }
                 case "copy": {
                         if (internet) {
                             String url;
@@ -486,51 +439,13 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                         }
                     }
                     break;
-                case "share": {
-                    if (internet) {
-                        String url;
-                        if (type2.equals("author")){
-                            url = "https://lijukay.github.io/Qwotable/author-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
-                        } else {
-                            url = "https://lijukay.github.io/Qwotable/found-in-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
-                        }
-
-                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                                jsonObject -> {
-                                    try {
-                                        pQuotes = authorP;
-                                        JSONArray jsonArray = jsonObject.getJSONArray(pQuotes);
-                                        JSONObject object = jsonArray.getJSONObject(position);
-
-                                        String quote = object.getString("quote");
-                                        String author = object.getString("author");
-
-                                        /*Intent shareText = new Intent();
-                                        shareText.setAction(Intent.ACTION_SEND);
-                                        shareText.putExtra(Intent.EXTRA_TEXT, quote + "\n\n~" + author);
-                                        shareText.setType("text/plain");
-                                        Intent sendText = Intent.createChooser(shareText, null);
-                                        startActivity(sendText);*/
-
-                                    } catch (JSONException e) {
-                                        Toast.makeText(this, getString(R.string.error_while_parsing_toast_message_person), Toast.LENGTH_SHORT).show();
-                                        e.printStackTrace();
-                                    }
-                                }, Throwable::printStackTrace);
-                        requestQueue.add(jsonObjectRequest);
-
-                    } else {
-                        Toast.makeText(this, getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
-                    }
-                }
-                break;
             }
         }
     }
 
     private void copyText(String quote) {
         ClipboardManager clipboard = (ClipboardManager) this.getSystemService(CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText("Quotes", quote);
+        ClipData clip = ClipData.newPlainText("Qwotable", quote);
         clipboard.setPrimaryClip(clip);
         Toast.makeText(this, getString(R.string.qwotable_copied_toast_message_person), Toast.LENGTH_SHORT).show();
     }

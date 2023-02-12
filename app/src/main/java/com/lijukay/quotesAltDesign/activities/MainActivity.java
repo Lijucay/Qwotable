@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
         int color = SurfaceColors.SURFACE_2.getColor(this);
         getWindow().setStatusBarColor(color);
         getWindow().setNavigationBarColor(color);
-        materialToolbar.setBackgroundColor(color);
         tablet = getResources().getBoolean(R.bool.isTablet);
 
         if (!tablet || this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {

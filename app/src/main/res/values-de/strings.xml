@@ -36,7 +36,6 @@
     <string name="qwotable_request_dialog_message">Wenn du glaubst, dass ein Zitat oder eine Weisheit nicht in der App ist, kannst du es vorschlagen.</string>
     <string name="language_preference_summary_language_supported">Aktuelle Sprache: Deutsch</string>
     <string name="no_update_toast_message">Es gibt zurzeit kein Update</string>
-    <string name="updater_dialog_title">Updater</string>
     <string name="updater_positive_button">Jetzt aktualisieren</string>
     <string name="updater_negative_button">Später</string>
     <string name="report_a_bug_dialog_title">Fehler melden</string>
@@ -99,7 +98,6 @@
     <string name="wisdom_definition_title">Weisheiten Definition</string>
     <string name="wisdom_definition_message">In dieser App sind Weisheiten Geschichten/Märchen, die dich über etwas lehren. Es ist nicht immer klar, worüber dich die Weisheit lehrt. Normalerweise wird der Autor und der Fundort als Credits genannt. In dieser App sieht das aus, wie im Beispiel oben.</string>
     <string name="wisdom_definition_message_part_2">Hier kannst du die Weisheit, den Autor und (in diesem Fall) den Film sehen.</string>
-    <string name="information_card">Information</string>
     <string name="content_description_pages">Präsentation Beispielbild</string>
     <string name="quotes_item">Zitate</string>
     <string name="wisdom_item">Weisheiten</string>
@@ -108,7 +106,6 @@
     <string name="language_preference_title">Sprache</string>
     <string name="colors_preference_title">Farben</string>
     <string name="app_news_preference_category">App Neuigkeiten</string>
-    <string name="updater_preference_title">Updater</string>
     <string name="updater_preference_summary">Checke nach neueren Versionen dieser App</string>
     <string name="quote_example_quote">Pferd: \"Das Leben ist nicht einfach, aber du wirst geliebt.\"</string>
     <string name="quote_example_found_in">Der Junge, der Maulwurf, der Fuchs und das Pferd</string>

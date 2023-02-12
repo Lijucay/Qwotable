@@ -247,36 +247,6 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
                 }
                 break;
             }
-            case "share":{
-                if (internet){
-                    String url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
-
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                            jsonObject -> {
-                                try {
-                                    JSONArray jsonArray = jsonObject.getJSONArray("Wisdom");
-                                    JSONObject object = jsonArray.getJSONObject(position);
-                                    String wisdom = object.getString("wisdom");
-                                    String author = object.getString("author");
-
-                                    Intent shareText = new Intent();
-                                    shareText.setAction(Intent.ACTION_SEND);
-                                    shareText.putExtra(Intent.EXTRA_TEXT, wisdom + "\n\n~" + author);
-                                    shareText.setType("text/plain");
-                                    Intent sendText = Intent.createChooser(shareText, null);
-                                    startActivity(sendText);
-
-                                } catch (JSONException e) {
-                                    Toast.makeText(requireContext(), getString(R.string.error_while_parsing_wisdom_toast_message), Toast.LENGTH_SHORT).show();
-                                    e.printStackTrace();
-                                }
-                            }, Throwable::printStackTrace);
-                    requestQueue.add(jsonObjectRequest);
-                } else {
-                    Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
-                }
-                break;
-            }
         }
     }
 
