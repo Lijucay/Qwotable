@@ -1,6 +1,9 @@
 <p>Bug fixes:</p>
 <p><br>Language and Color dialog's translations are now correct</p>
+<p>Progress indicator in wisdom-fragment is not showing constantly anymore</p>
 <p><br>Changes:</p>
 <p><br>Changing the style of the CardViews</p>
+<p>Removing updater and update-info card as the app is going to be released in FDroid soon</p>
 <p><br>New:<p>
 <p><br>Adding French language</p>
+<p>Adding a collapsing-toolbar</p>
