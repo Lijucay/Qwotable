@@ -13,11 +13,10 @@
     <string name="many_qwotables_message">Qwotable has a lot of quotable stuff that will be updated from time to time. You will recognize it, because the newer the Qwotable, the more on the top it will be!</string>
     <string name="author_pages_title">Author pages</string>
     <string name="author_pages_message">Besides the quotes and wisdom pages, Qwotable offers a page with the quotes and wisdom, based on the author. You simply have to tap on the authors name to get there! Same goes for the found-in.</string>
-    <string name="information_title">Information</string>
+    <string name="information_title" translatable="false">Information</string>
     <string name="information_message">Get the latest information of Qwotable in the Information page. For that, all you need to do is to swipe down to the bottom of the Homepage and click on "Information"</string>
     <string name="thats_it_title">That\'s it!</string>
     <string name="thats_it_message">Have fun using Qwotable!</string>
-    <string name="slide_button_message">Simply click on the button below on or swipe to go on.</string>
     <string name="slide_button_end">Tap the button below to use Qwotable</string>
 
     <!--OnBoardingScreen.java-->
@@ -160,5 +159,6 @@
     <string name="color_dynamic">Dynamic</string>
     <string name="color_pink">Pink</string>
     <string name="color_green">Green</string>
+    <string name="slide_button_message">Simply click on the button below on or swipe to go on.</string>
 
 </resources>
