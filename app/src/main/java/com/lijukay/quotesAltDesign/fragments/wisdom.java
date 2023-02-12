@@ -74,6 +74,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
         v = inflater.inflate(R.layout.fragment_wisdom, container, false);
 
         progressIndicator = v.findViewById(R.id.progress);
+        progressIndicator.setVisibility(View.GONE);
 
         errorTitle = v.findViewById(R.id.titleError);
         errorMessage = v.findViewById(R.id.messageError);
