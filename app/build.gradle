@@ -55,7 +55,7 @@ import com.android.tools.profgen.DexFile
 
 project.afterEvaluate {
     tasks.compileReleaseArtProfile.doLast {
-        outputs.files.each {
+        outputs.files.each { file ->
             if (file.toString().endsWith(".profm")) {
                 println("Sorting ${file} ...")
                 def version = ArtProfileSerializer.valueOf("METADATA_0_0_2")
@@ -71,11 +71,5 @@ project.afterEvaluate {
                 }
             }
         }
-    }
-}
-
-tasks.whenTaskAdded { task ->
-    if (task.name.contains("ArtProfile")) {
-        task.enabled = false
     }
 }
