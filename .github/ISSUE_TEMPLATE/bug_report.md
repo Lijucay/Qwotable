@@ -29,7 +29,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
 
-- App-Version [e.g. 22] (To find this: Open Settings, scroll to the end. There is a text)
+- App-Version [e.g. 22] (To find this: Open App-Info)
 
 **Smartphone (please complete the following information):**
 
