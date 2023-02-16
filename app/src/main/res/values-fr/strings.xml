@@ -112,5 +112,10 @@
     <string name="content_description_pages">Exemple d\'image de présentation</string>
     <string name="app_news_preference_category">Nouvelles de l\'application</string>
     <string name="updater_preference_summary">Vérifier les nouvelles versions de l\'application</string>
+    <string name="quote_example_quote">Le passé, c\'est douloureux, mais à mon sons, on peut soit le fuir, soit tout en apprend.</string>
+    <string name="quote_example_found_in">Le roi lion</string>
+    <string name="wisdom_example_title">Demander de l\'aide, ce n\'est pas abandonner</string>
+    <string name="wisdom_example_wisdom">L\'enfant: \"Quelle est la chose la plus courageuse que tu aies dite?\"\nLe cheval: \"C\'est à l\'aide. Demander de l\'aide, ce n\'est pas abandonner. C\'est refuser d\'abandonner.\"</string>
+    <string name="wisdom_example_found_in">L\'enfant, la taupe, le renard et le cheval</string>
 
 </resources>

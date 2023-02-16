@@ -160,5 +160,4 @@
     <string name="color_green">Green</string>
     <string name="slide_button_message">Simply click on the button below on or swipe to go on.</string>
     <string name="no_internet_toast_message">Please connect to the internet first</string>
-    <string name="app_restart_dialog_message">The app will restart</string>
 </resources>
