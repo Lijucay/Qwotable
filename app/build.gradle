@@ -10,8 +10,8 @@ android {
         applicationId "com.lijukay.quotesAltDesign"
         minSdk 24
         targetSdk 33
-        versionCode 7 //Latest on GitHub: 7
-        versionName "0.1.7rc" //Latest on GitHub:  0.1.7rc
+        versionCode 8 //Latest on GitHub: 8
+        versionName "0.1.8" //Latest on GitHub:  0.1.8
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
