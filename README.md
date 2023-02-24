@@ -13,6 +13,13 @@ Qwotable differentiates between two different kinds of quotable stuff:
 
 Qwotables very own wiki explains the criteria of quotes and wisdom.
 
+# Download
+
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/com.lijukay.quotesAltDesign/)
+
+Or get the latest APK from the [Releases Section](https://github.com/Lijukay/Qwotable/releases/latest).
 
 # License
 
