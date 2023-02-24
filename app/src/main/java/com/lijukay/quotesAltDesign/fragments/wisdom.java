@@ -128,7 +128,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
 
         String url;
 
-        url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
+        url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", "en") + ".json";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 jsonObject -> {
@@ -168,7 +168,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
     public void onItemClick(int position, String type) {
         switch (type) {
             case "author": {
-                String url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
+                String url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", "en") + ".json";
 
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                         jsonObject -> {
@@ -193,7 +193,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
                 break;
             }
             case "found in": {
-                String url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
+                String url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", "en") + ".json";
 
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                         jsonObject -> {
@@ -219,7 +219,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
             }
             case "copy": {
                 if (internet){
-                    String url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
+                    String url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", "en") + ".json";
 
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                             jsonObject -> {

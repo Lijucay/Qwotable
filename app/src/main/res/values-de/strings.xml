@@ -13,7 +13,7 @@
     <string name="author_pages_message">Neben Zitaten und Weisheiten hat Qwotable eine Seite, basierend auf dem Autor. Dafür musst du nur auf den Autorennamen klicken. Dasselbe funktioniert auch für den Fundort für dieses Qwotable.</string>
     <string name="information_message">Bekomme die neuesten Informationen für Qwotable in der Informationen-Seite. Um dorthin zu gelangen musst du nur in der Home-Seite nach ganz unten scrollen und auf Informationen tippen.</string>
     <string name="thats_it_title">Das war\'s!</string>
-    <string name="thats_it_message">Viel Spaß beim Verwenden von Qwotable!</string>
+    <string name="thats_it_message">Mit einem klick auf \"Start\" lädt Qwotable seine Daten aus einer Datei aus GitHub.</string>
     <string name="slide_button_message">Einfach auf den Button klicken oder nach links swipen um fortzufahren</string>
     <string name="slide_button_end">Tippe auf den Startbutton unten, um Qwotable zu benutzen</string>
     <string name="next_button">Nächstes</string>
@@ -117,4 +117,6 @@
     <string name="color_dynamic">Dynamisch</string>
     <string name="color_pink">Pink</string>
     <string name="color_green">Grün</string>
+    <string name="special_thanks">Besonderer Dank</string>
+    <string name="special_message">Diese Anwendung wurde dank sehr intelligenter und hilfsbereiter Menschen erstellt. Mein besonderer Dank geht also an: • Yanndroid, der sich die Zeit genommen hat, mir Dinge immer wieder zu erklären • TenSeventySeven, für die Idee des App-Namens und dafür, dass er mir geholfen hat, neue Dinge zu lernen • @Peter Knecht (Benutzername) und @thatboringkid (Benutzername) für das Testen dieser App vor ihrer Veröffentlichung und das Melden von zu behebenden Fehlern. Meistens klingt es sehr gewöhnlich, das zu sagen, aber ich denke, es ist nichts als die Wahrheit, wenn ich sage: Ohne euch hätte ich diese App nicht fertigstellen können!</string>
 </resources>

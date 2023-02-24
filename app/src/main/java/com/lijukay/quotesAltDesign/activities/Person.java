@@ -186,7 +186,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
     private void parseJSONQuotes(String type) {
         if (type.equals("author")){
 
-            String url = "https://lijukay.github.io/Qwotable/author-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
+            String url = "https://lijukay.github.io/Qwotable/author-" + language.getString("language", "en") + ".json";
 
         JsonObjectRequest requestPQ = new JsonObjectRequest(Request.Method.GET, url, null,
                 responsePQ -> {
@@ -221,7 +221,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
         requestQueue.add(requestPQ);
         } else if (type.equals("found in")){
 
-            String url = "https://lijukay.github.io/Qwotable/found-in-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
+            String url = "https://lijukay.github.io/Qwotable/found-in-" + language.getString("language", "en") + ".json";
 
 
             JsonObjectRequest requestPQ = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -263,7 +263,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
         String url;
 
         if (type.equals("found in")){
-            url = "https://lijukay.github.io/Qwotable/found-in-w-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
+            url = "https://lijukay.github.io/Qwotable/found-in-w-" + language.getString("language", "en") + ".json";
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                     jsonObject -> {
                         try {
@@ -296,7 +296,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                     }, Throwable::printStackTrace);
             requestQueue.add(jsonObjectRequest);
         } else {
-            url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
+            url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", "en") + ".json";
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                     jsonObject -> {
@@ -411,9 +411,9 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                         if (internet) {
                             String url;
                             if (type2.equals("author")){
-                                url = "https://lijukay.github.io/Qwotable/author-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
+                                url = "https://lijukay.github.io/Qwotable/author-" + language.getString("language", "en") + ".json";
                             } else {
-                                url = "https://lijukay.github.io/Qwotable/found-in-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
+                                url = "https://lijukay.github.io/Qwotable/found-in-" + language.getString("language", "en") + ".json";
                             }
 
                             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,

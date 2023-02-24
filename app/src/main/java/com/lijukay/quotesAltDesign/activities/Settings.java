@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabColorSchemeParams;
@@ -47,7 +48,7 @@ public class Settings extends AppCompatActivity {
         languageEditor = language.edit();
         colorEditor = sharedPreferencesColors.edit();
 
-        languageCode = language.getString("language", Locale.getDefault().getLanguage());
+        languageCode = language.getString("language", "en");
         colorS = sharedPreferencesColors.getString("color", "red");
 
         Locale locale = new Locale(languageCode);
@@ -239,7 +240,7 @@ public class Settings extends AppCompatActivity {
             });
 
 
-            switch (language.getString("language", Locale.getDefault().getLanguage())){
+            switch (language.getString("language", "en")){
                 case "de":
                     checkedItem = 0;
                     break;
@@ -307,8 +308,14 @@ public class Settings extends AppCompatActivity {
                         .setTitle(getString(R.string.report_a_bug_dialog_title))
                         .setMessage(getString(R.string.report_a_bug_dialog_message))
                         .setIcon(R.drawable.ic_baseline_bug_report_24)
-                        .setPositiveButton(getString(R.string.google_forms_button), (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, googleFormsBugReport)))
-                        .setNegativeButton(getString(R.string.github_button), (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, gitHubBugReport)))
+                        .setPositiveButton(getString(R.string.google_forms_button), (dialog, which) -> {
+                            dialog.dismiss();
+                            startActivity(new Intent(Intent.ACTION_VIEW, googleFormsBugReport));
+                        })
+                        .setNegativeButton(getString(R.string.github_button), (dialog, which) -> {
+                            dialog.dismiss();
+                            startActivity(new Intent(Intent.ACTION_VIEW, gitHubBugReport));
+                        })
                         .setNeutralButton(getString(R.string.neutral_button_text_cancel), (dialog, which) -> dialog.dismiss())
                         .show();
                 return false;
@@ -322,8 +329,14 @@ public class Settings extends AppCompatActivity {
                         .setTitle(getString(R.string.request_a_feature_dialog_title))
                         .setMessage(getString(R.string.request_a_feature_dialog_message))
                         .setIcon(R.drawable.ic_baseline_auto_awesome_24)
-                        .setPositiveButton(getString(R.string.google_forms_button), (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, googleFormsFeatureRequest)))
-                        .setNegativeButton(getString(R.string.github_button), (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, githubFeatureRequest)))
+                        .setPositiveButton(getString(R.string.google_forms_button), (dialog, which) -> {
+                            dialog.dismiss();
+                            startActivity(new Intent(Intent.ACTION_VIEW, googleFormsFeatureRequest));
+                        })
+                        .setNegativeButton(getString(R.string.github_button), (dialog, which) -> {
+                            dialog.dismiss();
+                            startActivity(new Intent(Intent.ACTION_VIEW, githubFeatureRequest));
+                        })
                         .setNeutralButton(getString(R.string.neutral_button_text_cancel), (dialog, which) -> dialog.dismiss())
                         .show();
                 return false;
@@ -355,8 +368,14 @@ public class Settings extends AppCompatActivity {
                         .setTitle(getString(R.string.feedback_dialog_title))
                         .setMessage(getString(R.string.feedback_dialog_message))
                         .setIcon(R.drawable.ic_baseline_feedback_24)
-                        .setPositiveButton(getString(R.string.google_forms_button), (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, googleFormsFeedback)))
-                        .setNegativeButton(getString(R.string.github_button), (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, githubFeedback)))
+                        .setPositiveButton(getString(R.string.google_forms_button), (dialog, which) -> {
+                            dialog.dismiss();
+                            startActivity(new Intent(Intent.ACTION_VIEW, googleFormsFeedback));
+                        })
+                        .setNegativeButton(getString(R.string.github_button), (dialog, which) -> {
+                            dialog.dismiss();
+                            startActivity(new Intent(Intent.ACTION_VIEW, githubFeedback));
+                        })
                         .setNeutralButton(getString(R.string.neutral_button_text_cancel), (dialog, which) -> dialog.dismiss())
                         .show();
 
@@ -419,6 +438,7 @@ public class Settings extends AppCompatActivity {
                         .setMessage(getString(R.string.wiki_dialog_message))
                         .setIcon(R.drawable.ic_baseline_web_stories_24)
                         .setPositiveButton(getString(R.string.wiki_button), (dialog, which) -> {
+                            dialog.dismiss();
                             String url = "https://lijukay.gitbook.io/qwotable/";
                             CustomTabColorSchemeParams colorSchemeParams = new CustomTabColorSchemeParams.Builder().setToolbarColor(getResources().getColor(R.color.md_theme_dark_onPrimary, requireActivity().getTheme())).build();
                             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
@@ -430,6 +450,18 @@ public class Settings extends AppCompatActivity {
                             customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
                         })
                         .setNeutralButton(getString(R.string.neutral_button_text_cancel), (dialog, which) -> dialog.dismiss())
+                        .show();
+                return false;
+            });
+
+            Preference special_thanks = findPreference("thanks");
+            assert special_thanks != null;
+            special_thanks.setOnPreferenceClickListener(preference -> {
+                new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                        .setTitle(getString(R.string.special_thanks))
+                        .setIcon(R.drawable.thanks)
+                        .setMessage(getString(R.string.special_message))
+                        .setPositiveButton("Okay", (dialog, which) -> dialog.dismiss())
                         .show();
                 return false;
             });

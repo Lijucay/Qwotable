@@ -69,7 +69,7 @@ public class Information extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        language = getSharedPreferences("language", 0); //Todo: Parse Information in German
+        language = getSharedPreferences("language", 0); //Todo: Parse Information in other languages
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);

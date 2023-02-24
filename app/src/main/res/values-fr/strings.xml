@@ -16,9 +16,9 @@
     <string name="author_pages_message">Outre les devis et les pages de sagesse, Qwotable propose une page avec les devis et la sagesse, basée sur l\'auteur.  Tu n\'as qu\'à taper sur le nom de l\'auteur pour y arriver !  Il en va de même pour le trouvé.</string>
     <string name="information_message">Obtienne les dernières informations de Qwotable dans la page Informations.  Pour cela, tout ce que tu as à faire est de glisser vers le bas de la page d\'accueil et de cliquer sur Informations</string>
     <string name="thats_it_title">C\'est tout!</string>
-    <string name="thats_it_message">Amuse-toi avec Qwotable</string>
+    <string name="thats_it_message">Avec cliquer en \"Commence\", l\'application veut chercher des Qwotable sur GitHub.</string>
     <string name="slide_button_message">Clique simplement sur le bouton ci-dessous ou balaye pour continue</string>
-    <string name="slide_button_end">Clique le bouton ci-dessous pour utiliser Qwotable</string>
+    <string name="slide_button_end">Clique le bouton ci-dessous pour utiliser Qwotable.</string>
     <string name="next_button">Suivant</string>
     <string name="start_button">Commence</string>
     <string name="previous_button">Précédant</string>
@@ -107,7 +107,7 @@
     <string name="quote_definition_message">Les devis sont des passages de livres, de jeux et de films ainsi que de chansons ou de discours publics. Habituellement, l\'auteur et le nom du livre/film/chanson/jeu sont mentionnés dans le générique. Dans cette application, cela ressemble à l\'exemple ci-dessus.</string>
     <string name="quote_definition_message_part_2">Ici tu peux voir le devis, l\'auteur et (dans ce cas) le film où le devis peut être trouvé.</string>
     <string name="wisdom_definition_title">Sagesse défintion</string>
-    <string name="wisdom_definition_message">Dans cette application, les sagesses sont des histoires/contes qui vous enseignent quelque chose. Ce n\'est pas toujours clair, ce que la sagesse vous enseigne. Habituellement, l\'auteur, ainsi que le livre/jeu/film sont mentionnés dans le générique. Dans cette application, cela ressemble à l\'exemple ci-dessus.</string>
+    <string name="wisdom_definition_message">Dans cette application, les sagesses sont des histoires/contes qui vous enseignent quelque chose. Ce n\'est pas toujours clair, ce que la sagesse t\'enseigne. Habituellement, l\'auteur, ainsi que le livre/jeu/film sont mentionnés dans le générique. Dans cette application, cela ressemble à l\'exemple ci-dessus.</string>
     <string name="wisdom_definition_message_part_2">Ici tu peux voir la sagesse, l\'auteur et (dans ce cas) le film où la citation peut être trouvée.</string>
     <string name="content_description_pages">Exemple d\'image de présentation</string>
     <string name="app_news_preference_category">Nouvelles de l\'application</string>
@@ -117,5 +117,7 @@
     <string name="wisdom_example_title">Demander de l\'aide, ce n\'est pas abandonner</string>
     <string name="wisdom_example_wisdom">L\'enfant: \"Quelle est la chose la plus courageuse que tu aies dite?\"\nLe cheval: \"C\'est à l\'aide. Demander de l\'aide, ce n\'est pas abandonner. C\'est refuser d\'abandonner.\"</string>
     <string name="wisdom_example_found_in">L\'enfant, la taupe, le renard et le cheval</string>
+    <string name="special_thanks">Remerciement spécial</string>
+    <string name="special_message">Cette application a été créée grâce à des personnes très intelligentes et serviables. Donc, mes remerciements particuliers vont à : • Yanndroid, qui a pris le temps de continuer à m\'expliquer les choses • TenSeventySeven, pour l\'idée du nom de l\'application et pour m\'avoir aidé à apprendre de nouvelles choses • @Peter Knecht (nom d\'utilisateur) et @thatboringkid ( nom d\'utilisateur) pour tester cette application avant de la publier et signaler les bogues à corriger. La plupart du temps, cela semble très banal de dire cela, mais je pense que ce n\'est rien d\'autre que la vérité quand je dis : je n\'aurais pas pu terminer cette application sans vous !</string>
 
 </resources>

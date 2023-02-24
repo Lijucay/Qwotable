@@ -140,7 +140,7 @@ public class quotes extends Fragment implements RecyclerViewInterface {
         progressIndicator.setVisibility(View.VISIBLE);
         String url;
 
-        url = "https://lijukay.github.io/Qwotable/quotes-" + language.getString("language", Locale.getDefault().getLanguage()) + ".json";
+        url = "https://lijukay.github.io/Qwotable/quotes-" + language.getString("language", "en") + ".json";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 jsonObject -> {
@@ -174,7 +174,7 @@ public class quotes extends Fragment implements RecyclerViewInterface {
 
     @Override
     public void onItemClick(int position, String type) {
-        String url = "https://lijukay.github.io/Qwotable/quotes-" + language.getString("language", Locale.getDefault().getLanguage()) +".json";
+        String url = "https://lijukay.github.io/Qwotable/quotes-" + language.getString("language", "en") +".json";
         switch (type) {
             case "author": {
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,

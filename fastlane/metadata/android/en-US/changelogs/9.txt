@@ -1,0 +1,7 @@
+<p>Bug fixes:</p>
+<p><br>Fixing languages, that are not supported, did not receive Qwotable by forcing the language to be English by default and only change when a supported language is used as the system language or by manually selecting it.</p>
+<p>Fixing some translations<p>
+<p>Potentially fixing app crash on recreate, while a dialog is opened</p>
+<p><br>New:</p>
+<p><br>Adding monochrome icon (adaptive app-icon for Android 13+)</p>
+<p>Adding "Special thanks" to the settings</p>

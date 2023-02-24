@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         languageSharedPreference = getSharedPreferences("Language", 0);
-        Locale locale = new Locale(languageSharedPreference.getString("language", Locale.getDefault().getLanguage()));
+        Locale locale = new Locale(languageSharedPreference.getString("language", "en"));
         Locale.setDefault(locale);
         Resources resources = this.getResources();
         Configuration config = resources.getConfiguration();

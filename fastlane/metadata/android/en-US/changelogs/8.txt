@@ -1,0 +1,2 @@
+<p>Bug fixes:</p>
+<p><br>Fixing some translations</p>

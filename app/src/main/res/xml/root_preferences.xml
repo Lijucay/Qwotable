@@ -13,25 +13,6 @@
             android:icon="@drawable/ic_baseline_colors_24"
             android:key="colors"/>
     </PreferenceCategory>
-    <!--<PreferenceCategory
-        android:title="@string/app_news_preference_category"
-        app:allowDividerBelow="true">
-        <Preference
-            android:title="@string/updater_preference_title"
-            android:icon="@drawable/ic_baseline_system_update_24"
-            android:key="updateCheck"
-            android:summary="@string/updater_preference_summary"/>
-        <rikka.material.preference.MaterialSwitchPreference
-            android:icon="@drawable/ic_baseline_preview_24"
-            android:title="@string/beta_switch_preference_title"
-            app:key="beta"/>
-        <Preference
-            app:title="@string/changelog_preference_title"
-            android:icon="@drawable/ic_baseline_published_with_changes_24"
-            app:key="changelog"
-            android:enabled="false"
-            android:summary="@string/changelog_preference_summary"/>
-    </PreferenceCategory>-->
     <PreferenceCategory
         android:title="@string/app_support_preference_category"
         app:allowDividerBelow="true">
@@ -89,5 +70,14 @@
             android:icon="@drawable/ic_baseline_web_stories_24"
             android:summary="@string/wiki_preference_summary"
             android:key="wiki"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/special_thanks"
+        app:allowDividerBelow="true">
+        <Preference
+            android:title="@string/special_thanks"
+            android:icon="@drawable/thanks"
+            android:key="thanks" />
     </PreferenceCategory>
 </PreferenceScreen>

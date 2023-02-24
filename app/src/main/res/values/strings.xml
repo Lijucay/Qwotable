@@ -16,7 +16,7 @@
     <string name="information_title" translatable="false">Information</string>
     <string name="information_message">Get the latest information of Qwotable in the Information page. For that, all you need to do is to swipe down to the bottom of the Homepage and click on "Information"</string>
     <string name="thats_it_title">That\'s it!</string>
-    <string name="thats_it_message">Have fun using Qwotable!</string>
+    <string name="thats_it_message">With a click on \"start\", the application will parse Qwotable\'s content from the online file on GitHub.</string>
     <string name="slide_button_end">Tap the button below to use Qwotable</string>
 
     <!--OnBoardingScreen.java-->
@@ -160,4 +160,7 @@
     <string name="color_green">Green</string>
     <string name="slide_button_message">Simply click on the button below on or swipe to go on.</string>
     <string name="no_internet_toast_message">Please connect to the internet first</string>
+
+    <string name="special_thanks">Special thanks</string>
+    <string name="special_message">This application is made thanks to very smart and helpful people. So my special thanks goes to:  • Yanndroid, for taking his time to explain things to me over and over again • TenSeventySeven, for the idea of the app name and for helping me learning new things • @Peter Knecht (username) and @thatboringkid (username) for testing this app before it was published and reporting bugs to be fixed.  Most of the time, it sounds very common to say that, but I think, it is nothing but the truth, when I say: I would not have been able to make this application without them!</string>
 </resources>

@@ -19,6 +19,8 @@ import com.google.android.material.elevation.SurfaceColors;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.adapter.SliderAdapter;
 
+import java.util.Locale;
+
 public class OnBoardingScreen extends AppCompatActivity {
 
     private ViewPager onBoarding;
@@ -26,6 +28,8 @@ public class OnBoardingScreen extends AppCompatActivity {
     private TextView[] mDots;
     Button previous, next;
     private int currentPage;
+    public SharedPreferences language;
+    public SharedPreferences.Editor languageeditor;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -34,6 +38,18 @@ public class OnBoardingScreen extends AppCompatActivity {
         int color = SurfaceColors.SURFACE_2.getColor(this);
         getWindow().setStatusBarColor(color);
         getWindow().setNavigationBarColor(color);
+
+        language = getSharedPreferences("Language", 0);
+        languageeditor = language.edit();
+
+        if (Locale.getDefault().getLanguage().equals("de")){
+            languageeditor.putString("language", "de").apply();
+        } else if (Locale.getDefault().getLanguage().equals("fr")){
+            languageeditor.putString("language", "fr").apply();
+        } else {
+            languageeditor.putString("language", "en").apply();
+        }
+
 
         setTheme(R.style.AppTheme);
 

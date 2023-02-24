@@ -40,7 +40,7 @@ public class home extends Fragment {
     private void getLanguage() {
         languageSharedPreference = requireActivity().getSharedPreferences("Language", 0);
 
-        String languageString = languageSharedPreference.getString("language", Locale.getDefault().getLanguage());
+        String languageString = languageSharedPreference.getString("language", "en");
 
         Locale locale = new Locale(languageString);
         Locale.setDefault(locale);
