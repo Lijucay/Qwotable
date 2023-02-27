@@ -31,6 +31,11 @@
       "message": "On tablets: The wisdom are disappearing when the dialog for copy and share is shown. It is yet not clear what causes this bug but I'll do my best to fix this.",
       "date of creation": "23.01.23",
       "valuable for version": 6
+    }, {
+      "title": "Language reset",
+      "message": "There currently is a problem with selecting languages as the app's restart resets it to English.",
+      "date of creation": " 27.02.23",
+      "valuable for version": 7
     }
   ]
 }
