@@ -33,7 +33,7 @@
       "valuable for version": 6
     }, {
       "title": "Language reset",
-      "message": "There currently is a problem with selecting languages as the app's restart resets it to English.",
+      "message": "There currently is a problem with selecting languages as the app's restart resets it to the System's language.",
       "date of creation": " 27.02.23",
       "valuable for version": 9
     }
