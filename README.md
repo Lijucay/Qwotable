@@ -1,4 +1,4 @@
-# Qwotable - An app for quotable stuff
+### Qwotable - An app for quotable stuff
 
 #### What is Qwotable?
 
