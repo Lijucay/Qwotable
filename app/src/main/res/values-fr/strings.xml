@@ -53,7 +53,7 @@
     <string name="qwotable_request_dialog_message">Si tu penses qu\'un devis ou une sagesse ne se trouve pas actuellement dans cette application, mais que tu souhaites qu\'elle soit ici, tu puex la demander.</string>
     <string name="language_preference_summary_language_supported">Langue actuelle: Français</string>
     <string name="no_update_toast_message">Il n\'y a pas de mise à jour</string>
-    <string name="updater_positive_button">Mettre à jour maintenant</string>
+    <string name="updater_positive_button">Mettre à jour</string>
     <string name="updater_negative_button">Fais-le plus tard</string>
     <string name="report_a_bug_dialog_title">Signaler un bug</string>
     <string name="report_a_bug_dialog_message">Je suis désolé, si tu as trouvé un bogue. Veuille me l\'envoyer. Assures-tu d\'avoir des captures d\'écran (facultatif, ne fonctionne que dans GitHub) et également une instruction étape par étape, afin que je puisse reproduire le bogue (obligatoire).</string>
@@ -119,5 +119,24 @@
     <string name="wisdom_example_found_in">L\'enfant, la taupe, le renard et le cheval</string>
     <string name="special_thanks">Remerciement spécial</string>
     <string name="special_message">Cette application a été créée grâce à des personnes très intelligentes et serviables. Donc, mes remerciements particuliers vont à : • Yanndroid, qui a pris le temps de continuer à m\'expliquer les choses • TenSeventySeven, pour l\'idée du nom de l\'application et pour m\'avoir aidé à apprendre de nouvelles choses • @Peter Knecht (nom d\'utilisateur) et @thatboringkid ( nom d\'utilisateur) pour tester cette application avant de la publier et signaler les bogues à corriger. La plupart du temps, cela semble très banal de dire cela, mais je pense que ce n\'est rien d\'autre que la vérité quand je dis : je n\'aurais pas pu terminer cette application sans vous !</string>
+    <string name="navigation_view_text">Fait avec ❤ dans Allemagne</string>
+    <string name="made_for_you">Fait pour toi</string>
+    <string name="made_for_qwotable">Fait pour Qwotable</string>
+    <string name="add_own_quote">Mes devises</string>
+    <string name="new_qwotable">Nouveau Qwotable</string>
+    <string name="tap_on_new_qwotable_to_create_a_new_qwotable_m">Tap sur \'Nouveau Qwotable\' pour crée un nouveau Qwotable</string>
+    <string name="you_have_no_qwotable_saved_here">Tu  n\'a pas de Qwotable enregistré ici</string>
+    <string name="author_hint">Auteur</string>
+    <string name="found_in_hint">Source</string>
+    <string name="no_data">Pas de données</string>
+    <string name="Success">Succès</string>
+    <string name="fail">Échouer</string>
+    <string name="add_own_qwotable">Ajoute ton propre Qwotable</string>
+    <string name="add_button">Ajouter</string>
+    <string name="update_delete_dialog">Mettre à jour ou supprimer ton propre Qwotable</string>
+    <string name="delete_button">Supprimer</string>
+    <string name="delete_dialog_title">Supprimer Qwotable?</string>
+    <string name="delete_dialog_message">Est-tu sûr de vouloir supprimer ce Qwotable?</string>
+    <string name="not_allowed">Qwotable et ou auteur be sont pas autorisés à être vides</string>
 
 </resources>

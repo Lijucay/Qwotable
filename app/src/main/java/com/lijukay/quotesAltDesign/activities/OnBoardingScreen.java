@@ -30,6 +30,7 @@ public class OnBoardingScreen extends AppCompatActivity {
     private int currentPage;
     public SharedPreferences language;
     public SharedPreferences.Editor languageeditor;
+    SharedPreferences firstStart;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -39,16 +40,7 @@ public class OnBoardingScreen extends AppCompatActivity {
         getWindow().setStatusBarColor(color);
         getWindow().setNavigationBarColor(color);
 
-        language = getSharedPreferences("Language", 0);
-        languageeditor = language.edit();
 
-        if (Locale.getDefault().getLanguage().equals("de")){
-            languageeditor.putString("language", "de").apply();
-        } else if (Locale.getDefault().getLanguage().equals("fr")){
-            languageeditor.putString("language", "fr").apply();
-        } else {
-            languageeditor.putString("language", "en").apply();
-        }
 
 
         setTheme(R.style.AppTheme);
@@ -56,14 +48,9 @@ public class OnBoardingScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding_screen);
 
-        SharedPreferences firstStart = getSharedPreferences("FirstStart", 0);
-        boolean firstTime = firstStart.getBoolean("FirstTime?", true);
-        if (!firstTime){
+        firstStart = getSharedPreferences("FirstStart", 0);
+        if (!firstStart.getBoolean("FirstTime?", true)){
             startActivity(new Intent(OnBoardingScreen.this, MainActivity.class));
-        } else {
-            SharedPreferences.Editor editorFirst = firstStart.edit();
-            editorFirst.putBoolean("FirstTime?", false);
-            editorFirst.apply();
         }
 
         next = findViewById(R.id.next);
@@ -142,6 +129,21 @@ public class OnBoardingScreen extends AppCompatActivity {
                 previous.setEnabled(true);
                 previous.setVisibility(View.VISIBLE);
                 next.setText(getString(R.string.start_button));
+                language = getSharedPreferences("Language", 0);
+                languageeditor = language.edit();
+
+                if (Locale.getDefault().getLanguage().equals("de")){
+                    languageeditor.putString("language", "de").apply();
+                } else if (Locale.getDefault().getLanguage().equals("fr")){
+                    languageeditor.putString("language", "fr").apply();
+                } else {
+                    languageeditor.putString("language", "en").apply();
+                }
+
+                SharedPreferences.Editor editorFirst = firstStart.edit();
+                editorFirst.putBoolean("FirstTime?", false);
+                editorFirst.apply();
+
                 next.setOnClickListener(v -> startActivity(new Intent(OnBoardingScreen.this, MainActivity.class)));
             } else {
                 next.setEnabled(true);

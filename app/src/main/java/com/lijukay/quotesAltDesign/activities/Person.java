@@ -49,7 +49,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class Person extends AppCompatActivity implements RecyclerViewInterface {
     private String authorP;
@@ -133,7 +132,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
 
         activity = intent.getStringExtra("Activity");
 
-        MaterialToolbar materialToolbar = findViewById(R.id.topAppBar);
+        MaterialToolbar materialToolbar = findViewById(R.id.top_app_bar);
         setSupportActionBar(materialToolbar);
         materialToolbar.setNavigationOnClickListener(v -> onBackPressed());
         materialToolbar.setTitle(authorP);

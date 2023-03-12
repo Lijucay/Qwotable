@@ -10,8 +10,8 @@ android {
         applicationId "com.lijukay.quotesAltDesign"
         minSdk 24
         targetSdk 33
-        versionCode 9 //Latest on GitHub: 8
-        versionName "0.2" //Latest on GitHub:  0.1.8
+        versionCode 10 //Latest on GitHub: 10
+        versionName "1" //Latest on GitHub: 1
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -25,6 +25,9 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
     }
 }
 configurations.all {

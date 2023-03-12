@@ -190,24 +190,6 @@
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/information_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="?attr/materialCardViewOutlinedStyle"
-                android:layout_margin="8dp">
-
-                <TextView
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/information_card"
-                    android:textStyle="bold"
-                    android:textColor="?android:attr/textColorSecondary"
-                    android:textAppearance="?attr/textAppearanceTitleLarge"/>
-
-            </com.google.android.material.card.MaterialCardView>
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

@@ -36,6 +36,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.lijukay.quotesAltDesign.R;
+import com.lijukay.quotesAltDesign.activities.MainActivity;
 import com.lijukay.quotesAltDesign.activities.Person;
 import com.lijukay.quotesAltDesign.adapter.QuotesAdapter;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
@@ -77,12 +78,7 @@ public class quotes extends Fragment implements RecyclerViewInterface {
         errorTitle = v.findViewById(R.id.titleError);
         errorMessage = v.findViewById(R.id.messageError);
 
-        Intent serviceIntent = new Intent(requireContext(), InternetService.class);
-        requireContext().startService(serviceIntent);
-
-        mIntentFilter = new IntentFilter();
-        mIntentFilter.addAction(BroadCastStringForAction);
-        internet = isOnline(requireActivity().getApplicationContext());
+        internet = ((MainActivity) requireActivity()).isOnline(requireActivity().getApplicationContext());
 
         progressIndicator = v.findViewById(R.id.progress);
         progressIndicator.setVisibility(View.GONE);
@@ -259,32 +255,5 @@ public class quotes extends Fragment implements RecyclerViewInterface {
         ClipData clip = ClipData.newPlainText("Quotes", quote);
         clipboard.setPrimaryClip(clip);
         Toast.makeText(requireContext(), getString(R.string.quote_copied_toast_message), Toast.LENGTH_SHORT).show();
-    }
-
-    public final BroadcastReceiver InternetReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(BroadCastStringForAction)) {
-                internet = intent.getStringExtra("online_status").equals("true");
-            }
-        }
-    };
-
-    public boolean isOnline(Context c) {
-        ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo ni = cm.getActiveNetworkInfo();
-        return ni != null && ni.isConnectedOrConnecting();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        requireContext().unregisterReceiver(InternetReceiver);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        requireContext().registerReceiver(InternetReceiver, mIntentFilter);
     }
 }

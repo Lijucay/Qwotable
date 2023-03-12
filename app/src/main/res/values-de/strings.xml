@@ -36,7 +36,7 @@
     <string name="qwotable_request_dialog_message">Wenn du glaubst, dass ein Zitat oder eine Weisheit nicht in der App ist, kannst du es vorschlagen.</string>
     <string name="language_preference_summary_language_supported">Aktuelle Sprache: Deutsch</string>
     <string name="no_update_toast_message">Es gibt zurzeit kein Update</string>
-    <string name="updater_positive_button">Jetzt aktualisieren</string>
+    <string name="updater_positive_button">Aktualisieren</string>
     <string name="updater_negative_button">Später</string>
     <string name="report_a_bug_dialog_title">Fehler melden</string>
     <string name="report_a_bug_dialog_message">Es tut mir leid, dass du einen Fehler gefunden hast. Bitte schicke mir Screenshots (optional, funktioniert nur in GitHub) und Schritt-für-Schritt, wie ich den Fehler sehen kann (benötigt).</string>
@@ -119,4 +119,23 @@
     <string name="color_green">Grün</string>
     <string name="special_thanks">Besonderer Dank</string>
     <string name="special_message">Diese Anwendung wurde dank sehr intelligenter und hilfsbereiter Menschen erstellt. Mein besonderer Dank geht also an: • Yanndroid, der sich die Zeit genommen hat, mir Dinge immer wieder zu erklären • TenSeventySeven, für die Idee des App-Namens und dafür, dass er mir geholfen hat, neue Dinge zu lernen • @Peter Knecht (Benutzername) und @thatboringkid (Benutzername) für das Testen dieser App vor ihrer Veröffentlichung und das Melden von zu behebenden Fehlern. Meistens klingt es sehr gewöhnlich, das zu sagen, aber ich denke, es ist nichts als die Wahrheit, wenn ich sage: Ohne euch hätte ich diese App nicht fertigstellen können!</string>
+    <string name="navigation_view_text">Mit ❤ in Deutschland gemacht</string>
+    <string name="made_for_you">Für dich gemacht</string>
+    <string name="made_for_qwotable">Für Qwotable gemacht</string>
+    <string name="add_own_quote">Meine Zitate</string>
+    <string name="new_qwotable">Neues Qwotable</string>
+    <string name="you_have_no_qwotable_saved_here">Du hast hier keine Qwotable gespeichert</string>
+    <string name="author_hint">Autor</string>
+    <string name="found_in_hint">Quelle</string>
+    <string name="no_data">Keine Daten</string>
+    <string name="Success">Erfolgreich</string>
+    <string name="fail">Gescheitert</string>
+    <string name="add_own_qwotable">Eigenes Qwotable erstellen</string>
+    <string name="add_button">Hinzufügen</string>
+    <string name="update_delete_dialog">Eigenes Qwotable aktualisieren oder löschen</string>
+    <string name="delete_button">Löschen</string>
+    <string name="delete_dialog_title">Qwotable löschen?</string>
+    <string name="delete_dialog_message">Bist du dir sicher, dass du dieses Qwotable löschen möchtest?</string>
+    <string name="tap_on_new_qwotable_to_create_a_new_qwotable_m">Tippe auf \'Neues Qwotable\' um in neues Qwotable zu erstellen</string>
+    <string name="not_allowed">Qwotable und oder Autor darf nicht leer sein</string>
 </resources>

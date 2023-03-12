@@ -50,7 +50,7 @@
     <string name="github_button" translatable="false">GitHub</string>
     <string name="no_update_toast_message">There is no update available</string>
     <string name="updater_dialog_title" translatable="false">Updater</string>
-    <string name="updater_positive_button">Update now</string>
+    <string name="updater_positive_button">Update</string>
     <string name="updater_negative_button">Do it later</string>
     <string name="report_a_bug_dialog_title">Report a bug</string>
     <string name="report_a_bug_dialog_message">I am sorry, if you found a bug. Please send it to me. Make sure to have screenshots (optional, works only in GitHub) and also a step-by-step instruction, so I can reproduce the bug (required).</string>
@@ -74,14 +74,14 @@
     <string name="toast_message_home">Update, please wait…</string>
     <string name="update_card_home_title">A new version of this app is available. Go to Settings, click on Updater and then on Update now, or simply click on this card.</string>
     <string name="update_card_home_beta_title">A newer beta version of this app is available.  Go to Settings, click on Updater and then on Update now, or simply click on this card</string>
-    
+
     <!--quotes.java-->
     <string name="toast_message_quotes">Getting quotes, please wait…</string>
     <string name="no_internet_error_message_quotes">Connect to the internet to see quotes</string>
     <string name="error_while_parsing_quotes">There was an error while trying to get the quotes. If there is not already an information, feel free to report the issue.</string>
     <string name="error_while_parsing_toast_message_quotes">Unable to get quotes currently</string>
     <string name="quote_copied_toast_message">Quote copied to clipboard</string>
-    
+
     <!--wisdom.java-->
     <string name="toast_message_wisdom">Getting wisdom, please wait…</string>
     <string name="error_while_parsing_wisdom">There was an error while trying to get the wisdom. If there is not already an information, feel free to report the issue.</string>
@@ -163,4 +163,25 @@
 
     <string name="special_thanks">Special thanks</string>
     <string name="special_message">This application is made thanks to very smart and helpful people. So my special thanks goes to:  • Yanndroid, for taking his time to explain things to me over and over again • TenSeventySeven, for the idea of the app name and for helping me learning new things • @Peter Knecht (username) and @thatboringkid (username) for testing this app before it was published and reporting bugs to be fixed.  Most of the time, it sounds very common to say that, but I think, it is nothing but the truth, when I say: I would not have been able to make this application without them!</string>
+
+    <string name="navigation_view_text">Made with ❤ in Germany</string>
+    <string name="made_for_you">Made for you</string>
+    <string name="made_for_qwotable">Made for Qwotable</string>
+    <string name="add_own_quote">My quotes</string>
+    <string name="new_qwotable">New Qwotable</string>
+    <string name="tap_on_new_qwotable_to_create_a_new_qwotable_m">Tap on \'New Qwotable\' to create a new Qwotable</string>
+    <string name="you_have_no_qwotable_saved_here">You have no Qwotable saved here</string>
+    <string name="author_hint">Author</string>
+    <string name="found_in_hint">Source</string>
+    <string name="no_data">No data</string>
+    <string name="Success">Success</string>
+    <string name="fail">Failed</string>
+    <string name="add_own_qwotable">Add own Qwotable</string>
+    <string name="add_button">Add</string>
+    <string name="update_delete_dialog">Update or delete own Qwotable</string>
+    <string name="delete_button">Delete</string>
+    <string name="delete_dialog_title">Delete Qwotable?</string>
+    <string name="delete_dialog_message">Are you sure, you want to delete this Qwotable? This cannot be undone.</string>
+    <string name="not_allowed">Qwotable and or author are not allowed to be empty</string>
+
 </resources>

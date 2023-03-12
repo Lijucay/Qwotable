@@ -11,10 +11,8 @@ import android.os.SystemClock;
 
 import androidx.annotation.Nullable;
 
-import com.lijukay.quotesAltDesign.activities.Information;
+import com.lijukay.quotesAltDesign.activities.MainActivity;
 import com.lijukay.quotesAltDesign.activities.Person;
-import com.lijukay.quotesAltDesign.fragments.quotes;
-import com.lijukay.quotesAltDesign.fragments.wisdom;
 
 public class InternetService extends Service {
 
@@ -49,18 +47,10 @@ public class InternetService extends Service {
         @Override
         public void run() {
             handler.postDelayed(periodicUpdate, 1000 - SystemClock.elapsedRealtime()%1000);
-            Intent broadCastIntentQuote = new Intent();
-            broadCastIntentQuote.setAction(quotes.BroadCastStringForAction);
-            broadCastIntentQuote.putExtra("online_status", ""+isOnline(InternetService.this));
-            sendBroadcast(broadCastIntentQuote);
-            Intent broadCastIntentWisdom = new Intent();
-            broadCastIntentWisdom.setAction(wisdom.BroadCastStringForAction);
-            broadCastIntentWisdom.putExtra("online_status", ""+isOnline(InternetService.this));
-            sendBroadcast(broadCastIntentWisdom);
-            Intent broadCastIntentInformation = new Intent();
-            broadCastIntentInformation.setAction(Information.BroadCastStringForAction);
-            broadCastIntentInformation.putExtra("online_status", ""+isOnline(InternetService.this));
-            sendBroadcast(broadCastIntentInformation);
+            Intent broadCastIntentMain = new Intent();
+            broadCastIntentMain.setAction(MainActivity.BroadCastStringForAction);
+            broadCastIntentMain.putExtra("online_status", ""+isOnline(InternetService.this));
+            sendBroadcast(broadCastIntentMain);
             Intent broadCastIntentPerson = new Intent();
             broadCastIntentPerson.setAction(Person.BroadCastStringForAction);
             broadCastIntentPerson.putExtra("online_status", ""+isOnline(InternetService.this));

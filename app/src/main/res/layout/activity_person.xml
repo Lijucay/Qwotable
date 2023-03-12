@@ -10,7 +10,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/personSRL"
         android:layout_width="match_parent"
-        android:layout_below="@id/appBarLayout"
+        android:layout_below="@id/app_bar_layout"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -21,7 +21,7 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+        android:id="@+id/app_bar_layout"
         android:layout_gravity="top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
 
             <com.google.android.material.appbar.MaterialToolbar
                 app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
-                android:id="@+id/topAppBar"
+                android:id="@+id/top_app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:hapticFeedbackEnabled="true"

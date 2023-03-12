@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabColorSchemeParams;
@@ -88,7 +87,7 @@ public class Settings extends AppCompatActivity {
 
         setContentView(R.layout.settings_activity);
 
-        MaterialToolbar materialToolbar = findViewById(R.id.topAppBar);
+        MaterialToolbar materialToolbar = findViewById(R.id.top_app_bar);
         setSupportActionBar(materialToolbar);
 
         materialToolbar.setNavigationOnClickListener(v -> onBackPressed());

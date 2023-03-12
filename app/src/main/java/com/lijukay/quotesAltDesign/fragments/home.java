@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.lijukay.quotesAltDesign.R;
-import com.lijukay.quotesAltDesign.activities.Information;
 import com.lijukay.quotesAltDesign.service.InternetService;
 
 import java.util.Locale;
@@ -33,7 +32,6 @@ public class home extends Fragment {
 
         getLanguage();
 
-        v.findViewById(R.id.information_card).setOnClickListener(v -> startActivity(new Intent(getActivity(), Information.class)));
         return v;
     }
 

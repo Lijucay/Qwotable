@@ -1,0 +1,6 @@
+<p>Bug fixes:</p>
+<p><br>Language does not jump back to the system language on app restart</p>
+<p><br>Changes:</p>
+<p><br>The layout of the application has been changed</p>
+<p><br>New:</p>
+<p><br>It is now possible to add own Qwotable</p>
