@@ -1,0 +1,46 @@
+name: Qwotable request
+description: Request a quote or wisdom
+title: "[Qwotable request]"
+labels:
+  - qwotable
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping me, making this application better!
+        Please note, that it may take time until I answer your report since I am not on GitHub 24/7
+  - type: textarea
+    id: qwotable
+    attributes:
+      label: Qwotable
+      description: |
+        What is the qwotable
+    validations:
+      required: true
+  - type: textarea
+    id: author
+    attributes:
+      label: Author
+      description: |
+        Who is the author?
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      description: |
+        What is this Qwotable, a quote or a wisdom?
+      options:
+        - Quote
+        - Wisdom
+    validations:
+      required: false
+  - type: textarea
+    id: source
+    attributes:
+      label: Source
+      description: |
+        Where can I find the Qwotable? Leave this as it if you don't know
+    validations:
+      required: false
