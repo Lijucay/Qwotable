@@ -1,0 +1,65 @@
+name: Bug report
+description: Report a bug that you found
+title: "[Bug Report]"
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping me, making this application better!
+        Please note, that it may take time until I answer your report since I am not on GitHub 24/7
+  - type: textarea
+    id: bugdescription
+    attributes:
+      label: Describe the bug
+      description: |
+        A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: stepstoreproduce
+    attributes:
+      label: Steps to reproduce
+      description: |
+        Steps to reproduce the behavior you encountered:
+    validations:
+      required: true
+  - type: textarea
+    id: expectedbehavior
+    attributes:
+      label: Expected Behavior
+      description: |
+        A clear and concise description of what you expected to happen.
+    validations:
+      required: false
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: |
+        If possible, add screenshots of the bug
+    validations:
+      required: false
+  - type: dropdown
+    id: osversion
+    attributes:
+      label: Android Version
+      description: |
+        You can find the version in your system settings -> About Phone -> Software information -> Android Version
+      options:
+        - 7.0.0 (New York Cheesecake)
+        - 7.1.0 (New York Cheesecake)
+        - 7.1.1 (New York Cheesecake)
+        - 7.1.2 (New York Cheesecake)
+        - 8.0 (Oatmeal Cookie)
+        - 8.1 (Oatmeal Cookie)
+        - 9 (Pistachio Ice Cream)
+        - 10 (Quince Tart)
+        - 11 (Red Velvet Cake)
+        - 12 (Snow Cone)
+        - 12.1 (aka. 12L / Snow Cone v2)
+        - 13 (Tiramisu)
+        - 14 (Developer Preview / Upside down cake)
+    validations:
+      required: true
