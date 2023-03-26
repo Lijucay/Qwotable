@@ -22,5 +22,5 @@ body:
       label: Additional information
       description: |
       Add any other context or screenshots about the feature request here.
-     validations:
+    validations:
       required: false
