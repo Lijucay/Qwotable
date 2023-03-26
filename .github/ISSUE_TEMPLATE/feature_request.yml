@@ -17,7 +17,7 @@ body:
     validations:
       required: true
   - type: textarea
-    id: additional context
+    id: additionalcontext
     attributes:
       label: Additional information
       description: |
