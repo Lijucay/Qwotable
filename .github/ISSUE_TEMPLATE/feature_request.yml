@@ -1,26 +1,19 @@
-name: Feature Request
-description: Request a new feature
-title: "[Feature request]"
+name: Feature suggestion
+description: Suggest a non-existant feature
+title: "[Feature suggestion]"
 labels:
   - feature
 body:
   - type: markdown
     attributes:
       value: |
-        Thank you for making Qwotable better and requesting new features.
+        Thank you for helping me, making this application better!
+        Please note, that it may take time until I answer since I am not on GitHub 24/7
   - type: textarea
     id: featuredescription
     attributes:
-      label: Describe the feature you'd like to have in detail
+      label: Describe the Feature
       description: |
-      A clear and concise description of what you want to have.
+        A clear and concise description of what the Feature is.
     validations:
       required: true
-  - type: textarea
-    id: additionalcontext
-    attributes:
-      label: Additional information
-      description: |
-      Add any other context or screenshots about the feature request here.
-    validations:
-      required: false
