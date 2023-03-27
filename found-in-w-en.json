@@ -30,5 +30,14 @@
       "found in": "The boy, the mole, the fox and the horse",
       "title": "Asking for help isn't giving up"
     }
-  ]
+  ],
+  "Fate Stay Night":
+          [
+            {
+              "wisdom": "Even if I could redo the past, I must not take back what has already happened, because if I do that, everything would be a lie: those tears, that pain, those memories, that cold reality that hurts my heart, all of it. There were people who died in pain. There were people who risked their lives to save others. There were people who mourned for the deaths. But then, if everything were taken back and it did not happen, where would all of those go? The dead people would not come back. Reality cannot be overturned.",
+              "author": "Shirou Emiya",
+              "found in": "Fate Stay Night",
+              "title": "Reality cannot be overturned"
+            }
+          ]
 }

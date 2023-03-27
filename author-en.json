@@ -170,5 +170,57 @@
       "author": "Itachi Uchiha",
       "found in": "Naruto"
     }
-  ]
+  ],
+  "Monkey D. Luffy":
+          [
+            {
+              "quote": "Power isn't determined by your size, but the size of your heart and dreams!",
+              "author": "Monkey D. Luffy",
+              "found in": "One Piece"
+            },
+            {
+              "quote": "If you don’t take risks, you can’t create a future",
+              "author": "Monkey D. Luffy",
+              "found in": "One Piece"
+            },
+            {
+              "quote": "No matter how hard or how impossible it is, never lose sight of your goal",
+              "author": "Monkey D. Luffy",
+              "found in": "One Piece"
+            }
+          ],
+  "Archer":
+          [
+            {
+              "quote": "The wish of wanting everyone to be happy is merely a fairy tale!",
+              "author": "Archer",
+              "found in": "Fate Stay Night"
+            }
+          ],
+  "Shirou Emiya":
+          [
+            {
+              "quote": "If you walk down the path that you believe is right, you cannot be wrong.",
+              "author": "Shirou Emiya",
+              "found in": "Fate Stay Night"
+            },
+            {
+              "quote": "That is why I will keep running for now. If I aim for the distance, there should come a day when I would be able to reach out to what I have been aiming for.",
+              "author": "Shirou Emiya",
+              "found in": "Fate Stay Night"
+            },
+            {
+              "quote": "If you have a wish, don’t go back to the past and redo everything. If you want to change yourself, don’t change the past, but change who you are now!",
+              "author": "Shirou Emiya",
+              "found in": "Fate Stay Night"
+            }
+          ],
+  "Kirei Kotomine":
+          [
+            {
+              "quote": "People cannot change the past. All we can do, is accept our own actions. If you still wish to be burdened by your sins, let it show in your future actions. It is your choice how to perceive something that has already happened.",
+              "author": "Kirei Kotomine",
+              "found in": "Fate Stay Night"
+            }
+          ]
 }

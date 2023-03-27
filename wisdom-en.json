@@ -2,16 +2,22 @@
   "Wisdom":
   [
     {
+      "wisdom": "Even if I could redo the past, I must not take back what has already happened, because if I do that, everything would be a lie: those tears, that pain, those memories, that cold reality that hurts my heart, all of it. There were people who died in pain. There were people who risked their lives to save others. There were people who mourned for the deaths. But then, if everything were taken back and it did not happen, where would all of those go? The dead people would not come back. Reality cannot be overturned.",
+      "author": "Shirou Emiya",
+      "found in": "Fate Stay Night",
+      "title": "Reality cannot be overturned"
+    },
+    {
       "wisdom": "When the first wisp of wind brushed across the land, birds that yearned for the sky had wings but no way to fly.\nThey asked the Anemo God:\n\"How can we reach the heavens?\"\nTo which the Anemo God replied:\n\"You have yet to find that which is most important\"\nAs the god spoke, the wind thrust the seeds of a dandelion high into the sky. The birds thrust out their wings but the breeze was all to mild.\nLeaving them to stumble across the earth. So they went to the gorge where the wind showed off its wild and incomparable strength.\nThey threw themselves off the cliff and flapped their wings amongst the howling winds, until they where able to fly freely in the sky.\nTo the Anemo God they went, to gleefully say:\n\"We understand now! All we needed was a stronger wind to fly\"\nIn reply the Anemo God said: \"What you lacked was not wind, but courage. It is courage that has allowed you to become the first flying birds of this world.\"",
       "author": "Unknown",
       "found in": "Genshin Impact",
-      "title": "About courage"
+      "title": "What you lacked was not wind, but courage"
     },
     {
       "wisdom": "Wake up to reality. Nothing ever goes as planned in this accursed world. The longer you live the more you will realize that the only things that truly exist in this reality are merely pain, suffering and futility.[...] Listen, everywhere you look in this world, wherever there is light, there will always be shadows to be found as well. As long as there is a concept of victors, the vanquished will also exist. The selfish intent of wanting to preserve peace initiates wars and hatred is born in order to protect love. There are nexuses, causual relationships that cannot be seperated.",
       "author": "Madara Uchiha",
       "found in": "Naruto",
-      "title": "The (unplannable) reality"
+      "title": "Wake up to reality"
     }, {
       "wisdom": "Mole: \"Sometimes I want to say \"I love you all\", but I find it difficult.\"\nBoy: \"Do you?\"\nMole: \"Yes, so I say something like \"I'm glad we're all here\".\"\nBoy: \"Okay\"\nMole: \"I'm glad we're all here.\"\nBoy: \"We're so glad you're here too.\"",
       "author": "Charlie Mackery",
@@ -65,5 +71,14 @@
       "title": "Asking for help isn't giving up"
 
     }
-  ]
+  ],
+  "Shirou Emiya":
+          [
+            {
+              "wisdom": "Even if I could redo the past, I must not take back what has already happened, because if I do that, everything would be a lie: those tears, that pain, those memories, that cold reality that hurts my heart, all of it. There were people who died in pain. There were people who risked their lives to save others. There were people who mourned for the deaths. But then, if everything were taken back and it did not happen, where would all of those go? The dead people would not come back. Reality cannot be overturned.",
+              "author": "Shirou Emiya",
+              "found in": "Fate Stay Night",
+              "title": "Reality cannot be overturned"
+            }
+          ]
 }
