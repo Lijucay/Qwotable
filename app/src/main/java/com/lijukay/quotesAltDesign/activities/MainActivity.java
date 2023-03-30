@@ -27,6 +27,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.fragments.AddOwnQuotes;
 import com.lijukay.quotesAltDesign.fragments.Information;
+import com.lijukay.quotesAltDesign.fragments.dwyl_quotes;
 import com.lijukay.quotesAltDesign.fragments.home;
 import com.lijukay.quotesAltDesign.fragments.quotes;
 import com.lijukay.quotesAltDesign.fragments.wisdom;
@@ -36,10 +37,14 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+    //Navigation
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
 
+    //Preferences
     public SharedPreferences languageSharedPreference, colorSharedPreference;
+
+    //Internet
     public static String BroadCastStringForAction = "checkInternet";
     boolean internet;
     private IntentFilter mIntentFilter;
@@ -49,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //get language
         languageSharedPreference = getSharedPreferences("Language", 0);
+        //set language to what is saved
         Locale locale = new Locale(languageSharedPreference.getString("language", "en"));
         Locale.setDefault(locale);
         Resources resources = this.getResources();
@@ -57,7 +64,9 @@ public class MainActivity extends AppCompatActivity {
         config.setLocale(locale);
         resources.updateConfiguration(config, resources.getDisplayMetrics());
 
+        //get and set color theme
         colorSharedPreference = getSharedPreferences("Colors", 0);
+        //check whether the Android version is smaller than Android Q (Android 10)
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             setTheme(R.style.AppTheme);
         } else {
@@ -146,6 +155,11 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new AddOwnQuotes()).commit();
                     navigationView.setCheckedItem(R.id.own_quotes_item);
                     materialToolbar.setTitle("My Quotes");
+                    break;
+                case R.id.dwyl_quotes_item:
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new dwyl_quotes()).commit();
+                    navigationView.setCheckedItem(R.id.dwyl_quotes_item);
+                    materialToolbar.setTitle(getString(R.string.by_dwyl));
                     break;
             }
             return false;

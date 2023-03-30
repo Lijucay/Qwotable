@@ -183,5 +183,7 @@
     <string name="delete_dialog_title">Delete Qwotable?</string>
     <string name="delete_dialog_message">Are you sure, you want to delete this Qwotable? This cannot be undone.</string>
     <string name="not_allowed">Qwotable and or author are not allowed to be empty</string>
+    <string name="third_party">Third party quotes</string>
+    <string name="by_dwyl">dwyl Quotes</string>
 
 </resources>

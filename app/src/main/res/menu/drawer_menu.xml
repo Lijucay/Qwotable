@@ -42,6 +42,21 @@
     </item>
 
     <item
+        android:id="@+id/made_by_dwyl"
+        android:title="@string/third_party">
+        <menu>
+
+            <item
+                android:id="@+id/dwyl_quotes_item"
+                android:title="@string/by_dwyl"
+                android:icon="@drawable/ic_add_own"
+                android:checkable="true"
+                app:showAsAction="ifRoom"/>
+        </menu>
+    </item>
+
+
+    <item
         android:id="@+id/user_menu_list"
         android:title="@string/made_for_you">
         <menu>
