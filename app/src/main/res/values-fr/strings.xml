@@ -67,7 +67,7 @@
     <string name="privacy_dialog_title">Ta vie privée</string>
     <string name="privacy_dialog_message">Qwotable est une application Android gratuite, créée par moi, Luca.\nQwotable ne collecte aucune donnée et ne le fera jamais.\nChaque interaction avec moi est sélectionnable.\n\nJe peux modifier la politique de confidentialité.\nChaque modification prend effet immédiatement.\nUne information sur le changement de la politique de confidentialité peut être trouvée sur le changelog.\n\nEn vigueur le 29 janvier 2023</string>
     <string name="licenses_dialog_title">Licences</string>
-    <string name="licenses_dialog_message">Comme d\'autres applications, Qwotable utilise du contenu qui n\'est pas le mien. Dans ce qui suit, cette boîte de dialogue t\'indiquera le contenu utilisé :\n\nAnimations Lottie :\nLes animations Lottie sont les images animées qui jouent dans l\'écran de présentation et l\'écran d\'erreur. Les animations Lottie que j\'ai utilisées sont signées sous la licence Lottie Simple, il n\'est donc pas nécessaire de donner des crédits à chaque créateur. Bien que je sois reconnaissant pour leur travail, je dois avouer que je ne me souviens pas de tous les auteurs.\n\nRikka-Material:\nAvec Rikka-material, je veux dire le contenu de l\'activité des paramètres tels que les catégories et le commutateur.</string>
+    <string name="licenses_dialog_message">Comme d\'autres applications, Qwotable utilise du contenu qui n\'est pas le mien. Dans ce qui suit, cette boîte de dialogue t\'indiquera le contenu utilisé :\n\nAnimations Lottie :\nLes animations Lottie sont les images animées qui jouent dans l\'écran de présentation et l\'écran d\'erreur. Les animations Lottie que j\'ai utilisées sont signées sous la licence Lottie Simple, il n\'est donc pas nécessaire de donner des crédits à chaque créateur. Bien que je sois reconnaissant pour leur travail, je dois avouer que je ne me souviens pas de tous les auteurs.\n\nRikka-Material:\nAvec Rikka-material, je veux dire le contenu de l\'activité des paramètres tels que les catégories et le commutateur.\n\ndwyl:\nCe sont des devis d\'un projet de GitHub d\'une communauté avec le nom dwyl. Tu peux le trouve ici: https://github.com/dwyl/start-here</string>
     <string name="wiki_dialog_message">Qwotable a sa propre page Wiki, créée grâce à GitBook. Tu y trouves des informations supplémentaires sur Qwotable.</string>
     <string name="wiki_button">Vers le wiki</string>
     <string name="toast_message_home">Mise à jour, veuille patiente</string>
@@ -118,7 +118,7 @@
     <string name="wisdom_example_wisdom">L\'enfant: \"Quelle est la chose la plus courageuse que tu aies dite?\"\nLe cheval: \"C\'est à l\'aide. Demander de l\'aide, ce n\'est pas abandonner. C\'est refuser d\'abandonner.\"</string>
     <string name="wisdom_example_found_in">L\'enfant, la taupe, le renard et le cheval</string>
     <string name="special_thanks">Remerciement spécial</string>
-    <string name="special_message">Cette application a été créée grâce à des personnes très intelligentes et serviables. Donc, mes remerciements particuliers vont à : • Yanndroid, qui a pris le temps de continuer à m\'expliquer les choses • TenSeventySeven, pour l\'idée du nom de l\'application et pour m\'avoir aidé à apprendre de nouvelles choses • @Peter Knecht (nom d\'utilisateur) et @thatboringkid ( nom d\'utilisateur) pour tester cette application avant de la publier et signaler les bogues à corriger. La plupart du temps, cela semble très banal de dire cela, mais je pense que ce n\'est rien d\'autre que la vérité quand je dis : je n\'aurais pas pu terminer cette application sans vous !</string>
+    <string name="special_message">Cette application a été créée grâce à des personnes très intelligentes et serviables. Donc, mes remerciements particuliers vont à :\n• Yanndroid, qui a pris le temps de continuer à m\'expliquer les choses\n• TenSeventySeven, pour l\'idée du nom de l\'application et pour m\'avoir aidé à apprendre de nouvelles choses\n• @Peter Knecht (nom d\'utilisateur) et @thatboringkid ( nom d\'utilisateur) pour tester cette application avant de la publier et signaler les bogues à corriger.\nLa plupart du temps, cela semble très banal de dire cela, mais je pense que ce n\'est rien d\'autre que la vérité quand je dis : je n\'aurais pas pu terminer cette application sans vous !</string>
     <string name="navigation_view_text">Fait avec ❤ dans Allemagne</string>
     <string name="made_for_you">Fait pour toi</string>
     <string name="made_for_qwotable">Fait pour Qwotable</string>
@@ -138,5 +138,7 @@
     <string name="delete_dialog_title">Supprimer Qwotable?</string>
     <string name="delete_dialog_message">Est-tu sûr de vouloir supprimer ce Qwotable?</string>
     <string name="not_allowed">Qwotable et ou auteur be sont pas autorisés à être vides</string>
+    <string name="third_party">Devis de tiers</string>
+    <string name="by_dwyl">Devis de dwyl</string>
 
 </resources>

@@ -65,7 +65,7 @@
     <string name="privacy_dialog_title">Your privacy</string>
     <string name="privacy_dialog_message">Qwotable is a free Android application, made by me, Luca. Qwotable does not collect any data and never will. Every interaction with me is selectable.  I may change the Privacy Policy. Every change is effective immediately. An information of the change of the Privacy Policy can be found on the changelog  Effective January 29, 2023</string>
     <string name="licenses_dialog_title">Licenses</string>
-    <string name="licenses_dialog_message">Like other apps, Qwotable uses content that is not mine. In the following, this dialog will tell you about the used content:  Lottie Animations: Lottie animations are the moving pictures that are playing in the presentation-screen and the error screen. The Lottie animations I used are signed under the Lottie Simple License, therefore it is not necessary to give credits to every creator. Though I am thankful for their work, I must confess that I can\'t remember every author.  Rikka-Material: With Rikka-material, I mean the content of the settings activity such as the categories and switch.</string>
+    <string name="licenses_dialog_message">Like other apps, Qwotable uses content that is not mine. In the following, this dialog will tell you about the used content:  Lottie Animations: Lottie animations are the moving pictures that are playing in the presentation-screen and the error screen. The Lottie animations I used are signed under the Lottie Simple License, therefore it is not necessary to give credits to every creator. Though I am thankful for their work, I must confess that I can\'t remember every author. \n\nRikka-Material: \nWith Rikka-material, I mean the content of the settings activity such as the categories and switch.\n\ndwyl:\nThese are Quotes by a GitHub-Project \"quotes\" by the community with the name dwyl. You can find them here: https://github.com/dwyl/start-here</string>
     <string name="wiki_dialog_title" translatable="false">Wiki</string>
     <string name="wiki_dialog_message">Qwotable has its own Wiki-page, created thanks to GitBook. There you will find extra information to Qwotable.</string>
     <string name="wiki_button">To the wiki</string>
@@ -162,7 +162,7 @@
     <string name="no_internet_toast_message">Please connect to the internet first</string>
 
     <string name="special_thanks">Special thanks</string>
-    <string name="special_message">This application is made thanks to very smart and helpful people. So my special thanks goes to:  • Yanndroid, for taking his time to explain things to me over and over again • TenSeventySeven, for the idea of the app name and for helping me learning new things • @Peter Knecht (username) and @thatboringkid (username) for testing this app before it was published and reporting bugs to be fixed.  Most of the time, it sounds very common to say that, but I think, it is nothing but the truth, when I say: I would not have been able to make this application without them!</string>
+    <string name="special_message">This application is made thanks to very smart and helpful people. So my special thanks goes to: \n• Yanndroid, for taking his time to explain things to me over and over again\n• TenSeventySeven, for the idea of the app name and for helping me learning new things\n• @Peter Knecht (username) and @theboringkid (username) for testing this app before it was published and reporting bugs to be fixed. \nMost of the time, it sounds very common to say that, but I think, it is nothing but the truth, when I say: I would not have been able to make this application without them!</string>
 
     <string name="navigation_view_text">Made with ❤ in Germany</string>
     <string name="made_for_you">Made for you</string>
@@ -184,6 +184,6 @@
     <string name="delete_dialog_message">Are you sure, you want to delete this Qwotable? This cannot be undone.</string>
     <string name="not_allowed">Qwotable and or author are not allowed to be empty</string>
     <string name="third_party">Third party quotes</string>
-    <string name="by_dwyl">dwyl Quotes</string>
+    <string name="by_dwyl">Quotes from dwyl</string>
 
 </resources>

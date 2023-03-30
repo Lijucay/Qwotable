@@ -50,7 +50,7 @@
     <string name="privacy_dialog_title">Deine Privatsphäre</string>
     <string name="privacy_dialog_message">Qwotable ist eine kostenfreie Android App, erstellt von mir, Luca.\nQwotable sammelt keinerlei Daten und wird es auch niemals tun.\nJede Interaktion mit mir ist frei wählbar.\n\nIch habe die Berechtigung, die Datenschutzrichtlinien jederzeit zu ändern.\nJede Änderung ist sofort wirksam.\nEine Information zur Änderung befindet sich dann im Changelog.\n\nGültig seit dem 29. Januar 2023</string>
     <string name="licenses_dialog_title">Lizenzen</string>
-    <string name="licenses_dialog_message">Wie andere Apps benutzt auch Qwotable Content, welches nicht meins it. Im Folgenden wird dir dieser Dialog von dem Content erzählen:\n\nLottie Animationen: Lottie Animationen sind die beweglichen Bilder, denen du im Präsentations- oder Errorscreen begegnet bist. Die Lottie Animationen sind unter der Lottie Simple License lizenziert, was bedeutet, dass ich nicht notwendig die Autoren nennen muss. Auch wenn ich für ihre Arbeit dankbar bin, so bin ich leider nicht in der Lage, die Autoren zu nennen.\n\nRikka-Material: Mit Rikka-Material meine ich den Content der Einstellungsseite, wie beispielsweise den Schalter.</string>
+    <string name="licenses_dialog_message">Wie andere Apps benutzt auch Qwotable Content, welches nicht meins it. Im Folgenden wird dir dieser Dialog von dem Content erzählen:\n\nLottie Animationen:\nLottie Animationen sind die beweglichen Bilder, denen du im Präsentations- oder Errorscreen begegnet bist. Die Lottie Animationen sind unter der Lottie Simple License lizenziert, was bedeutet, dass ich nicht notwendig die Autoren nennen muss. Auch wenn ich für ihre Arbeit dankbar bin, so bin ich leider nicht in der Lage, die Autoren zu nennen.\n\nRikka-Material:\nMit Rikka-Material meine ich den Content der Einstellungsseite, wie beispielsweise den Schalter.\n\ndwyl:\nDas sind Zitate von einem GitHub Projekt \"quotes\" von der Community mit dem Namem dwyl. Ihr könnt es hier finden: https://github.com/dwyl/start-here</string>
     <string name="wiki_dialog_message">Qwotable hat seine eigene Wiki-seite, die dank GitBook kreiert wurde. Dort kannst du Extrainformationen zu Qwotable finden.</string>
     <string name="wiki_button">Zur Wiki</string>
     <string name="toast_message_home">Aktualisiere, bitte warten…</string>
@@ -118,7 +118,7 @@
     <string name="color_pink">Pink</string>
     <string name="color_green">Grün</string>
     <string name="special_thanks">Besonderer Dank</string>
-    <string name="special_message">Diese Anwendung wurde dank sehr intelligenter und hilfsbereiter Menschen erstellt. Mein besonderer Dank geht also an: • Yanndroid, der sich die Zeit genommen hat, mir Dinge immer wieder zu erklären • TenSeventySeven, für die Idee des App-Namens und dafür, dass er mir geholfen hat, neue Dinge zu lernen • @Peter Knecht (Benutzername) und @thatboringkid (Benutzername) für das Testen dieser App vor ihrer Veröffentlichung und das Melden von zu behebenden Fehlern. Meistens klingt es sehr gewöhnlich, das zu sagen, aber ich denke, es ist nichts als die Wahrheit, wenn ich sage: Ohne euch hätte ich diese App nicht fertigstellen können!</string>
+    <string name="special_message">Diese Anwendung wurde dank sehr intelligenter und hilfsbereiter Menschen erstellt. Mein besonderer Dank geht also an:\n• Yanndroid, der sich die Zeit genommen hat, mir Dinge immer wieder zu erklären\n• TenSeventySeven, für die Idee des App-Namens und dafür, dass er mir geholfen hat, neue Dinge zu lernen\n• @Peter Knecht (Benutzername) und @thatboringkid (Benutzername) für das Testen dieser App vor ihrer Veröffentlichung und das Melden von zu behebenden Fehlern.\nMeistens klingt es sehr gewöhnlich, das zu sagen, aber ich denke, es ist nichts als die Wahrheit, wenn ich sage: Ohne euch hätte ich diese App nicht fertigstellen können!</string>
     <string name="navigation_view_text">Mit ❤ in Deutschland gemacht</string>
     <string name="made_for_you">Für dich gemacht</string>
     <string name="made_for_qwotable">Für Qwotable gemacht</string>
@@ -138,4 +138,6 @@
     <string name="delete_dialog_message">Bist du dir sicher, dass du dieses Qwotable löschen möchtest?</string>
     <string name="tap_on_new_qwotable_to_create_a_new_qwotable_m">Tippe auf \'Neues Qwotable\' um in neues Qwotable zu erstellen</string>
     <string name="not_allowed">Qwotable und oder Autor darf nicht leer sein</string>
+    <string name="third_party">Drittanbieter Zitate</string>
+    <string name="by_dwyl">Zitate von dwyl</string>
 </resources>
