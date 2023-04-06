@@ -16,9 +16,15 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -99,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
         Intent serviceIntent = new Intent(this, InternetService.class);
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(BroadCastStringForAction);
@@ -106,15 +114,10 @@ public class MainActivity extends AppCompatActivity {
         internet = isOnline(getApplicationContext());
 
         MaterialToolbar materialToolbar = findViewById(R.id.top_app_bar);
-        int color = SurfaceColors.SURFACE_2.getColor(this);
         boolean tablet = getResources().getBoolean(R.bool.isTablet);
         navigationView = findViewById(R.id.navigation_view);
 
         setSupportActionBar(materialToolbar);
-
-        getWindow().setStatusBarColor(color);
-        getWindow().setNavigationBarColor(color);
-        materialToolbar.setBackgroundColor(color);
 
         if (!tablet || this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             drawerLayout = findViewById(R.id.drawer_layout);
@@ -164,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
-
     }
         /*else {
             navigationRailView.setSelectedItemId(R.id.home_item);

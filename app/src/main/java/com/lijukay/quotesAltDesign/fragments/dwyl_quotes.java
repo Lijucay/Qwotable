@@ -6,6 +6,9 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.os.Bundle;
 
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,8 +41,6 @@ public class dwyl_quotes extends Fragment implements RecyclerViewInterface {
     View v;
     private RecyclerView recyclerView;
     boolean tablet;
-    private ArrayList<AllItem> items;
-    private QuotesAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +57,7 @@ public class dwyl_quotes extends Fragment implements RecyclerViewInterface {
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext().getApplicationContext()));
         }
 
-        items = new ArrayList<>();
+        ArrayList<AllItem> items = new ArrayList<>();
 
         try {
 
@@ -85,9 +86,16 @@ public class dwyl_quotes extends Fragment implements RecyclerViewInterface {
             e.printStackTrace();
         }
 
-        adapter = new QuotesAdapter(getActivity(), items, this);
+        QuotesAdapter adapter = new QuotesAdapter(getActivity(), items, this);
         recyclerView.setAdapter(adapter);
 
+        ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+            recyclerView.setPadding(0,0,0,insets.bottom);
+
+            return WindowInsetsCompat.CONSUMED;
+        });
 
         return v;
     }

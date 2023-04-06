@@ -9,6 +9,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:id="@+id/add_own_quotes_rv"/>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -30,6 +31,7 @@
         android:gravity="center">
 
         <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottiNoData"
             android:layout_width="300dp"
             android:layout_height="300dp"
             app:lottie_autoPlay="true"
