@@ -21,11 +21,18 @@
             android:name=".activities.Prescreen"
             android:exported="true"
             android:screenOrientation="locked"
-            android:theme="@style/Theme.App.Starting" />
+            android:theme="@style/Theme.App.Starting" >
+
+        </activity>
         <activity
             android:name=".activities.OnBoardingScreen"
             android:exported="true"
             android:screenOrientation="locked" >
+
+            <meta-data
+                android:name="com.sec.android.app.launcher.icon_theme"
+                android:value="themeColor"/>
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

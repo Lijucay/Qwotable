@@ -15,6 +15,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,11 +63,9 @@ public class quotes extends Fragment implements RecyclerViewInterface {
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayout error;
     private SharedPreferences language;
-    public static String BroadCastStringForAction = "checkInternet";
-    private IntentFilter mIntentFilter;
     boolean internet;
-    private View v;
-    private TextView errorMessage, errorTitle;
+    private View v, layout;
+    private TextView errorMessage, errorTitle, message;
     boolean tablet;
     private LinearProgressIndicator progressIndicator;
 
@@ -77,6 +76,9 @@ public class quotes extends Fragment implements RecyclerViewInterface {
         language = requireActivity().getSharedPreferences("Language", 0);
 
         v = inflater.inflate(R.layout.fragment_quotes, container, false);
+
+        layout = LayoutInflater.from(requireContext()).inflate(R.layout.toast_view, null);
+        message = layout.findViewById(R.id.message);
 
         errorTitle = v.findViewById(R.id.titleError);
         errorMessage = v.findViewById(R.id.messageError);
@@ -102,7 +104,12 @@ public class quotes extends Fragment implements RecyclerViewInterface {
         swipeRefreshLayout = v.findViewById(R.id.quotesSRL);
         swipeRefreshLayout.setVisibility(View.VISIBLE);
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            Toast.makeText(requireActivity(), getString(R.string.toast_message_quotes), Toast.LENGTH_SHORT).show();
+            message.setText(R.string.toast_message_quotes);
+            Toast toast = new Toast(requireContext().getApplicationContext());
+            toast.setGravity(Gravity.BOTTOM, 0, 100);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
             new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
                 Cache cache = requestQueue.getCache();
@@ -116,10 +123,16 @@ public class quotes extends Fragment implements RecyclerViewInterface {
 
         checkInternet();
 
-        ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+        if (!tablet) ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
             recyclerView.setPadding(0,0,0,insets.bottom);
+
+            return WindowInsetsCompat.CONSUMED;
+        }); else ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+            recyclerView.setPadding(0,insets.top,0,insets.bottom);
 
             return WindowInsetsCompat.CONSUMED;
         });
@@ -138,7 +151,6 @@ public class quotes extends Fragment implements RecyclerViewInterface {
             // passed down to descendant views.
             return WindowInsetsCompat.CONSUMED;
         });
-
 
         return v;
     }
@@ -262,14 +274,26 @@ public class quotes extends Fragment implements RecyclerViewInterface {
 
                                     copyText(quote + "\n\n~ " + author);
                                 } catch (JSONException e) {
-                                    Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message_quotes), Toast.LENGTH_SHORT).show();
+                                    message.setText(R.string.error_while_parsing_toast_message_quotes);
+                                    Toast toast = new Toast(requireContext().getApplicationContext());
+                                    toast.setGravity(Gravity.BOTTOM, 0, 100);
+                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                    toast.setView(layout);
+                                    toast.show();
+                                    //Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message_quotes), Toast.LENGTH_SHORT).show();
                                     e.printStackTrace();
                                 }
                             }, Throwable::printStackTrace);
                     requestQueue.add(jsonObjectRequest);
 
                 } else {
-                    Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
+                    message.setText(R.string.no_internet_toast_message);
+                    Toast toast = new Toast(requireContext().getApplicationContext());
+                    toast.setGravity(Gravity.BOTTOM, 0, 100);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    toast.show();
+                    //Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
                 }
                 break;
             }
@@ -282,6 +306,12 @@ public class quotes extends Fragment implements RecyclerViewInterface {
         ClipboardManager clipboard = (ClipboardManager) requireActivity().getSystemService(CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("Quotes", quote);
         clipboard.setPrimaryClip(clip);
-        Toast.makeText(requireContext(), getString(R.string.quote_copied_toast_message), Toast.LENGTH_SHORT).show();
+        message.setText(R.string.quote_copied_toast_message);
+        Toast toast = new Toast(requireContext().getApplicationContext());
+        toast.setGravity(Gravity.BOTTOM, 0, 100);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+        //Toast.makeText(requireContext(), getString(R.string.quote_copied_toast_message), Toast.LENGTH_SHORT).show();
     }
 }

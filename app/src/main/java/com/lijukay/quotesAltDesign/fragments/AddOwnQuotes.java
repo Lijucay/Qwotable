@@ -159,10 +159,16 @@ public class AddOwnQuotes extends Fragment implements RecyclerViewInterface {
             return WindowInsetsCompat.CONSUMED;
         });
 
-        ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+        if (!tablet) ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
             recyclerView.setPadding(0,0,0,insets.bottom);
+
+            return WindowInsetsCompat.CONSUMED;
+        }); else ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+            recyclerView.setPadding(0,insets.top,0,insets.bottom);
 
             return WindowInsetsCompat.CONSUMED;
         });

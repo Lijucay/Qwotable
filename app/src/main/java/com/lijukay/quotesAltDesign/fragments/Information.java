@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,16 +51,15 @@ public class Information extends Fragment {
     private boolean internet;
     private IntentFilter mIntentFilter;
     private LinearLayout error;
-    private TextView errorTitle, errorMessage;
+    private TextView errorTitle, errorMessage, message;
+    private View layout;
 
     public static String BroadCastStringForAction = "checkInternet";
     //public SharedPreferences language;
 
     View v;
 
-
-
-    @SuppressLint("SourceLockedOrientationActivity")
+    @SuppressLint({"SourceLockedOrientationActivity", "NotifyDataSetChanged"})
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,6 +68,9 @@ public class Information extends Fragment {
         //language = requireContext().getSharedPreferences("language", 0); //Todo: Parse Information in other languages
 
         v = inflater.inflate(R.layout.fragment_information, container, false);
+
+        layout = LayoutInflater.from(requireContext()).inflate(R.layout.toast_view, null);
+        message = layout.findViewById(R.id.message);
 
         error = v.findViewById(R.id.error);
         error.setVisibility(View.GONE);
@@ -91,7 +94,13 @@ public class Information extends Fragment {
 
         swipeRefreshLayout = v.findViewById(R.id.informationSRL);
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            Toast.makeText(requireContext(), getString(R.string.toast_message_information), Toast.LENGTH_SHORT).show();
+            message.setText(R.string.toast_message_information);
+            Toast toast = new Toast(requireContext().getApplicationContext());
+            toast.setGravity(Gravity.BOTTOM, 0, 100);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
+            //Toast.makeText(requireContext(), getString(R.string.toast_message_information), Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
                 Cache cache = mRequestQueue.getCache();
@@ -107,10 +116,16 @@ public class Information extends Fragment {
 
         checkInternet();
 
-        ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+        if (!tablet) ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
             recyclerView.setPadding(0,0,0,insets.bottom);
+
+            return WindowInsetsCompat.CONSUMED;
+        }); else ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+            recyclerView.setPadding(0,insets.top,0,insets.bottom);
 
             return WindowInsetsCompat.CONSUMED;
         });

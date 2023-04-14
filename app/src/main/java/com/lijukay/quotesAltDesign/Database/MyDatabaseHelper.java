@@ -5,6 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -53,11 +58,30 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_FOUNDIN, found_in);
         long result = db.insert(TABLE_NAME, null, cv);
 
+
+        View layout = LayoutInflater.from(context).inflate(R.layout.toast_view, null);
+
+        TextView message = layout.findViewById(R.id.message);
+
         if (result == -1){
             //Failed
-            Toast.makeText(context, R.string.fail, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, R.string.fail, Toast.LENGTH_SHORT).show();
+            message.setText(R.string.fail);
+            assert context != null;
+            Toast toast = new Toast(context.getApplicationContext());
+            toast.setGravity(Gravity.BOTTOM, 0, 100);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
         } else {
-            Toast.makeText(context, R.string.Success, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, R.string.Success, Toast.LENGTH_SHORT).show();
+            message.setText(R.string.Success);
+            assert context != null;
+            Toast toast = new Toast(context.getApplicationContext());
+            toast.setGravity(Gravity.BOTTOM, 0, 100);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
         }
     }
 
@@ -81,10 +105,28 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         long result = db.update(TABLE_NAME, values, "_id=?", new String[]{row_id});
 
+        View layout = LayoutInflater.from(context).inflate(R.layout.toast_view, null);
+
+        TextView message = layout.findViewById(R.id.message);
+
         if (result == -1){ //There is no data
-            Toast.makeText(context, R.string.no_data, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, R.string.no_data, Toast.LENGTH_SHORT).show();
+            message.setText(R.string.no_data);
+            assert context != null;
+            Toast toast = new Toast(context.getApplicationContext());
+            toast.setGravity(Gravity.BOTTOM, 0, 100);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
         } else {
-            Toast.makeText(context, R.string.Success, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, R.string.Success, Toast.LENGTH_SHORT).show();
+            message.setText(R.string.Success);
+            assert context != null;
+            Toast toast = new Toast(context.getApplicationContext());
+            toast.setGravity(Gravity.BOTTOM, 0, 100);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
         }
     }
 
@@ -93,16 +135,29 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         long result = db.delete(TABLE_NAME, "_id=?", new String[]{row_id});
 
+        View layout = LayoutInflater.from(context).inflate(R.layout.toast_view, null);
+
+        TextView message = layout.findViewById(R.id.message);
+
         if (result == -1){
-            Toast.makeText(context, R.string.fail, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, R.string.fail, Toast.LENGTH_SHORT).show();
+            message.setText(R.string.fail);
+            assert context != null;
+            Toast toast = new Toast(context.getApplicationContext());
+            toast.setGravity(Gravity.BOTTOM, 0, 100);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
         } else {
-            Toast.makeText(context, R.string.Success, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, R.string.Success, Toast.LENGTH_SHORT).show();
+            message.setText(R.string.Success);
+            assert context != null;
+            Toast toast = new Toast(context.getApplicationContext());
+            toast.setGravity(Gravity.BOTTOM, 0, 100);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
         }
 
-    }
-
-    void deleteAllData(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_NAME);
     }
 }

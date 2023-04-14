@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     public static String BroadCastStringForAction = "checkInternet";
     boolean internet;
     private IntentFilter mIntentFilter;
+    MaterialToolbar materialToolbar;
 
     @SuppressLint({"NonConstantResourceId", "SourceLockedOrientationActivity"})
     @Override
@@ -113,13 +114,15 @@ public class MainActivity extends AppCompatActivity {
         startService(serviceIntent);
         internet = isOnline(getApplicationContext());
 
-        MaterialToolbar materialToolbar = findViewById(R.id.top_app_bar);
+
         boolean tablet = getResources().getBoolean(R.bool.isTablet);
         navigationView = findViewById(R.id.navigation_view);
 
-        setSupportActionBar(materialToolbar);
+
 
         if (!tablet || this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            materialToolbar = findViewById(R.id.top_app_bar);
+            setSupportActionBar(materialToolbar);
             drawerLayout = findViewById(R.id.drawer_layout);
             materialToolbar.setNavigationOnClickListener(v -> drawerLayout.open());
         }
@@ -137,57 +140,37 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.home_item:
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new home()).commit();
                     navigationView.setCheckedItem(R.id.home_item);
-                    materialToolbar.setTitle(getString(R.string.app_name));
+                    if(!tablet) materialToolbar.setTitle(getString(R.string.app_name));
                     break;
                 case R.id.quote_item:
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new quotes()).commit();
                     navigationView.setCheckedItem(R.id.quote_item);
-                    materialToolbar.setTitle(getString(R.string.quotes_item));
+                    if(!tablet) materialToolbar.setTitle(getString(R.string.quotes_item));
                     break;
                 case R.id.wisdom_item:
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new wisdom()).commit();
                     navigationView.setCheckedItem(R.id.wisdom_item);
-                    materialToolbar.setTitle(R.string.wisdom_item);
+                    if(!tablet) materialToolbar.setTitle(R.string.wisdom_item);
                     break;
                 case R.id.information_item:
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new Information()).commit();
                     navigationView.setCheckedItem(R.id.information_item);
-                    materialToolbar.setTitle(getString(R.string.information_title));
+                    if(!tablet) materialToolbar.setTitle(getString(R.string.information_title));
                     break;
                 case R.id.own_quotes_item:
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new AddOwnQuotes()).commit();
                     navigationView.setCheckedItem(R.id.own_quotes_item);
-                    materialToolbar.setTitle("My Quotes");
+                    if(!tablet) materialToolbar.setTitle("My Quotes");
                     break;
                 case R.id.dwyl_quotes_item:
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new dwyl_quotes()).commit();
                     navigationView.setCheckedItem(R.id.dwyl_quotes_item);
-                    materialToolbar.setTitle(getString(R.string.by_dwyl));
+                    if(!tablet) materialToolbar.setTitle(getString(R.string.by_dwyl));
                     break;
             }
             return false;
         });
     }
-        /*else {
-            navigationRailView.setSelectedItemId(R.id.home_item);
-
-            navigationRailView.setOnItemSelectedListener(item -> {
-                switch (item.getItemId()) {
-                    case R.id.home_item:
-                        viewPager2.setCurrentItem(0);
-                        break;
-                    case R.id.homeNav:
-                        viewPager2.setCurrentItem(1);
-                        break;
-                    case R.id.wisdomNav:
-                        viewPager2.setCurrentItem(2);
-                        break;
-                }
-
-                return true;
-            });
-        }*/
-
 
     @Override
     public void onBackPressed() {

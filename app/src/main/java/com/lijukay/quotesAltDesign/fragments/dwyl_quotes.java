@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -38,15 +40,19 @@ import java.util.ArrayList;
 
 public class dwyl_quotes extends Fragment implements RecyclerViewInterface {
 
-    View v;
+    View v, layout;
     private RecyclerView recyclerView;
     boolean tablet;
+    private TextView message;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_dwyl_quotes, container, false);
+
+        layout = LayoutInflater.from(requireContext()).inflate(R.layout.toast_view, null);
+        message = layout.findViewById(R.id.message);
 
         recyclerView = v.findViewById(R.id.quotesRV);
         recyclerView.setHasFixedSize(true);
@@ -89,10 +95,16 @@ public class dwyl_quotes extends Fragment implements RecyclerViewInterface {
         QuotesAdapter adapter = new QuotesAdapter(getActivity(), items, this);
         recyclerView.setAdapter(adapter);
 
-        ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+        if (!tablet) ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
             recyclerView.setPadding(0,0,0,insets.bottom);
+
+            return WindowInsetsCompat.CONSUMED;
+        }); else ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+            recyclerView.setPadding(0,insets.top,0,insets.bottom);
 
             return WindowInsetsCompat.CONSUMED;
         });
@@ -132,6 +144,12 @@ public class dwyl_quotes extends Fragment implements RecyclerViewInterface {
         ClipboardManager clipboard = (ClipboardManager) requireActivity().getSystemService(CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("Quotes", quote);
         clipboard.setPrimaryClip(clip);
-        Toast.makeText(requireContext(), getString(R.string.quote_copied_toast_message), Toast.LENGTH_SHORT).show();
+        message.setText(R.string.quote_copied_toast_message);
+        Toast toast = new Toast(requireContext().getApplicationContext());
+        toast.setGravity(Gravity.BOTTOM, 0, 100);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+        //Toast.makeText(requireContext(), getString(R.string.quote_copied_toast_message), Toast.LENGTH_SHORT).show();
     }
 }
