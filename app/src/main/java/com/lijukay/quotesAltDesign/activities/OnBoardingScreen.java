@@ -26,11 +26,9 @@ public class OnBoardingScreen extends AppCompatActivity {
     private ViewPager onBoarding;
     private LinearLayout linearLayout;
     private TextView[] mDots;
-    Button previous, next;
+    private Button previous, next;
     private int currentPage;
-    public SharedPreferences language;
-    public SharedPreferences.Editor languageeditor;
-    SharedPreferences firstStart;
+    private SharedPreferences firstStart;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -39,9 +37,6 @@ public class OnBoardingScreen extends AppCompatActivity {
         int color = SurfaceColors.SURFACE_2.getColor(this);
         getWindow().setStatusBarColor(color);
         getWindow().setNavigationBarColor(color);
-
-
-
 
         setTheme(R.style.AppTheme);
 
@@ -72,17 +67,13 @@ public class OnBoardingScreen extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int widthPixels = metrics.widthPixels;
         int heightPixels = metrics.heightPixels;
-
         float scaleFactor = metrics.density;
-
         float widthDp = widthPixels / scaleFactor;
         float heightDp = heightPixels / scaleFactor;
-
         float smallestWidth = Math.min(widthDp, heightDp);
 
         if (smallestWidth >= 600) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-
         }
         else if (smallestWidth < 600) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -129,16 +120,11 @@ public class OnBoardingScreen extends AppCompatActivity {
                 previous.setEnabled(true);
                 previous.setVisibility(View.VISIBLE);
                 next.setText(getString(R.string.start_button));
-                language = getSharedPreferences("Language", 0);
-                languageeditor = language.edit();
 
-                if (Locale.getDefault().getLanguage().equals("de")){
-                    languageeditor.putString("language", "de").apply();
-                } else if (Locale.getDefault().getLanguage().equals("fr")){
-                    languageeditor.putString("language", "fr").apply();
-                } else {
-                    languageeditor.putString("language", "en").apply();
-                }
+                SharedPreferences language = getSharedPreferences("Language", 0);
+                SharedPreferences.Editor languageEditor = language.edit();
+
+                languageEditor.putString("language", Locale.getDefault().getLanguage()).apply();
 
                 SharedPreferences.Editor editorFirst = firstStart.edit();
                 editorFirst.putBoolean("FirstTime?", false);

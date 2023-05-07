@@ -140,7 +140,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         TextView message = layout.findViewById(R.id.message);
 
         if (result == -1){
-            //Toast.makeText(context, R.string.fail, Toast.LENGTH_SHORT).show();
             message.setText(R.string.fail);
             assert context != null;
             Toast toast = new Toast(context.getApplicationContext());
@@ -158,6 +157,5 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             toast.setView(layout);
             toast.show();
         }
-
     }
 }
