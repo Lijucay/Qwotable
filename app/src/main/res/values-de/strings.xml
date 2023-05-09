@@ -140,4 +140,12 @@
     <string name="not_allowed">Qwotable und oder Autor darf nicht leer sein</string>
     <string name="third_party">Drittanbieter Zitate</string>
     <string name="by_dwyl">Zitate von dwyl</string>
+    <string name="color_default">Standart</string>
+    <string name="no_favorites_title">Du hast keine Favoriten</string>
+    <string name="no_favorites_message">Du kannst Favoriten durch das Klicken auf \"Favorit\" hinzufügen</string>
+    <string name="favorite">Favorit</string>
+    <string name="favorite_successful_add">Erfolgreich zu Favoriten hinzugefügt</string>
+    <string name="favorite_fail_add">Fehler beim Hinzufügen des Favorits</string>
+    <string name="favorite_successful_delete">Erfolgreich von Favoriten entfernt</string>
+    <string name="favorite_fail_delete">Fehler beim Entfernen des Favorits</string>
 </resources>

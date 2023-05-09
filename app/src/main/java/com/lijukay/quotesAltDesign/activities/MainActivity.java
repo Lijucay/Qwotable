@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -16,24 +15,19 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.elevation.SurfaceColors;
 import com.google.android.material.navigation.NavigationView;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.fragments.AddOwnQuotes;
 import com.lijukay.quotesAltDesign.fragments.Information;
 import com.lijukay.quotesAltDesign.fragments.dwyl_quotes;
+import com.lijukay.quotesAltDesign.fragments.Favorites;
 import com.lijukay.quotesAltDesign.fragments.home;
 import com.lijukay.quotesAltDesign.fragments.quotes;
 import com.lijukay.quotesAltDesign.fragments.wisdom;
@@ -43,43 +37,33 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Navigation
+    public static final String BROAD_CAST_STRING_FOR_ACTION = "checkInternet";
+
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-
-    //Preferences
-    public SharedPreferences languageSharedPreference, colorSharedPreference;
-
-    //Internet
-    public static String BroadCastStringForAction = "checkInternet";
-    boolean internet;
+    private boolean internet;
     private IntentFilter mIntentFilter;
-    MaterialToolbar materialToolbar;
+    private MaterialToolbar materialToolbar;
 
     @SuppressLint({"NonConstantResourceId", "SourceLockedOrientationActivity"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //get language
-        languageSharedPreference = getSharedPreferences("Language", 0);
-        //set language to what is saved
-        Locale locale = new Locale(languageSharedPreference.getString("language", "en"));
-        Locale.setDefault(locale);
+        Locale locale = new Locale(getSharedPreferences("Language", 0).getString("language", "en"));
         Resources resources = this.getResources();
         Configuration config = resources.getConfiguration();
+
+        Locale.setDefault(locale);
         config.setLocale(locale);
         resources.updateConfiguration(config, resources.getDisplayMetrics());
 
-        //get and set color theme
-        colorSharedPreference = getSharedPreferences("Colors", 0);
-        //check whether the Android version is smaller than Android Q (Android 10)
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             setTheme(R.style.AppTheme);
         } else {
-            switch (colorSharedPreference.getString("color", "red")) {
+            switch (getSharedPreferences("Color", 0).getString("color", "defaultOrDynamic")) {
                 case "red":
-                    setTheme(R.style.AppTheme);
+                    setTheme(R.style.AppThemeRed);
                     break;
                 case "pink":
                     setTheme(R.style.AppThemePink);
@@ -87,17 +71,23 @@ public class MainActivity extends AppCompatActivity {
                 case "green":
                     setTheme(R.style.AppThemeGreen);
                     break;
+                default:
+                    setTheme(R.style.AppTheme);
+                    break;
             }
         }
 
         DisplayMetrics metrics = new DisplayMetrics();
+
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
         int widthPixels = metrics.widthPixels;
         int heightPixels = metrics.heightPixels;
         float scaleFactor = metrics.density;
         float widthDp = widthPixels / scaleFactor;
         float heightDp = heightPixels / scaleFactor;
         float smallestWidth = Math.min(widthDp, heightDp);
+
         if (smallestWidth >= 600) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         } else if (smallestWidth < 600) {
@@ -110,15 +100,12 @@ public class MainActivity extends AppCompatActivity {
 
         Intent serviceIntent = new Intent(this, InternetService.class);
         mIntentFilter = new IntentFilter();
-        mIntentFilter.addAction(BroadCastStringForAction);
+        mIntentFilter.addAction(BROAD_CAST_STRING_FOR_ACTION);
         startService(serviceIntent);
         internet = isOnline(getApplicationContext());
 
-
         boolean tablet = getResources().getBoolean(R.bool.isTablet);
         navigationView = findViewById(R.id.navigation_view);
-
-
 
         if (!tablet || this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             materialToolbar = findViewById(R.id.top_app_bar);
@@ -167,6 +154,11 @@ public class MainActivity extends AppCompatActivity {
                     navigationView.setCheckedItem(R.id.dwyl_quotes_item);
                     if(!tablet) materialToolbar.setTitle(getString(R.string.by_dwyl));
                     break;
+                case R.id.favorite_item:
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new Favorites()).commit();
+                    navigationView.setCheckedItem(R.id.favorite_item);
+                    if (!tablet) materialToolbar.setTitle("Favorites");
+                    break;
             }
             return false;
         });
@@ -211,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
     public final BroadcastReceiver InternetReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(BroadCastStringForAction)) {
+            if (intent.getAction().equals(BROAD_CAST_STRING_FOR_ACTION)) {
                 internet = intent.getStringExtra("online_status").equals("true");
             }
         }
@@ -240,5 +232,4 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         registerReceiver(InternetReceiver, mIntentFilter);
     }
-
 }

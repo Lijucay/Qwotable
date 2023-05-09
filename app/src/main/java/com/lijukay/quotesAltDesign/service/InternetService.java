@@ -48,11 +48,11 @@ public class InternetService extends Service {
         public void run() {
             handler.postDelayed(periodicUpdate, 1000 - SystemClock.elapsedRealtime()%1000);
             Intent broadCastIntentMain = new Intent();
-            broadCastIntentMain.setAction(MainActivity.BroadCastStringForAction);
+            broadCastIntentMain.setAction(MainActivity.BROAD_CAST_STRING_FOR_ACTION);
             broadCastIntentMain.putExtra("online_status", ""+isOnline(InternetService.this));
             sendBroadcast(broadCastIntentMain);
             Intent broadCastIntentPerson = new Intent();
-            broadCastIntentPerson.setAction(Person.BroadCastStringForAction);
+            broadCastIntentPerson.setAction(Person.BROAD_CAST_STRING_FOR_ACTION);
             broadCastIntentPerson.putExtra("online_status", ""+isOnline(InternetService.this));
             sendBroadcast(broadCastIntentPerson);
         }

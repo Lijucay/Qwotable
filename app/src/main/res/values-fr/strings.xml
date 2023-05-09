@@ -140,5 +140,13 @@
     <string name="not_allowed">Qwotable et ou auteur be sont pas autorisés à être vides</string>
     <string name="third_party">Devis de tiers</string>
     <string name="by_dwyl">Devis de dwyl</string>
+    <string name="color_default">Défaut</string>
+    <string name="no_favorites_title">Tu n\'as pas des favoris</string>
+    <string name="no_favorites_message">Tu peux ajouter des favoris en cliquant sur \"favori\"</string>
+    <string name="favorite">Favori</string>
+    <string name="favorite_successful_add">Ajouté avec succès aux favoris</string>
+    <string name="favorite_fail_add">Échec de l\'ajout de la devis aux favoris</string>
+    <string name="favorite_successful_delete">Supprimé avec succès des favoris</string>
+    <string name="favorite_fail_delete">Échec de la suppression de la devis des favoris</string>
 
 </resources>

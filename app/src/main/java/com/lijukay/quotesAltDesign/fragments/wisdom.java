@@ -3,15 +3,10 @@ package com.lijukay.quotesAltDesign.fragments;
 import static android.content.Context.CLIPBOARD_SERVICE;
 
 import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -36,6 +31,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.activities.MainActivity;
@@ -43,14 +39,12 @@ import com.lijukay.quotesAltDesign.activities.Person;
 import com.lijukay.quotesAltDesign.adapter.wisdomAdapter;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
 import com.lijukay.quotesAltDesign.item.wisdomItem;
-import com.lijukay.quotesAltDesign.service.InternetService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 
 public class wisdom extends Fragment implements RecyclerViewInterface {
@@ -62,12 +56,12 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
     private SwipeRefreshLayout swipeRefreshLayout;
     private SharedPreferences language;
     private LinearLayout error;
-    boolean internet;
-    View v, layout;
+    private boolean internet;
+    private View v, layout;
     private TextView errorMessage, errorTitle, message;
     private LinearProgressIndicator progressIndicator;
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint({"NotifyDataSetChanged", "InflateParams"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -200,7 +194,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
 
 
     @Override
-    public void onItemClick(int position, String type) {
+    public void onItemClick(int position, String type, MaterialButton materialButton) {
         switch (type) {
             case "author": {
                 String url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", "en") + ".json";

@@ -2,63 +2,44 @@ package com.lijukay.quotesAltDesign.fragments;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.provider.MediaStore;
-import android.text.Layout;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
-
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
-import com.lijukay.quotesAltDesign.AddDialogFragment;
 import com.lijukay.quotesAltDesign.Database.MyDatabaseHelper;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.adapter.OwnQwotableAdapter;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Objects;
 
 public class AddOwnQuotes extends Fragment implements RecyclerViewInterface {
 
-    RecyclerView recyclerView;
-    View v;
-    ExtendedFloatingActionButton efab;
-    MyDatabaseHelper db;
-    ArrayList<String> id, qwotable, author, source;
-
-    OwnQwotableAdapter ownQwotableAdapter;
-    boolean tablet;
-
+    private RecyclerView recyclerView;
+    private View v;
+    private ExtendedFloatingActionButton efab;
+    private MyDatabaseHelper db;
+    private ArrayList<String> id, qwotable, author, source;
+    private OwnQwotableAdapter ownQwotableAdapter;
 
 
     @Override
@@ -80,10 +61,10 @@ public class AddOwnQuotes extends Fragment implements RecyclerViewInterface {
 
         storeDataInArrays();
 
-        ownQwotableAdapter = new OwnQwotableAdapter(requireActivity(), requireContext(), id, qwotable, author, source, this);
+        ownQwotableAdapter = new OwnQwotableAdapter(requireContext(), id, qwotable, author, source, this);
         recyclerView.setAdapter(ownQwotableAdapter);
 
-        tablet = getResources().getBoolean(R.bool.isTablet);
+        boolean tablet = getResources().getBoolean(R.bool.isTablet);
         if (tablet){
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         } else {
@@ -109,17 +90,17 @@ public class AddOwnQuotes extends Fragment implements RecyclerViewInterface {
             builder.setView(viewInflated);
 
             builder.setPositiveButton(getString(R.string.add_button), (dialog, which) -> {
-                MyDatabaseHelper mydb = new MyDatabaseHelper(requireContext());
-                if (!Objects.requireNonNull(qwotable_input.getEditText()).getText().toString().trim().equals("") && !Objects.requireNonNull(author_input.getEditText()).getText().toString().trim().equals("")){
-                    mydb.addQwotable(Objects.requireNonNull(qwotable_input.getEditText()).getText().toString().trim(),
-                            Objects.requireNonNull(author_input.getEditText()).getText().toString().trim(),
-                            Objects.requireNonNull(foundIn_input.getEditText()).getText().toString().trim()); //Add data to Database
-                    refreshLayout();
-                    dialog.dismiss();
-                } else {
-                    Toast.makeText(requireContext(), getString(R.string.not_allowed), Toast.LENGTH_SHORT).show();
+                try (MyDatabaseHelper mydb = new MyDatabaseHelper(requireContext())) {
+                    if (!Objects.requireNonNull(qwotable_input.getEditText()).getText().toString().trim().equals("") && !Objects.requireNonNull(author_input.getEditText()).getText().toString().trim().equals("")){
+                        mydb.addQwotable(Objects.requireNonNull(qwotable_input.getEditText()).getText().toString().trim(),
+                                Objects.requireNonNull(author_input.getEditText()).getText().toString().trim(),
+                                Objects.requireNonNull(foundIn_input.getEditText()).getText().toString().trim()); //Add data to Database
+                        refreshLayout();
+                        dialog.dismiss();
+                    } else {
+                        Toast.makeText(requireContext(), getString(R.string.not_allowed), Toast.LENGTH_SHORT).show();
+                    }
                 }
-
             });
             builder.setNeutralButton(R.string.neutral_button_text_cancel, (dialog, which) -> dialog.cancel());
 
@@ -193,6 +174,7 @@ public class AddOwnQuotes extends Fragment implements RecyclerViewInterface {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void refreshLayout(){
         qwotable.clear();
         author.clear();
@@ -203,7 +185,7 @@ public class AddOwnQuotes extends Fragment implements RecyclerViewInterface {
     }
 
     @Override
-    public void onItemClick(int position, String type) {
+    public void onItemClick(int position, String type, MaterialButton materialButton) {
         if (type.equals("updateOrDelete")){
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered);
             builder.setTitle(getString(R.string.update_delete_dialog));
@@ -221,27 +203,28 @@ public class AddOwnQuotes extends Fragment implements RecyclerViewInterface {
 
             builder.setPositiveButton(getString(R.string.updater_positive_button), (dialog, which) -> {
                 dialog.dismiss();
-                MyDatabaseHelper mydb = new MyDatabaseHelper(requireContext());
-                mydb.updateData(Objects.requireNonNull(id.get(position)), Objects.requireNonNull(qwotable_input.getEditText()).getText().toString().trim(),
-                        Objects.requireNonNull(author_input.getEditText()).getText().toString().trim(),
-                        Objects.requireNonNull(foundIn_input.getEditText()).getText().toString().trim()); //Add new data to Database
-                refreshLayout();
-            });
-            builder.setNegativeButton(getString(R.string.delete_button), (dialog, which) -> {
+                try (MyDatabaseHelper mydb = new MyDatabaseHelper(requireContext())) {
+                    mydb.updateData(Objects.requireNonNull(id.get(position)), Objects.requireNonNull(qwotable_input.getEditText()).getText().toString().trim(),
+                            Objects.requireNonNull(author_input.getEditText()).getText().toString().trim(),
+                            Objects.requireNonNull(foundIn_input.getEditText()).getText().toString().trim()); //Add new data to Database
+                    refreshLayout();
+                }
 
-                new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
-                        .setTitle(getString(R.string.delete_dialog_title))
-                        .setMessage(getString(R.string.delete_dialog_title))
-                        .setPositiveButton(getString(R.string.delete_button), (dialog1, which1) -> {
-                            MyDatabaseHelper db = new MyDatabaseHelper(requireContext());
+            });
+            builder.setNegativeButton(getString(R.string.delete_button), (dialog, which) ->
+                    new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+                    .setTitle(getString(R.string.delete_dialog_title))
+                    .setMessage(getString(R.string.delete_dialog_title))
+                    .setPositiveButton(getString(R.string.delete_button), (dialog1, which1) -> {
+                        try (MyDatabaseHelper db = new MyDatabaseHelper(requireContext())) {
                             db.deleteOneRow(id.get(position)); //delete item at id.get(position)
                             refreshLayout(); //call refresh method to show updated data
                             dialog.dismiss();
                             dialog1.dismiss();
-                        })
-                        .setNeutralButton(getString(R.string.neutral_button_text_cancel), (dialog1, which1) -> dialog1.dismiss())
-                        .show();
-            });
+                        }
+                    })
+                    .setNeutralButton(getString(R.string.neutral_button_text_cancel), (dialog1, which1) -> dialog1.dismiss())
+                    .show());
 
             builder.setNeutralButton(getString(R.string.neutral_button_text_cancel), (dialog, which) -> dialog.dismiss());
 

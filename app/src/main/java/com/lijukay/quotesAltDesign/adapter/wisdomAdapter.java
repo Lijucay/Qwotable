@@ -29,31 +29,31 @@ import java.util.Calendar;
 
 public class wisdomAdapter extends RecyclerView.Adapter<wisdomAdapter.wisdomViewHolder> {
 
-    private final Context mContext;
-    private final ArrayList<wisdomItem> mItem;
-    private final RecyclerViewInterface recyclerViewInterface;
+    private final Context CONTEXT;
+    private final ArrayList<wisdomItem> ITEM;
+    private final RecyclerViewInterface RECYCLERVIEW_INTERFACE;
 
     public wisdomAdapter (Context context, ArrayList<wisdomItem> item, RecyclerViewInterface recyclerViewInterface){
-        mContext = context;
-        mItem = item;
-        this.recyclerViewInterface = recyclerViewInterface;
+        CONTEXT = context;
+        ITEM = item;
+        RECYCLERVIEW_INTERFACE = recyclerViewInterface;
 
     }
 
     @NonNull
     @Override
     public wisdomAdapter.wisdomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.card_wisdom, parent, false);
-        return new wisdomAdapter.wisdomViewHolder(v, recyclerViewInterface);
+        View v = LayoutInflater.from(CONTEXT).inflate(R.layout.card_wisdom, parent, false);
+        return new wisdomAdapter.wisdomViewHolder(v, RECYCLERVIEW_INTERFACE);
     }
 
     @Override
     public void onBindViewHolder(@NonNull wisdomAdapter.wisdomViewHolder holder, int position) {
-        wisdomItem currentItem = mItem.get(position);
+        wisdomItem currentItem = ITEM.get(position);
 
         String wisdom = currentItem.getWisdom();
         String author = currentItem.getAuthor();
-        String foundIn = currentItem.getFoundIn();
+        String foundIn = currentItem.getSource();
         String title = currentItem.getTitle();
 
         holder.mWisdom.setText(wisdom);
@@ -65,18 +65,16 @@ public class wisdomAdapter extends RecyclerView.Adapter<wisdomAdapter.wisdomView
 
     @Override
     public int getItemCount() {
-        return mItem.size();
+        return ITEM.size();
     }
 
     public static class wisdomViewHolder extends RecyclerView.ViewHolder{
-        public final TextView mTitle;
-        public final TextView mWisdom;
-        public final TextView mFoundIn;
-        public final TextView mAuthor;
-        public final Button share;
-        public final Button copy;
-        public final MaterialCardView layout;
-        public final LinearLayout buttonLayout;
+        private final TextView mTitle;
+        private final TextView mWisdom;
+        private final TextView mFoundIn;
+        private final TextView mAuthor;
+        private final MaterialCardView layout;
+        private final LinearLayout buttonLayout;
 
 
         public wisdomViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
@@ -85,8 +83,8 @@ public class wisdomAdapter extends RecyclerView.Adapter<wisdomAdapter.wisdomView
             mWisdom = itemView.findViewById(R.id.wisdom);
             mFoundIn = itemView.findViewById(R.id.found_in_wisdomc);
             mAuthor = itemView.findViewById(R.id.author);
-            copy = itemView.findViewById(R.id.copy);
-            share = itemView.findViewById(R.id.share);
+            Button copy = itemView.findViewById(R.id.copy);
+            Button share = itemView.findViewById(R.id.share);
             layout = itemView.findViewById(R.id.cardWisdomHolder);
             buttonLayout =  itemView.findViewById(R.id.buttonLayout);
 
@@ -96,7 +94,7 @@ public class wisdomAdapter extends RecyclerView.Adapter<wisdomAdapter.wisdomView
                     String type = "copy";
 
                     if(position != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(position, type);
+                        recyclerViewInterface.onItemClick(position, type, null);
                     }
                 }
             });
@@ -116,7 +114,7 @@ public class wisdomAdapter extends RecyclerView.Adapter<wisdomAdapter.wisdomView
                     String type = "author";
 
                     if(position != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(position, type);
+                        recyclerViewInterface.onItemClick(position, type, null);
                     }
                 }
             });
@@ -126,7 +124,7 @@ public class wisdomAdapter extends RecyclerView.Adapter<wisdomAdapter.wisdomView
                 String type = "found in";
 
                 if (position != RecyclerView.NO_POSITION){
-                    recyclerViewInterface.onItemClick(position, type);
+                    recyclerViewInterface.onItemClick(position, type, null);
                 }
             });
 

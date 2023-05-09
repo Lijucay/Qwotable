@@ -2,6 +2,7 @@ package com.lijukay.quotesAltDesign.fragments;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.os.Bundle;
@@ -21,12 +22,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.material.button.MaterialButton;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.adapter.QuotesAdapter;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
-import com.lijukay.quotesAltDesign.item.AllItem;
+import com.lijukay.quotesAltDesign.item.QuoteItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,30 +40,30 @@ import java.util.ArrayList;
 
 public class dwyl_quotes extends Fragment implements RecyclerViewInterface {
 
-    View v, layout;
+    private View layout;
     private RecyclerView recyclerView;
-    boolean tablet;
     private TextView message;
 
+    @SuppressLint("InflateParams")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        v = inflater.inflate(R.layout.fragment_dwyl_quotes, container, false);
+        View v1 = inflater.inflate(R.layout.fragment_dwyl_quotes, container, false);
 
         layout = LayoutInflater.from(requireContext()).inflate(R.layout.toast_view, null);
         message = layout.findViewById(R.id.message);
 
-        recyclerView = v.findViewById(R.id.quotesRV);
+        recyclerView = v1.findViewById(R.id.quotesRV);
         recyclerView.setHasFixedSize(true);
-        tablet = getResources().getBoolean(R.bool.isTablet);
+        boolean tablet = getResources().getBoolean(R.bool.isTablet);
         if (tablet){
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext().getApplicationContext()));
         }
 
-        ArrayList<AllItem> items = new ArrayList<>();
+        ArrayList<QuoteItem> items = new ArrayList<>();
 
         try {
 
@@ -86,7 +86,7 @@ public class dwyl_quotes extends Fragment implements RecyclerViewInterface {
                 String author = jsonObject.getString("author");
                 String quote = jsonObject.getString("text");
 
-                items.add(new AllItem(author, quote, ""));
+                items.add(new QuoteItem(author, quote, ""));
             }
         } catch (IOException | JSONException e) {
             e.printStackTrace();
@@ -109,11 +109,11 @@ public class dwyl_quotes extends Fragment implements RecyclerViewInterface {
             return WindowInsetsCompat.CONSUMED;
         });
 
-        return v;
+        return v1;
     }
 
     @Override
-    public void onItemClick(int position, String type) {
+    public void onItemClick(int position, String type, MaterialButton materialButton) {
         if ("copy".equals(type)) {
             try {
                 InputStream inputStream = getResources().openRawResource(R.raw.quotes);

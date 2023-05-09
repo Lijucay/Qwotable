@@ -1,7 +1,6 @@
 package com.lijukay.quotesAltDesign.adapter;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -30,46 +29,42 @@ import java.util.Calendar;
 
 public class OwnQwotableAdapter extends RecyclerView.Adapter<OwnQwotableAdapter.OwnViewHolder> {
 
-    private final Context context;
-    private final ArrayList<String> id;
-    private final ArrayList<String> qwotable;
-    private final ArrayList<String> author;
-    private final ArrayList<String> source;
-    Activity activity;
-    int position;
+    private final Context CONTEXT;
+    private final ArrayList<String> ID;
+    private final ArrayList<String> QWOTABLE;
+    private final ArrayList<String> AUTHOR;
+    private final ArrayList<String> SOURCE;
 
-    RecyclerViewInterface recyclerViewInterface;
+    private final RecyclerViewInterface RECYCLERVIEW_INTERFACE;
 
-    public OwnQwotableAdapter(Activity activity, Context context, ArrayList<String> id, ArrayList<String> qwotable, ArrayList<String> author, ArrayList<String> source, RecyclerViewInterface recyclerViewInterface) {
-        this.activity = activity;
-        this.context = context;
-        this.id = id;
-        this.qwotable = qwotable;
-        this.author = author;
-        this.source = source;
-        this.recyclerViewInterface = recyclerViewInterface;
+    public OwnQwotableAdapter(Context context, ArrayList<String> id, ArrayList<String> qwotable, ArrayList<String> author, ArrayList<String> source, RecyclerViewInterface recyclerViewInterface) {
+        CONTEXT = context;
+        ID = id;
+        QWOTABLE = qwotable;
+        AUTHOR = author;
+        SOURCE = source;
+        RECYCLERVIEW_INTERFACE = recyclerViewInterface;
     }
 
     @NonNull
     @Override
     public OwnViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(CONTEXT);
         View view = inflater.inflate(R.layout.card_quotes, parent, false);
-        return new OwnViewHolder(view, recyclerViewInterface);
+        return new OwnViewHolder(view, RECYCLERVIEW_INTERFACE);
     }
 
     @Override
     public void onBindViewHolder(@NonNull OwnViewHolder holder, @SuppressLint("RecyclerView") int position){
-        this.position = position;
 
-        holder.qwotable.setText(String.valueOf(qwotable.get(position)));
-        holder.author.setText(String.valueOf(author.get(position)));
-        holder.source.setText(String.valueOf(source.get(position)));
+        holder.QWOTABLE.setText(String.valueOf(QWOTABLE.get(position)));
+        holder.AUTHOR.setText(String.valueOf(AUTHOR.get(position)));
+        holder.SOURCE.setText(String.valueOf(SOURCE.get(position)));
 
-        if (source.get(position).equals("")){
-            holder.source.setVisibility(View.GONE);
+        if (SOURCE.get(position).equals("")){
+            holder.SOURCE.setVisibility(View.GONE);
         } else {
-            holder.source.setVisibility(View.VISIBLE);
+            holder.SOURCE.setVisibility(View.VISIBLE);
         }
 
     }
@@ -77,36 +72,37 @@ public class OwnQwotableAdapter extends RecyclerView.Adapter<OwnQwotableAdapter.
 
     @Override
     public int getItemCount(){
-        return id.size();
+        return ID.size();
     }
 
     public static class OwnViewHolder extends RecyclerView.ViewHolder{
 
-        TextView qwotable, author, source;
-        MaterialCardView root_card;
-        public final LinearLayout buttonLayout;
-        public final Button copy, share;
+        private final TextView QWOTABLE;
+        private final TextView AUTHOR;
+        private final TextView SOURCE;
+        private final MaterialCardView ROOT_CARD;
+        private final LinearLayout BUTTON_LAYOUT;
 
         public OwnViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface){
             super(itemView);
 
-            qwotable = itemView.findViewById(R.id.quote);
-            author = itemView.findViewById(R.id.author);
-            source = itemView.findViewById(R.id.found_in);
-            root_card = itemView.findViewById(R.id.cardQuoteHolder);
-            copy = itemView.findViewById(R.id.copy);
-            share = itemView.findViewById(R.id.share);
-            buttonLayout = itemView.findViewById(R.id.buttonLayout);
+            QWOTABLE = itemView.findViewById(R.id.quote);
+            AUTHOR = itemView.findViewById(R.id.author);
+            SOURCE = itemView.findViewById(R.id.found_in);
+            ROOT_CARD = itemView.findViewById(R.id.cardQuoteHolder);
+            Button copy = itemView.findViewById(R.id.copy);
+            Button share = itemView.findViewById(R.id.share);
+            BUTTON_LAYOUT = itemView.findViewById(R.id.buttonLayout);
 
 
 
-            root_card.setOnClickListener(view -> {
+            ROOT_CARD.setOnClickListener(view -> {
                 if (recyclerViewInterface != null){
                     int position = getAdapterPosition();
                     String type = "updateOrDelete";
 
                     if (position != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(position, type);
+                        recyclerViewInterface.onItemClick(position, type, null);
                     }
                 }
             });
@@ -117,7 +113,7 @@ public class OwnQwotableAdapter extends RecyclerView.Adapter<OwnQwotableAdapter.
                     String type = "copy";
 
                     if (position != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(position, type);
+                        recyclerViewInterface.onItemClick(position, type, null);
                     }
                 }
             });
@@ -125,7 +121,7 @@ public class OwnQwotableAdapter extends RecyclerView.Adapter<OwnQwotableAdapter.
             share.setOnClickListener(v -> {
                 if(recyclerViewInterface != null){
 
-                    shareM(root_card, root_card.getContext(), buttonLayout);
+                    shareM(ROOT_CARD, ROOT_CARD.getContext(), BUTTON_LAYOUT);
 
                 }
             });

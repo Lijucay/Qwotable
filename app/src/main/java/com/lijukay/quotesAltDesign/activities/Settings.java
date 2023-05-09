@@ -15,6 +15,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabColorSchemeParams;
 import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -28,29 +32,22 @@ import java.util.Locale;
 
 public class Settings extends AppCompatActivity {
 
-    static Intent starterIntent;
-    static String languageCode, colorS;
-    static SharedPreferences betaSP, language, sharedPreferencesColors;
-    static SharedPreferences.Editor betaEditor, languageEditor, colorEditor;
-
+    private static SharedPreferences.Editor languageEditor, colorEditor;
+    private static String languageValue, colorValue;
 
     @SuppressLint({"InflateParams", "SourceLockedOrientationActivity"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
-        betaSP = getSharedPreferences("Beta", 0);
-        language = getSharedPreferences("Language", 0);
-        sharedPreferencesColors = getSharedPreferences("Colors", 0);
-        betaEditor = betaSP.edit();
-        languageEditor = language.edit();
-        colorEditor = sharedPreferencesColors.edit();
+        SharedPreferences languagePreference = getSharedPreferences("Language", 0);
+        SharedPreferences colorPreference = getSharedPreferences("Color", 0);
+        languageEditor = languagePreference.edit();
+        colorEditor = colorPreference.edit();
+        languageValue = languagePreference.getString("language", "en");
+        colorValue = colorPreference.getString("color", "defaultOrDynamic");
 
-        languageCode = language.getString("language", "en");
-        colorS = sharedPreferencesColors.getString("color", "red");
-
-        Locale locale = new Locale(languageCode);
+        Locale locale = new Locale(languageValue);
         Locale.setDefault(locale);
         Resources resources = this.getResources();
         Configuration config = resources.getConfiguration();
@@ -60,15 +57,18 @@ public class Settings extends AppCompatActivity {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
             setTheme(R.style.AppTheme);
         } else {
-            switch (sharedPreferencesColors.getString("color", "red")){
+            switch (colorValue){
                 case "red":
-                    setTheme(R.style.AppTheme);
+                    setTheme(R.style.AppThemeRed);
                     break;
                 case "pink":
                     setTheme(R.style.AppThemePink);
                     break;
                 case "green":
                     setTheme(R.style.AppThemeGreen);
+                    break;
+                default:
+                    setTheme(R.style.AppTheme);
                     break;
             }
         }
@@ -87,14 +87,29 @@ public class Settings extends AppCompatActivity {
 
         setContentView(R.layout.settings_activity);
 
+        boolean tablet = getResources().getBoolean(R.bool.isTablet);
+
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
+
+        if (!tablet) ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.settings), (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+            v.findViewById(R.id.settings).setPadding(0,0,0,insets.bottom);
+
+            return WindowInsetsCompat.CONSUMED;
+        }); else ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.settings), (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+            v.findViewById(R.id.settings).setPadding(0, insets.top, 0, insets.bottom);
+
+            return WindowInsetsCompat.CONSUMED;
+        });
+
         MaterialToolbar materialToolbar = findViewById(R.id.top_app_bar);
         setSupportActionBar(materialToolbar);
 
         materialToolbar.setNavigationOnClickListener(v -> onBackPressed());
-
-        int color = SurfaceColors.SURFACE_2.getColor(this);
-        getWindow().setStatusBarColor(color);
-        getWindow().setNavigationBarColor(color);
 
         if (smallestWidth >= 600) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
@@ -112,8 +127,6 @@ public class Settings extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-
-        starterIntent = getIntent();
         Intent serviceIntent = new Intent(this, InternetService.class);
         startService(serviceIntent);
     }
@@ -121,7 +134,15 @@ public class Settings extends AppCompatActivity {
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
 
-        private Uri githubQwotableRequest, googleFormsQwotableRequest, googleFormsBugReport, gitHubBugReport, googleFormsFeatureRequest, githubFeatureRequest, googleFormsFeedback,githubFeedback;
+        private final Uri QWOTABLE_REQUEST_GITHUB = Uri.parse("https://github.com/Lijukay/Qwotable/issues/new?assignees=&labels=qwotable+request&template=qwotable-request.md&title=Qwotable+request");
+        private final Uri BUG_REPORT_GOOGLE_FORMS = Uri.parse("https://forms.gle/zXD69gpYWtghXAuF6");
+        private final Uri QWOTABLE_REQUEST_GOOGLE_FORMS = Uri.parse("https://forms.gle/VKWUBDPPiiFkLcjRA");
+        private final Uri BUG_REPORT_GITHUB = Uri.parse("https://github.com/Lijukay/Qwotable/issues/new?assignees=&labels=bug+report&template=bug_report.md&title=Bug+report");
+        private final Uri FEATURE_REQUEST_GOOGLE_FORMS = Uri.parse("https://forms.gle/KZhEASuaQuBQtC9k6");
+        private final Uri FEATURE_REQUEST_GITHUB = Uri.parse("https://github.com/Lijukay/Qwotable/issues/new?assignees=&labels=feature+request&template=feature_request.md&title=Feature+request");
+        private final Uri FEEDBACK_GOOGLE_FORMS = Uri.parse("https://forms.gle/iCaaL1Nuck7u3bfE8");
+        private final Uri FEEDBACK_GITHUB = Uri.parse("https://github.com/Lijukay/Qwotable/issues/new?assignees=&labels=feedback&template=feedback.md&title=Feedback");
+
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -132,14 +153,17 @@ public class Settings extends AppCompatActivity {
                     "English",
                     "Français"
             };
+
             CharSequence[] colors;
+
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R){
                 colors =
                         new CharSequence[]
                                 {
-                                        getString(R.string.color_red),
+                                        getString(R.string.color_default),
                                         getString(R.string.color_pink),
-                                        getString(R.string.color_green)
+                                        getString(R.string.color_green),
+                                        getString(R.string.color_red)
                                 };
             } else {
                 colors =
@@ -147,35 +171,19 @@ public class Settings extends AppCompatActivity {
                                 {
                                         getString(R.string.color_dynamic),
                                         getString(R.string.color_pink),
-                                        getString(R.string.color_green)
+                                        getString(R.string.color_green),
+                                        getString(R.string.color_red)
                                 };
             }
             int checkedColor = 0;
 
             int checkedItem = -1;
 
-            githubQwotableRequest = Uri.parse("https://github.com/Lijukay/Qwotable/issues/new?assignees=&labels=qwotable+request&template=qwotable-request.md&title=Qwotable+request");
-            googleFormsBugReport = Uri.parse("https://forms.gle/zXD69gpYWtghXAuF6");
-            googleFormsQwotableRequest = Uri.parse("https://forms.gle/VKWUBDPPiiFkLcjRA");
-            gitHubBugReport = Uri.parse("https://github.com/Lijukay/Qwotable/issues/new?assignees=&labels=bug+report&template=bug_report.md&title=Bug+report");
-            googleFormsFeatureRequest = Uri.parse("https://forms.gle/KZhEASuaQuBQtC9k6");
-            githubFeatureRequest = Uri.parse("https://github.com/Lijukay/Qwotable/issues/new?assignees=&labels=feature+request&template=feature_request.md&title=Feature+request");
-            googleFormsFeedback = Uri.parse("https://forms.gle/iCaaL1Nuck7u3bfE8");
-            githubFeedback = Uri.parse("https://github.com/Lijukay/Qwotable/issues/new?assignees=&labels=feedback&template=feedback.md&title=Feedback");
 
-
-            //parseJSONVersion();
             Preference color = findPreference("colors");
             assert color != null;
-            String colorSummary = getString(R.string.color_red);
-            switch (sharedPreferencesColors.getString("color", "red")){
-                case "red":
-                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R){
-                        colorSummary = getString(R.string.color_red);
-                    } else {
-                        colorSummary = getString(R.string.color_dynamic);
-                    }
-                    break;
+            String colorSummary;
+            switch (colorValue){
                 case "pink":
                     checkedColor = 1;
                     colorSummary = getString(R.string.color_pink);
@@ -183,6 +191,17 @@ public class Settings extends AppCompatActivity {
                 case "green":
                     checkedColor = 2;
                     colorSummary = getString(R.string.color_green);
+                    break;
+                case "red":
+                    checkedColor = 3;
+                    colorSummary = getString(R.string.color_red);
+                    break;
+                default:
+                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R){
+                        colorSummary = getString(R.string.color_default);
+                    } else {
+                        colorSummary = getString(R.string.color_dynamic);
+                    }
                     break;
             }
             color.setSummary(getString(R.string.color_preference_summary) + " " + colorSummary);
@@ -199,13 +218,17 @@ public class Settings extends AppCompatActivity {
                             .setSingleChoiceItems(colors, finalCheckedColor, (dialog, which) -> {
                                 switch (which){
                                     case 0:
-                                        colorEditor.putString("color", "red");
+                                        colorEditor.putString("color", "defaultOrDynamic");
                                         break;
                                     case 1:
                                         colorEditor.putString("color", "pink");
                                         break;
                                     case 2:
                                         colorEditor.putString("color", "green");
+                                        break;
+                                    case 3:
+                                        colorEditor.putString("color", "red");
+                                        break;
                                 }
                             })
                             .setPositiveButton(getString(R.string.positive_button_text_set), (dialog, which) -> {
@@ -229,8 +252,8 @@ public class Settings extends AppCompatActivity {
                         .setTitle(getString(R.string.qwotable_request_dialog_title))
                         .setMessage(getString(R.string.qwotable_request_dialog_message))
                         .setIcon(R.drawable.ic_baseline_question_mark_24)
-                        .setPositiveButton(getString(R.string.google_forms_button), (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, googleFormsQwotableRequest)))
-                        .setNegativeButton(getString(R.string.github_button), (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, githubQwotableRequest)))
+                        .setPositiveButton(getString(R.string.google_forms_button), (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, QWOTABLE_REQUEST_GOOGLE_FORMS)))
+                        .setNegativeButton(getString(R.string.github_button), (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, QWOTABLE_REQUEST_GITHUB)))
                         .setNeutralButton(getString(R.string.neutral_button_text_cancel), (dialog, which) -> dialog.dismiss())
                         .show();
 
@@ -239,7 +262,7 @@ public class Settings extends AppCompatActivity {
             });
 
 
-            switch (language.getString("language", "en")){
+            switch (languageValue){
                 case "de":
                     checkedItem = 0;
                     break;
@@ -254,20 +277,7 @@ public class Settings extends AppCompatActivity {
 
             Preference language = findPreference("language");
             assert language != null;
-            //------Getting sharedPreferencesLanguage to display current language------//
-            SharedPreferences sharedPreferencesLanguage = requireActivity().getSharedPreferences("Language", 0);
-
-            switch (sharedPreferencesLanguage.getString("language", Locale.getDefault().getLanguage())) {
-                case "de":
-                case "en":
-                case "fr":
-                    language.setSummary(getString(R.string.language_preference_summary_language_supported));
-                    break;
-                default:
-                    language.setSummary(getString(R.string.language_preference_summary_language_unsupported));
-                    break;
-            }
-
+            language.setSummary(getString(R.string.language_preference_summary_language_supported));
 
             int finalCheckedItem = checkedItem;
             language.setOnPreferenceClickListener(preference -> {
@@ -280,10 +290,10 @@ public class Settings extends AppCompatActivity {
                                     languageEditor.putString("language", "de");
                                     break;
                                 case 1:
-                                    languageEditor.putString("language", "en");
+                                    languageEditor.putString("Language", "en");
                                     break;
                                 case 2:
-                                    languageEditor.putString("language", "fr");
+                                    languageEditor.putString("Language", "fr");
                                     break;
                             }
                         })
@@ -309,11 +319,11 @@ public class Settings extends AppCompatActivity {
                         .setIcon(R.drawable.ic_baseline_bug_report_24)
                         .setPositiveButton(getString(R.string.google_forms_button), (dialog, which) -> {
                             dialog.dismiss();
-                            startActivity(new Intent(Intent.ACTION_VIEW, googleFormsBugReport));
+                            startActivity(new Intent(Intent.ACTION_VIEW, BUG_REPORT_GOOGLE_FORMS));
                         })
                         .setNegativeButton(getString(R.string.github_button), (dialog, which) -> {
                             dialog.dismiss();
-                            startActivity(new Intent(Intent.ACTION_VIEW, gitHubBugReport));
+                            startActivity(new Intent(Intent.ACTION_VIEW, BUG_REPORT_GITHUB));
                         })
                         .setNeutralButton(getString(R.string.neutral_button_text_cancel), (dialog, which) -> dialog.dismiss())
                         .show();
@@ -330,11 +340,11 @@ public class Settings extends AppCompatActivity {
                         .setIcon(R.drawable.ic_baseline_auto_awesome_24)
                         .setPositiveButton(getString(R.string.google_forms_button), (dialog, which) -> {
                             dialog.dismiss();
-                            startActivity(new Intent(Intent.ACTION_VIEW, googleFormsFeatureRequest));
+                            startActivity(new Intent(Intent.ACTION_VIEW, FEATURE_REQUEST_GOOGLE_FORMS));
                         })
                         .setNegativeButton(getString(R.string.github_button), (dialog, which) -> {
                             dialog.dismiss();
-                            startActivity(new Intent(Intent.ACTION_VIEW, githubFeatureRequest));
+                            startActivity(new Intent(Intent.ACTION_VIEW, FEATURE_REQUEST_GITHUB));
                         })
                         .setNeutralButton(getString(R.string.neutral_button_text_cancel), (dialog, which) -> dialog.dismiss())
                         .show();
@@ -369,11 +379,11 @@ public class Settings extends AppCompatActivity {
                         .setIcon(R.drawable.ic_baseline_feedback_24)
                         .setPositiveButton(getString(R.string.google_forms_button), (dialog, which) -> {
                             dialog.dismiss();
-                            startActivity(new Intent(Intent.ACTION_VIEW, googleFormsFeedback));
+                            startActivity(new Intent(Intent.ACTION_VIEW, FEEDBACK_GOOGLE_FORMS));
                         })
                         .setNegativeButton(getString(R.string.github_button), (dialog, which) -> {
                             dialog.dismiss();
-                            startActivity(new Intent(Intent.ACTION_VIEW, githubFeedback));
+                            startActivity(new Intent(Intent.ACTION_VIEW, FEEDBACK_GITHUB));
                         })
                         .setNeutralButton(getString(R.string.neutral_button_text_cancel), (dialog, which) -> dialog.dismiss())
                         .show();
@@ -417,12 +427,7 @@ public class Settings extends AppCompatActivity {
             assert license != null;
             license.setOnPreferenceClickListener(preference -> {
 
-                new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
-                        .setTitle(getString(R.string.licenses_dialog_title))
-                        .setMessage(getString(R.string.licenses_dialog_message))
-                        .setIcon(R.drawable.ic_baseline_local_police_24)
-                        .setPositiveButton(getString(R.string.positive_button_okay_text), (dialog, which) -> dialog.dismiss())
-                        .show();
+                requireContext().startActivity(new Intent(requireContext(), License.class));
 
                 return false;
             });
@@ -439,7 +444,7 @@ public class Settings extends AppCompatActivity {
                         .setPositiveButton(getString(R.string.wiki_button), (dialog, which) -> {
                             dialog.dismiss();
                             String url = "https://lijukay.gitbook.io/qwotable/";
-                            CustomTabColorSchemeParams colorSchemeParams = new CustomTabColorSchemeParams.Builder().setToolbarColor(getResources().getColor(R.color.md_theme_dark_onPrimary, requireActivity().getTheme())).build();
+                            CustomTabColorSchemeParams colorSchemeParams = new CustomTabColorSchemeParams.Builder().setToolbarColor(0x004D63).build();
                             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                             builder.setCloseButtonPosition(CustomTabsIntent.CLOSE_BUTTON_POSITION_DEFAULT);
                             builder.setStartAnimations(requireContext(), rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out);

@@ -11,7 +11,6 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,95 +18,107 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.lijukay.quotesAltDesign.Database.FavoriteDatabaseHelper;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
-import com.lijukay.quotesAltDesign.item.AllItem;
+import com.lijukay.quotesAltDesign.item.QuoteItem;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.AllViewHolder> {
+public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.ViewHolder> {
 
-    private final Context mContextAll;
-    private final ArrayList<AllItem> mAllItem;
-    private final RecyclerViewInterface recyclerViewInterface;
+    private final Context CONTEXT;
+    private final ArrayList<QuoteItem> ITEMS;
+    private final RecyclerViewInterface RECYCLERVIEW_INTERFACE;
 
-    public QuotesAdapter(Context contextAll, ArrayList<AllItem> allList, RecyclerViewInterface recyclerViewInterface){
-        mContextAll = contextAll;
-        mAllItem = allList;
-        this.recyclerViewInterface = recyclerViewInterface;
+    public QuotesAdapter(Context context, ArrayList<QuoteItem> items_list, RecyclerViewInterface recyclerViewInterface){
+        CONTEXT = context;
+        ITEMS = items_list;
+        RECYCLERVIEW_INTERFACE = recyclerViewInterface;
     }
 
     @NonNull
     @Override
-    public AllViewHolder onCreateViewHolder(@NonNull ViewGroup parentAll, int viewTypeAll) {
-        View vA = LayoutInflater.from(mContextAll).inflate(R.layout.card_quotes, parentAll, false);
-        return new AllViewHolder(vA, recyclerViewInterface);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(CONTEXT).inflate(R.layout.card_quotes, parent, false);
+        return new ViewHolder(v, RECYCLERVIEW_INTERFACE);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AllViewHolder holderAll, int positionAll) {
-        AllItem currentItemAll = mAllItem.get(positionAll);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        QuoteItem currentItem = ITEMS.get(position);
 
-        String allQuote = currentItemAll.getQuoteAll();
-        String allAuthor = currentItemAll.getAuthorAll();
-        String foundIn = currentItemAll.getFoundIn();
+        String quote = currentItem.getQuote();
+        String author = currentItem.getAuthor();
+        String foundIn = currentItem.getSource();
+
+
 
         if (foundIn.equals("")){
-            holderAll.mFoundIn.setVisibility(View.GONE);
+            holder.SOURCE.setVisibility(View.GONE);
         }
 
-        holderAll.mQuoteAll.setText(allQuote);
-        holderAll.mAuthorAll.setText(allAuthor);
-        holderAll.mFoundIn.setText(foundIn);
+        try (FavoriteDatabaseHelper fdb = new FavoriteDatabaseHelper(CONTEXT)) {
+            MaterialButton fb = holder.FAVORITE;
+            if (fdb.isInDB(quote)) {
+                fb.setIconResource(R.drawable.favorite_yes);
+            } else {
+                fb.setIconResource(R.drawable.favorite_no);
+            }
+        }
+
+        holder.QUOTE.setText(quote);
+        holder.AUTHOR.setText(author);
+        holder.SOURCE.setText(foundIn);
 
     }
 
     @Override
     public int getItemCount() {
-        return mAllItem.size();
+        return ITEMS.size();
     }
 
-    public static class AllViewHolder extends RecyclerView.ViewHolder{
-        public final TextView mQuoteAll;
-        public final TextView mAuthorAll;
-        public final TextView mFoundIn;
-        public final Button copy;
-        public final Button share;
-        public final MaterialCardView layout;
-        public final LinearLayout buttonLayout;
-        //public final Button saveAsImage;
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+        private final TextView QUOTE;
+        private final TextView AUTHOR;
+        private final TextView SOURCE;
+        private final MaterialButton FAVORITE;
+        private final MaterialCardView LAYOUT;
+        private final LinearLayout BUTTON_LAYOUT;
 
 
-        public AllViewHolder(@NonNull View itemViewAll, RecyclerViewInterface recyclerViewInterface) {
-            super(itemViewAll);
-            mQuoteAll = itemViewAll.findViewById(R.id.quote);
-            mAuthorAll = itemViewAll.findViewById(R.id.author);
-            mFoundIn = itemViewAll.findViewById(R.id.found_in);
-            copy = itemViewAll.findViewById(R.id.copy);
-            share = itemViewAll.findViewById(R.id.share);
-            layout = itemViewAll.findViewById(R.id.cardQuoteHolder);
-            buttonLayout = itemViewAll.findViewById(R.id.buttonLayout);
+        public ViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
+            super(itemView);
+            QUOTE = itemView.findViewById(R.id.quote);
+            AUTHOR = itemView.findViewById(R.id.author);
+            SOURCE = itemView.findViewById(R.id.found_in);
+            FAVORITE = itemView.findViewById(R.id.favorite);
+            LAYOUT = itemView.findViewById(R.id.cardQuoteHolder);
+            BUTTON_LAYOUT = itemView.findViewById(R.id.buttonLayout);
+            MaterialButton copy = itemView.findViewById(R.id.copy);
+            MaterialButton share = itemView.findViewById(R.id.share);
 
-            mAuthorAll.setOnClickListener(view -> {
+            AUTHOR.setOnClickListener(view -> {
                 if (recyclerViewInterface != null){
                     int position = getAdapterPosition();
                     String type = "author";
 
                     if(position != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(position, type);
+                        recyclerViewInterface.onItemClick(position, type, null);
                     }
                 }
             });
 
-            mFoundIn.setOnClickListener(view -> {
+            SOURCE.setOnClickListener(view -> {
                 if (recyclerViewInterface != null){
                     int position = getAdapterPosition();
                     String type = "Found in";
 
                     if (position != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(position, type);
+                        recyclerViewInterface.onItemClick(position, type, null);
                     }
                 }
             });
@@ -118,15 +129,27 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.AllViewHol
                     String type = "copy";
 
                     if (position != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(position, type);
+                        recyclerViewInterface.onItemClick(position, type, null);
                     }
                 }
+            });
+
+            FAVORITE.setOnClickListener(v -> {
+                if (recyclerViewInterface != null) {
+                    int position = getAdapterPosition();
+                    String type = "favorite";
+
+                    if (position != RecyclerView.NO_POSITION) {
+                        recyclerViewInterface.onItemClick(position, type, FAVORITE);
+                    }
+                }
+
             });
 
             share.setOnClickListener(v -> {
                 if(recyclerViewInterface != null){
 
-                    shareM(layout, layout.getContext(), buttonLayout);
+                    shareM(LAYOUT, LAYOUT.getContext(), BUTTON_LAYOUT);
 
                 }
             });

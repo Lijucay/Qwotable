@@ -47,6 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:layout_gravity="center"
             android:id="@+id/buttonLayout"
             android:orientation="horizontal">
 
@@ -63,9 +64,18 @@
                 android:id="@+id/share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:text="@string/share_button"
                 style="@style/Widget.Material3.Button.TonalButton.Icon"
                 app:icon="@drawable/ic_baseline_share_24" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/favorite"
+                style="@style/Widget.Material3.Button.TonalButton.Icon"
+                app:icon="@drawable/favorite_no"/>
 
         </LinearLayout>
 

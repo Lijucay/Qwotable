@@ -185,5 +185,12 @@
     <string name="not_allowed">Qwotable and or author are not allowed to be empty</string>
     <string name="third_party">Third party quotes</string>
     <string name="by_dwyl">Quotes from dwyl</string>
-
+    <string name="color_default">Default</string>
+    <string name="no_favorites_title">You have no favorites</string>
+    <string name="no_favorites_message">You can add favorites by clicking on \"Favorite\"</string>
+    <string name="favorite">Favorite</string>
+    <string name="favorite_successful_add">Successfully added to favorites</string>
+    <string name="favorite_fail_add">Failed to add quote to favorites</string>
+    <string name="favorite_successful_delete">Successfully removed from favorites</string>
+    <string name="favorite_fail_delete">Failed to remove quote from favorites</string>
 </resources>

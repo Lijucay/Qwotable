@@ -67,6 +67,12 @@
                 android:icon="@drawable/ic_add_own"
                 android:checkable="true"
                 app:showAsAction="ifRoom"/>
+            <item
+                android:id="@+id/favorite_item"
+                android:title="Favorites"
+                android:icon="@drawable/favorite_no"
+                android:checkable="true"
+                app:showAsAction="ifRoom"/>
 
         </menu>
     </item>

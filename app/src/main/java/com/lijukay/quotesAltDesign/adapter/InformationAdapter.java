@@ -15,26 +15,26 @@ import com.lijukay.quotesAltDesign.item.InformationItem;
 import java.util.ArrayList;
 
 public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.InfoViewHolder> {
-    private final Context mContext;
-    private final ArrayList<InformationItem> informationItems;
+    private final Context CONTEXT;
+    private final ArrayList<InformationItem> INFORMATION_ITEMS;
 
     public InformationAdapter (Context context, ArrayList<InformationItem> informationItems){
-        mContext = context;
-        this.informationItems = informationItems;
+        CONTEXT = context;
+        INFORMATION_ITEMS = informationItems;
     }
 
     @NonNull
     @Override
     public InfoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.information_item, parent, false);
+        View v = LayoutInflater.from(CONTEXT).inflate(R.layout.information_item, parent, false);
         return new InfoViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull InfoViewHolder holder, int position) {
-        InformationItem currentItem = informationItems.get(position);
+        InformationItem currentItem = INFORMATION_ITEMS.get(position);
 
-        String title = currentItem.getTitle();
+        String title = currentItem.getTITLE();
         String message = currentItem.getMessage();
         String date = currentItem.getDate();
 
@@ -45,7 +45,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
 
     @Override
     public int getItemCount() {
-        return informationItems.size();
+        return INFORMATION_ITEMS.size();
     }
 
     public static class InfoViewHolder extends RecyclerView.ViewHolder {

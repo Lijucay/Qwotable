@@ -1,7 +1,6 @@
 package com.lijukay.quotesAltDesign.fragments;
 
 import android.annotation.SuppressLint;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -49,24 +48,18 @@ public class Information extends Fragment {
     private RecyclerView recyclerView;
     private InformationAdapter adapter;
     private boolean internet;
-    private IntentFilter mIntentFilter;
     private LinearLayout error;
     private TextView errorTitle, errorMessage, message;
     private View layout;
-
-    public static String BroadCastStringForAction = "checkInternet";
     //public SharedPreferences language;
 
-    View v;
+    private View v;
 
-    @SuppressLint({"SourceLockedOrientationActivity", "NotifyDataSetChanged"})
+    @SuppressLint({"SourceLockedOrientationActivity", "NotifyDataSetChanged", "InflateParams"})
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        //language = requireContext().getSharedPreferences("language", 0); //Todo: Parse Information in other languages
-
         v = inflater.inflate(R.layout.fragment_information, container, false);
 
         layout = LayoutInflater.from(requireContext()).inflate(R.layout.toast_view, null);
@@ -156,9 +149,7 @@ public class Information extends Fragment {
             recyclerView.setVisibility(View.GONE);
             error.setVisibility(View.VISIBLE);
             errorTitle.setText(getString(R.string.no_internet_error_title));
-            //Todo: String
             errorMessage.setText(getString(R.string.no_internet_message_information));
-            //Todo: String
             v.findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
         } else {
             swipeRefreshLayout.setVisibility(View.VISIBLE);
