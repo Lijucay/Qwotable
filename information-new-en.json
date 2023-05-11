@@ -1,0 +1,12 @@
+{
+  "Information":
+  [
+    {
+      "title": "Shutdown of old information",
+      "message": "Due to changes of the old Information version, it will be no longer be available starting around 13.06.23.",
+      "date": "11.05.23"
+      "from v": 1,
+      "to v": 10
+    }
+  ]
+}
