@@ -1,6 +1,7 @@
 package com.lijukay.quotesAltDesign.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -43,7 +44,7 @@ public class Information extends Fragment {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RequestQueue mRequestQueue;
-    private int versionCurrent, versionCode;
+    private int versionCurrent, versionCodeMin, versionCodeMax;
     private ArrayList<InformationItem> items;
     private RecyclerView recyclerView;
     private InformationAdapter adapter;
@@ -51,7 +52,7 @@ public class Information extends Fragment {
     private LinearLayout error;
     private TextView errorTitle, errorMessage, message;
     private View layout;
-    //public SharedPreferences language;
+    private SharedPreferences language;
 
     private View v;
 
@@ -59,6 +60,7 @@ public class Information extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_information, container, false);
 
@@ -70,6 +72,7 @@ public class Information extends Fragment {
         errorTitle = v.findViewById(R.id.titleError);
         errorMessage = v.findViewById(R.id.messageError);
 
+        language = requireActivity().getSharedPreferences("Language", 0);
 
         internet = ((MainActivity) requireActivity()).isOnline(requireContext().getApplicationContext());
 
@@ -93,7 +96,6 @@ public class Information extends Fragment {
             toast.setDuration(Toast.LENGTH_SHORT);
             toast.setView(layout);
             toast.show();
-            //Toast.makeText(requireContext(), getString(R.string.toast_message_information), Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
                 Cache cache = mRequestQueue.getCache();
@@ -161,7 +163,7 @@ public class Information extends Fragment {
 
     private void parseJSON() {
 
-        String urlPQ = "https://lijukay.github.io/Qwotable/information-en.json";
+        String urlPQ = "https://lijukay.github.io/Qwotable/information-new-" + language.getString("language", "en") + ".json";
 
         JsonObjectRequest requestPQ = new JsonObjectRequest(Request.Method.GET, urlPQ, null,
                 responsePQ -> {
@@ -171,16 +173,16 @@ public class Information extends Fragment {
                         for (int i = 0; i < jsonArrayPQ.length(); i++){
                             JSONObject pq = jsonArrayPQ.getJSONObject(i);
 
-                            versionCode = pq.getInt("valuable for version");
+                            versionCodeMin = pq.getInt("from v");
+                            versionCodeMax = pq.getInt("to v");
                             String title = pq.getString("title");
                             String message = pq.getString("message");
-                            String date = pq.getString("date of creation");
+                            String date = pq.getString("date");
 
-                            if (versionCode >= versionCurrent || versionCode == 0){
+                            if (versionCodeMin <= versionCurrent && versionCodeMax >= versionCurrent){
                                 items.add(new InformationItem(title, message, date));
                             }
                         }
-
                         adapter = new InformationAdapter(requireContext(), items);
                         recyclerView.setAdapter(adapter);
 

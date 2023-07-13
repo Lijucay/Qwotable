@@ -16,6 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
+        <receiver
+            android:name=".widget.QwotableWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/qwotable_widget_info" />
+        </receiver>
+
         <activity
             android:name=".activities.License"
             android:exported="false" />
@@ -23,7 +35,7 @@
             android:name=".activities.Prescreen"
             android:exported="true"
             android:screenOrientation="locked"
-            android:theme="@style/Theme.App.Starting"/>
+            android:theme="@style/Theme.App.Starting" />
         <activity
             android:name=".activities.OnBoardingScreen"
             android:exported="true"

@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace 'com.lijukay.quotesAltDesign'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.lijukay.quotesAltDesign"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 10 //Latest on GitHub: 10
         versionName "1" //Latest on GitHub: 1
 

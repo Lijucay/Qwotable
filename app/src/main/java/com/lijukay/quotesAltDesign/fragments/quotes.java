@@ -40,6 +40,8 @@ import com.lijukay.quotesAltDesign.activities.Person;
 import com.lijukay.quotesAltDesign.adapter.QuotesAdapter;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
 import com.lijukay.quotesAltDesign.item.QuoteItem;
+import com.lijukay.quotesAltDesign.util.InternetConnection;
+import com.lijukay.quotesAltDesign.util.QwotableQuotes;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,7 +49,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class quotes extends Fragment implements RecyclerViewInterface {
+public class quotes extends Fragment implements RecyclerViewInterface, QwotableQuotes.QuotesFetchListener {
 
     private RecyclerView recyclerView;
     private QuotesAdapter adapter;
@@ -56,10 +58,9 @@ public class quotes extends Fragment implements RecyclerViewInterface {
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayout error;
     private SharedPreferences language;
-    private boolean internet;
     private View v, layout;
     private TextView errorMessage, errorTitle, message;
-    private LinearProgressIndicator progressIndicator;
+    private InternetConnection connection;
 
     @SuppressLint({"NotifyDataSetChanged", "InflateParams"})
     @Override
@@ -69,15 +70,15 @@ public class quotes extends Fragment implements RecyclerViewInterface {
 
         v = inflater.inflate(R.layout.fragment_quotes, container, false);
 
+        connection = new InternetConnection(requireContext());
+
         layout = LayoutInflater.from(requireContext()).inflate(R.layout.toast_view, null);
         message = layout.findViewById(R.id.message);
 
         errorTitle = v.findViewById(R.id.titleError);
         errorMessage = v.findViewById(R.id.messageError);
 
-        internet = ((MainActivity) requireActivity()).isOnline(requireActivity().getApplicationContext());
-
-        progressIndicator = v.findViewById(R.id.progress);
+        LinearProgressIndicator progressIndicator = v.findViewById(R.id.progress);
         progressIndicator.setVisibility(View.GONE);
 
         recyclerView = v.findViewById(R.id.quotesRV);
@@ -90,8 +91,6 @@ public class quotes extends Fragment implements RecyclerViewInterface {
         }
         error = v.findViewById(R.id.error);
         error.setVisibility(View.GONE);
-
-        items = new ArrayList<>();
 
         swipeRefreshLayout = v.findViewById(R.id.quotesSRL);
         swipeRefreshLayout.setVisibility(View.VISIBLE);
@@ -106,12 +105,12 @@ public class quotes extends Fragment implements RecyclerViewInterface {
                 swipeRefreshLayout.setRefreshing(false);
                 Cache cache = requestQueue.getCache();
                 cache.clear();
-                items.clear();
-                adapter.notifyDataSetChanged();
                 checkInternet();
             }, 2000);
         });
         requestQueue = Volley.newRequestQueue(requireContext());
+
+        items = new ArrayList<>();
 
         checkInternet();
 
@@ -131,199 +130,97 @@ public class quotes extends Fragment implements RecyclerViewInterface {
 
         ViewCompat.setOnApplyWindowInsetsListener(v.findViewById(R.id.error), (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            // Apply the insets as a margin to the view. Here the system is setting
-            // only the bottom, left, and right dimensions, but apply whichever insets are
-            // appropriate to your layout. You can also update the view padding
-            // if that's more appropriate.
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
             mlp.bottomMargin = insets.bottom;
             v.setLayoutParams(mlp);
-
-            // Return CONSUMED if you don't want want the window insets to keep being
-            // passed down to descendant views.
             return WindowInsetsCompat.CONSUMED;
         });
+
+        recyclerView.setAdapter(adapter);
 
         return v;
     }
 
-    @SuppressLint("SetTextI18n")
-    private void checkInternet(){
-        if (!internet){
+    private void checkInternet() {
+        if (connection.isConnected()) {
+            swipeRefreshLayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+            error.setVisibility(View.GONE);
+
+            // Call the fetchQuotes() method in the QwotableQuotes class
+            QwotableQuotes qwotableQuotes = new QwotableQuotes();
+            qwotableQuotes.fetchQuotes(language.getString("language", "en"), requestQueue, this);
+        } else {
+            // Handle no internet connection case
             swipeRefreshLayout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
             error.setVisibility(View.VISIBLE);
             errorTitle.setText(getString(R.string.no_internet_error_title));
             errorMessage.setText(getString(R.string.no_internet_error_message_quotes));
             v.findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
-        } else {
-            swipeRefreshLayout.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.VISIBLE);
-            error.setVisibility(View.GONE);
-            parseJSON();
         }
     }
 
-    private void parseJSON() {
-        progressIndicator.setVisibility(View.VISIBLE);
-        String url;
+    // Implement the onQuotesFetched() method from the QuotesFetchListener interface
+    @Override
+    public void onQuotesFetched(ArrayList<QuoteItem> quoteItems) {
+        // Update the items list and create the adapter
+        items.clear();
+        items.addAll(quoteItems);
+        adapter = new QuotesAdapter(getActivity(), items, this);
+        recyclerView.setAdapter(adapter);
+    }
 
-        url = "https://lijukay.github.io/Qwotable/quotes-" + language.getString("language", "en") + ".json";
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                jsonObject -> {
-                    try {
-                        JSONArray jsonArray = jsonObject.getJSONArray("Quotes");
-
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject object = jsonArray.getJSONObject(i);
-
-                            String quote = object.getString("quote");
-                            String author = object.getString("author");
-                            String foundIn = object.getString("found in");
-
-                            items.add(new QuoteItem(author, quote, foundIn));
-                        }
-                        adapter = new QuotesAdapter(getActivity(), items, this);
-                        recyclerView.setAdapter(adapter);
-                        progressIndicator.setVisibility(View.GONE);
-                    } catch (JSONException e) {
-                        swipeRefreshLayout.setVisibility(View.GONE);
-                        recyclerView.setVisibility(View.GONE);
-                        error.setVisibility(View.VISIBLE);
-                        errorMessage.setText(getString(R.string.error_while_parsing_quotes));
-                        errorTitle.setText(getString(R.string.error_while_parsing_title));
-                        v.findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
-                        e.printStackTrace();
-                    }
-                }, Throwable::printStackTrace);
-        requestQueue.add(jsonObjectRequest);
+    // Implement the onFetchError() method from the QuotesFetchListener interface
+    @Override
+    public void onFetchError() {
+        // Handle error case
+        swipeRefreshLayout.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+        error.setVisibility(View.VISIBLE);
+        errorMessage.setText(getString(R.string.error_while_parsing_quotes));
+        errorTitle.setText(getString(R.string.error_while_parsing_title));
+        v.findViewById(R.id.retry).setOnClickListener(v -> checkInternet());
     }
 
     @Override
     public void onItemClick(int position, String type, MaterialButton mbid) {
-        String url = "https://lijukay.github.io/Qwotable/quotes-" + language.getString("language", "en") +".json";
         switch (type) {
             case "author": {
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                        jsonObject -> {
-                            try {
-                                JSONArray jsonArrayP = jsonObject.getJSONArray("Quotes");
-
-                                JSONObject object = jsonArrayP.getJSONObject(position);
-
-                                String authorP = object.getString("author");
-
-                                Intent intent = new Intent(requireActivity(), Person.class);
-                                intent.putExtra("author", authorP);
-                                intent.putExtra("type", "author");
-                                intent.putExtra("Activity", "Quotes");
-                                startActivity(intent);
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }, Throwable::printStackTrace);
-                requestQueue.add(jsonObjectRequest);
-
-                break;
-            }
-            case "Found in": {
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                        jsonObject -> {
-                            try {
-                                JSONArray jsonArrayP = jsonObject.getJSONArray("Quotes");
-
-                                JSONObject object = jsonArrayP.getJSONObject(position);
-
-                                String authorP = object.getString("found in");
-
-                                Intent intent = new Intent(requireActivity(), Person.class);
-                                intent.putExtra("author", authorP);
-                                intent.putExtra("type", "found in");
-                                intent.putExtra("Activity", "Quotes");
-                                startActivity(intent);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }, Throwable::printStackTrace);
-                requestQueue.add(jsonObjectRequest);
-
-                break;
-            }
-            case "copy": {
-                if (internet) {
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                            jsonObject -> {
-                                try {
-                                    JSONArray jsonArray = jsonObject.getJSONArray("Quotes");
-                                    JSONObject object = jsonArray.getJSONObject(position);
-
-                                    String quote = object.getString("quote");
-                                    String author = object.getString("author");
-
-                                    copyText(quote + "\n\n~ " + author);
-                                } catch (JSONException e) {
-                                    message.setText(R.string.error_while_parsing_toast_message_quotes);
-                                    Toast toast = new Toast(requireContext().getApplicationContext());
-                                    toast.setGravity(Gravity.BOTTOM, 0, 100);
-                                    toast.setDuration(Toast.LENGTH_SHORT);
-                                    toast.setView(layout);
-                                    toast.show();
-                                    //Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message_quotes), Toast.LENGTH_SHORT).show();
-                                    e.printStackTrace();
-                                }
-                            }, Throwable::printStackTrace);
-                    requestQueue.add(jsonObjectRequest);
-                } else {
-                    message.setText(R.string.no_internet_toast_message);
-                    Toast toast = new Toast(requireContext().getApplicationContext());
-                    toast.setGravity(Gravity.BOTTOM, 0, 100);
-                    toast.setDuration(Toast.LENGTH_SHORT);
-                    toast.setView(layout);
-                    toast.show();
-                    //Toast.makeText(requireContext(), getString(R.string.no_internet_toast_message), Toast.LENGTH_SHORT).show();
+                if (items != null && !items.isEmpty()) {
+                    Intent intent = new Intent(requireContext(), Person.class);
+                    intent.putExtra("author", items.get(position).getAuthor());
+                    intent.putExtra("type", "author");
+                    intent.putExtra("Activity", "Quotes");
                 }
                 break;
-            }
-            case "favorite":
-            {
-                try (FavoriteDatabaseHelper fdb = new FavoriteDatabaseHelper(requireContext())) {
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                            jsonObject -> {
-                                try {
-                                    JSONArray jsonArray = jsonObject.getJSONArray("Quotes");
-                                    JSONObject object = jsonArray.getJSONObject(position);
-
-                                    String quote = object.getString("quote");
-                                    String author = object.getString("author");
-                                    String source = object.getString("found in");
-
-                                    if (!fdb.isInDB(quote)) {
-                                        fdb.addQwotable(quote, author, source);
-                                        mbid.setIconResource(R.drawable.favorite_yes);
-                                    } else {
-                                        fdb.deleteOneRow(quote);
-                                        mbid.setIconResource(R.drawable.favorite_no);
-                                    }
-
-                                } catch (JSONException e) {
-                                    message.setText(R.string.error_while_parsing_toast_message_quotes);
-                                    Toast toast = new Toast(requireContext().getApplicationContext());
-                                    toast.setGravity(Gravity.BOTTOM, 0, 100);
-                                    toast.setDuration(Toast.LENGTH_SHORT);
-                                    toast.setView(layout);
-                                    toast.show();
-                                    //Toast.makeText(requireContext(), getString(R.string.error_while_parsing_toast_message_quotes), Toast.LENGTH_SHORT).show();
-                                    e.printStackTrace();
-                                }
-                            }, Throwable::printStackTrace);
-                    requestQueue.add(jsonObjectRequest);
+            } case "Found in": {
+                if (items != null && !items.isEmpty()) {
+                    Intent intent = new Intent(requireContext(), Person.class);
+                    intent.putExtra("author", items.get(position).getSource());
+                    intent.putExtra("type", "found in");
+                    intent.putExtra("Activity", "Quotes");
+                    startActivity(intent);                }
+                break;
+            } case "copy": {
+                if (items != null && !items.isEmpty()) {
+                    copyText(items.get(position).getQuote() + "\n\n~ " + items.get(position).getAuthor());
                 }
-
-            break;
+                break;
+            } case "favorite": {
+                if (items != null && !items.isEmpty()) {
+                    String quote = items.get(position).getQuote();
+                    try (FavoriteDatabaseHelper fdb = new FavoriteDatabaseHelper(requireContext())) {
+                        if (!fdb.isInDB(quote)) {
+                            fdb.addQwotable(quote, items.get(position).getAuthor(), items.get(position).getSource());
+                            mbid.setIconResource(R.drawable.favorite_yes);
+                        } else {
+                            fdb.deleteOneRow(quote);
+                            mbid.setIconResource(R.drawable.favorite_no);
+                        }
+                    }
+                }
+                break;
             }
         }
     }

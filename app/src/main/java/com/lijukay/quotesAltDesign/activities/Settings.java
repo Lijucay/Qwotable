@@ -24,7 +24,6 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.elevation.SurfaceColors;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.service.InternetService;
 
