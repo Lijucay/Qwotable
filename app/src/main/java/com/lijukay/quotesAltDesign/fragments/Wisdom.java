@@ -36,9 +36,9 @@ import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.activities.MainActivity;
 import com.lijukay.quotesAltDesign.activities.Person;
-import com.lijukay.quotesAltDesign.adapter.wisdomAdapter;
+import com.lijukay.quotesAltDesign.adapter.WisdomAdapter;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
-import com.lijukay.quotesAltDesign.item.wisdomItem;
+import com.lijukay.quotesAltDesign.item.WisdomItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,11 +47,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class wisdom extends Fragment implements RecyclerViewInterface {
+public class Wisdom extends Fragment implements RecyclerViewInterface {
 
     private RecyclerView recyclerView;
-    private wisdomAdapter adapter;
-    private ArrayList<wisdomItem> items;
+    private WisdomAdapter adapter;
+    private ArrayList<WisdomItem> items;
     private RequestQueue requestQueue;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SharedPreferences language;
@@ -84,7 +84,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
         recyclerView = v.findViewById(R.id.wisdomRV);
         recyclerView.setHasFixedSize(true);
         boolean tablet = getResources().getBoolean(R.bool.isTablet);
-        if (tablet){
+        if (tablet) {
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext().getApplicationContext()));
@@ -120,13 +120,14 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
         if (!tablet) ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            recyclerView.setPadding(0,0,0,insets.bottom);
+            recyclerView.setPadding(0, 0, 0, insets.bottom);
 
             return WindowInsetsCompat.CONSUMED;
-        }); else ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+        });
+        else ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            recyclerView.setPadding(0,insets.top,0,insets.bottom);
+            recyclerView.setPadding(0, insets.top, 0, insets.bottom);
 
             return WindowInsetsCompat.CONSUMED;
         });
@@ -172,11 +173,11 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
                             String foundIn = object.getString("found in");
                             String title = object.getString("title");
 
-                            items.add(new wisdomItem(author, wisdom, foundIn, title));
+                            items.add(new WisdomItem(author, wisdom, foundIn, title));
 
                         }
 
-                        adapter = new wisdomAdapter(getActivity(), items, this);
+                        adapter = new WisdomAdapter(getActivity(), items, this);
                         recyclerView.setAdapter(adapter);
                         progressIndicator.setVisibility(View.GONE);
                     } catch (JSONException e) {
@@ -247,7 +248,7 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
                 break;
             }
             case "copy": {
-                if (internet){
+                if (internet) {
                     String url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", "en") + ".json";
 
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -294,8 +295,8 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
     }
 
     @SuppressLint("SetTextI18n")
-    private void checkInternet(){
-        if (!internet){
+    private void checkInternet() {
+        if (!internet) {
             swipeRefreshLayout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
             error.setVisibility(View.VISIBLE);

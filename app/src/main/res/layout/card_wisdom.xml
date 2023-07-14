@@ -24,7 +24,8 @@
                 android:id="@+id/wisdomTitle"
                 android:textStyle="bold"
                 style="?attr/textAppearanceTitleLarge"
-                android:textColor="?android:attr/textColorSecondary"/>
+                android:textColor="?android:attr/textColorSecondary" />
+
             <TextView
                 android:id="@+id/wisdom"
                 android:layout_width="wrap_content"
@@ -32,7 +33,7 @@
                 android:textAppearance="?attr/textAppearanceTitleMedium"
                 android:textColor="?android:textColorSecondary"
                 android:textStyle="bold"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -40,8 +41,7 @@
                 android:id="@+id/author"
                 android:layout_marginTop="16dp"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:textColor="?android:attr/textColorSecondary"
-                />
+                android:textColor="?android:attr/textColorSecondary" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -49,7 +49,7 @@
                 android:id="@+id/found_in_wisdomc"
                 android:layout_marginTop="8dp"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:textColor="?android:attr/textColorSecondary"/>
+                android:textColor="?android:attr/textColorSecondary" />
 
         </LinearLayout>
 
@@ -67,7 +67,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/copy_button"
                 style="@style/Widget.Material3.Button.TonalButton.Icon"
-                app:icon="@drawable/ic_baseline_content_copy_24"/>
+                app:icon="@drawable/ic_baseline_content_copy_24" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/share"
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/share_button"
                 style="@style/Widget.Material3.Button.TonalButton.Icon"
-                app:icon="@drawable/ic_baseline_share_24"/>
+                app:icon="@drawable/ic_baseline_share_24" />
 
         </LinearLayout>
 

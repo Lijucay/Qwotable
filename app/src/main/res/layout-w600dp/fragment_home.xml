@@ -3,193 +3,199 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.home">
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nsv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+    tools:context=".fragments.Home">
 
-                <com.google.android.material.card.MaterialCardView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="?attr/materialCardViewFilledStyle"
+                android:layout_margin="8dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="?attr/materialCardViewFilledStyle"
-                    android:layout_margin="8dp">
+                    android:orientation="vertical">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="?attr/materialCardViewOutlinedStyle">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:id="@+id/quote"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?attr/textAppearanceTitleMedium"
+                                android:textColor="?android:textColorSecondary"
+                                android:textStyle="bold"
+                                android:text="@string/quote_example_quote" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/authore_quote"
+                                android:layout_marginTop="16dp"
+                                android:textAppearance="?attr/textAppearanceBodyMedium"
+                                android:textColor="?android:attr/textColorSecondary"
+                                android:text="@string/quote_example_author" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/found_in"
+                                android:layout_marginTop="8dp"
+                                android:textAppearance="?attr/textAppearanceBodyMedium"
+                                android:textColor="?android:attr/textColorSecondary"
+                                android:text="@string/quote_example_found_in" />
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <com.google.android.material.card.MaterialCardView
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            style="?attr/materialCardViewOutlinedStyle">
+                            android:textStyle="bold"
+                            style="?attr/textAppearanceTitleLarge"
+                            android:textColor="?android:attr/textColorSecondary"
+                            android:text="@string/quote_definition_title" />
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:padding="16dp">
-                                <TextView
-                                    android:id="@+id/quote"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textAppearance="?attr/textAppearanceTitleMedium"
-                                    android:textColor="?android:textColorSecondary"
-                                    android:textStyle="bold"
-                                    android:text="@string/quote_example_quote"
-                                    />
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/authore_quote"
-                                    android:layout_marginTop="16dp"
-                                    android:textAppearance="?attr/textAppearanceBodyMedium"
-                                    android:textColor="?android:attr/textColorSecondary"
-                                    android:text="@string/quote_example_author"
-                                    />
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/found_in"
-                                    android:layout_marginTop="8dp"
-                                    android:textAppearance="?attr/textAppearanceBodyMedium"
-                                    android:textColor="?android:attr/textColorSecondary"
-                                    android:text="@string/quote_example_found_in"
-                                    />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            android:textColor="?android:attr/textColorSecondary"
+                            android:text="@string/quote_definition_message" />
 
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            android:textColor="?android:attr/textColorSecondary"
+                            android:text="@string/quote_definition_message_part_2" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="?attr/materialCardViewFilledStyle"
+                android:layout_margin="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="?attr/materialCardViewOutlinedStyle">
+
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:padding="16dp">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:id="@+id/wisdomTitle"
+                                android:text="@string/wisdom_example_title"
                                 android:textStyle="bold"
                                 style="?attr/textAppearanceTitleLarge"
-                                android:textColor="?android:attr/textColorSecondary"
-                                android:text="@string/quote_definition_title"
-                                />
+                                android:textColor="?android:attr/textColorSecondary" />
+
+                            <TextView
+                                android:id="@+id/wisdom"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?attr/textAppearanceTitleMedium"
+                                android:text="@string/wisdom_example_wisdom"
+                                android:textStyle="bold"
+                                android:layout_marginTop="16dp"
+                                android:textColor="?android:attr/textColorSecondary" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:id="@+id/author"
                                 android:layout_marginTop="16dp"
                                 android:textAppearance="?attr/textAppearanceBodyMedium"
                                 android:textColor="?android:attr/textColorSecondary"
-                                android:text="@string/quote_definition_message"
-                                />
+                                android:text="@string/wisdom_example_author" />
+
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
+                                android:id="@+id/found_in_wisdomc"
+                                android:layout_marginTop="8dp"
                                 android:textAppearance="?attr/textAppearanceBodyMedium"
                                 android:textColor="?android:attr/textColorSecondary"
-                                android:text="@string/quote_definition_message_part_2"
-                                />
+                                android:text="@string/wisdom_example_found_in" />
                         </LinearLayout>
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="?attr/materialCardViewFilledStyle"
-                    android:layout_margin="8dp">
+                    </com.google.android.material.card.MaterialCardView>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <com.google.android.material.card.MaterialCardView
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_margin="16dp">
+
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            style="?attr/materialCardViewOutlinedStyle">
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:padding="16dp">
+                            android:text="@string/wisdom_definition_title"
+                            style="?attr/textAppearanceTitleLarge"
+                            android:textStyle="bold"
+                            android:textColor="?android:attr/textColorSecondary" />
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/wisdomTitle"
-                                    android:text="@string/wisdom_example_title"
-                                    android:textStyle="bold"
-                                    style="?attr/textAppearanceTitleLarge"
-                                    android:textColor="?android:attr/textColorSecondary"/>
-                                <TextView
-                                    android:id="@+id/wisdom"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textAppearance="?attr/textAppearanceTitleMedium"
-                                    android:text="@string/wisdom_example_wisdom"
-                                    android:textStyle="bold"
-                                    android:layout_marginTop="16dp"
-                                    android:textColor="?android:attr/textColorSecondary"/>
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/author"
-                                    android:layout_marginTop="16dp"
-                                    android:textAppearance="?attr/textAppearanceBodyMedium"
-                                    android:textColor="?android:attr/textColorSecondary"
-                                    android:text="@string/wisdom_example_author"
-                                    />
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/found_in_wisdomc"
-                                    android:layout_marginTop="8dp"
-                                    android:textAppearance="?attr/textAppearanceBodyMedium"
-                                    android:textColor="?android:attr/textColorSecondary"
-                                    android:text="@string/wisdom_example_found_in"
-                                    />
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <LinearLayout
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_margin="16dp">
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            android:textColor="?android:attr/textColorSecondary"
+                            android:text="@string/wisdom_definition_message" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/wisdom_definition_title"
-                                style="?attr/textAppearanceTitleLarge"
-                                android:textStyle="bold"
-                                android:textColor="?android:attr/textColorSecondary"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:textAppearance="?attr/textAppearanceBodyMedium"
-                                android:textColor="?android:attr/textColorSecondary"
-                                android:text="@string/wisdom_definition_message"
-                                />
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:textAppearance="?attr/textAppearanceBodyMedium"
-                                android:textColor="?android:attr/textColorSecondary"
-                                android:text="@string/wisdom_definition_message_part_2"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            android:textColor="?android:attr/textColorSecondary"
+                            android:text="@string/wisdom_definition_message_part_2" />
 
-                        </LinearLayout>
                     </LinearLayout>
+                </LinearLayout>
 
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </FrameLayout>

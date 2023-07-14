@@ -16,7 +16,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/personRV"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -45,7 +45,7 @@
                 android:hapticFeedbackEnabled="true"
                 app:layout_collapseMode="pin"
                 app:menu="@menu/settings_menu"
-                app:layout_collapseParallaxMultiplier="@integer/material_motion_duration_short_2"/>
+                app:layout_collapseParallaxMultiplier="@integer/material_motion_duration_short_2" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -64,7 +64,7 @@
             android:layout_height="300dp"
             app:lottie_rawRes="@raw/error"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"/>
+            app:lottie_loop="true" />
 
         <TextView
             android:id="@+id/titleError"
@@ -72,20 +72,20 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             android:textColor="?attr/colorOnPrimaryContainer"
-            android:gravity="center"/>
+            android:gravity="center" />
 
         <TextView
             android:id="@+id/messageError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"/>
+            android:gravity="center" />
 
         <Button
             android:id="@+id/retry"
             android:text="@string/error_button_try_again"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp" />
 
     </LinearLayout>
 

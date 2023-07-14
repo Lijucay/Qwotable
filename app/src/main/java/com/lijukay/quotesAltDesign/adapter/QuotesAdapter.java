@@ -20,8 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-import com.lijukay.quotesAltDesign.Database.FavoriteDatabaseHelper;
 import com.lijukay.quotesAltDesign.R;
+import com.lijukay.quotesAltDesign.database.FavoriteDatabaseHelper;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
 import com.lijukay.quotesAltDesign.item.QuoteItem;
 
@@ -30,38 +30,37 @@ import java.util.Calendar;
 
 public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.ViewHolder> {
 
-    private final Context CONTEXT;
-    private final ArrayList<QuoteItem> ITEMS;
-    private final RecyclerViewInterface RECYCLERVIEW_INTERFACE;
+    private final Context context;
+    private final ArrayList<QuoteItem> items;
+    private final RecyclerViewInterface recyclerViewInterface;
 
-    public QuotesAdapter(Context context, ArrayList<QuoteItem> items_list, RecyclerViewInterface recyclerViewInterface){
-        CONTEXT = context;
-        ITEMS = items_list;
-        RECYCLERVIEW_INTERFACE = recyclerViewInterface;
+    public QuotesAdapter(Context context, ArrayList<QuoteItem> items_list, RecyclerViewInterface recyclerViewInterface) {
+        this.context = context;
+        items = items_list;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(CONTEXT).inflate(R.layout.card_quotes, parent, false);
-        return new ViewHolder(v, RECYCLERVIEW_INTERFACE);
+        View v = LayoutInflater.from(context).inflate(R.layout.card_quotes, parent, false);
+        return new ViewHolder(v, recyclerViewInterface);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        QuoteItem currentItem = ITEMS.get(position);
+        QuoteItem currentItem = items.get(position);
 
         String quote = currentItem.getQuote();
         String author = currentItem.getAuthor();
         String foundIn = currentItem.getSource();
 
 
-
-        if (foundIn.equals("")){
+        if (foundIn.equals("")) {
             holder.SOURCE.setVisibility(View.GONE);
         }
 
-        try (FavoriteDatabaseHelper fdb = new FavoriteDatabaseHelper(CONTEXT)) {
+        try (FavoriteDatabaseHelper fdb = new FavoriteDatabaseHelper(context)) {
             MaterialButton fb = holder.FAVORITE;
             if (fdb.isInDB(quote)) {
                 fb.setIconResource(R.drawable.favorite_yes);
@@ -78,10 +77,10 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return ITEMS.size();
+        return items.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView QUOTE;
         private final TextView AUTHOR;
         private final TextView SOURCE;
@@ -102,33 +101,33 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.ViewHolder
             MaterialButton share = itemView.findViewById(R.id.share);
 
             AUTHOR.setOnClickListener(view -> {
-                if (recyclerViewInterface != null){
+                if (recyclerViewInterface != null) {
                     int position = getAdapterPosition();
                     String type = "author";
 
-                    if(position != RecyclerView.NO_POSITION){
+                    if (position != RecyclerView.NO_POSITION) {
                         recyclerViewInterface.onItemClick(position, type, null);
                     }
                 }
             });
 
             SOURCE.setOnClickListener(view -> {
-                if (recyclerViewInterface != null){
+                if (recyclerViewInterface != null) {
                     int position = getAdapterPosition();
                     String type = "Found in";
 
-                    if (position != RecyclerView.NO_POSITION){
+                    if (position != RecyclerView.NO_POSITION) {
                         recyclerViewInterface.onItemClick(position, type, null);
                     }
                 }
             });
 
             copy.setOnClickListener(v -> {
-                if(recyclerViewInterface != null){
+                if (recyclerViewInterface != null) {
                     int position = getAdapterPosition();
                     String type = "copy";
 
-                    if (position != RecyclerView.NO_POSITION){
+                    if (position != RecyclerView.NO_POSITION) {
                         recyclerViewInterface.onItemClick(position, type, null);
                     }
                 }
@@ -147,7 +146,7 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.ViewHolder
             });
 
             share.setOnClickListener(v -> {
-                if(recyclerViewInterface != null){
+                if (recyclerViewInterface != null) {
 
                     shareM(LAYOUT, LAYOUT.getContext(), BUTTON_LAYOUT);
 
@@ -171,7 +170,7 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.ViewHolder
         Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         Drawable bgDrawable = view.getBackground();
-        if (bgDrawable!=null) {
+        if (bgDrawable != null) {
             //has background drawable, then draw it on the canvas
             bgDrawable.draw(canvas);
         } else {
@@ -183,7 +182,7 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.ViewHolder
         String bitmapUri = MediaStore.Images.Media.insertImage(
                 context.getContentResolver(),
                 bitmap,
-                "qwotable at " + hour + "_"+ minute + "_" + second,
+                "qwotable at " + hour + "_" + minute + "_" + second,
                 "Qwotable made this"
         );
         Uri uri = Uri.parse(bitmapUri);

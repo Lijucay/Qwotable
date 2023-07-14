@@ -15,26 +15,26 @@ import com.lijukay.quotesAltDesign.item.InformationItem;
 import java.util.ArrayList;
 
 public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.InfoViewHolder> {
-    private final Context CONTEXT;
-    private final ArrayList<InformationItem> INFORMATION_ITEMS;
+    private final Context context;
+    private final ArrayList<InformationItem> informationItems;
 
-    public InformationAdapter (Context context, ArrayList<InformationItem> informationItems){
-        CONTEXT = context;
-        INFORMATION_ITEMS = informationItems;
+    public InformationAdapter(Context context, ArrayList<InformationItem> informationItems) {
+        this.context = context;
+        this.informationItems = informationItems;
     }
 
     @NonNull
     @Override
     public InfoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(CONTEXT).inflate(R.layout.information_item, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.information_item, parent, false);
         return new InfoViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull InfoViewHolder holder, int position) {
-        InformationItem currentItem = INFORMATION_ITEMS.get(position);
+        InformationItem currentItem = informationItems.get(position);
 
-        String title = currentItem.getTITLE();
+        String title = currentItem.getTitle();
         String message = currentItem.getMessage();
         String date = currentItem.getDate();
 
@@ -45,7 +45,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
 
     @Override
     public int getItemCount() {
-        return INFORMATION_ITEMS.size();
+        return informationItems.size();
     }
 
     public static class InfoViewHolder extends RecyclerView.ViewHolder {
@@ -53,7 +53,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
         private final TextView mMessage;
         private final TextView mDate;
 
-        public InfoViewHolder(@NonNull View itemView){
+        public InfoViewHolder(@NonNull View itemView) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.titleInfo);
             mMessage = itemView.findViewById(R.id.messageInfo);

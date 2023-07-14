@@ -16,11 +16,11 @@ import com.lijukay.quotesAltDesign.R;
 
 public class SliderAdapter extends PagerAdapter {
 
-    private final Context CONTEXT;
+    private final Context context;
 
 
-    public SliderAdapter(Context context){
-        CONTEXT = context;
+    public SliderAdapter(Context context) {
+        this.context = context;
     }
 
     public int[] slide_image = {
@@ -76,12 +76,12 @@ public class SliderAdapter extends PagerAdapter {
 
 
     @Override
-    public int getCount(){
+    public int getCount() {
         return slide_title.length;
     }
 
     @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object o){
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
         return view == o;
     }
 
@@ -89,7 +89,7 @@ public class SliderAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
-        LayoutInflater layoutInflater = (LayoutInflater) CONTEXT.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = layoutInflater.inflate(R.layout.pages, container, false);
 
@@ -100,20 +100,20 @@ public class SliderAdapter extends PagerAdapter {
         TextView bottomMessage = view.findViewById(R.id.buttonInfo);
 
         title.setText(slide_title[position]);
-        if (slide_button_message[position] == 0){
+        if (slide_button_message[position] == 0) {
             bottomMessage.setText("");
         } else {
             bottomMessage.setText(slide_button_message[position]);
         }
         message.setText(slide_message[position]);
-        if (slide_lottie[position] == 0){
+        if (slide_lottie[position] == 0) {
             lottie.setVisibility(View.INVISIBLE);
             lottie.clearAnimation();
         } else {
             lottie.setVisibility(View.VISIBLE);
             lottie.setAnimation(slide_lottie[position]);
         }
-        if (slide_image[position] == 0){
+        if (slide_image[position] == 0) {
             imageView.setVisibility(View.GONE);
         } else {
             imageView.setVisibility(View.VISIBLE);

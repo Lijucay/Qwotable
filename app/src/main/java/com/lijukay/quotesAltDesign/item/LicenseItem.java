@@ -1,25 +1,25 @@
 package com.lijukay.quotesAltDesign.item;
 
 public class LicenseItem {
-    private final String TITLE;
-    private final String LICENSE;
-    private final String LICENSE_LINK;
+    private final String title;
+    private final String license;
+    private final String licenseLink;
 
     public LicenseItem(String title, String license, String link) {
-        TITLE = title;
-        LICENSE = license;
-        LICENSE_LINK = link;
+        this.title = title;
+        this.license = license;
+        licenseLink = link;
     }
 
     public String getLicense() {
-        return LICENSE;
+        return license;
     }
 
     public String getLicenseTitle() {
-        return TITLE;
+        return title;
     }
 
     public String getLicenseLink() {
-        return LICENSE_LINK;
+        return licenseLink;
     }
 }

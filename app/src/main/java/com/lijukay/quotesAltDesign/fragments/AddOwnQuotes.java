@@ -24,9 +24,9 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
-import com.lijukay.quotesAltDesign.Database.MyDatabaseHelper;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.adapter.OwnQwotableAdapter;
+import com.lijukay.quotesAltDesign.database.MyDatabaseHelper;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
 
 import java.util.ArrayList;
@@ -65,14 +65,14 @@ public class AddOwnQuotes extends Fragment implements RecyclerViewInterface {
         recyclerView.setAdapter(ownQwotableAdapter);
 
         boolean tablet = getResources().getBoolean(R.bool.isTablet);
-        if (tablet){
+        if (tablet) {
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext().getApplicationContext()));
         }
 
         recyclerView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-            if (oldScrollY < scrollY){
+            if (oldScrollY < scrollY) {
                 efab.shrink();
             } else {
                 efab.extend();
@@ -91,7 +91,7 @@ public class AddOwnQuotes extends Fragment implements RecyclerViewInterface {
 
             builder.setPositiveButton(getString(R.string.add_button), (dialog, which) -> {
                 try (MyDatabaseHelper mydb = new MyDatabaseHelper(requireContext())) {
-                    if (!Objects.requireNonNull(qwotable_input.getEditText()).getText().toString().trim().equals("") && !Objects.requireNonNull(author_input.getEditText()).getText().toString().trim().equals("")){
+                    if (!Objects.requireNonNull(qwotable_input.getEditText()).getText().toString().trim().equals("") && !Objects.requireNonNull(author_input.getEditText()).getText().toString().trim().equals("")) {
                         mydb.addQwotable(Objects.requireNonNull(qwotable_input.getEditText()).getText().toString().trim(),
                                 Objects.requireNonNull(author_input.getEditText()).getText().toString().trim(),
                                 Objects.requireNonNull(foundIn_input.getEditText()).getText().toString().trim()); //Add data to Database
@@ -108,20 +108,20 @@ public class AddOwnQuotes extends Fragment implements RecyclerViewInterface {
         });
 
 
-            ViewCompat.setOnApplyWindowInsetsListener(v.findViewById(R.id.no_data), (v, windowInsets) -> {
-                Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-                // Apply the insets as a margin to the view. Here the system is setting
-                // only the bottom, left, and right dimensions, but apply whichever insets are
-                // appropriate to your layout. You can also update the view padding
-                // if that's more appropriate.
-                ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-                mlp.bottomMargin = insets.bottom;
-                v.setLayoutParams(mlp);
+        ViewCompat.setOnApplyWindowInsetsListener(v.findViewById(R.id.no_data), (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            // Apply the insets as a margin to the view. Here the system is setting
+            // only the bottom, left, and right dimensions, but apply whichever insets are
+            // appropriate to your layout. You can also update the view padding
+            // if that's more appropriate.
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.bottomMargin = insets.bottom;
+            v.setLayoutParams(mlp);
 
-                // Return CONSUMED if you don't want want the window insets to keep being
-                // passed down to descendant views.
-                return WindowInsetsCompat.CONSUMED;
-            });
+            // Return CONSUMED if you don't want want the window insets to keep being
+            // passed down to descendant views.
+            return WindowInsetsCompat.CONSUMED;
+        });
 
 
         ViewCompat.setOnApplyWindowInsetsListener(efab, (v, windowInsets) -> {
@@ -143,13 +143,14 @@ public class AddOwnQuotes extends Fragment implements RecyclerViewInterface {
         if (!tablet) ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            recyclerView.setPadding(0,0,0,insets.bottom);
+            recyclerView.setPadding(0, 0, 0, insets.bottom);
 
             return WindowInsetsCompat.CONSUMED;
-        }); else ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+        });
+        else ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            recyclerView.setPadding(0,insets.top,0,insets.bottom);
+            recyclerView.setPadding(0, insets.top, 0, insets.bottom);
 
             return WindowInsetsCompat.CONSUMED;
         });
@@ -160,10 +161,10 @@ public class AddOwnQuotes extends Fragment implements RecyclerViewInterface {
     private void storeDataInArrays() {
 
         Cursor cursor = db.readAllData();
-        if (cursor.getCount() == 0){
+        if (cursor.getCount() == 0) {
             v.findViewById(R.id.no_data).setVisibility(View.VISIBLE);
         } else {
-            while (cursor.moveToNext()){
+            while (cursor.moveToNext()) {
                 id.add(cursor.getString(0));
                 qwotable.add(cursor.getString(1));
                 author.add(cursor.getString(2));
@@ -175,7 +176,7 @@ public class AddOwnQuotes extends Fragment implements RecyclerViewInterface {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void refreshLayout(){
+    public void refreshLayout() {
         qwotable.clear();
         author.clear();
         source.clear();
@@ -186,7 +187,7 @@ public class AddOwnQuotes extends Fragment implements RecyclerViewInterface {
 
     @Override
     public void onItemClick(int position, String type, MaterialButton materialButton) {
-        if (type.equals("updateOrDelete")){
+        if (type.equals("updateOrDelete")) {
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered);
             builder.setTitle(getString(R.string.update_delete_dialog));
 
@@ -213,23 +214,23 @@ public class AddOwnQuotes extends Fragment implements RecyclerViewInterface {
             });
             builder.setNegativeButton(getString(R.string.delete_button), (dialog, which) ->
                     new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
-                    .setTitle(getString(R.string.delete_dialog_title))
-                    .setMessage(getString(R.string.delete_dialog_title))
-                    .setPositiveButton(getString(R.string.delete_button), (dialog1, which1) -> {
-                        try (MyDatabaseHelper db = new MyDatabaseHelper(requireContext())) {
-                            db.deleteOneRow(id.get(position)); //delete item at id.get(position)
-                            refreshLayout(); //call refresh method to show updated data
-                            dialog.dismiss();
-                            dialog1.dismiss();
-                        }
-                    })
-                    .setNeutralButton(getString(R.string.neutral_button_text_cancel), (dialog1, which1) -> dialog1.dismiss())
-                    .show());
+                            .setTitle(getString(R.string.delete_dialog_title))
+                            .setMessage(getString(R.string.delete_dialog_title))
+                            .setPositiveButton(getString(R.string.delete_button), (dialog1, which1) -> {
+                                try (MyDatabaseHelper db = new MyDatabaseHelper(requireContext())) {
+                                    db.deleteOneRow(id.get(position)); //delete item at id.get(position)
+                                    refreshLayout(); //call refresh method to show updated data
+                                    dialog.dismiss();
+                                    dialog1.dismiss();
+                                }
+                            })
+                            .setNeutralButton(getString(R.string.neutral_button_text_cancel), (dialog1, which1) -> dialog1.dismiss())
+                            .show());
 
             builder.setNeutralButton(getString(R.string.neutral_button_text_cancel), (dialog, which) -> dialog.dismiss());
 
             builder.show();
-        } else if (type.equals("copy")){
+        } else if (type.equals("copy")) {
             String quote = qwotable.get(position);
             String authorString = author.get(position);
 

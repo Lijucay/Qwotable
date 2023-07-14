@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.android.material.button.MaterialButton;
-import com.lijukay.quotesAltDesign.Database.FavoriteDatabaseHelper;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.adapter.QuotesAdapter;
+import com.lijukay.quotesAltDesign.database.FavoriteDatabaseHelper;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
 import com.lijukay.quotesAltDesign.item.QuoteItem;
 
@@ -46,7 +46,7 @@ public class Favorites extends Fragment implements RecyclerViewInterface {
         recyclerView.setAdapter(ownQwotableAdapter);
 
         boolean tablet = getResources().getBoolean(R.bool.isTablet);
-        if (tablet){
+        if (tablet) {
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext().getApplicationContext()));
@@ -56,10 +56,10 @@ public class Favorites extends Fragment implements RecyclerViewInterface {
 
     private void storeDataInArrays() {
         Cursor cursor = fdb.readAllData();
-        if (cursor.getCount() == 0){
+        if (cursor.getCount() == 0) {
             v.findViewById(R.id.no_data).setVisibility(View.VISIBLE);
         } else {
-            while (cursor.moveToNext()){
+            while (cursor.moveToNext()) {
                 items.add(new QuoteItem(cursor.getString(1), cursor.getString(0), cursor.getString(2)));
             }
             v.findViewById(R.id.no_data).setVisibility(View.GONE);

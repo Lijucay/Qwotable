@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
                 android:textColor="?android:textColorSecondary"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                 android:id="@+id/found_in"
                 android:layout_marginTop="8dp"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:textColor="?android:attr/textColorSecondary"/>
+                android:textColor="?android:attr/textColorSecondary" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,7 +58,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/copy_button"
                 style="@style/Widget.Material3.Button.TonalButton.Icon"
-                app:icon="@drawable/ic_baseline_content_copy_24"/>
+                app:icon="@drawable/ic_baseline_content_copy_24" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/share"
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/favorite"
                 style="@style/Widget.Material3.Button.TonalButton.Icon"
-                app:icon="@drawable/favorite_no"/>
+                app:icon="@drawable/favorite_no" />
 
         </LinearLayout>
 

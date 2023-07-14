@@ -6,6 +6,12 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -14,13 +20,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.lijukay.quotesAltDesign.R;
@@ -38,7 +37,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class dwyl_quotes extends Fragment implements RecyclerViewInterface {
+public class DWYLQuotes extends Fragment implements RecyclerViewInterface {
 
     private View layout;
     private RecyclerView recyclerView;
@@ -57,7 +56,7 @@ public class dwyl_quotes extends Fragment implements RecyclerViewInterface {
         recyclerView = v1.findViewById(R.id.quotesRV);
         recyclerView.setHasFixedSize(true);
         boolean tablet = getResources().getBoolean(R.bool.isTablet);
-        if (tablet){
+        if (tablet) {
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext().getApplicationContext()));
@@ -98,13 +97,14 @@ public class dwyl_quotes extends Fragment implements RecyclerViewInterface {
         if (!tablet) ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            recyclerView.setPadding(0,0,0,insets.bottom);
+            recyclerView.setPadding(0, 0, 0, insets.bottom);
 
             return WindowInsetsCompat.CONSUMED;
-        }); else ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+        });
+        else ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            recyclerView.setPadding(0,insets.top,0,insets.bottom);
+            recyclerView.setPadding(0, insets.top, 0, insets.bottom);
 
             return WindowInsetsCompat.CONSUMED;
         });

@@ -1,25 +1,27 @@
 package com.lijukay.quotesAltDesign.item;
 
 public class QuoteItem {
-    private final String AUTHOR;
-    private final String QUOTE;
-    private final String SOURCE;
+    private final String author;
+    private final String quote;
+    private final String source;
 
 
     public QuoteItem(String author, String quote, String source) {
-        AUTHOR = author;
-        QUOTE = quote;
-        SOURCE = source;
+        this.author = author;
+        this.quote = quote;
+        this.source = source;
     }
 
     public String getAuthor() {
-        return AUTHOR;
+        return author;
     }
 
     public String getQuote() {
-        return QUOTE;
+        return quote;
     }
 
-    public String getSource(){return SOURCE;}
+    public String getSource() {
+        return source;
+    }
 
 }

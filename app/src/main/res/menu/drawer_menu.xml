@@ -11,7 +11,7 @@
         android:checkable="true"
         app:showAsAction="ifRoom"
         android:checked="true"
-        android:icon="@drawable/ic_home"/>
+        android:icon="@drawable/ic_home" />
 
     <item
         android:id="@+id/qwotable_menu_list"
@@ -23,20 +23,20 @@
                 android:title="@string/quotes_item"
                 android:icon="@drawable/ic_quote"
                 android:checkable="true"
-                app:showAsAction="ifRoom"/>
+                app:showAsAction="ifRoom" />
 
             <item
                 android:id="@+id/wisdom_item"
                 android:title="@string/wisdom_item"
                 android:icon="@drawable/ic_wisdom"
                 android:checkable="true"
-                app:showAsAction="ifRoom"/>
+                app:showAsAction="ifRoom" />
             <item
                 android:id="@+id/information_item"
                 android:title="@string/information_title"
                 android:icon="@drawable/ic_info"
                 android:checkable="true"
-                app:showAsAction="ifRoom"/>
+                app:showAsAction="ifRoom" />
 
         </menu>
     </item>
@@ -51,7 +51,7 @@
                 android:title="@string/by_dwyl"
                 android:icon="@drawable/ic_add_own"
                 android:checkable="true"
-                app:showAsAction="ifRoom"/>
+                app:showAsAction="ifRoom" />
         </menu>
     </item>
 
@@ -66,13 +66,13 @@
                 android:title="@string/add_own_quote"
                 android:icon="@drawable/ic_add_own"
                 android:checkable="true"
-                app:showAsAction="ifRoom"/>
+                app:showAsAction="ifRoom" />
             <item
                 android:id="@+id/favorite_item"
                 android:title="Favorites"
                 android:icon="@drawable/favorite_no"
                 android:checkable="true"
-                app:showAsAction="ifRoom"/>
+                app:showAsAction="ifRoom" />
 
         </menu>
     </item>

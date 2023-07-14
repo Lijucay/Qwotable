@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:id="@+id/add_own_quotes_rv"/>
+        android:id="@+id/add_own_quotes_rv" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="wrap_content"
@@ -20,8 +20,7 @@
         android:text="@string/new_qwotable"
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_gravity="bottom|end"
-        />
+        android:layout_gravity="bottom|end" />
 
     <LinearLayout
         android:padding="16dp"
@@ -37,8 +36,7 @@
             android:layout_height="300dp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/no_data"
-            />
+            app:lottie_rawRes="@raw/no_data" />
 
         <TextView
             android:id="@+id/titleError"
@@ -47,14 +45,14 @@
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             android:textColor="?attr/colorOnPrimaryContainer"
             android:gravity="center"
-            android:text="@string/you_have_no_qwotable_saved_here"/>
+            android:text="@string/you_have_no_qwotable_saved_here" />
 
         <TextView
             android:id="@+id/messageError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/tap_on_new_qwotable_to_create_a_new_qwotable_m"/>
+            android:text="@string/tap_on_new_qwotable_to_create_a_new_qwotable_m" />
 
 
     </LinearLayout>

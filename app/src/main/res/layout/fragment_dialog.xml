@@ -8,47 +8,45 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp">
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_margin="8dp"
-        android:id="@+id/qwotable_tf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/app_name">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_margin="8dp"
+            android:id="@+id/qwotable_tf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:hint="@string/app_name">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_margin="8dp"
-        android:id="@+id/author_tf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/author_hint">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_margin="8dp"
+            android:id="@+id/author_tf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:hint="@string/author_hint">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_margin="8dp"
-        android:id="@+id/found_in_tf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/found_in_hint">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_margin="8dp"
+            android:id="@+id/found_in_tf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:hint="@string/found_in_hint">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 

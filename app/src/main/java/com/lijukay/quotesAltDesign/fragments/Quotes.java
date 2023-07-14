@@ -27,29 +27,22 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.Cache;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
-import com.lijukay.quotesAltDesign.Database.FavoriteDatabaseHelper;
 import com.lijukay.quotesAltDesign.R;
-import com.lijukay.quotesAltDesign.activities.MainActivity;
 import com.lijukay.quotesAltDesign.activities.Person;
 import com.lijukay.quotesAltDesign.adapter.QuotesAdapter;
+import com.lijukay.quotesAltDesign.database.FavoriteDatabaseHelper;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
 import com.lijukay.quotesAltDesign.item.QuoteItem;
 import com.lijukay.quotesAltDesign.util.InternetConnection;
 import com.lijukay.quotesAltDesign.util.QwotableQuotes;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
-public class quotes extends Fragment implements RecyclerViewInterface, QwotableQuotes.QuotesFetchListener {
+public class Quotes extends Fragment implements RecyclerViewInterface, QwotableQuotes.QuotesFetchListener {
 
     private RecyclerView recyclerView;
     private QuotesAdapter adapter;
@@ -84,7 +77,7 @@ public class quotes extends Fragment implements RecyclerViewInterface, QwotableQ
         recyclerView = v.findViewById(R.id.quotesRV);
         recyclerView.setHasFixedSize(true);
         boolean tablet = getResources().getBoolean(R.bool.isTablet);
-        if (tablet){
+        if (tablet) {
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext().getApplicationContext()));
@@ -117,13 +110,14 @@ public class quotes extends Fragment implements RecyclerViewInterface, QwotableQ
         if (!tablet) ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            recyclerView.setPadding(0,0,0,insets.bottom);
+            recyclerView.setPadding(0, 0, 0, insets.bottom);
 
             return WindowInsetsCompat.CONSUMED;
-        }); else ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+        });
+        else ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            recyclerView.setPadding(0,insets.top,0,insets.bottom);
+            recyclerView.setPadding(0, insets.top, 0, insets.bottom);
 
             return WindowInsetsCompat.CONSUMED;
         });
@@ -194,20 +188,24 @@ public class quotes extends Fragment implements RecyclerViewInterface, QwotableQ
                     intent.putExtra("Activity", "Quotes");
                 }
                 break;
-            } case "Found in": {
+            }
+            case "Found in": {
                 if (items != null && !items.isEmpty()) {
                     Intent intent = new Intent(requireContext(), Person.class);
                     intent.putExtra("author", items.get(position).getSource());
                     intent.putExtra("type", "found in");
                     intent.putExtra("Activity", "Quotes");
-                    startActivity(intent);                }
+                    startActivity(intent);
+                }
                 break;
-            } case "copy": {
+            }
+            case "copy": {
                 if (items != null && !items.isEmpty()) {
                     copyText(items.get(position).getQuote() + "\n\n~ " + items.get(position).getAuthor());
                 }
                 break;
-            } case "favorite": {
+            }
+            case "favorite": {
                 if (items != null && !items.isEmpty()) {
                     String quote = items.get(position).getQuote();
                     try (FavoriteDatabaseHelper fdb = new FavoriteDatabaseHelper(requireContext())) {
@@ -224,7 +222,6 @@ public class quotes extends Fragment implements RecyclerViewInterface, QwotableQ
             }
         }
     }
-
 
 
     private void copyText(String quote) {

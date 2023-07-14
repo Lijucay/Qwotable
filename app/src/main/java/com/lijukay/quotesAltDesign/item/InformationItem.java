@@ -1,23 +1,25 @@
 package com.lijukay.quotesAltDesign.item;
 
 public class InformationItem {
-    private final String TITLE;
-    private final String MESSAGE;
-    private final String DATE;
+    private final String title;
+    private final String message;
+    private final String date;
 
-    public InformationItem(String title, String message, String date){
-        TITLE = title;
-        MESSAGE = message;
-        DATE = date;
+    public InformationItem(String title, String message, String date) {
+        this.title = title;
+        this.message = message;
+        this.date = date;
     }
 
-    public String getTITLE(){
-        return TITLE;
+    public String getTitle() {
+        return title;
     }
-    public String getMessage(){
-        return MESSAGE;
+
+    public String getMessage() {
+        return message;
     }
-    public String getDate(){
-        return DATE;
+
+    public String getDate() {
+        return date;
     }
 }
