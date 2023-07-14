@@ -24,7 +24,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
-import com.lijukay.quotesAltDesign.Database.MyDatabaseHelper;
+import com.lijukay.quotesAltDesign.database.MyDatabaseHelper;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.adapter.OwnQwotableAdapter;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;

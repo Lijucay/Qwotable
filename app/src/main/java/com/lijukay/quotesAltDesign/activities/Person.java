@@ -39,10 +39,10 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.elevation.SurfaceColors;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.adapter.QuotesAdapter;
-import com.lijukay.quotesAltDesign.adapter.wisdomAdapter;
+import com.lijukay.quotesAltDesign.adapter.WisdomAdapter;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
 import com.lijukay.quotesAltDesign.item.QuoteItem;
-import com.lijukay.quotesAltDesign.item.wisdomItem;
+import com.lijukay.quotesAltDesign.item.WisdomItem;
 import com.lijukay.quotesAltDesign.service.InternetService;
 
 import org.json.JSONArray;
@@ -56,8 +56,8 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
     private String authorP;
     private RecyclerView recyclerView;
     private ArrayList<QuoteItem> mPQItem;
-    private ArrayList<wisdomItem> items;
-    private wisdomAdapter adapter;
+    private ArrayList<WisdomItem> items;
+    private WisdomAdapter adapter;
     private QuotesAdapter adapterAll;
     private RequestQueue requestQueue;
     private String pQuotes, activity, type2;
@@ -278,10 +278,10 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                                 String found_in = object.getString("found in");
                                 String title = object.getString("title");
 
-                                items.add(new wisdomItem(author, quote, found_in, title));
+                                items.add(new WisdomItem(author, quote, found_in, title));
                             }
 
-                            adapter = new wisdomAdapter(this, items, this);
+                            adapter = new WisdomAdapter(this, items, this);
                             recyclerView.setAdapter(adapter); //I set the adapter of the RecyclerView to Adapter, that way I don't need to create an extra Adapter for Person.
                         } catch (JSONException e) {
                             swipeRefreshLayout.setVisibility(View.GONE);
@@ -312,10 +312,10 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                                 String found_in = object.getString("found in");
                                 String title = object.getString("title");
 
-                                items.add(new wisdomItem(author, quote, found_in, title));
+                                items.add(new WisdomItem(author, quote, found_in, title));
                             }
 
-                            adapter = new wisdomAdapter(this, items, this);
+                            adapter = new WisdomAdapter(this, items, this);
                             recyclerView.setAdapter(adapter); //I set the adapter of the RecyclerView to Adapter, that way I don't need to create an extra Adapter for Person.
                         } catch (JSONException e) {
                             swipeRefreshLayout.setVisibility(View.GONE);

@@ -19,10 +19,10 @@ import com.lijukay.quotesAltDesign.service.InternetService;
 
 import java.util.Locale;
 
-public class home extends Fragment {
+public class Home extends Fragment {
 
-    View v;
-    SharedPreferences languageSharedPreference;
+    private View v;
+    private SharedPreferences languageSharedPreference;
     boolean tablet;
 
     @Override

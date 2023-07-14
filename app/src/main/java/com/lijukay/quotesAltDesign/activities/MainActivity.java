@@ -26,11 +26,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.fragments.AddOwnQuotes;
 import com.lijukay.quotesAltDesign.fragments.Information;
-import com.lijukay.quotesAltDesign.fragments.dwyl_quotes;
+import com.lijukay.quotesAltDesign.fragments.DWYLQuotes;
 import com.lijukay.quotesAltDesign.fragments.Favorites;
-import com.lijukay.quotesAltDesign.fragments.home;
-import com.lijukay.quotesAltDesign.fragments.quotes;
-import com.lijukay.quotesAltDesign.fragments.wisdom;
+import com.lijukay.quotesAltDesign.fragments.Home;
+import com.lijukay.quotesAltDesign.fragments.Quotes;
+import com.lijukay.quotesAltDesign.fragments.Wisdom;
 import com.lijukay.quotesAltDesign.service.InternetService;
 
 import java.util.Locale;
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
         navigationView.setCheckedItem(R.id.home_item);
 
-        getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new home()).commit();
+        getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new Home()).commit();
 
         navigationView.setNavigationItemSelectedListener(item -> {
             if(!tablet){
@@ -125,17 +125,17 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()){
                 case R.id.home_item:
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new home()).commit();
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new Home()).commit();
                     navigationView.setCheckedItem(R.id.home_item);
                     if(!tablet) materialToolbar.setTitle(getString(R.string.app_name));
                     break;
                 case R.id.quote_item:
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new quotes()).commit();
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new Quotes()).commit();
                     navigationView.setCheckedItem(R.id.quote_item);
                     if(!tablet) materialToolbar.setTitle(getString(R.string.quotes_item));
                     break;
                 case R.id.wisdom_item:
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new wisdom()).commit();
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new Wisdom()).commit();
                     navigationView.setCheckedItem(R.id.wisdom_item);
                     if(!tablet) materialToolbar.setTitle(R.string.wisdom_item);
                     break;
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                     if(!tablet) materialToolbar.setTitle("My Quotes");
                     break;
                 case R.id.dwyl_quotes_item:
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new dwyl_quotes()).commit();
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(rikka.core.R.anim.fade_in, rikka.core.R.anim.fade_out).replace(R.id.fragment_container, new DWYLQuotes()).commit();
                     navigationView.setCheckedItem(R.id.dwyl_quotes_item);
                     if(!tablet) materialToolbar.setTitle(getString(R.string.by_dwyl));
                     break;

@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class License extends AppCompatActivity implements RecyclerViewInterface {
 
-    String[] links;
+    private String[] links;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

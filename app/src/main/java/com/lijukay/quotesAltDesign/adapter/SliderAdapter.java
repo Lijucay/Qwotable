@@ -16,11 +16,11 @@ import com.lijukay.quotesAltDesign.R;
 
 public class SliderAdapter extends PagerAdapter {
 
-    private final Context CONTEXT;
+    private final Context context;
 
 
     public SliderAdapter(Context context){
-        CONTEXT = context;
+        this.context = context;
     }
 
     public int[] slide_image = {
@@ -89,7 +89,7 @@ public class SliderAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
-        LayoutInflater layoutInflater = (LayoutInflater) CONTEXT.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = layoutInflater.inflate(R.layout.pages, container, false);
 

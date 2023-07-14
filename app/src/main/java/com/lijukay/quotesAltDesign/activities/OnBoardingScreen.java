@@ -30,6 +30,56 @@ public class OnBoardingScreen extends AppCompatActivity {
     private int currentPage;
     private SharedPreferences firstStart;
 
+    private ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+        @Override
+        public void onPageSelected(int position) {
+
+            addDotsIndicator(position);
+            currentPage = position;
+
+            if (position == 0){
+                next.setEnabled(true);
+                previous.setEnabled(false);
+                previous.setVisibility(View.INVISIBLE);
+                next.setText(getString(R.string.next_button));
+                next.setOnClickListener(v -> onBoarding.setCurrentItem(currentPage + 1));
+            } else if (position == mDots.length -1){
+                next.setEnabled(true);
+                previous.setEnabled(true);
+                previous.setVisibility(View.VISIBLE);
+                next.setText(getString(R.string.start_button));
+
+                SharedPreferences language = getSharedPreferences("Language", 0);
+                SharedPreferences.Editor languageEditor = language.edit();
+
+                languageEditor.putString("language", Locale.getDefault().getLanguage()).apply();
+
+                SharedPreferences.Editor editorFirst = firstStart.edit();
+                editorFirst.putBoolean("FirstTime?", false);
+                editorFirst.apply();
+
+                next.setOnClickListener(v -> startActivity(new Intent(OnBoardingScreen.this, MainActivity.class)));
+            } else {
+                next.setEnabled(true);
+                previous.setEnabled(true);
+                previous.setVisibility(View.VISIBLE);
+                next.setText(getString(R.string.next_button));
+                next.setOnClickListener(v -> onBoarding.setCurrentItem(currentPage + 1));
+                previous.setOnClickListener(v -> onBoarding.setCurrentItem(currentPage - 1));
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
+
+
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,52 +148,5 @@ public class OnBoardingScreen extends AppCompatActivity {
         linearLayout.setVisibility(View.GONE);
     }
 
-    ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
 
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-
-        @Override
-        public void onPageSelected(int position) {
-
-            addDotsIndicator(position);
-            currentPage = position;
-
-            if (position == 0){
-                next.setEnabled(true);
-                previous.setEnabled(false);
-                previous.setVisibility(View.INVISIBLE);
-                next.setText(getString(R.string.next_button));
-                next.setOnClickListener(v -> onBoarding.setCurrentItem(currentPage + 1));
-            } else if (position == mDots.length -1){
-                next.setEnabled(true);
-                previous.setEnabled(true);
-                previous.setVisibility(View.VISIBLE);
-                next.setText(getString(R.string.start_button));
-
-                SharedPreferences language = getSharedPreferences("Language", 0);
-                SharedPreferences.Editor languageEditor = language.edit();
-
-                languageEditor.putString("language", Locale.getDefault().getLanguage()).apply();
-
-                SharedPreferences.Editor editorFirst = firstStart.edit();
-                editorFirst.putBoolean("FirstTime?", false);
-                editorFirst.apply();
-
-                next.setOnClickListener(v -> startActivity(new Intent(OnBoardingScreen.this, MainActivity.class)));
-            } else {
-                next.setEnabled(true);
-                previous.setEnabled(true);
-                previous.setVisibility(View.VISIBLE);
-                next.setText(getString(R.string.next_button));
-                next.setOnClickListener(v -> onBoarding.setCurrentItem(currentPage + 1));
-                previous.setOnClickListener(v -> onBoarding.setCurrentItem(currentPage - 1));
-            }
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-
-        }
-    };
 }

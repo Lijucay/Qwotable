@@ -22,34 +22,34 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.card.MaterialCardView;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
-import com.lijukay.quotesAltDesign.item.wisdomItem;
+import com.lijukay.quotesAltDesign.item.WisdomItem;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class wisdomAdapter extends RecyclerView.Adapter<wisdomAdapter.wisdomViewHolder> {
+public class WisdomAdapter extends RecyclerView.Adapter<WisdomAdapter.wisdomViewHolder> {
 
-    private final Context CONTEXT;
-    private final ArrayList<wisdomItem> ITEM;
-    private final RecyclerViewInterface RECYCLERVIEW_INTERFACE;
+    private final Context context;
+    private final ArrayList<WisdomItem> items;
+    private final RecyclerViewInterface recyclerViewInterface;
 
-    public wisdomAdapter (Context context, ArrayList<wisdomItem> item, RecyclerViewInterface recyclerViewInterface){
-        CONTEXT = context;
-        ITEM = item;
-        RECYCLERVIEW_INTERFACE = recyclerViewInterface;
+    public WisdomAdapter(Context context, ArrayList<WisdomItem> item, RecyclerViewInterface recyclerViewInterface){
+        this.context = context;
+        items = item;
+        this.recyclerViewInterface = recyclerViewInterface;
 
     }
 
     @NonNull
     @Override
-    public wisdomAdapter.wisdomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(CONTEXT).inflate(R.layout.card_wisdom, parent, false);
-        return new wisdomAdapter.wisdomViewHolder(v, RECYCLERVIEW_INTERFACE);
+    public WisdomAdapter.wisdomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.card_wisdom, parent, false);
+        return new WisdomAdapter.wisdomViewHolder(v, recyclerViewInterface);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull wisdomAdapter.wisdomViewHolder holder, int position) {
-        wisdomItem currentItem = ITEM.get(position);
+    public void onBindViewHolder(@NonNull WisdomAdapter.wisdomViewHolder holder, int position) {
+        WisdomItem currentItem = items.get(position);
 
         String wisdom = currentItem.getWisdom();
         String author = currentItem.getAuthor();
@@ -65,7 +65,7 @@ public class wisdomAdapter extends RecyclerView.Adapter<wisdomAdapter.wisdomView
 
     @Override
     public int getItemCount() {
-        return ITEM.size();
+        return items.size();
     }
 
     public static class wisdomViewHolder extends RecyclerView.ViewHolder{

@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-import com.lijukay.quotesAltDesign.Database.FavoriteDatabaseHelper;
+import com.lijukay.quotesAltDesign.database.FavoriteDatabaseHelper;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
 import com.lijukay.quotesAltDesign.item.QuoteItem;
@@ -30,26 +30,26 @@ import java.util.Calendar;
 
 public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.ViewHolder> {
 
-    private final Context CONTEXT;
-    private final ArrayList<QuoteItem> ITEMS;
-    private final RecyclerViewInterface RECYCLERVIEW_INTERFACE;
+    private final Context context;
+    private final ArrayList<QuoteItem> items;
+    private final RecyclerViewInterface recyclerViewInterface;
 
     public QuotesAdapter(Context context, ArrayList<QuoteItem> items_list, RecyclerViewInterface recyclerViewInterface){
-        CONTEXT = context;
-        ITEMS = items_list;
-        RECYCLERVIEW_INTERFACE = recyclerViewInterface;
+        this.context = context;
+        items = items_list;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(CONTEXT).inflate(R.layout.card_quotes, parent, false);
-        return new ViewHolder(v, RECYCLERVIEW_INTERFACE);
+        View v = LayoutInflater.from(context).inflate(R.layout.card_quotes, parent, false);
+        return new ViewHolder(v, recyclerViewInterface);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        QuoteItem currentItem = ITEMS.get(position);
+        QuoteItem currentItem = items.get(position);
 
         String quote = currentItem.getQuote();
         String author = currentItem.getAuthor();
@@ -61,7 +61,7 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.ViewHolder
             holder.SOURCE.setVisibility(View.GONE);
         }
 
-        try (FavoriteDatabaseHelper fdb = new FavoriteDatabaseHelper(CONTEXT)) {
+        try (FavoriteDatabaseHelper fdb = new FavoriteDatabaseHelper(context)) {
             MaterialButton fb = holder.FAVORITE;
             if (fdb.isInDB(quote)) {
                 fb.setIconResource(R.drawable.favorite_yes);
@@ -78,7 +78,7 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return ITEMS.size();
+        return items.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

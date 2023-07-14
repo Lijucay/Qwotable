@@ -36,9 +36,9 @@ import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.activities.MainActivity;
 import com.lijukay.quotesAltDesign.activities.Person;
-import com.lijukay.quotesAltDesign.adapter.wisdomAdapter;
+import com.lijukay.quotesAltDesign.adapter.WisdomAdapter;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
-import com.lijukay.quotesAltDesign.item.wisdomItem;
+import com.lijukay.quotesAltDesign.item.WisdomItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,11 +47,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class wisdom extends Fragment implements RecyclerViewInterface {
+public class Wisdom extends Fragment implements RecyclerViewInterface {
 
     private RecyclerView recyclerView;
-    private wisdomAdapter adapter;
-    private ArrayList<wisdomItem> items;
+    private WisdomAdapter adapter;
+    private ArrayList<WisdomItem> items;
     private RequestQueue requestQueue;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SharedPreferences language;
@@ -172,11 +172,11 @@ public class wisdom extends Fragment implements RecyclerViewInterface {
                             String foundIn = object.getString("found in");
                             String title = object.getString("title");
 
-                            items.add(new wisdomItem(author, wisdom, foundIn, title));
+                            items.add(new WisdomItem(author, wisdom, foundIn, title));
 
                         }
 
-                        adapter = new wisdomAdapter(getActivity(), items, this);
+                        adapter = new WisdomAdapter(getActivity(), items, this);
                         recyclerView.setAdapter(adapter);
                         progressIndicator.setVisibility(View.GONE);
                     } catch (JSONException e) {

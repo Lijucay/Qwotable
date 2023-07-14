@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.android.material.button.MaterialButton;
-import com.lijukay.quotesAltDesign.Database.FavoriteDatabaseHelper;
+import com.lijukay.quotesAltDesign.database.FavoriteDatabaseHelper;
 import com.lijukay.quotesAltDesign.R;
 import com.lijukay.quotesAltDesign.adapter.QuotesAdapter;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;

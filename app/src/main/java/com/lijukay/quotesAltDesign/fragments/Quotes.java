@@ -27,15 +27,12 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.Cache;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
-import com.lijukay.quotesAltDesign.Database.FavoriteDatabaseHelper;
+import com.lijukay.quotesAltDesign.database.FavoriteDatabaseHelper;
 import com.lijukay.quotesAltDesign.R;
-import com.lijukay.quotesAltDesign.activities.MainActivity;
 import com.lijukay.quotesAltDesign.activities.Person;
 import com.lijukay.quotesAltDesign.adapter.QuotesAdapter;
 import com.lijukay.quotesAltDesign.interfaces.RecyclerViewInterface;
@@ -43,13 +40,9 @@ import com.lijukay.quotesAltDesign.item.QuoteItem;
 import com.lijukay.quotesAltDesign.util.InternetConnection;
 import com.lijukay.quotesAltDesign.util.QwotableQuotes;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
-public class quotes extends Fragment implements RecyclerViewInterface, QwotableQuotes.QuotesFetchListener {
+public class Quotes extends Fragment implements RecyclerViewInterface, QwotableQuotes.QuotesFetchListener {
 
     private RecyclerView recyclerView;
     private QuotesAdapter adapter;

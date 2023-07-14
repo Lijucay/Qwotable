@@ -29,27 +29,27 @@ import java.util.Calendar;
 
 public class OwnQwotableAdapter extends RecyclerView.Adapter<OwnQwotableAdapter.OwnViewHolder> {
 
-    private final Context CONTEXT;
-    private final ArrayList<String> ID;
-    private final ArrayList<String> QWOTABLE;
-    private final ArrayList<String> AUTHOR;
-    private final ArrayList<String> SOURCE;
+    private final Context context;
+    private final ArrayList<String> id;
+    private final ArrayList<String> qwotable;
+    private final ArrayList<String> author;
+    private final ArrayList<String> source;
 
     private final RecyclerViewInterface RECYCLERVIEW_INTERFACE;
 
     public OwnQwotableAdapter(Context context, ArrayList<String> id, ArrayList<String> qwotable, ArrayList<String> author, ArrayList<String> source, RecyclerViewInterface recyclerViewInterface) {
-        CONTEXT = context;
-        ID = id;
-        QWOTABLE = qwotable;
-        AUTHOR = author;
-        SOURCE = source;
+        this.context = context;
+        this.id = id;
+        this.qwotable = qwotable;
+        this.author = author;
+        this.source = source;
         RECYCLERVIEW_INTERFACE = recyclerViewInterface;
     }
 
     @NonNull
     @Override
     public OwnViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
-        LayoutInflater inflater = LayoutInflater.from(CONTEXT);
+        LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.card_quotes, parent, false);
         return new OwnViewHolder(view, RECYCLERVIEW_INTERFACE);
     }
@@ -57,11 +57,11 @@ public class OwnQwotableAdapter extends RecyclerView.Adapter<OwnQwotableAdapter.
     @Override
     public void onBindViewHolder(@NonNull OwnViewHolder holder, @SuppressLint("RecyclerView") int position){
 
-        holder.QWOTABLE.setText(String.valueOf(QWOTABLE.get(position)));
-        holder.AUTHOR.setText(String.valueOf(AUTHOR.get(position)));
-        holder.SOURCE.setText(String.valueOf(SOURCE.get(position)));
+        holder.QWOTABLE.setText(String.valueOf(qwotable.get(position)));
+        holder.AUTHOR.setText(String.valueOf(author.get(position)));
+        holder.SOURCE.setText(String.valueOf(source.get(position)));
 
-        if (SOURCE.get(position).equals("")){
+        if (source.get(position).equals("")){
             holder.SOURCE.setVisibility(View.GONE);
         } else {
             holder.SOURCE.setVisibility(View.VISIBLE);
@@ -72,7 +72,7 @@ public class OwnQwotableAdapter extends RecyclerView.Adapter<OwnQwotableAdapter.
 
     @Override
     public int getItemCount(){
-        return ID.size();
+        return id.size();
     }
 
     public static class OwnViewHolder extends RecyclerView.ViewHolder{

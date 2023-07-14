@@ -38,7 +38,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class dwyl_quotes extends Fragment implements RecyclerViewInterface {
+public class DWYLQuotes extends Fragment implements RecyclerViewInterface {
 
     private View layout;
     private RecyclerView recyclerView;

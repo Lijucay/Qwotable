@@ -1,4 +1,4 @@
-package com.lijukay.quotesAltDesign.Database;
+package com.lijukay.quotesAltDesign.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,20 +15,18 @@ import androidx.annotation.Nullable;
 
 import com.lijukay.quotesAltDesign.R;
 
-public class MyDatabaseHelper extends SQLiteOpenHelper {
-
+public class FavoriteDatabaseHelper extends SQLiteOpenHelper {
     private final Context context;
-    private static final String DATABASE_NAME = "OwnQwotable.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "FavoriteQwotable.db";
+    private static final int DATABASE_VERSION = 2;
 
-    private static final String TABLE_NAME = "my_qwotable";
-    private static final String COLUMN_ID = "_id";
+    private static final String TABLE_NAME = "favorite_qwotable";
     private static final String COLUMN_QWOTABLE = "qwotable";
     private static final String COLUMN_AUTHOR = "qwotable_author";
-    private static final String COLUMN_FOUNDIN = "qwotable_foundin";
+    private static final String COLUMN_FOUND_IN = "qwotable_foundin";
 
 
-    public MyDatabaseHelper(@Nullable Context context) {
+    public FavoriteDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
@@ -37,10 +34,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME +
-                " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_QWOTABLE + " TEXT, " +
+                " (" + COLUMN_QWOTABLE + " TEXT PRIMARY KEY, " +
                 COLUMN_AUTHOR + " TEXT, " +
-                COLUMN_FOUNDIN + " TEXT);";
+                COLUMN_FOUND_IN + " TEXT);";
         db.execSQL(query);
     }
 
@@ -55,7 +51,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_QWOTABLE, qwotable);
         cv.put(COLUMN_AUTHOR, author);
-        cv.put(COLUMN_FOUNDIN, found_in);
+        cv.put(COLUMN_FOUND_IN, found_in);
         long result = db.insert(TABLE_NAME, null, cv);
 
 
@@ -64,9 +60,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         TextView message = layout.findViewById(R.id.message);
 
         if (result == -1){
-            //Failed
-            //Toast.makeText(context, R.string.fail, Toast.LENGTH_SHORT).show();
-            message.setText(R.string.fail);
+            message.setText(R.string.favorite_fail_add);
             assert context != null;
             Toast toast = new Toast(context.getApplicationContext());
             toast.setGravity(Gravity.BOTTOM, 0, 100);
@@ -74,8 +68,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             toast.setView(layout);
             toast.show();
         } else {
-            //Toast.makeText(context, R.string.Success, Toast.LENGTH_SHORT).show();
-            message.setText(R.string.Success);
+            message.setText(R.string.favorite_successful_add);
             assert context != null;
             Toast toast = new Toast(context.getApplicationContext());
             toast.setGravity(Gravity.BOTTOM, 0, 100);
@@ -96,22 +89,17 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void updateData(String row_id, String qwotable, String author, String found_in){
+    public void deleteOneRow(String quote){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_QWOTABLE, qwotable);
-        values.put(COLUMN_AUTHOR, author);
-        values.put(COLUMN_FOUNDIN, found_in);
 
-        long result = db.update(TABLE_NAME, values, "_id=?", new String[]{row_id});
+        long result = db.delete(TABLE_NAME, "qwotable=?", new String[]{quote});
 
         View layout = LayoutInflater.from(context).inflate(R.layout.toast_view, null);
 
         TextView message = layout.findViewById(R.id.message);
 
-        if (result == -1){ //There is no data
-            //Toast.makeText(context, R.string.no_data, Toast.LENGTH_SHORT).show();
-            message.setText(R.string.no_data);
+        if (result == -1){
+            message.setText(R.string.favorite_fail_delete);
             assert context != null;
             Toast toast = new Toast(context.getApplicationContext());
             toast.setGravity(Gravity.BOTTOM, 0, 100);
@@ -119,8 +107,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             toast.setView(layout);
             toast.show();
         } else {
-            //Toast.makeText(context, R.string.Success, Toast.LENGTH_SHORT).show();
-            message.setText(R.string.Success);
+            message.setText(R.string.favorite_successful_delete);
             assert context != null;
             Toast toast = new Toast(context.getApplicationContext());
             toast.setGravity(Gravity.BOTTOM, 0, 100);
@@ -130,32 +117,17 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void deleteOneRow(String row_id){
-        SQLiteDatabase db = this.getWritableDatabase();
+    public boolean isInDB(String qwotable) {
+        SQLiteDatabase fdb = this.getReadableDatabase();
 
-        long result = db.delete(TABLE_NAME, "_id=?", new String[]{row_id});
+        String[] columns = new String[] {
+                COLUMN_QWOTABLE,
+                COLUMN_AUTHOR,
+                COLUMN_FOUND_IN
+        };
 
-        View layout = LayoutInflater.from(context).inflate(R.layout.toast_view, null);
-
-        TextView message = layout.findViewById(R.id.message);
-
-        if (result == -1){
-            message.setText(R.string.fail);
-            assert context != null;
-            Toast toast = new Toast(context.getApplicationContext());
-            toast.setGravity(Gravity.BOTTOM, 0, 100);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.setView(layout);
-            toast.show();
-        } else {
-            //Toast.makeText(context, R.string.Success, Toast.LENGTH_SHORT).show();
-            message.setText(R.string.Success);
-            assert context != null;
-            Toast toast = new Toast(context.getApplicationContext());
-            toast.setGravity(Gravity.BOTTOM, 0, 100);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.setView(layout);
-            toast.show();
+        try (Cursor cursor = fdb.query(TABLE_NAME, columns, COLUMN_QWOTABLE + " =?", new String[]{qwotable}, null, null, null)) {
+            return cursor.getCount() != 0;
         }
     }
 }

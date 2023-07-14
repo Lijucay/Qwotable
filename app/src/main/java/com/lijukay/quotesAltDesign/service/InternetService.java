@@ -16,6 +16,8 @@ import com.lijukay.quotesAltDesign.activities.Person;
 
 public class InternetService extends Service {
 
+    private final Handler handler = new Handler();
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -40,9 +42,6 @@ public class InternetService extends Service {
         return ni != null && ni.isConnectedOrConnecting();
     }
 
-
-
-    final Handler handler = new Handler();
     private final Runnable periodicUpdate = new Runnable() {
         @Override
         public void run() {
