@@ -20,6 +20,8 @@ public class QuoteItem {
         return quote;
     }
 
-    public String getSource(){return source;}
+    public String getSource() {
+        return source;
+    }
 
 }

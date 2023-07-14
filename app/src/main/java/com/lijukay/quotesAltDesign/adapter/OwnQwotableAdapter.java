@@ -48,20 +48,20 @@ public class OwnQwotableAdapter extends RecyclerView.Adapter<OwnQwotableAdapter.
 
     @NonNull
     @Override
-    public OwnViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+    public OwnViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.card_quotes, parent, false);
         return new OwnViewHolder(view, RECYCLERVIEW_INTERFACE);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OwnViewHolder holder, @SuppressLint("RecyclerView") int position){
+    public void onBindViewHolder(@NonNull OwnViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         holder.QWOTABLE.setText(String.valueOf(qwotable.get(position)));
         holder.AUTHOR.setText(String.valueOf(author.get(position)));
         holder.SOURCE.setText(String.valueOf(source.get(position)));
 
-        if (source.get(position).equals("")){
+        if (source.get(position).equals("")) {
             holder.SOURCE.setVisibility(View.GONE);
         } else {
             holder.SOURCE.setVisibility(View.VISIBLE);
@@ -71,11 +71,11 @@ public class OwnQwotableAdapter extends RecyclerView.Adapter<OwnQwotableAdapter.
 
 
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return id.size();
     }
 
-    public static class OwnViewHolder extends RecyclerView.ViewHolder{
+    public static class OwnViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView QWOTABLE;
         private final TextView AUTHOR;
@@ -83,7 +83,7 @@ public class OwnQwotableAdapter extends RecyclerView.Adapter<OwnQwotableAdapter.
         private final MaterialCardView ROOT_CARD;
         private final LinearLayout BUTTON_LAYOUT;
 
-        public OwnViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface){
+        public OwnViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
 
             QWOTABLE = itemView.findViewById(R.id.quote);
@@ -95,31 +95,30 @@ public class OwnQwotableAdapter extends RecyclerView.Adapter<OwnQwotableAdapter.
             BUTTON_LAYOUT = itemView.findViewById(R.id.buttonLayout);
 
 
-
             ROOT_CARD.setOnClickListener(view -> {
-                if (recyclerViewInterface != null){
+                if (recyclerViewInterface != null) {
                     int position = getAdapterPosition();
                     String type = "updateOrDelete";
 
-                    if (position != RecyclerView.NO_POSITION){
+                    if (position != RecyclerView.NO_POSITION) {
                         recyclerViewInterface.onItemClick(position, type, null);
                     }
                 }
             });
 
             copy.setOnClickListener(v -> {
-                if(recyclerViewInterface != null){
+                if (recyclerViewInterface != null) {
                     int position = getAdapterPosition();
                     String type = "copy";
 
-                    if (position != RecyclerView.NO_POSITION){
+                    if (position != RecyclerView.NO_POSITION) {
                         recyclerViewInterface.onItemClick(position, type, null);
                     }
                 }
             });
 
             share.setOnClickListener(v -> {
-                if(recyclerViewInterface != null){
+                if (recyclerViewInterface != null) {
 
                     shareM(ROOT_CARD, ROOT_CARD.getContext(), BUTTON_LAYOUT);
 
@@ -127,6 +126,7 @@ public class OwnQwotableAdapter extends RecyclerView.Adapter<OwnQwotableAdapter.
             });
 
         }
+
         public static void shareM(ViewGroup view, Context context, LinearLayout buttonLayout) {
 
             Calendar calendar = Calendar.getInstance(); //Get instance to create unique names for the pictures
@@ -140,7 +140,7 @@ public class OwnQwotableAdapter extends RecyclerView.Adapter<OwnQwotableAdapter.
             Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             Drawable bgDrawable = view.getBackground();
-            if (bgDrawable!=null) {
+            if (bgDrawable != null) {
                 //has background drawable, then draw it on the canvas
                 bgDrawable.draw(canvas);
             } else {
@@ -152,7 +152,7 @@ public class OwnQwotableAdapter extends RecyclerView.Adapter<OwnQwotableAdapter.
             String bitmapUri = MediaStore.Images.Media.insertImage(
                     context.getContentResolver(),
                     bitmap,
-                    "qwotable at " + hour + "_"+ minute + "_" + second,
+                    "qwotable at " + hour + "_" + minute + "_" + second,
                     "Qwotable made this"
             );
             Uri uri = Uri.parse(bitmapUri);
@@ -173,7 +173,6 @@ public class OwnQwotableAdapter extends RecyclerView.Adapter<OwnQwotableAdapter.
             bitmap.recycle();
             buttonLayout.setVisibility(View.VISIBLE);
         }
-
 
 
     }

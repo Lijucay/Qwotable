@@ -33,7 +33,8 @@ public class OnBoardingScreen extends AppCompatActivity {
     private ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
 
         @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
 
         @Override
         public void onPageSelected(int position) {
@@ -41,13 +42,13 @@ public class OnBoardingScreen extends AppCompatActivity {
             addDotsIndicator(position);
             currentPage = position;
 
-            if (position == 0){
+            if (position == 0) {
                 next.setEnabled(true);
                 previous.setEnabled(false);
                 previous.setVisibility(View.INVISIBLE);
                 next.setText(getString(R.string.next_button));
                 next.setOnClickListener(v -> onBoarding.setCurrentItem(currentPage + 1));
-            } else if (position == mDots.length -1){
+            } else if (position == mDots.length - 1) {
                 next.setEnabled(true);
                 previous.setEnabled(true);
                 previous.setVisibility(View.VISIBLE);
@@ -94,7 +95,7 @@ public class OnBoardingScreen extends AppCompatActivity {
         setContentView(R.layout.activity_on_boarding_screen);
 
         firstStart = getSharedPreferences("FirstStart", 0);
-        if (!firstStart.getBoolean("FirstTime?", true)){
+        if (!firstStart.getBoolean("FirstTime?", true)) {
             startActivity(new Intent(OnBoardingScreen.this, MainActivity.class));
         }
 
@@ -124,17 +125,16 @@ public class OnBoardingScreen extends AppCompatActivity {
 
         if (smallestWidth >= 600) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-        }
-        else if (smallestWidth < 600) {
+        } else if (smallestWidth < 600) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
     }
 
-    public void addDotsIndicator(int position){
+    public void addDotsIndicator(int position) {
         mDots = new TextView[7];
         linearLayout.removeAllViews();
 
-        for (int i = 0; i < mDots.length; i++){
+        for (int i = 0; i < mDots.length; i++) {
             mDots[i] = new TextView(this);
             mDots[i].setText(HtmlCompat.fromHtml("&#8226", HtmlCompat.FROM_HTML_MODE_LEGACY));
             mDots[i].setTextSize(35);
@@ -142,7 +142,7 @@ public class OnBoardingScreen extends AppCompatActivity {
             linearLayout.addView(mDots[i]);
         }
 
-        if (mDots.length > 0){
+        if (mDots.length > 0) {
             mDots[position].setTextColor(getResources().getColor(R.color.md_theme_dark_primaryContainer, getTheme()));
         }
         linearLayout.setVisibility(View.GONE);

@@ -23,7 +23,11 @@ public class WisdomItem {
         return wisdom;
     }
 
-    public String getSource(){return source;}
+    public String getSource() {
+        return source;
+    }
 
-    public String getTitle(){return title;}
+    public String getTitle() {
+        return title;
+    }
 }

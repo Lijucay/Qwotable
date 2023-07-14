@@ -1,10 +1,10 @@
 package com.lijukay.quotesAltDesign.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.splashscreen.SplashScreen;
-
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.splashscreen.SplashScreen;
 
 import com.lijukay.quotesAltDesign.R;
 

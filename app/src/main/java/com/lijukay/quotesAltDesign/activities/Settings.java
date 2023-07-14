@@ -53,10 +53,10 @@ public class Settings extends AppCompatActivity {
         config.setLocale(locale);
         resources.updateConfiguration(config, resources.getDisplayMetrics());
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             setTheme(R.style.AppTheme);
         } else {
-            switch (colorValue){
+            switch (colorValue) {
                 case "red":
                     setTheme(R.style.AppThemeRed);
                     break;
@@ -91,19 +91,22 @@ public class Settings extends AppCompatActivity {
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
 
-        if (!tablet) ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.settings), (v, windowInsets) -> {
-            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+        if (!tablet)
+            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.settings), (v, windowInsets) -> {
+                Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            v.findViewById(R.id.settings).setPadding(0,0,0,insets.bottom);
+                v.findViewById(R.id.settings).setPadding(0, 0, 0, insets.bottom);
 
-            return WindowInsetsCompat.CONSUMED;
-        }); else ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.settings), (v, windowInsets) -> {
-            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+                return WindowInsetsCompat.CONSUMED;
+            });
+        else
+            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.settings), (v, windowInsets) -> {
+                Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            v.findViewById(R.id.settings).setPadding(0, insets.top, 0, insets.bottom);
+                v.findViewById(R.id.settings).setPadding(0, insets.top, 0, insets.bottom);
 
-            return WindowInsetsCompat.CONSUMED;
-        });
+                return WindowInsetsCompat.CONSUMED;
+            });
 
         MaterialToolbar materialToolbar = findViewById(R.id.top_app_bar);
         setSupportActionBar(materialToolbar);
@@ -112,8 +115,7 @@ public class Settings extends AppCompatActivity {
 
         if (smallestWidth >= 600) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-        }
-        else if (smallestWidth < 600) {
+        } else if (smallestWidth < 600) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
@@ -155,7 +157,7 @@ public class Settings extends AppCompatActivity {
 
             CharSequence[] colors;
 
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R){
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
                 colors =
                         new CharSequence[]
                                 {
@@ -182,7 +184,7 @@ public class Settings extends AppCompatActivity {
             Preference color = findPreference("colors");
             assert color != null;
             String colorSummary;
-            switch (colorValue){
+            switch (colorValue) {
                 case "pink":
                     checkedColor = 1;
                     colorSummary = getString(R.string.color_pink);
@@ -196,7 +198,7 @@ public class Settings extends AppCompatActivity {
                     colorSummary = getString(R.string.color_red);
                     break;
                 default:
-                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R){
+                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
                         colorSummary = getString(R.string.color_default);
                     } else {
                         colorSummary = getString(R.string.color_dynamic);
@@ -206,7 +208,7 @@ public class Settings extends AppCompatActivity {
             color.setSummary(getString(R.string.color_preference_summary) + " " + colorSummary);
 
 
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 color.setVisible(false);
             } else {
                 color.setVisible(true);
@@ -215,7 +217,7 @@ public class Settings extends AppCompatActivity {
                     new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
                             .setTitle(getString(R.string.colors_preference_title))
                             .setSingleChoiceItems(colors, finalCheckedColor, (dialog, which) -> {
-                                switch (which){
+                                switch (which) {
                                     case 0:
                                         colorEditor.putString("color", "defaultOrDynamic");
                                         break;
@@ -261,7 +263,7 @@ public class Settings extends AppCompatActivity {
             });
 
 
-            switch (languageValue){
+            switch (languageValue) {
                 case "de":
                     checkedItem = 0;
                     break;
@@ -284,7 +286,7 @@ public class Settings extends AppCompatActivity {
                 new MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
                         .setTitle(getString(R.string.language_preference_title))
                         .setSingleChoiceItems(items, finalCheckedItem, (dialog, which) -> {
-                            switch (which){
+                            switch (which) {
                                 case 0:
                                     languageEditor.putString("language", "de");
                                     break;

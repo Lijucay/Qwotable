@@ -49,7 +49,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addQwotable(String qwotable, String author, String found_in){
+    public void addQwotable(String qwotable, String author, String found_in) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_QWOTABLE, qwotable);
@@ -62,7 +62,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         TextView message = layout.findViewById(R.id.message);
 
-        if (result == -1){
+        if (result == -1) {
             //Failed
             //Toast.makeText(context, R.string.fail, Toast.LENGTH_SHORT).show();
             message.setText(R.string.fail);
@@ -84,18 +84,18 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor readAllData(){
+    public Cursor readAllData() {
         String query = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
-        if (db != null){
+        if (db != null) {
             cursor = db.rawQuery(query, null);
         }
         return cursor;
     }
 
-    public void updateData(String row_id, String qwotable, String author, String found_in){
+    public void updateData(String row_id, String qwotable, String author, String found_in) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_QWOTABLE, qwotable);
@@ -108,7 +108,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         TextView message = layout.findViewById(R.id.message);
 
-        if (result == -1){ //There is no data
+        if (result == -1) { //There is no data
             //Toast.makeText(context, R.string.no_data, Toast.LENGTH_SHORT).show();
             message.setText(R.string.no_data);
             assert context != null;
@@ -129,7 +129,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void deleteOneRow(String row_id){
+    public void deleteOneRow(String row_id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         long result = db.delete(TABLE_NAME, "_id=?", new String[]{row_id});
@@ -138,7 +138,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         TextView message = layout.findViewById(R.id.message);
 
-        if (result == -1){
+        if (result == -1) {
             message.setText(R.string.fail);
             assert context != null;
             Toast toast = new Toast(context.getApplicationContext());

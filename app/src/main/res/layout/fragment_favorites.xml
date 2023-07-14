@@ -6,46 +6,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.Favorites">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/favoritesRV"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favoritesRV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false" />
+
+    <LinearLayout
+        android:padding="16dp"
+        android:id="@+id/no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottiNoData"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/no_favorites" />
+
+        <TextView
+            android:id="@+id/titleError"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"/>
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            android:textColor="?attr/colorOnPrimaryContainer"
+            android:gravity="center"
+            android:text="@string/no_favorites_title" />
 
-        <LinearLayout
-            android:padding="16dp"
-            android:id="@+id/no_data"
+        <TextView
+            android:id="@+id/messageError"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/lottiNoData"
-                    android:layout_width="300dp"
-                    android:layout_height="300dp"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/no_favorites"
-                    />
-
-                <TextView
-                    android:id="@+id/titleError"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    android:gravity="center"
-                    android:text="@string/no_favorites_title"/>
-
-                <TextView
-                    android:id="@+id/messageError"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/no_favorites_message"/>
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/no_favorites_message" />
 
 
-        </LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>

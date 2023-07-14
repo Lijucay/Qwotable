@@ -35,7 +35,7 @@ public class InternetService extends Service {
         return START_STICKY;
     }
 
-    public boolean isOnline(Context c){
+    public boolean isOnline(Context c) {
         ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
 
@@ -45,14 +45,14 @@ public class InternetService extends Service {
     private final Runnable periodicUpdate = new Runnable() {
         @Override
         public void run() {
-            handler.postDelayed(periodicUpdate, 1000 - SystemClock.elapsedRealtime()%1000);
+            handler.postDelayed(periodicUpdate, 1000 - SystemClock.elapsedRealtime() % 1000);
             Intent broadCastIntentMain = new Intent();
             broadCastIntentMain.setAction(MainActivity.BROAD_CAST_STRING_FOR_ACTION);
-            broadCastIntentMain.putExtra("online_status", ""+isOnline(InternetService.this));
+            broadCastIntentMain.putExtra("online_status", "" + isOnline(InternetService.this));
             sendBroadcast(broadCastIntentMain);
             Intent broadCastIntentPerson = new Intent();
             broadCastIntentPerson.setAction(Person.BROAD_CAST_STRING_FOR_ACTION);
-            broadCastIntentPerson.putExtra("online_status", ""+isOnline(InternetService.this));
+            broadCastIntentPerson.putExtra("online_status", "" + isOnline(InternetService.this));
             sendBroadcast(broadCastIntentPerson);
         }
     };

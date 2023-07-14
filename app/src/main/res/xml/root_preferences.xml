@@ -7,11 +7,11 @@
         <Preference
             android:title="@string/language_preference_title"
             android:icon="@drawable/ic_baseline_language_24"
-            android:key="language"/>
+            android:key="language" />
         <Preference
             android:title="@string/colors_preference_title"
             android:icon="@drawable/ic_baseline_colors_24"
-            android:key="colors"/>
+            android:key="colors" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/app_support_preference_category"
@@ -20,7 +20,7 @@
             android:title="@string/report_a_bug_preference_title"
             android:summary="@string/report_a_bug_preference_summary"
             android:icon="@drawable/ic_baseline_bug_report_24"
-            android:key="reportBug"/>
+            android:key="reportBug" />
         <Preference
             android:title="@string/suggest_a_feature_preference_title"
             android:summary="@string/suggest_a_feature_preference_summary"
@@ -30,17 +30,17 @@
             android:title="@string/share_the_app_preference_title"
             android:icon="@drawable/ic_baseline_ios_share_24"
             android:summary="@string/share_the_app_preference_summary"
-            android:key="share"/>
+            android:key="share" />
         <Preference
             android:title="@string/feedback_preference_title"
             android:icon="@drawable/ic_baseline_feedback_24"
             android:summary="@string/feedback_preference_summary"
-            android:key="feedback"/>
+            android:key="feedback" />
         <Preference
             android:title="@string/request_qwotable_preference_title"
             android:icon="@drawable/ic_baseline_question_mark_24"
             android:summary="@string/request_qwotable_preference_summary"
-            android:key="qwrequest"/>
+            android:key="qwrequest" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/privacy_and_licenses_preference_category"
@@ -49,12 +49,12 @@
             android:title="@string/permissions_preference_title"
             android:icon="@drawable/ic_baseline_gpp_good_24"
             android:summary="@string/permissions_preference_summary"
-            android:key="permission"/>
+            android:key="permission" />
         <Preference
             android:title="@string/privacy_preference_title"
             android:icon="@drawable/ic_baseline_gpp_maybe_24"
             android:summary="@string/privacy_preference_summary"
-            android:key="policy"/>
+            android:key="policy" />
         <Preference
             android:title="@string/licenses_preference_title"
             android:summary="@string/licenses_preference_summary"
@@ -69,7 +69,7 @@
             android:title="@string/wiki_category_and_preference"
             android:icon="@drawable/ic_baseline_web_stories_24"
             android:summary="@string/wiki_preference_summary"
-            android:key="wiki"/>
+            android:key="wiki" />
     </PreferenceCategory>
 
     <PreferenceCategory

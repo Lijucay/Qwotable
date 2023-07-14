@@ -56,19 +56,22 @@ public class License extends AppCompatActivity implements RecyclerViewInterface 
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
 
-        if (!tablet) ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.licenseRV), (v, windowInsets) -> {
-            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+        if (!tablet)
+            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.licenseRV), (v, windowInsets) -> {
+                Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            v.findViewById(R.id.licenseRV).setPadding(0,0,0,insets.bottom);
+                v.findViewById(R.id.licenseRV).setPadding(0, 0, 0, insets.bottom);
 
-            return WindowInsetsCompat.CONSUMED;
-        }); else ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.licenseRV), (v, windowInsets) -> {
-            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+                return WindowInsetsCompat.CONSUMED;
+            });
+        else
+            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.licenseRV), (v, windowInsets) -> {
+                Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            v.findViewById(R.id.licenseRV).setPadding(0, insets.top, 0, insets.bottom);
+                v.findViewById(R.id.licenseRV).setPadding(0, insets.top, 0, insets.bottom);
 
-            return WindowInsetsCompat.CONSUMED;
-        });
+                return WindowInsetsCompat.CONSUMED;
+            });
 
         MaterialToolbar toolbar = findViewById(R.id.top_app_bar);
         setSupportActionBar(toolbar);
@@ -107,7 +110,7 @@ public class License extends AppCompatActivity implements RecyclerViewInterface 
 
         ArrayList<LicenseItem> items = new ArrayList<>();
 
-        for (int i = 0; i <titles.length; i++) {
+        for (int i = 0; i < titles.length; i++) {
             items.add(new LicenseItem(titles[i], licenses[i], links[i]));
         }
 

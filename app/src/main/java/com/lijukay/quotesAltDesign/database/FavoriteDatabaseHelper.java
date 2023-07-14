@@ -46,7 +46,7 @@ public class FavoriteDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addQwotable(String qwotable, String author, String found_in){
+    public void addQwotable(String qwotable, String author, String found_in) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_QWOTABLE, qwotable);
@@ -59,7 +59,7 @@ public class FavoriteDatabaseHelper extends SQLiteOpenHelper {
 
         TextView message = layout.findViewById(R.id.message);
 
-        if (result == -1){
+        if (result == -1) {
             message.setText(R.string.favorite_fail_add);
             assert context != null;
             Toast toast = new Toast(context.getApplicationContext());
@@ -78,18 +78,18 @@ public class FavoriteDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor readAllData(){
+    public Cursor readAllData() {
         String query = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
-        if (db != null){
+        if (db != null) {
             cursor = db.rawQuery(query, null);
         }
         return cursor;
     }
 
-    public void deleteOneRow(String quote){
+    public void deleteOneRow(String quote) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         long result = db.delete(TABLE_NAME, "qwotable=?", new String[]{quote});
@@ -98,7 +98,7 @@ public class FavoriteDatabaseHelper extends SQLiteOpenHelper {
 
         TextView message = layout.findViewById(R.id.message);
 
-        if (result == -1){
+        if (result == -1) {
             message.setText(R.string.favorite_fail_delete);
             assert context != null;
             Toast toast = new Toast(context.getApplicationContext());
@@ -120,7 +120,7 @@ public class FavoriteDatabaseHelper extends SQLiteOpenHelper {
     public boolean isInDB(String qwotable) {
         SQLiteDatabase fdb = this.getReadableDatabase();
 
-        String[] columns = new String[] {
+        String[] columns = new String[]{
                 COLUMN_QWOTABLE,
                 COLUMN_AUTHOR,
                 COLUMN_FOUND_IN

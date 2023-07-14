@@ -33,7 +33,7 @@ public class WisdomAdapter extends RecyclerView.Adapter<WisdomAdapter.wisdomView
     private final ArrayList<WisdomItem> items;
     private final RecyclerViewInterface recyclerViewInterface;
 
-    public WisdomAdapter(Context context, ArrayList<WisdomItem> item, RecyclerViewInterface recyclerViewInterface){
+    public WisdomAdapter(Context context, ArrayList<WisdomItem> item, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         items = item;
         this.recyclerViewInterface = recyclerViewInterface;
@@ -68,7 +68,7 @@ public class WisdomAdapter extends RecyclerView.Adapter<WisdomAdapter.wisdomView
         return items.size();
     }
 
-    public static class wisdomViewHolder extends RecyclerView.ViewHolder{
+    public static class wisdomViewHolder extends RecyclerView.ViewHolder {
         private final TextView mTitle;
         private final TextView mWisdom;
         private final TextView mFoundIn;
@@ -86,21 +86,21 @@ public class WisdomAdapter extends RecyclerView.Adapter<WisdomAdapter.wisdomView
             Button copy = itemView.findViewById(R.id.copy);
             Button share = itemView.findViewById(R.id.share);
             layout = itemView.findViewById(R.id.cardWisdomHolder);
-            buttonLayout =  itemView.findViewById(R.id.buttonLayout);
+            buttonLayout = itemView.findViewById(R.id.buttonLayout);
 
             copy.setOnClickListener(v -> {
-                if (recyclerViewInterface != null){
+                if (recyclerViewInterface != null) {
                     int position = getAdapterPosition();
                     String type = "copy";
 
-                    if(position != RecyclerView.NO_POSITION){
+                    if (position != RecyclerView.NO_POSITION) {
                         recyclerViewInterface.onItemClick(position, type, null);
                     }
                 }
             });
 
             share.setOnClickListener(v -> {
-                if(recyclerViewInterface != null){
+                if (recyclerViewInterface != null) {
 
                     shareM(layout, layout.getContext(), buttonLayout);
 
@@ -109,11 +109,11 @@ public class WisdomAdapter extends RecyclerView.Adapter<WisdomAdapter.wisdomView
 
 
             mAuthor.setOnClickListener(view -> {
-                if (recyclerViewInterface != null){
+                if (recyclerViewInterface != null) {
                     int position = getAdapterPosition();
                     String type = "author";
 
-                    if(position != RecyclerView.NO_POSITION){
+                    if (position != RecyclerView.NO_POSITION) {
                         recyclerViewInterface.onItemClick(position, type, null);
                     }
                 }
@@ -123,13 +123,14 @@ public class WisdomAdapter extends RecyclerView.Adapter<WisdomAdapter.wisdomView
                 int position = getAdapterPosition();
                 String type = "found in";
 
-                if (position != RecyclerView.NO_POSITION){
+                if (position != RecyclerView.NO_POSITION) {
                     recyclerViewInterface.onItemClick(position, type, null);
                 }
             });
 
         }
     }
+
     public static void shareM(ViewGroup view, Context context, LinearLayout buttonLayout) {
 
         Calendar calendar = Calendar.getInstance(); //Get instance to create unique names for the pictures
@@ -143,7 +144,7 @@ public class WisdomAdapter extends RecyclerView.Adapter<WisdomAdapter.wisdomView
         Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         Drawable bgDrawable = view.getBackground();
-        if (bgDrawable!=null) {
+        if (bgDrawable != null) {
             //has background drawable, then draw it on the canvas
             bgDrawable.draw(canvas);
         } else {
@@ -155,7 +156,7 @@ public class WisdomAdapter extends RecyclerView.Adapter<WisdomAdapter.wisdomView
         String bitmapUri = MediaStore.Images.Media.insertImage(
                 context.getContentResolver(),
                 bitmap,
-                "qwotable at " + hour + "_"+ minute + "_" + second,
+                "qwotable at " + hour + "_" + minute + "_" + second,
                 "Qwotable made this"
         );
         Uri uri = Uri.parse(bitmapUri);

@@ -84,7 +84,7 @@ public class Wisdom extends Fragment implements RecyclerViewInterface {
         recyclerView = v.findViewById(R.id.wisdomRV);
         recyclerView.setHasFixedSize(true);
         boolean tablet = getResources().getBoolean(R.bool.isTablet);
-        if (tablet){
+        if (tablet) {
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext().getApplicationContext()));
@@ -120,13 +120,14 @@ public class Wisdom extends Fragment implements RecyclerViewInterface {
         if (!tablet) ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            recyclerView.setPadding(0,0,0,insets.bottom);
+            recyclerView.setPadding(0, 0, 0, insets.bottom);
 
             return WindowInsetsCompat.CONSUMED;
-        }); else ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+        });
+        else ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            recyclerView.setPadding(0,insets.top,0,insets.bottom);
+            recyclerView.setPadding(0, insets.top, 0, insets.bottom);
 
             return WindowInsetsCompat.CONSUMED;
         });
@@ -247,7 +248,7 @@ public class Wisdom extends Fragment implements RecyclerViewInterface {
                 break;
             }
             case "copy": {
-                if (internet){
+                if (internet) {
                     String url = "https://lijukay.github.io/Qwotable/wisdom-" + language.getString("language", "en") + ".json";
 
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -294,8 +295,8 @@ public class Wisdom extends Fragment implements RecyclerViewInterface {
     }
 
     @SuppressLint("SetTextI18n")
-    private void checkInternet(){
-        if (!internet){
+    private void checkInternet() {
+        if (!internet) {
             swipeRefreshLayout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
             error.setVisibility(View.VISIBLE);

@@ -78,10 +78,10 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
         language = getSharedPreferences("Language", 0);
         SharedPreferences colorPreference = getSharedPreferences("Colors", 0);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             setTheme(R.style.AppTheme);
         } else {
-            switch (colorPreference.getString("color", "defaultOrDynamic")){
+            switch (colorPreference.getString("color", "defaultOrDynamic")) {
                 case "red":
                     setTheme(R.style.AppThemeRed);
                     break;
@@ -107,8 +107,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
         float smallestWidth = Math.min(widthDp, heightDp);
         if (smallestWidth >= 600) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-        }
-        else if (smallestWidth < 600) {
+        } else if (smallestWidth < 600) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
@@ -149,7 +148,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
         recyclerView.setHasFixedSize(true);
         recyclerView.setVisibility(View.VISIBLE);
         boolean tablet = getResources().getBoolean(R.bool.isTablet);
-        if (tablet){
+        if (tablet) {
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -166,10 +165,10 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                 swipeRefreshLayout.setRefreshing(false);
                 Cache cache = requestQueue.getCache();
                 cache.clear();
-                if (activity.equals("Quotes")){
+                if (activity.equals("Quotes")) {
                     adapterAll.notifyDataSetChanged();
                     mPQItem.clear();
-                } else if (activity.equals("wisdom")){
+                } else if (activity.equals("wisdom")) {
                     adapter.notifyDataSetChanged();
                     items.clear();
                 }
@@ -184,7 +183,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
     }
 
     private void parseJSONQuotes(String type) {
-        if (type.equals("author")){
+        if (type.equals("author")) {
 
             String url = "https://lijukay.github.io/Qwotable/author-" + language.getString("language", "en") + ".json";
 
@@ -219,7 +218,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                         }
                     }, Throwable::printStackTrace);
             requestQueue.add(requestPQ);
-        } else if (type.equals("found in")){
+        } else if (type.equals("found in")) {
 
             String url = "https://lijukay.github.io/Qwotable/found-in-" + language.getString("language", "en") + ".json";
 
@@ -262,7 +261,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
     private void parseJSON(String type) {
         String url;
 
-        if (type.equals("found in")){
+        if (type.equals("found in")) {
             url = "https://lijukay.github.io/Qwotable/found-in-w-" + language.getString("language", "en") + ".json";
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                     jsonObject -> {
@@ -364,8 +363,8 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
         registerReceiver(InternetReceiver, mIntentFilter);
     }
 
-    private void checkInternet(){
-        if (!internet){
+    private void checkInternet() {
+        if (!internet) {
             swipeRefreshLayout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
             error.setVisibility(View.VISIBLE);
@@ -376,9 +375,9 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
             swipeRefreshLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
             error.setVisibility(View.GONE);
-            if (activity.equals("Quotes")){
+            if (activity.equals("Quotes")) {
                 parseJSONQuotes(type2);
-            } else if (activity.equals("wisdom")){
+            } else if (activity.equals("wisdom")) {
                 parseJSON(type2);
             }
         }
@@ -392,7 +391,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.settingsMenu){
+        if (item.getItemId() == R.id.settingsMenu) {
             startActivity(new Intent(Person.this, Settings.class));
             return true;
         } else {
@@ -402,7 +401,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
 
     @Override
     public void onItemClick(int position, String type, MaterialButton mb) {
-        if (activity.equals("Quotes")){
+        if (activity.equals("Quotes")) {
             switch (type) {
                 case "author":
                 case "Found in":
@@ -410,7 +409,7 @@ public class Person extends AppCompatActivity implements RecyclerViewInterface {
                 case "copy": {
                     if (internet) {
                         String url;
-                        if (type2.equals("author")){
+                        if (type2.equals("author")) {
                             url = "https://lijukay.github.io/Qwotable/author-" + language.getString("language", "en") + ".json";
                         } else {
                             url = "https://lijukay.github.io/Qwotable/found-in-" + language.getString("language", "en") + ".json";

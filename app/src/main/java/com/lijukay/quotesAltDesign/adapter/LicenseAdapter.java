@@ -22,7 +22,7 @@ public class LicenseAdapter extends RecyclerView.Adapter<LicenseAdapter.ViewHold
     private final ArrayList<LicenseItem> items;
     private final RecyclerViewInterface recyclerViewInterface;
 
-    public LicenseAdapter(Context context, ArrayList<LicenseItem> itemsList, RecyclerViewInterface recyclerViewInterface){
+    public LicenseAdapter(Context context, ArrayList<LicenseItem> itemsList, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         items = itemsList;
         this.recyclerViewInterface = recyclerViewInterface;
@@ -52,7 +52,7 @@ public class LicenseAdapter extends RecyclerView.Adapter<LicenseAdapter.ViewHold
         return items.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView LICENSE_TITLE;
         private final TextView LICENSE;
 
@@ -64,11 +64,11 @@ public class LicenseAdapter extends RecyclerView.Adapter<LicenseAdapter.ViewHold
             CardView LICENSE_CARD_HOLDER = itemView.findViewById(R.id.licenseCard);
 
             LICENSE_CARD_HOLDER.setOnClickListener(view -> {
-                if (recyclerViewInterface != null){
+                if (recyclerViewInterface != null) {
                     int position = getAdapterPosition();
                     String type = "license";
 
-                    if(position != RecyclerView.NO_POSITION){
+                    if (position != RecyclerView.NO_POSITION) {
                         recyclerViewInterface.onItemClick(position, type, null);
                     }
                 }

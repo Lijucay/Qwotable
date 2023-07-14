@@ -1,7 +1,5 @@
 package com.lijukay.quotesAltDesign.util;
 
-import android.content.Context;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -80,6 +78,7 @@ public class QwotableQuotes {
 
     public interface QuotesFetchListener {
         void onQuotesFetched(ArrayList<QuoteItem> quoteItems);
+
         void onFetchError();
     }
 

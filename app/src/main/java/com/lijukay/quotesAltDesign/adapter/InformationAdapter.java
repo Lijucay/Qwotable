@@ -18,7 +18,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
     private final Context context;
     private final ArrayList<InformationItem> informationItems;
 
-    public InformationAdapter (Context context, ArrayList<InformationItem> informationItems){
+    public InformationAdapter(Context context, ArrayList<InformationItem> informationItems) {
         this.context = context;
         this.informationItems = informationItems;
     }
@@ -53,7 +53,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
         private final TextView mMessage;
         private final TextView mDate;
 
-        public InfoViewHolder(@NonNull View itemView){
+        public InfoViewHolder(@NonNull View itemView) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.titleInfo);
             mMessage = itemView.findViewById(R.id.messageInfo);

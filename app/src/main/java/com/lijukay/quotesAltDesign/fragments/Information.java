@@ -79,7 +79,7 @@ public class Information extends Fragment {
         boolean tablet = getResources().getBoolean(R.bool.isTablet);
 
         recyclerView = v.findViewById(R.id.informationRV);
-        if (tablet){
+        if (tablet) {
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(requireContext().getApplicationContext()));
@@ -114,13 +114,14 @@ public class Information extends Fragment {
         if (!tablet) ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            recyclerView.setPadding(0,0,0,insets.bottom);
+            recyclerView.setPadding(0, 0, 0, insets.bottom);
 
             return WindowInsetsCompat.CONSUMED;
-        }); else ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
+        });
+        else ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            recyclerView.setPadding(0,insets.top,0,insets.bottom);
+            recyclerView.setPadding(0, insets.top, 0, insets.bottom);
 
             return WindowInsetsCompat.CONSUMED;
         });
@@ -144,9 +145,9 @@ public class Information extends Fragment {
         return v;
     }
 
-    private void checkInternet(){
+    private void checkInternet() {
 
-        if (!internet){
+        if (!internet) {
             swipeRefreshLayout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
             error.setVisibility(View.VISIBLE);
@@ -170,7 +171,7 @@ public class Information extends Fragment {
                     try {
                         JSONArray jsonArrayPQ = responsePQ.getJSONArray("Information");
 
-                        for (int i = 0; i < jsonArrayPQ.length(); i++){
+                        for (int i = 0; i < jsonArrayPQ.length(); i++) {
                             JSONObject pq = jsonArrayPQ.getJSONObject(i);
 
                             versionCodeMin = pq.getInt("from v");
@@ -179,7 +180,7 @@ public class Information extends Fragment {
                             String message = pq.getString("message");
                             String date = pq.getString("date");
 
-                            if (versionCodeMin <= versionCurrent && versionCodeMax >= versionCurrent){
+                            if (versionCodeMin <= versionCurrent && versionCodeMax >= versionCurrent) {
                                 items.add(new InformationItem(title, message, date));
                             }
                         }

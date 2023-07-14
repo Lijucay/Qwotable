@@ -38,19 +38,22 @@ public class Home extends Fragment {
 
         tablet = getResources().getBoolean(R.bool.isTablet);
 
-        if (!tablet) ViewCompat.setOnApplyWindowInsetsListener(v.findViewById(R.id.nsv), (v, windowInsets) -> {
-            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+        if (!tablet)
+            ViewCompat.setOnApplyWindowInsetsListener(v.findViewById(R.id.nsv), (v, windowInsets) -> {
+                Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            v.findViewById(R.id.nsv).setPadding(0,0,0,insets.bottom);
+                v.findViewById(R.id.nsv).setPadding(0, 0, 0, insets.bottom);
 
-            return WindowInsetsCompat.CONSUMED;
-        }); else ViewCompat.setOnApplyWindowInsetsListener(v.findViewById(R.id.nsv), (v, windowInsets) -> {
-            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+                return WindowInsetsCompat.CONSUMED;
+            });
+        else
+            ViewCompat.setOnApplyWindowInsetsListener(v.findViewById(R.id.nsv), (v, windowInsets) -> {
+                Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            v.findViewById(R.id.nsv).setPadding(0, insets.top, 0, insets.bottom);
+                v.findViewById(R.id.nsv).setPadding(0, insets.top, 0, insets.bottom);
 
-            return WindowInsetsCompat.CONSUMED;
-        });
+                return WindowInsetsCompat.CONSUMED;
+            });
         return v;
     }
 

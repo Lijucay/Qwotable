@@ -16,7 +16,7 @@
             android:id="@+id/informationRV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"/>
+            android:clipToPadding="false" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
@@ -32,7 +32,7 @@
             android:layout_height="300dp"
             app:lottie_rawRes="@raw/error"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"/>
+            app:lottie_loop="true" />
 
         <TextView
             android:id="@+id/titleError"
@@ -40,20 +40,20 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             android:textColor="?attr/colorOnPrimaryContainer"
-            android:gravity="center"/>
+            android:gravity="center" />
 
         <TextView
             android:id="@+id/messageError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"/>
+            android:gravity="center" />
 
         <Button
             android:id="@+id/retry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/error_button_try_again"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp" />
 
     </LinearLayout>
 
