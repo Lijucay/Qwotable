@@ -4,14 +4,14 @@ plugins {
 
 android {
     namespace 'com.lijukay.quotes'
-    compileSdk 34
+    compileSdk target_sdk
 
     defaultConfig {
         applicationId "com.lijukay.quotes"
         minSdk 24
-        targetSdk 34
-        versionCode 10 //Latest on GitHub: 10
-        versionName "1" //Latest on GitHub: 1
+        targetSdk target_sdk
+        versionCode version_code
+        versionName version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -20,6 +20,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            applicationIdSuffix ".debug.m3"
+            debuggable true
         }
     }
     compileOptions {

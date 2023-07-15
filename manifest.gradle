@@ -1,0 +1,9 @@
+// Environment variables.
+ext {
+    // Target & Compile SDK.
+    target_sdk = 34
+
+    // App version.
+    version_code = 10
+    version_name = "1.0.0"
+}

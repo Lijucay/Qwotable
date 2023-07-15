@@ -9,18 +9,18 @@ def locales = file('src/main/res').listFiles(new FilenameFilter() {
     }
 }).collect { it.name.substring(7) }
 
-print("Locales: " + locales.join(', '))
+println("Locales: " + locales.join(', '))
 
 android {
     namespace 'com.lijukay.quotes'
-    compileSdk 33
+    compileSdk target_sdk
 
     defaultConfig {
         applicationId "com.lijukay.quotes"
         minSdk 26
-        targetSdk 33
-        versionCode 1
-        versionName "1.0.0"
+        targetSdk target_sdk
+        versionCode version_code
+        versionName version_name
 
         resConfigs locales
 
@@ -31,6 +31,10 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            applicationIdSuffix ".debug.oneui"
+            debuggable true
         }
     }
     compileOptions {
