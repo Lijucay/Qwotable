@@ -15,4 +15,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Qwotable"
 include ':app-m3'
+include ':app-oneui'
 include ':core'
