@@ -8,7 +8,7 @@ public class LicenseItem {
     public LicenseItem(String title, String license, String link) {
         this.title = title;
         this.license = license;
-        licenseLink = link;
+        this.licenseLink = link;
     }
 
     public String getLicense() {
