@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dev.oneuiproject.oneui.layout.ToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/oui_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:title="@string/app_name">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <dev.oneuiproject.oneui.widget.RoundFrameLayout
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="4dp"
+            android:background="@color/oui_background_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/typeSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </dev.oneuiproject.oneui.widget.RoundFrameLayout>
+
+        <dev.oneuiproject.oneui.widget.Separator
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <dev.oneuiproject.oneui.widget.RoundFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/oui_background_color">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:paddingHorizontal="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/qwotable_recycler_view"/>
+
+        </dev.oneuiproject.oneui.widget.RoundFrameLayout>
+    </LinearLayout>
+
+</dev.oneuiproject.oneui.layout.ToolbarLayout>

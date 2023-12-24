@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/quotes_menu_item"
+        android:title="Quotes"
+        android:icon="@drawable/oui_ic_ab_drawer"
+        app:showAsAction="always"
+        tools:ignore="AppCompatResource" />
+
+    <item
+        android:id="@+id/wisdom_menu_item"
+        android:title="Wisdom"
+        android:icon="@drawable/oui_ic_ab_app_info"
+        app:showAsAction="always"
+        tools:ignore="AppCompatResource" />
+
+</menu>
