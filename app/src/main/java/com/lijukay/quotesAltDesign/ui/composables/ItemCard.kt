@@ -13,50 +13,52 @@ import androidx.compose.ui.unit.dp
 import com.lijukay.core.database.Qwotable
 
 @Composable
-    fun QwotableItemCard(qwotable: Qwotable, modifier: Modifier = Modifier) {
-        Card(
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant
-            ),
-            modifier = modifier
-                .padding(8.dp)
-                .fillMaxWidth(),
-            onClick = {  }
-        ) {
-            Text(
-                text = qwotable.qwotable,
-                modifier = modifier
-                    .padding(
-                        start = 16.dp,
-                        end = 16.dp,
-                        top = 16.dp
-                    )
-                    .fillMaxWidth(),
-                fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.bodyLarge
-            )
-            Text(
-                text = qwotable.author,
-                modifier = modifier
-                    .padding(
-                        start = 16.dp,
-                        end = 16.dp,
-                        top = 8.dp
-                    )
-                    .fillMaxWidth(),
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Text(
-                text = qwotable.source,
-                modifier = modifier
-                    .padding(
-                        start = 16.dp,
-                        end = 16.dp,
-                        top = 8.dp,
-                        bottom = 16.dp
-                    )
-                    .fillMaxWidth(),
-                style = MaterialTheme.typography.bodyMedium
-            )
+fun QwotableItemCard(modifier: Modifier = Modifier, qwotable: Qwotable, callback: (() -> Unit)?) {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        ),
+        modifier = modifier
+            .padding(8.dp)
+            .fillMaxWidth(),
+        onClick = {
+            callback?.let { it() }
         }
+    ) {
+        Text(
+            text = qwotable.qwotable,
+            modifier = modifier
+                .padding(
+                    start = 16.dp,
+                    end = 16.dp,
+                    top = 16.dp
+                )
+                .fillMaxWidth(),
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.bodyLarge
+        )
+        Text(
+            text = qwotable.author,
+            modifier = modifier
+                .padding(
+                    start = 16.dp,
+                    end = 16.dp,
+                    top = 8.dp
+                )
+                .fillMaxWidth(),
+            style = MaterialTheme.typography.bodyMedium
+        )
+        Text(
+            text = qwotable.source,
+            modifier = modifier
+                .padding(
+                    start = 16.dp,
+                    end = 16.dp,
+                    top = 8.dp,
+                    bottom = 16.dp
+                )
+                .fillMaxWidth(),
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
+}
