@@ -2,16 +2,10 @@ package com.lijukay.core.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import com.lijukay.core.database.Qwotable
 import com.lijukay.core.database.QwotableDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.URL
-import javax.net.ssl.HttpsURLConnection
 
 class QwotableRepository(
     private val qwotableDao: QwotableDao,
@@ -21,6 +15,12 @@ class QwotableRepository(
     suspend fun insert(qwotables: List<Qwotable>) {
         withContext(Dispatchers.IO) {
             qwotableDao.insert(qwotables)
+        }
+    }
+
+    suspend fun updateQwotable(qwotable: Qwotable) {
+        withContext(Dispatchers.IO) {
+            qwotableDao.updateQwotable(qwotable)
         }
     }
 
@@ -74,7 +74,10 @@ class QwotableRepository(
         }
     }
 
-    private suspend fun updateQwotableDatabase(apiVersionPreference: SharedPreferences, newVersion: Int) {
+    private suspend fun updateQwotableDatabase(
+        apiVersionPreference: SharedPreferences,
+        newVersion: Int
+    ) {
         val remoteData = apiService.getQwotables()
         qwotableDao.insert(remoteData)
         apiVersionPreference.edit().putInt("version", newVersion).apply()
