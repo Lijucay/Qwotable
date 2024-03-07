@@ -29,23 +29,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.lijukay.core.utils.ConnectionUtil
-import com.lijukay.quotesAltDesign.R
-import com.lijukay.core.models.ProgrammingQuotes
 import com.lijukay.core.utils.RandomQuote
+import com.lijukay.quotesAltDesign.R
 import com.lijukay.quotesAltDesign.ui.theme.QwotableTheme
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.json.JSONObject
-import java.io.BufferedInputStream
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.URL
-import javax.net.ssl.HttpsURLConnection
-import kotlin.random.Random
 
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_YES
