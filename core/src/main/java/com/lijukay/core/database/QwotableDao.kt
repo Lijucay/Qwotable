@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -20,6 +21,9 @@ interface QwotableDao {
 
     @Query("SELECT * FROM Qwotable WHERE isFavorite = 1")
     fun getFavoritesQwotableFlow(): Flow<List<Qwotable>>
+
+    @Update(onConflict = OnConflictStrategy.IGNORE)
+    fun updateQwotable(qwotable: Qwotable)
 
     @Query("SELECT * FROM Qwotable WHERE isOwn = 1")
     fun getOwnQwotableFlow(): Flow<List<Qwotable>>
