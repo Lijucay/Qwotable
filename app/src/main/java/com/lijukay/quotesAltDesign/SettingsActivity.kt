@@ -68,7 +68,14 @@ class SettingsActivity : ComponentActivity() {
                             bottom = 2.dp
                         )
                         .fillMaxWidth()
-                        .clickable { context.startActivity(Intent(context, LicensesActivity::class.java)) },
+                        .clickable {
+                            context.startActivity(
+                                Intent(
+                                    context,
+                                    LicensesActivity::class.java
+                                )
+                            )
+                        },
                     shape = RoundedCornerShape(
                         topStart = 24.dp,
                         topEnd = 24.dp,
