@@ -13,7 +13,8 @@ class App : Application() {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    private val apiService: QwotableApiService = retrofitQwotable.create(QwotableApiService::class.java)
+    private val apiService: QwotableApiService =
+        retrofitQwotable.create(QwotableApiService::class.java)
 
     private val database by lazy { QwotableDatabase.getDatabase(this) }
     val repository by lazy {
