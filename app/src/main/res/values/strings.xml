@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Qwotable</string>
+    <string name="home">Home</string>
+    <string name="not_connected">You\'re not connected</string>
+    <string name="error_connection">There was an error connecting to the website</string>
+    <string name="refresh">Refresh</string>
+    <string name="about_random_quotes">Random quotes loads a random quote from the local data as well as from the APIs, it is using.\nPlease notice, that this service currently only works for English quotes.</string>
+    <string name="error_server">There was a server side error. If it remains, open an issue on GitHub and I\'ll check if my app needs to update something.</string>
+    <string name="licenses">Licenses</string>
+</resources>
