@@ -20,7 +20,7 @@ fun BottomNavigationBar(navController: NavController) {
     }
 
     NavigationBar {
-        BottomNavigationItem().bottomNavigationIcons().forEachIndexed { index, navigationItem ->
+        BottomNavigationItem().bottomNavigationItems().forEachIndexed { index, navigationItem ->
             NavigationBarItem(
                 selected = index == navigationSelectedItem,
                 label = {
