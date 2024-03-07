@@ -1,6 +1,5 @@
 package com.lijukay.quotesAltDesign
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -24,7 +23,6 @@ import com.mikepenz.aboutlibraries.entity.Developer
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.entity.Scm
-import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import com.mikepenz.aboutlibraries.util.withContext
 
 class LicensesActivity : ComponentActivity() {
@@ -74,7 +72,14 @@ class LicensesActivity : ComponentActivity() {
                         developerConnection = null,
                         url = "https://github.com/ajzbc/kanye.rest?tab=MIT-1-ov-file"
                     ),
-                    licenses = setOf(License(name = "MIT license", url = "https://opensource.org/license/mit", year = "2022", hash = ""))
+                    licenses = setOf(
+                        License(
+                            name = "MIT license",
+                            url = "https://opensource.org/license/mit",
+                            year = "2022",
+                            hash = ""
+                        )
+                    )
                 ),
                 Library(
                     uniqueId = "",
@@ -89,7 +94,14 @@ class LicensesActivity : ComponentActivity() {
                         developerConnection = null,
                         url = "https://github.com/lukePeavey/quotable?tab=MIT-1-ov-file"
                     ),
-                    licenses = setOf(License(name = "MIT license", url = "https://opensource.org/license/mit", year = "2019", hash = ""))
+                    licenses = setOf(
+                        License(
+                            name = "MIT license",
+                            url = "https://opensource.org/license/mit",
+                            year = "2019",
+                            hash = ""
+                        )
+                    )
                 )
             )
 
