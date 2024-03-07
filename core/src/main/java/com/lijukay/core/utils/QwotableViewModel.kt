@@ -28,6 +28,12 @@ class QwotableViewModel(
         }
     }
 
+    fun updateQwotable(qwotable: Qwotable) {
+        viewModelScope.launch {
+            repository.updateQwotable(qwotable)
+        }
+    }
+
     private fun checkForUpdates() {
         viewModelScope.launch {
             repository.checkForApiUpdates()
