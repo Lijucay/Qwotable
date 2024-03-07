@@ -7,4 +7,8 @@
     <string name="about_random_quotes">Random quotes loads a random quote from the local data as well as from the APIs, it is using.\nPlease notice, that this service currently only works for English quotes.</string>
     <string name="error_server">There was a server side error. If it remains, open an issue on GitHub and I\'ll check if my app needs to update something.</string>
     <string name="licenses">Licenses</string>
+    <string name="add_to_favorites">Add to favorites</string>
+    <string name="remove_from_favorites">Remove from favorites</string>
+    <string name="current_qwotable">Current Qwotable:</string>
+    <string name="edit_qwotable">Edit Qwotable</string>
 </resources>
