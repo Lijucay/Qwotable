@@ -1,4 +1,4 @@
-package com.lijukay.quotesAltDesign
+package com.lijukay.quotesAltDesign.ui.navigation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -19,12 +19,10 @@ import androidx.navigation.compose.rememberNavController
 import com.lijukay.core.Screens
 import com.lijukay.core.utils.QwotableViewModel
 import com.lijukay.core.utils.QwotableViewModelFactory
+import com.lijukay.quotesAltDesign.App
+import com.lijukay.quotesAltDesign.R
 import com.lijukay.quotesAltDesign.ui.composables.BottomNavigationBar
 import com.lijukay.quotesAltDesign.ui.composables.TopAppBar
-import com.lijukay.quotesAltDesign.ui.screens.FavoriteScreen
-import com.lijukay.quotesAltDesign.ui.screens.HomeScreen
-import com.lijukay.quotesAltDesign.ui.screens.OwnQwotablesScreen
-import com.lijukay.quotesAltDesign.ui.screens.QwotableScreen
 import com.lijukay.quotesAltDesign.ui.theme.QwotableTheme
 
 class MainActivity : ComponentActivity() {
