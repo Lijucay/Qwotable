@@ -1,4 +1,4 @@
-package com.lijukay.quotesAltDesign.ui.screens
+package com.lijukay.quotesAltDesign.ui.navigation
 
 import android.content.Context
 import android.content.res.Configuration

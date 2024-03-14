@@ -1,4 +1,4 @@
-package com.lijukay.quotesAltDesign
+package com.lijukay.quotesAltDesign.ui.navigation
 
 import android.content.Intent
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.lijukay.quotesAltDesign
+package com.lijukay.quotesAltDesign.ui.navigation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import com.lijukay.quotesAltDesign.R
 import com.lijukay.quotesAltDesign.ui.composables.LibraryItemCard
 import com.lijukay.quotesAltDesign.ui.composables.TopAppBar
 import com.lijukay.quotesAltDesign.ui.theme.QwotableTheme

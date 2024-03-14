@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
-import com.lijukay.quotesAltDesign.SettingsActivity
+import com.lijukay.quotesAltDesign.ui.navigation.SettingsActivity
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
