@@ -11,7 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import com.lijukay.quotesAltDesign.ui.BottomNavigationItem
+import com.lijukay.quotesAltDesign.model.BottomNavigationItem
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {

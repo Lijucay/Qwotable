@@ -1,4 +1,4 @@
-package com.lijukay.quotesAltDesign.ui
+package com.lijukay.quotesAltDesign.model
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Favorite
