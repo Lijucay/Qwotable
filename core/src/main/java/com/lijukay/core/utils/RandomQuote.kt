@@ -23,7 +23,8 @@ class RandomQuote(
         Triple(URL("https://api.gameofthronesquotes.xyz/v1/random"), "sentence", "Game of Thrones API"),
         Triple(URL("https://stoic.tekloon.net/stoic-quote"), "quote", "Tekloon Stoic Quotes API"),
         Triple(URL("https://www.jcquotes.com/api/quotes/random"), "text", "James Clear Quotes API"),
-        Triple(URL("https://api.quotable.io/random"), "content", "Quotable API")
+        Triple(URL("https://api.quotable.io/random"), "content", "Quotable API"),
+        Triple(URL("https://stoic-quotes.com/api/quote"), "text", "stoic-quotes.com")
     )
 
     fun getRandomQuote(source: Int, quote: (String) -> Unit) {
