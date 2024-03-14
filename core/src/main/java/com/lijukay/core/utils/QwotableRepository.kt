@@ -2,6 +2,7 @@ package com.lijukay.core.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.lijukay.core.database.Qwotable
 import com.lijukay.core.database.QwotableDao
 import kotlinx.coroutines.Dispatchers
@@ -12,6 +13,8 @@ class QwotableRepository(
     private val apiService: QwotableApiService,
     private val context: Context
 ) {
+    private val TAG = this.javaClass.simpleName
+
     suspend fun insert(qwotables: List<Qwotable>) {
         withContext(Dispatchers.IO) {
             qwotableDao.insert(qwotables)
@@ -52,24 +55,36 @@ class QwotableRepository(
             val connectionUtil = ConnectionUtil(context)
 
             if (localData.isEmpty() && connectionUtil.isConnected) {
-                val remoteData = apiService.getQwotables()
-                qwotableDao.insert(remoteData)
+                try {
+                    val remoteData = apiService.getQwotables()
+                    qwotableDao.insert(remoteData)
+                } catch (e: Exception) {
+                    Log.e(TAG, e.message.toString())
+                }
             } else if (localData.isNotEmpty() && connectionUtil.isConnected) {
                 checkForApiUpdates()
+            } else {
+                Log.i(TAG, "Empty and not connected")
             }
         }
     }
 
     suspend fun checkForApiUpdates() {
         withContext(Dispatchers.IO) {
-            val response = apiService.getVersionsFile()
-            val jsonFiles = response.jsonFiles
-            val qwotableJSONVersion = jsonFiles[0].qwotableJsonVersion
-            val apiVersionPreference = context.getSharedPreferences("Api", 0)
-            val apiVersion = apiVersionPreference.getInt("version", 0)
+            try {
+                val response = apiService.getVersionsFile()
+                val jsonFiles = response.jsonFiles
+                val qwotableJSONVersion = jsonFiles[0].qwotableJsonVersion
+                val apiVersionPreference = context.getSharedPreferences("Api", 0)
+                val apiVersion = apiVersionPreference.getInt("version", 0)
 
-            if (qwotableJSONVersion > apiVersion) {
-                updateQwotableDatabase(apiVersionPreference, qwotableJSONVersion)
+                if (qwotableJSONVersion > apiVersion) {
+                    updateQwotableDatabase(apiVersionPreference, qwotableJSONVersion)
+                } else {
+                    Log.i(TAG, "No update available")
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, e.message.toString())
             }
         }
     }
