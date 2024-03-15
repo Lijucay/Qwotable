@@ -19,4 +19,5 @@ Programming Quotes: The data comes from Damjan Pavlica (@mudroljub). You can fin
 
 (Planned): A previous version of Qwotable included the data from dwyl. It will be reinserted into the app shortly and used to show more random quotes. You can find their repository [here](https://github.com/dwyl/quotes)
 
-If you wish for your content to be removed, please create an issue and I will make sure to remove your content.
+> [!Important]
+> If you wish for your content to be removed, please create an issue and I will make sure to remove your content.
