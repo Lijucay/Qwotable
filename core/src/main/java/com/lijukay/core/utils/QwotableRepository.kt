@@ -48,6 +48,11 @@ class QwotableRepository(
     val allQwotables = qwotableDao.getQwotablesFlow()
     val allFavorites = qwotableDao.getFavoritesQwotableFlow()
     val allOwnQwotables = qwotableDao.getOwnQwotableFlow()
+    suspend fun getQwotables(): List<Qwotable> {
+        return withContext(Dispatchers.IO) {
+            return@withContext qwotableDao.getQwotables()
+        }
+    }
 
     suspend fun refreshQwotable() {
         withContext(Dispatchers.IO) {

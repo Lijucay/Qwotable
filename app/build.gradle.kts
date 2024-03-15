@@ -60,6 +60,10 @@ dependencies {
     implementation("com.mikepenz:aboutlibraries-compose-m3:10.10.0")
     implementation("com.mikepenz:aboutlibraries-core:10.10.0")
     implementation("androidx.compose.material:material-icons-extended-android:1.6.3")
+    implementation("androidx.glance:glance-appwidget:1.0.0")
+    implementation("androidx.glance:glance-appwidget:1.0.0")
+
+
 
     implementation("androidx.room:room-ktx:2.6.1")
     ksp("androidx.room:room-compiler:2.6.1")
