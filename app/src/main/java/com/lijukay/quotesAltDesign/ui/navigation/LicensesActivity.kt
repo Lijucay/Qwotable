@@ -46,15 +46,12 @@ class LicensesActivity : ComponentActivity() {
     fun LicensesScreen(modifier: Modifier = Modifier) {
         val libs = Libs
             .Builder()
-            .withContext(LocalContext.current)
+            .withContext(ctx = LocalContext.current)
             .build()
 
         Scaffold(
             topBar = {
-                TopAppBar(
-                    title = stringResource(id = R.string.licenses),
-                    showSettingsIcon = false
-                )
+                TopAppBar(title = stringResource(id = R.string.licenses), showSettingsIcon = false)
             }
         ) { paddingValues ->
             val licenses: MutableList<Library> = mutableListOf()
@@ -106,14 +103,13 @@ class LicensesActivity : ComponentActivity() {
                 )
             )
 
-            licenses.addAll(customLibraries)
-            licenses.addAll(libs.libraries)
+            licenses.addAll(elements = customLibraries)
+            licenses.addAll(elements = libs.libraries)
             LazyColumn(
-                modifier = modifier
-                    .padding(paddingValues)
+                modifier = modifier.padding(paddingValues = paddingValues)
             ) {
                 itemsIndexed(licenses) { _, item ->
-                    LibraryItemCard(item)
+                    LibraryItemCard(library = item)
                 }
             }
         }

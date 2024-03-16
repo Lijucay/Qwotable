@@ -38,53 +38,41 @@ import com.lijukay.quotesAltDesign.ui.theme.QwotableTheme
 )
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-    var randomQuote by remember { mutableStateOf("") }
+    var randomQuote by remember { mutableStateOf(value = "") }
     val context = LocalContext.current
-    var loading by remember {
-        mutableStateOf(true)
-    }
-    loadRandomQuote(context) {
+    var loading by remember { mutableStateOf(value = true) }
+    loadRandomQuote(context = context) { randomQwotable ->
         loading = false
-        randomQuote = it
+        randomQuote = randomQwotable
     }
 
     QwotableTheme {
-        Surface(
-            modifier = modifier,
-            color = MaterialTheme.colorScheme.background
-        ) {
+        Surface(modifier = modifier, color = MaterialTheme.colorScheme.background) {
             Column(
-                modifier = modifier
-                    .fillMaxSize()
+                modifier = modifier.fillMaxSize()
             ) {
                 Card(
                     modifier = modifier
-                        .padding(8.dp)
+                        .padding(all = 8.dp)
                         .fillMaxWidth()
                 ) {
                     Text(
                         text = randomQuote,
-                        modifier = modifier
-                            .padding(16.dp)
+                        modifier = modifier.padding(all = 16.dp)
                     )
                     Button(
                         onClick = {
                             loading = true
-                            loadRandomQuote(context) {
+                            loadRandomQuote(context = context) { randomQwotable ->
                                 loading = false
-                                randomQuote = it
+                                randomQuote = randomQwotable
                             }
                         },
-                        modifier = modifier
-                            .padding(
-                                start = 16.dp,
-                                bottom = 16.dp
-                            )
+                        modifier = modifier.padding(start = 16.dp, bottom = 16.dp)
                     ) {
                         if (loading) {
                             CircularProgressIndicator(
-                                modifier = modifier
-                                    .size(16.dp),
+                                modifier = modifier.size(size = 16.dp),
                                 color = MaterialTheme.colorScheme.onSecondary,
                                 strokeWidth = 3.dp,
                                 strokeCap = StrokeCap.Round
@@ -92,15 +80,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                         }
                         Text(
                             text = stringResource(id = R.string.refresh),
-                            modifier = modifier
-                                .padding(
-                                    start =
-                                    if (loading) {
-                                        8.dp
-                                    } else {
-                                        0.dp
-                                    }
-                                )
+                            modifier = modifier.padding(start = if (loading) 8.dp else 0.dp)
                         )
                     }
                 }
@@ -108,19 +88,13 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 Row(
                     modifier = modifier
                         .fillMaxWidth()
-                        .padding(8.dp),
+                        .padding(all = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        imageVector = Icons.Rounded.Info,
-                        contentDescription = null
-                    )
+                    Icon(imageVector = Icons.Rounded.Info, contentDescription = null)
                     Text(
                         text = stringResource(id = R.string.about_random_quotes),
-                        modifier = modifier
-                            .padding(
-                                horizontal = 8.dp
-                            )
+                        modifier = modifier.padding(horizontal = 8.dp)
                     )
                 }
             }
@@ -130,7 +104,5 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 
 private fun loadRandomQuote(context: Context, result: (String) -> Unit) {
     val randomNum = (0..1).random()
-    RandomQuote(context).getRandomQuote(randomNum) {
-        result(it)
-    }
+    RandomQuote(context = context).getRandomQuote(source = randomNum) { randomQuote -> result(randomQuote) }
 }

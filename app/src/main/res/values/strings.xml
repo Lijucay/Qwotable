@@ -17,4 +17,8 @@
     <string name="detailed_logs">Detailed logs</string>
     <string name="save">Save</string>
     <string name="share">Share</string>
+    <string name="qwotable">Qwotable</string>
+    <string name="favorites">Favorites</string>
+    <string name="my_qwotable">My Qwotable</string>
+    <string name="settings">Settings</string>
 </resources>

@@ -63,9 +63,7 @@ class LogActivity : ComponentActivity() {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = {
-                        Text(text = stringResource(id = R.string.logs))
-                    },
+                    title = { Text(text = stringResource(id = R.string.logs)) },
                     actions = {
                         IconButton(onClick = { /*TODO: Copy logs*/ }) {
                             Icon(imageVector = Icons.Rounded.ContentCopy, contentDescription = stringResource(id = android.R.string.copy))
@@ -84,18 +82,18 @@ class LogActivity : ComponentActivity() {
         ) { paddingValues ->
             Column(
                 modifier = modifier
-                    .padding(paddingValues)
-                    .verticalScroll(scrollState)
+                    .padding(paddingValues = paddingValues)
+                    .verticalScroll(state = scrollState)
                     .fillMaxSize()
             ) {
                 Card(
                     modifier = modifier
-                        .padding(8.dp)
+                        .padding(all = 8.dp)
                         .fillMaxWidth(),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.error)
                 ) {
                     Column(
-                        modifier = modifier.padding(16.dp)
+                        modifier = modifier.padding(all = 16.dp)
                     ) {
                         Text(
                             modifier = modifier.padding(bottom = 8.dp),
@@ -106,12 +104,12 @@ class LogActivity : ComponentActivity() {
                 }
                 Card(
                     modifier = modifier
-                        .padding(8.dp)
+                        .padding(all = 8.dp)
                         .fillMaxWidth(),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.error)
                 ) {
                     Column(
-                        modifier = modifier.padding(16.dp)
+                        modifier = modifier.padding(all = 16.dp)
                     ) {
                         Text(
                             modifier = modifier.padding(bottom = 8.dp),

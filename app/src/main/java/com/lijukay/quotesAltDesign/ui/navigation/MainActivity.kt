@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainLayout(qwotableViewModel)
+                    MainLayout(qwotableViewModel = qwotableViewModel)
                 }
             }
         }
@@ -51,32 +51,24 @@ fun MainLayout(qwotableViewModel: QwotableViewModel, modifier: Modifier = Modifi
     val navController = rememberNavController()
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = stringResource(id = R.string.home),
-                showSettingsIcon = true
-            )
-        },
+        topBar = { TopAppBar(title = stringResource(id = R.string.home), showSettingsIcon = true) },
         bottomBar = { BottomNavigationBar(navController = navController) },
-        modifier = modifier
-            .fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) { contentPadding ->
         NavHost(
             navController = navController,
             startDestination = Screens.Home.route,
-            modifier = modifier
-                .padding(paddingValues = contentPadding)
+            modifier = modifier.padding(paddingValues = contentPadding)
         ) {
-            composable(Screens.Home.route) {
-                HomeScreen()
-            }
-            composable(Screens.Qwotable.route) {
+            composable(route = Screens.Home.route) {
+                HomeScreen() }
+            composable(route = Screens.Qwotable.route) {
                 QwotableScreen(qwotableViewModel = qwotableViewModel)
             }
-            composable(Screens.Favorite.route) {
+            composable(route = Screens.Favorite.route) {
                 FavoriteScreen(qwotableViewModel = qwotableViewModel)
             }
-            composable(Screens.OwnQwotables.route) {
+            composable(route = Screens.OwnQwotables.route) {
                 OwnQwotablesScreen(qwotableViewModel = qwotableViewModel)
             }
         }

@@ -19,8 +19,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.lijukay.quotesAltDesign.R
 import com.lijukay.quotesAltDesign.ui.composables.TopAppBar
 import com.lijukay.quotesAltDesign.ui.theme.QwotableTheme
 
@@ -46,19 +48,10 @@ class SettingsActivity : ComponentActivity() {
         val context = LocalContext.current
 
         Scaffold(
-            modifier = modifier
-                .fillMaxSize(),
-            topBar = {
-                TopAppBar(
-                    title = "Settings",
-                    showSettingsIcon = false
-                )
-            }
+            modifier = modifier.fillMaxSize(),
+            topBar = { TopAppBar(title = stringResource(id = R.string.settings), showSettingsIcon = false) }
         ) { paddingValues ->
-            Column(
-                modifier = modifier
-                    .padding(paddingValues)
-            ) {
+            Column(modifier = modifier.padding(paddingValues)) {
                 Card(
                     modifier = modifier
                         .padding(
@@ -69,12 +62,7 @@ class SettingsActivity : ComponentActivity() {
                         )
                         .fillMaxWidth()
                         .clickable {
-                            context.startActivity(
-                                Intent(
-                                    context,
-                                    LicensesActivity::class.java
-                                )
-                            )
+                            context.startActivity(Intent(context, LicensesActivity::class.java))
                         },
                     shape = RoundedCornerShape(
                         topStart = 24.dp,
@@ -85,24 +73,16 @@ class SettingsActivity : ComponentActivity() {
                 ) {
                     Text(
                         text = "Licenses",
-                        modifier = modifier
-                            .padding(16.dp)
+                        modifier = modifier.padding(all = 16.dp)
                     )
                 }
                 Card(
                     modifier = modifier
-                        .padding(
-                            horizontal = 16.dp,
-                            vertical = 2.dp
-                        )
+                        .padding(horizontal = 16.dp, vertical = 2.dp)
                         .fillMaxWidth(),
-                    shape = RoundedCornerShape(4.dp)
+                    shape = RoundedCornerShape(size = 4.dp)
                 ) {
-                    Text(
-                        text = "Website",
-                        modifier = modifier
-                            .padding(16.dp)
-                    )
+                    Text(text = "Website", modifier = modifier.padding(all = 16.dp))
                 }
                 Card(
                     modifier = modifier
@@ -122,8 +102,7 @@ class SettingsActivity : ComponentActivity() {
                 ) {
                     Text(
                         text = "GitHub",
-                        modifier = modifier
-                            .padding(16.dp)
+                        modifier = modifier.padding(all = 16.dp)
                     )
                 }
             }

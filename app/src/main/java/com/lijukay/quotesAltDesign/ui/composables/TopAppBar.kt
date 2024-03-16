@@ -42,18 +42,10 @@ fun TopAppBar(
                         context.startActivity(Intent(context, SettingsActivity::class.java))
                     }
                 ) {
-                    Icon(
-                        imageVector = Icons.Rounded.Settings,
-                        contentDescription = "Settings"
-                    )
+                    Icon(imageVector = Icons.Rounded.Settings, contentDescription = "Settings")
                 }
             }
         },
-        modifier = modifier
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
     )
-}
-
-private fun startSettings() {
-
 }

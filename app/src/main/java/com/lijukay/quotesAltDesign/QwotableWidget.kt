@@ -31,23 +31,23 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 object QwotableWidget : GlanceAppWidget() {
-    val quoteKey = stringPreferencesKey("quote")
+    val quoteKey = stringPreferencesKey(name = "quote")
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
             GlanceTheme {
                 val quote = currentState(key = quoteKey) ?: ""
                 if (quote == "") {
-                    onFirstCreation(context, id)
+                    onFirstCreation(context = context, glanceId = id)
                 }
                 Box(
                     modifier = GlanceModifier
                         .fillMaxSize()
-                        .background(GlanceTheme.colors.background)) {
+                        .background(colorProvider = GlanceTheme.colors.background)) {
                     Column(
                         modifier = GlanceModifier
                             .fillMaxSize()
-                            .padding(16.dp),
+                            .padding(all = 16.dp),
                         verticalAlignment = Alignment.Vertical.CenterVertically,
                         horizontalAlignment = Alignment.Horizontal.CenterHorizontally
                     ) {
@@ -62,7 +62,7 @@ object QwotableWidget : GlanceAppWidget() {
                         )
                         Button(
                             text = "Refresh",
-                            onClick = actionRunCallback(QuoteActionCallback::class.java),
+                            onClick = actionRunCallback(callbackClass = QuoteActionCallback::class.java),
                             modifier = GlanceModifier
                         )
                     }
@@ -72,17 +72,16 @@ object QwotableWidget : GlanceAppWidget() {
     }
 
     private fun onFirstCreation(context: Context, glanceId: GlanceId) {
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(context = Dispatchers.IO).launch {
             val repository = (context.applicationContext as App).repository
             val quotes = repository.getQwotables()
             val randQuote = quotes[quotes.indices.random()].qwotable
 
             withContext(Dispatchers.Main) {
-
-                updateAppWidgetState(context, glanceId) { pref ->
+                updateAppWidgetState(context = context, glanceId = glanceId) { pref ->
                     pref[quoteKey] = randQuote
                 }
-                QwotableWidget.update(context, glanceId)
+                QwotableWidget.update(context = context, id = glanceId)
             }
         }
     }
@@ -99,16 +98,16 @@ class QuoteActionCallback: ActionCallback {
         glanceId: GlanceId,
         parameters: ActionParameters
     ) {
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(context = Dispatchers.IO).launch {
             val repository = (context.applicationContext as App).repository
             val quotes = repository.getQwotables()
             val randQuote = quotes[quotes.indices.random()].qwotable
 
-            withContext(Dispatchers.Main) {
-                updateAppWidgetState(context, glanceId) { pref ->
+            withContext(context = Dispatchers.Main) {
+                updateAppWidgetState(context = context, glanceId = glanceId) { pref ->
                     pref[QwotableWidget.quoteKey] = randQuote
                 }
-                QwotableWidget.update(context, glanceId)
+                QwotableWidget.update(context = context, id = glanceId)
             }
         }
     }

@@ -16,15 +16,14 @@ class App : Application() {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    private val apiService: QwotableApiService =
-        retrofitQwotable.create(QwotableApiService::class.java)
+    private val apiService: QwotableApiService = retrofitQwotable.create(QwotableApiService::class.java)
 
-    private val database by lazy { QwotableDatabase.getDatabase(this) }
+    private val database by lazy { QwotableDatabase.getDatabase(context = this) }
     val repository by lazy {
         QwotableRepository(
-            database.qwotableDao(),
-            apiService,
-            applicationContext
+            qwotableDao = database.qwotableDao(),
+            apiService = apiService,
+            context = applicationContext
         )
     }
 
@@ -32,10 +31,10 @@ class App : Application() {
         super.onCreate()
         Thread.setDefaultUncaughtExceptionHandler(
             UncaughtExceptionHandler(
-                this,
-                Intent(this, LogActivity::class.java),
-                BuildConfig.VERSION_CODE,
-                BuildConfig.VERSION_NAME
+                context = this,
+                logIntent = Intent(this, LogActivity::class.java),
+                versionCode = BuildConfig.VERSION_CODE,
+                versionName = BuildConfig.VERSION_NAME
             )
         )
     }

@@ -13,16 +13,14 @@ import androidx.compose.ui.unit.dp
 import com.lijukay.core.database.Qwotable
 
 @Composable
-fun QwotableItemCard(modifier: Modifier = Modifier, qwotable: Qwotable, callback: (() -> Unit)?) {
+fun QwotableItemCard(modifier: Modifier = Modifier, qwotable: Qwotable, onClick: (() -> Unit)?) {
     Card(
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
-        ),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         modifier = modifier
-            .padding(8.dp)
+            .padding(all = 8.dp)
             .fillMaxWidth(),
         onClick = {
-            callback?.let { it() }
+            onClick?.let { callback -> callback() }
         }
     ) {
         Text(

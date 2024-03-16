@@ -17,39 +17,25 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.lijukay.core.utils.QwotableViewModel
 import com.lijukay.quotesAltDesign.R
-import com.lijukay.quotesAltDesign.ui.composables.OwnQwotableList
+import com.lijukay.quotesAltDesign.ui.composables.lists.OwnQwotableList
 import com.lijukay.quotesAltDesign.ui.dialogs.AddEditDialog
 
 @Composable
 fun OwnQwotablesScreen(modifier: Modifier = Modifier, qwotableViewModel: QwotableViewModel) {
-    var showAddEditDialog by remember {
-        mutableStateOf(false)
-    }
+    var showAddEditDialog by remember { mutableStateOf(value = false) }
 
     Scaffold(
         floatingActionButton = {
-            ExtendedFloatingActionButton(
-                onClick = { showAddEditDialog = true }
-            ) {
+            ExtendedFloatingActionButton(onClick = { showAddEditDialog = true }) {
                 Icon(imageVector = Icons.Rounded.Edit, contentDescription = null)
-                Text(
-                    text = stringResource(id = R.string.edit_qwotable),
-                    modifier = modifier.padding(start = 8.dp)
-                )
+                Text(text = stringResource(id = R.string.edit_qwotable), modifier = modifier.padding(start = 8.dp))
             }
         }
     ) { paddingValues ->
-        OwnQwotableList(
-            qwotableViewModel = qwotableViewModel,
-            modifier = modifier.padding(paddingValues)
-        )
+        OwnQwotableList(qwotableViewModel = qwotableViewModel, modifier = modifier.padding(paddingValues))
     }
 
     if (showAddEditDialog) {
-        AddEditDialog(
-            onDismissRequest = { showAddEditDialog = false }
-        ) {
-            showAddEditDialog = false
-        }
+        AddEditDialog(onDismissRequest = { showAddEditDialog = false }) { showAddEditDialog = false }
     }
 }

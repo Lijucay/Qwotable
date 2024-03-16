@@ -6,7 +6,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.lijukay.core.utils.QwotableViewModel
-import com.lijukay.quotesAltDesign.ui.composables.QwotableList
+import com.lijukay.quotesAltDesign.ui.composables.lists.QwotableList
 import com.lijukay.quotesAltDesign.ui.theme.QwotableTheme
 
 
