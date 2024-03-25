@@ -1,7 +1,22 @@
-package com.lijukay.quotesAltDesign.ui.navigation
+/*
+* Copyright (C) 2024 Lijucay (Luca)
+*
+*   This program is free software: you can redistribute it and/or modify
+*   it under the terms of the GNU General Public License as published by
+*   the Free Software Foundation, either version 3 of the License, or
+*   (at your option) any later version.
+*
+*   This program is distributed in the hope that it will be useful,
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*   GNU General Public License for more details.
+*
+*   You should have received a copy of the GNU General Public License
+*   along with this program.  If not, see <https://www.gnu.org/licenses/>
+* */
 
-import android.content.Context
-import android.content.res.Configuration
+package com.lijukay.quotesAltDesign.ui.navigation.screens
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,32 +33,46 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.lijukay.core.utils.RandomQuote
+import androidx.lifecycle.Observer
 import com.lijukay.quotesAltDesign.R
+import com.lijukay.quotesAltDesign.data.UIViewModel
 import com.lijukay.quotesAltDesign.ui.theme.QwotableTheme
 
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
-    var randomQuote by remember { mutableStateOf(value = "") }
+fun HomeScreen(modifier: Modifier = Modifier, uiViewModel: UIViewModel) {
     val context = LocalContext.current
-    var loading by remember { mutableStateOf(value = true) }
-    loadRandomQuote(context = context) { randomQwotable ->
-        loading = false
-        randomQuote = randomQwotable
+    val isLoading = remember { mutableStateOf(false) }
+    val randomQuote = remember { mutableStateOf("") }
+
+    LaunchedEffect(key1 = Unit) {
+        uiViewModel.getRandomQuote(context)
+    }
+
+    DisposableEffect(key1 = uiViewModel) {
+        val loadingObserver = Observer<Boolean> { isLoadingQuote ->
+            isLoading.value = isLoadingQuote
+        }
+        val randomQuoteObserver = Observer<String> { quote ->
+            randomQuote.value = quote
+        }
+
+        uiViewModel.isLoadingRandomQuote.observeForever(loadingObserver)
+        uiViewModel.randomQuote.observeForever(randomQuoteObserver)
+
+        onDispose {
+            uiViewModel.isLoadingRandomQuote.removeObserver(loadingObserver)
+            uiViewModel.randomQuote.removeObserver(randomQuoteObserver)
+        }
     }
 
     QwotableTheme {
@@ -57,20 +86,16 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                         .fillMaxWidth()
                 ) {
                     Text(
-                        text = randomQuote,
+                        text = randomQuote.value,
                         modifier = modifier.padding(all = 16.dp)
                     )
                     Button(
                         onClick = {
-                            loading = true
-                            loadRandomQuote(context = context) { randomQwotable ->
-                                loading = false
-                                randomQuote = randomQwotable
-                            }
+                            uiViewModel.getRandomQuote(context)
                         },
                         modifier = modifier.padding(start = 16.dp, bottom = 16.dp)
                     ) {
-                        if (loading) {
+                        if (isLoading.value) {
                             CircularProgressIndicator(
                                 modifier = modifier.size(size = 16.dp),
                                 color = MaterialTheme.colorScheme.onSecondary,
@@ -80,7 +105,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                         }
                         Text(
                             text = stringResource(id = R.string.refresh),
-                            modifier = modifier.padding(start = if (loading) 8.dp else 0.dp)
+                            modifier = modifier.padding(start = if (isLoading.value) 8.dp else 0.dp)
                         )
                     }
                 }
@@ -100,9 +125,4 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             }
         }
     }
-}
-
-private fun loadRandomQuote(context: Context, result: (String) -> Unit) {
-    val randomNum = (0..1).random()
-    RandomQuote(context = context).getRandomQuote(source = randomNum) { randomQuote -> result(randomQuote) }
 }
