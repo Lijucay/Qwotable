@@ -1,3 +1,20 @@
+/*
+* Copyright (C) 2024 Lijucay (Luca)
+*
+*   This program is free software: you can redistribute it and/or modify
+*   it under the terms of the GNU General Public License as published by
+*   the Free Software Foundation, either version 3 of the License, or
+*   (at your option) any later version.
+*
+*   This program is distributed in the hope that it will be useful,
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*   GNU General Public License for more details.
+*
+*   You should have received a copy of the GNU General Public License
+*   along with this program.  If not, see <https://www.gnu.org/licenses/>
+* */
+
 package com.lijukay.core.utils
 
 import android.content.Context
@@ -6,6 +23,7 @@ import android.util.Log
 import com.lijukay.core.database.Qwotable
 import com.lijukay.core.database.QwotableDao
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
 class QwotableRepository(
@@ -15,9 +33,19 @@ class QwotableRepository(
 ) {
     private val TAG = this.javaClass.simpleName
 
+    val allQwotables = qwotableDao.getQwotablesFlow()
+    val allFavorites = qwotableDao.getFavoritesQwotableFlow()
+    val allOwnQwotables = qwotableDao.getOwnQwotableFlow()
+
     suspend fun insert(qwotables: List<Qwotable>) {
         withContext(Dispatchers.IO) {
             qwotableDao.insert(qwotables)
+        }
+    }
+
+    suspend fun insert(qwotable: Qwotable) {
+        withContext(Dispatchers.IO) {
+            qwotableDao.insert(qwotable)
         }
     }
 
@@ -27,7 +55,7 @@ class QwotableRepository(
         }
     }
 
-    suspend fun deleteAllFavorites() {
+    /*suspend fun deleteAllFavorites() {
         withContext(Dispatchers.IO) {
             qwotableDao.deleteAllFavorites()
         }
@@ -37,7 +65,7 @@ class QwotableRepository(
         withContext(Dispatchers.IO) {
             qwotableDao.deleteAllOwn()
         }
-    }
+    }*/
 
     suspend fun deleteSingleQwotable(qwotable: Qwotable) {
         withContext(Dispatchers.IO) {
@@ -45,9 +73,10 @@ class QwotableRepository(
         }
     }
 
-    val allQwotables = qwotableDao.getQwotablesFlow()
-    val allFavorites = qwotableDao.getFavoritesQwotableFlow()
-    val allOwnQwotables = qwotableDao.getOwnQwotableFlow()
+    fun getFilteredQwotable(language: String): Flow<List<Qwotable>> {
+        return qwotableDao.getFilteredQwotable(language)
+    }
+
     suspend fun getQwotables(): List<Qwotable> {
         return withContext(Dispatchers.IO) {
             return@withContext qwotableDao.getQwotables()
