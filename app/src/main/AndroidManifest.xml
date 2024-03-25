@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -16,7 +14,7 @@
         android:theme="@style/Theme.Qwotable"
         tools:targetApi="31">
         <activity
-            android:name=".ui.navigation.MainActivity"
+            android:name=".ui.navigation.activities.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Qwotable"
             android:windowSoftInputMode="adjustResize">
@@ -27,14 +25,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.navigation.SettingsActivity"
+            android:name=".ui.navigation.activities.SettingsActivity"
             android:exported="false"
             android:theme="@style/Theme.Qwotable"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.navigation.LogActivity"
+        <activity android:name=".ui.navigation.activities.LogActivity"
             android:exported="false"/>
         <activity
-            android:name=".ui.navigation.LicensesActivity"
+            android:name=".ui.navigation.activities.LicensesActivity"
             android:exported="false"
             android:theme="@style/Theme.Qwotable"
             android:windowSoftInputMode="adjustResize" />
