@@ -49,7 +49,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0")
-    implementation("androidx.fragment:fragment-compose:1.7.0-alpha10")
+    implementation("androidx.fragment:fragment-compose:1.7.0-beta01")
 
     implementation("com.google.code.gson:gson:2.10.1")
 
