@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="not_connected">Du bist nicht verbunden</string>
-    <string name="error_connection">Es gab einen Fehler bei der Verbindung zu Webseite</string>
     <string name="refresh">Neu laden</string>
     <string name="about_random_quotes">Random Quotes lädt zufällige Zitate aus der lokalen Datenbank, sowie von Drittanbietern. Das Laden von Zitaten von Drittanbietern funktioniert derzeit nur auf Englisch.</string>
     <string name="error_server">Es gab einen Serverfehler. Wenn dieser Fehler bestehen bleibt, öffne ein Fehlerticket auf GitHub.</string>
+    <string name="error_connecting">Verbindung mit %1$s fehlgeschlagen.</string>
+    <string name="no_internet">Du bist nicht mit dem Internet verbunden.</string>
     <string name="licenses">Lizenzen</string>
-    <string name="add_to_favorites">Zu Favoriten hinzufügen</string>
-    <string name="remove_from_favorites">Aus Favoriten entfernen</string>
     <string name="current_qwotable">Aktuelles Qwotable:</string>
     <string name="edit_qwotable">Qwotable bearbeiten</string>
     <string name="create_qwotable">Qwotable erstellen</string>
@@ -38,9 +36,6 @@
     <string name="permissions">App-Berechtigungen</string>
     <string name="permissions_summary">Lerne über Qwotables Berechtigungen</string>
     <string name="default_language">German</string>
-    <string name="language">Sprache</string>
-    <string name="app_settings">App Einstellungen</string>
-    <string name="current_language">Aktuelle Sprache: Deutsch</string>
     <string name="your_privacy_message">Qwotable sammelt keine Daten und wird es auch zukünftig nicht tun. Qwotable ist eine freie Open Source App.</string>
     <string name="permissions_messages">Internet: Qwotable braucht Internetzugriff um die Zitate aus dem GitHub Repository zu laden und um auf APIs zugreifen zu können.\\n\\nNetwerkverbindungen abrufen: Um zu checken, ob dein Gerät online ist, muss Qwotable die Netzwerkverbindungen abrufen.</string>
     <string name="back">Zurück</string>

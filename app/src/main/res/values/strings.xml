@@ -1,14 +1,10 @@
 <resources>
     <string name="app_name" translatable="false">Qwotable</string>
     <string name="home" translatable="false">Home</string>
-    <string name="not_connected">You\'re not connected</string>
-    <string name="error_connection">There was an error connecting to the website</string>
     <string name="refresh">Refresh</string>
     <string name="about_random_quotes">Random quotes loads a random quote from the local data as well as from the APIs, it is using.\nPlease notice, that this service currently only works for English quotes.</string>
     <string name="error_server">There was a server side error. If it remains, open an issue on GitHub and I\'ll check if my app needs to update something.</string>
     <string name="licenses">Licenses</string>
-    <string name="add_to_favorites">Add to favorites</string>
-    <string name="remove_from_favorites">Remove from favorites</string>
     <string name="current_qwotable">Current Qwotable:</string>
     <string name="edit_qwotable">Edit Qwotable</string>
     <string name="create_qwotable">Create Qwotable</string>
@@ -40,9 +36,6 @@
     <string name="permissions">App permissions</string>
     <string name="permissions_summary">Learn about Qwotable\'s permission</string>
     <string name="default_language">English</string>
-    <string name="language">Language</string>
-    <string name="app_settings">App settings</string>
-    <string name="current_language">Current language: English</string>
     <string name="your_privacy_message">Qwotable does, and never will, collect any data. Qwotable is a free and open source app.</string>
     <string name="permissions_messages">Internet:\nQwotable needs access to the internet to load the quotes from a GitHub repository and from the APIs.\n\nAccess network state:\nIn order to check if your device is online, Qwotable needs to access the network state.</string>
     <string name="back">Back</string>

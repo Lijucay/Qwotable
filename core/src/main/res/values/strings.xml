@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_server">Error while trying to get the result from %1$s. The json object of key %2$s returned null.</string>
+    <string name="error_server">Server error. If the issue remains, please open an issue ticket on GitHub</string>
     <string name="error_connecting">Couldn\'t connect to %1$s.</string>
     <string name="no_internet">You are not connected with the internet.</string>
 </resources>

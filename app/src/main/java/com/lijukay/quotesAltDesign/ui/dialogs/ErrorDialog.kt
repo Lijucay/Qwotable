@@ -55,7 +55,7 @@ fun ErrorDialog(
     ) {
     val scrollState = rememberScrollState()
 
-    Dialog(onDismissRequest = { onDismissRequest() }) {
+    Dialog(onDismissRequest = onDismissRequest) {
         ElevatedCard(
             modifier = modifier
                 .fillMaxWidth()
