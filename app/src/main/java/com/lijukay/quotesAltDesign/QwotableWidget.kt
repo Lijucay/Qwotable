@@ -40,17 +40,22 @@ import androidx.glance.currentState
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
 import androidx.glance.layout.Column
+import androidx.glance.layout.absolutePadding
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.padding
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextAlign
+import androidx.glance.text.TextDefaults
 import androidx.glance.text.TextStyle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.lijukay.core.R
+import com.lijukay.core.database.Qwotable
+import java.util.Locale
 
 object QwotableWidget : GlanceAppWidget() {
     val quoteKey = stringPreferencesKey(name = "quote")
@@ -62,7 +67,7 @@ object QwotableWidget : GlanceAppWidget() {
                 if (quote.isEmpty()) { onFirstCreation(context = context, glanceId = id) }
                 val quotesArray = mutableListOf<String>()
                 quotesArray.add(quote)
-                quotesArray.add(context.getString(R.string.refresh))
+                quotesArray.add(context.getString(R.string.renew))
 
                 Column(
                     modifier = GlanceModifier
@@ -72,65 +77,35 @@ object QwotableWidget : GlanceAppWidget() {
                 ) {
                     Box(
                         modifier = GlanceModifier
-                            .padding(16.dp)
-                            .fillMaxWidth()
-                            .background(GlanceTheme.colors.surface)
+                            .fillMaxSize()
+                            .background(GlanceTheme.colors.onPrimaryContainer)
                             .cornerRadius(12.dp)
                     ) {
-                        Text(
-                            text = context.getString(R.string.app_name),
-                            style = TextStyle(
-                                color = GlanceTheme.colors.onSurface,
-                                fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                                fontWeight = FontWeight.Bold,
-                                textAlign = TextAlign.Center
-                            ),
-                            modifier = GlanceModifier.fillMaxWidth()
-                        )
-                    }
-
-                    LazyColumn(
-                        modifier = GlanceModifier
-                            .padding(top = 16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        items(quotesArray) { item ->
-                            if (item != context.getString(R.string.refresh)) {
-                                Text(
-                                    modifier = GlanceModifier
-                                        .padding(16.dp)
-                                        .fillMaxWidth()
-                                        .background(GlanceTheme.colors.surface)
-                                        .cornerRadius(12.dp),
-                                    text = item,
-                                    style = TextStyle(
-                                        fontSize = MaterialTheme.typography.titleMedium.fontSize
+                        LazyColumn(
+                            modifier = GlanceModifier,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            items(quotesArray) { item ->
+                                if (item != context.getString(R.string.renew)) {
+                                    Text(
+                                        modifier = GlanceModifier
+                                            .padding(16.dp)
+                                            .fillMaxWidth()
+                                            .cornerRadius(12.dp),
+                                        text = item,
+                                        style = TextStyle(
+                                            fontSize = MaterialTheme.typography.titleMedium.fontSize
+                                        )
                                     )
-                                )
-                            } else {
-                                Button(
-                                    text = context.getString(R.string.refresh),
-                                    onClick = actionRunCallback(callbackClass = QuoteActionCallback::class.java),
-                                    modifier = GlanceModifier
-                                )
+                                } else {
+                                    Button(
+                                        text = item,
+                                        onClick = actionRunCallback(callbackClass = QuoteActionCallback::class.java)
+                                    )
+                                }
                             }
                         }
                     }
-
-                    /*Text(
-                        text = quote,
-                        modifier = GlanceModifier.padding(bottom = 16.dp),
-                        style = TextStyle(
-                            color = GlanceTheme.colors.onBackground,
-                            fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                            textAlign = TextAlign.Center
-                        )
-                    )
-                    Button(
-                        text = context.getString(R.string.refresh),
-                        onClick = actionRunCallback(callbackClass = QuoteActionCallback::class.java),
-                        modifier = GlanceModifier
-                    )*/
                 }
             }
         }
@@ -165,7 +140,14 @@ class QuoteActionCallback: ActionCallback {
     ) {
         CoroutineScope(context = Dispatchers.IO).launch {
             val repository = (context.applicationContext as App).repository
-            val quotes = repository.getQwotables()
+            val lang = Locale.getDefault().language
+
+            val quotes: List<Qwotable> = when (lang) {
+                "de" -> repository.getFilteredQwotables("German")
+                "fr" -> repository.getFilteredQwotables("French")
+                else -> repository.getFilteredQwotables("English")
+            }
+
             val randQuote = quotes[quotes.indices.random()].qwotable
 
             withContext(context = Dispatchers.Main) {
