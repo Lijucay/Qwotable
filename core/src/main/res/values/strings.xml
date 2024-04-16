@@ -1,5 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="qwotable" translatable="false">Qwotable</string>
+    <string name="sanctuary">Sanctuary</string>
+    <string name="renew">Renew</string>
+    <string name="about_random_quotes_title">About random quotes</string>
+    <string name="about_random_quotes_message">Random quotes loads a random quote from the local data as well as from APIs, it is using.\nThe service is currently only working in English.</string>
+    <string name="licenses">Licenses</string>
+    <string name="current_qwotable">Current Qwotable:</string>
+    <string name="edit_qwotable">Edit Qwotable</string>
+    <string name="create_qwotable">Create Qwotable</string>
+    <string name="no_logs">No logs</string>
+    <string name="logs">Logs</string>
+    <string name="detailed_logs">Detailed logs</string>
+    <string name="save">Save</string>
+    <string name="share">Share</string>
+    <string name="favorites">Favorites</string>
+    <string name="mine">Mine</string>
+    <string name="settings">Settings</string>
+    <string name="quote_cannot_be_empty">Quote cannot be empty</string>
+    <string name="quote">Quote</string>
+    <string name="author">Author</string>
+    <string name="source">Source</string>
+    <string name="delete_qwotable">Delete Qwotable</string>
+    <string name="confirm">Confirm</string>
+    <string name="delete_qwotable_warning">Do you really want to delete this qwotable? This action is final!</string>
+    <string name="unknown">Unknown</string>
+    <string name="english">English</string>
+    <string name="german">German</string>
+    <string name="french">French</string>
+    <string name="filter">Filter</string>
+    <string name="licenses_and_privacy">Licenses and privacy</string>
+    <string name="licenses_summary">Show third party licenses</string>
+    <string name="your_privacy">Your privacy</string>
+    <string name="your_privacy_summary">Read about the privacy of your data</string>
+    <string name="permissions">App permissions</string>
+    <string name="permissions_summary">Learn about Qwotable\'s permission</string>
+    <string name="default_language">English</string>
+    <string name="your_privacy_message">Qwotable does, and never will, collect any data. Qwotable is a free and open source app.</string>
+    <string name="permissions_messages">Internet:\nQwotable needs access to the internet to load the quotes from a GitHub repository and from the APIs.\n\nAccess network state:\nIn order to check if your device is online, Qwotable needs to access the network state.</string>
+    <string name="back">Back</string>
     <string name="error_server">Server error. If the issue remains, please open an issue ticket on GitHub</string>
     <string name="error_connecting">Couldn\'t connect to %1$s.</string>
     <string name="no_internet">You are not connected with the internet.</string>

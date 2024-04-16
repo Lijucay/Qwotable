@@ -18,19 +18,14 @@
 package com.lijukay.quotesAltDesign.data
 
 import android.content.Context
-import android.content.res.Configuration
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.lijukay.core.database.Qwotable
 import com.lijukay.core.utils.RandomQuote
-import com.lijukay.quotesAltDesign.R
+import com.lijukay.core.R
 import com.lijukay.quotesAltDesign.data.model.Screens
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.util.Locale
 
 class UIViewModel : ViewModel() {
     private val _showFilterBottomSheet = MutableLiveData(false)

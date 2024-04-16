@@ -74,12 +74,18 @@ class QwotableRepository(
     }
 
     fun getFilteredQwotable(language: String): Flow<List<Qwotable>> {
-        return qwotableDao.getFilteredQwotable(language)
+        return qwotableDao.getFilteredQwotableFlow(language)
     }
 
     suspend fun getQwotables(): List<Qwotable> {
         return withContext(Dispatchers.IO) {
             return@withContext qwotableDao.getQwotables()
+        }
+    }
+
+    suspend fun getFilteredQwotables(lang: String): List<Qwotable> {
+        return withContext(Dispatchers.IO) {
+            return@withContext qwotableDao.getFilteredQwotable(lang)
         }
     }
 

@@ -19,7 +19,6 @@ package com.lijukay.quotesAltDesign.ui.navigation.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -34,7 +33,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.lijukay.quotesAltDesign.R
+import com.lijukay.core.R
 import com.lijukay.quotesAltDesign.data.UIViewModel
 import com.lijukay.quotesAltDesign.ui.composables.item_cards.LibraryItemCard
 import com.lijukay.quotesAltDesign.ui.composables.widgets.TopAppBar

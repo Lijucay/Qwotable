@@ -18,10 +18,8 @@
 package com.lijukay.quotesAltDesign.ui.composables.widgets
 
 import android.content.Intent
-import androidx.activity.OnBackPressedDispatcher
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBackIos
-import androidx.compose.material.icons.rounded.ArrowBackIos
 import androidx.compose.material.icons.rounded.FilterAlt
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -37,7 +35,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import com.lijukay.quotesAltDesign.R
+import com.lijukay.core.R
 import com.lijukay.quotesAltDesign.data.UIViewModel
 import com.lijukay.quotesAltDesign.ui.navigation.activities.SettingsActivity
 

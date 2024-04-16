@@ -46,7 +46,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.lijukay.quotesAltDesign.R
+import com.lijukay.core.R
 import com.lijukay.quotesAltDesign.ui.theme.QwotableTheme
 
 class LogActivity : ComponentActivity() {

@@ -18,7 +18,6 @@
 package com.lijukay.core.database
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -58,5 +57,8 @@ interface QwotableDao {
     suspend fun deleteSingleQwotable(id: Int)
 
     @Query("SELECT * FROM Qwotable WHERE language = :lang")
-    fun getFilteredQwotable(lang: String): Flow<List<Qwotable>>
+    fun getFilteredQwotableFlow(lang: String): Flow<List<Qwotable>>
+
+    @Query("SELECT * FROM Qwotable WHERE language = :lang")
+    fun getFilteredQwotable(lang: String): List<Qwotable>
 }

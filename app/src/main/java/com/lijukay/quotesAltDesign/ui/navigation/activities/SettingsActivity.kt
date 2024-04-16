@@ -29,7 +29,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.GppGood
 import androidx.compose.material.icons.rounded.GppMaybe
-import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.LocalPolice
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -43,7 +42,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Observer
-import com.lijukay.quotesAltDesign.R
+import com.lijukay.core.R
 import com.lijukay.quotesAltDesign.data.UIViewModel
 import com.lijukay.quotesAltDesign.ui.composables.preferences.Preference
 import com.lijukay.quotesAltDesign.ui.composables.preferences.PreferenceCategoryTitle

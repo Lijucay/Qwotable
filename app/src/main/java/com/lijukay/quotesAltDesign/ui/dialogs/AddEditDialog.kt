@@ -50,7 +50,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.lijukay.core.database.Qwotable
 import com.lijukay.core.utils.QwotableViewModel
-import com.lijukay.quotesAltDesign.R
+import com.lijukay.core.R
 import com.lijukay.quotesAltDesign.data.UIViewModel
 
 @Composable

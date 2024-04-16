@@ -24,7 +24,7 @@ import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.lijukay.quotesAltDesign.R
+import com.lijukay.core.R
 
 data class BottomNavigationItem(
     val label: String = "",
@@ -34,7 +34,7 @@ data class BottomNavigationItem(
     fun bottomNavigationItems(context: Context): List<BottomNavigationItem> {
         return listOf(
             BottomNavigationItem(
-                label = context.getString(R.string.home),
+                label = context.getString(R.string.sanctuary),
                 icon = Icons.Rounded.Home,
                 route = Screens.Home.route
             ),
@@ -49,7 +49,7 @@ data class BottomNavigationItem(
                 route = Screens.Favorite.route
             ),
             BottomNavigationItem(
-                label = context.getString(R.string.my_qwotable),
+                label = context.getString(R.string.mine),
                 icon = Icons.Rounded.Person,
                 route = Screens.OwnQwotables.route
             )

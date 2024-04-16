@@ -44,7 +44,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
-import com.lijukay.quotesAltDesign.R
+import com.lijukay.core.R
 import com.lijukay.quotesAltDesign.data.UIViewModel
 import com.lijukay.quotesAltDesign.ui.theme.QwotableTheme
 
@@ -104,7 +104,7 @@ fun HomeScreen(modifier: Modifier = Modifier, uiViewModel: UIViewModel) {
                             )
                         }
                         Text(
-                            text = stringResource(id = R.string.refresh),
+                            text = stringResource(id = R.string.renew),
                             modifier = modifier.padding(start = if (isLoading.value) 8.dp else 0.dp)
                         )
                     }
@@ -118,7 +118,7 @@ fun HomeScreen(modifier: Modifier = Modifier, uiViewModel: UIViewModel) {
                 ) {
                     Icon(imageVector = Icons.Rounded.Info, contentDescription = null)
                     Text(
-                        text = stringResource(id = R.string.about_random_quotes),
+                        text = stringResource(id = R.string.about_random_quotes_message),
                         modifier = modifier.padding(horizontal = 8.dp)
                     )
                 }

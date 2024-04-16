@@ -40,21 +40,17 @@ import androidx.glance.currentState
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
 import androidx.glance.layout.Column
-import androidx.glance.layout.absolutePadding
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.padding
-import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
-import androidx.glance.text.TextAlign
-import androidx.glance.text.TextDefaults
 import androidx.glance.text.TextStyle
+import com.lijukay.core.R
+import com.lijukay.core.database.Qwotable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.lijukay.core.R
-import com.lijukay.core.database.Qwotable
 import java.util.Locale
 
 object QwotableWidget : GlanceAppWidget() {

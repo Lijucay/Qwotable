@@ -19,7 +19,7 @@ package com.lijukay.quotesAltDesign.data
 
 import android.content.Context
 import androidx.annotation.StringRes
-import com.lijukay.quotesAltDesign.R
+import com.lijukay.core.R
 
 sealed class StringValue {
     data class DynamicString(val value: String) : StringValue()

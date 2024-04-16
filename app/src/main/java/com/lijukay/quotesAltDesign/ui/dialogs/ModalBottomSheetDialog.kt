@@ -50,7 +50,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.lijukay.core.database.Qwotable
 import com.lijukay.core.utils.QwotableViewModel
-import com.lijukay.quotesAltDesign.R
+import com.lijukay.core.R
 import com.lijukay.quotesAltDesign.ui.composables.item_cards.QwotableItemCard
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -51,7 +51,7 @@ import com.lijukay.core.database.Qwotable
 import com.lijukay.core.utils.QwotableViewModel
 import com.lijukay.core.utils.QwotableViewModelFactory
 import com.lijukay.quotesAltDesign.App
-import com.lijukay.quotesAltDesign.R
+import com.lijukay.core.R
 import com.lijukay.quotesAltDesign.data.UIViewModel
 import com.lijukay.quotesAltDesign.ui.composables.widgets.BottomNavigationBar
 import com.lijukay.quotesAltDesign.ui.composables.widgets.TopAppBar
@@ -63,6 +63,7 @@ import com.lijukay.quotesAltDesign.ui.navigation.screens.QwotableScreen
 import com.lijukay.quotesAltDesign.data.model.Screens
 import com.lijukay.quotesAltDesign.ui.dialogs.ErrorDialog
 import com.lijukay.quotesAltDesign.ui.dialogs.FilterBottomSheetDialog
+import com.lijukay.quotesAltDesign.ui.dialogs.InformationDialog
 import com.lijukay.quotesAltDesign.ui.dialogs.ModalBottomSheetDialog
 import com.lijukay.quotesAltDesign.ui.theme.QwotableTheme
 import kotlinx.coroutines.launch
@@ -100,6 +101,7 @@ class MainActivity : ComponentActivity() {
         val showAddEditDialog = remember { mutableStateOf(false) }
         val showDeletionWarningDialog = remember { mutableStateOf(false) }
         val showFilterDialog = remember { mutableStateOf(false) }
+        val showInformationDialog = remember { mutableStateOf(false) }
 
         DisposableEffect(key1 = uiViewModel) {
             val showBottomSheetObserver = Observer<Boolean> { showDialog ->
@@ -123,6 +125,9 @@ class MainActivity : ComponentActivity() {
             val showFilterDialogObserver = Observer<Boolean> { showDialog ->
                 showFilterDialog.value = showDialog
             }
+            val showInformationDialogObserver = Observer<Boolean> { showDialog ->
+                showInformationDialog.value = showDialog
+            }
 
             uiViewModel.showQwotableOptionsBottomSheet.observeForever(showBottomSheetObserver)
             uiViewModel.currentSelectedQwotable.observeForever(currentQwotableObserver)
@@ -131,6 +136,7 @@ class MainActivity : ComponentActivity() {
             uiViewModel.showAddEditQwotableDialog.observeForever(showEditingDialog)
             uiViewModel.showErrorWarningDialog.observeForever(showWarningDialogObserver)
             uiViewModel.showFilterBottomSheet.observeForever(showFilterDialogObserver)
+            uiViewModel.showInformationDialog.observeForever(showInformationDialogObserver)
 
             onDispose {
                 uiViewModel.showQwotableOptionsBottomSheet.removeObserver(showBottomSheetObserver)
@@ -140,13 +146,14 @@ class MainActivity : ComponentActivity() {
                 uiViewModel.showAddEditQwotableDialog.removeObserver(showEditingDialog)
                 uiViewModel.showErrorWarningDialog.removeObserver(showWarningDialogObserver)
                 uiViewModel.showFilterBottomSheet.removeObserver(showFilterDialogObserver)
+                uiViewModel.showInformationDialog.removeObserver(showInformationDialogObserver)
             }
         }
 
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = stringResource(id = R.string.home),
+                    title = stringResource(id = R.string.sanctuary),
                     showSettingsIcon = true,
                     showBackIcon = false,
                     showFilterIcon = showFilterIcon.value,
@@ -270,6 +277,17 @@ class MainActivity : ComponentActivity() {
                 sheetState = sheetState,
                 uiViewModel = uiViewModel
             )
+        }
+
+        if (showInformationDialog.value) {
+            InformationDialog(
+                title = stringResource(id = R.string.about_random_quotes_title),
+                message = stringResource(id = R.string.about_random_quotes_message),
+                showCancel = false,
+                onDismissRequest = { uiViewModel.setShowInformationDialog(false) }
+            ) {
+                uiViewModel.setShowInformationDialog(false)
+            }
         }
     }
 }

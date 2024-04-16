@@ -29,7 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.lijukay.core.database.Qwotable
-import com.lijukay.quotesAltDesign.R
+import com.lijukay.core.R
 
 @Composable
 fun QwotableItemCard(modifier: Modifier = Modifier, qwotable: Qwotable, onClick: (() -> Unit)?) {
