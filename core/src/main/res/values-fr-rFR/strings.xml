@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="qwotable">Qwotable</string>
+    <string name="sanctuary">Sanctuaire</string>
+    <string name="renew">Renouveler</string>
+    <string name="about_random_quotes_title">À propos des devis aléatoires</string>
+    <string name="about_random_quotes_message">Devis aléatoires charge une devis aléatoire à partir des données locales et des API qu\'il utilise. Le service ne fonctions actuellement qu\'en anglais</string>
+    <string name="licenses">Licences</string>
+    <string name="current_qwotable">Qwotable actuel:</string>
+    <string name="edit_qwotable">Modifier Qwotable</string>
+    <string name="create_qwotable">Créer Qwotable</string>
+    <string name="no_logs">Pas de journaux</string>
+    <string name="logs">Journeaux</string>
+    <string name="detailed_logs">Journaux détaillés</string>
+    <string name="save">Économiser</string>
+    <string name="share">Partager</string>
+    <string name="favorites">Favoris</string>
+    <string name="mine">Propre</string>
+    <string name="settings">Paramètres</string>
+    <string name="quote_cannot_be_empty">La devis ne peut être vide</string>
+    <string name="quote">Devis</string>
+    <string name="author">Auteur</string>
+    <string name="source">Source</string>
+    <string name="delete_qwotable">Supprimer Qwotable</string>
+    <string name="confirm">Confirmer</string>
+    <string name="delete_qwotable_warning">Veux-tu vraiment supprimer ce Qwotable ? Cette action est définitive !</string>
+    <string name="unknown">Inconnu</string>
+    <string name="english">Anglais</string>
+    <string name="german">Allemand</string>
+    <string name="french">Français</string>
+    <string name="filter">Filtre</string>
+    <string name="licenses_and_privacy">Licences et vie privée</string>
+    <string name="licenses_summary">Afficher les licences de tiers</string>
+    <string name="your_privacy">Ta vie privée</string>
+    <string name="your_privacy_summary">Pour en savoir plus sur la confidentialité de tes données, clique ici</string>
+    <string name="permissions">Permissions</string>
+    <string name="permissions_summary">Pour en savoir des permissions de Qwotable, clique ici</string>
+    <string name="default_language">French</string>
+    <string name="your_privacy_message">Qwotable ne collecte pas et ne collectera jamais de données.</string>
+    <string name="back">Retour</string>
+    <string name="error_server">Erreur de serveur. Si le problème persiste, ouvre un ticket sur GitHub</string>
+    <string name="error_connecting">Impossible de se connecter à %1$s</string>
+    <string name="no_internet">Tu n\'es pas connecté à l\'internet</string>
+    <string name="permissions_messages">Internet:\nQwotable a besoin d\'un accès à Internet pour charger les citations à partir d\'un dépôt GitHub et des API.\n\nAccès à l\'état du réseau :\nAfin de vérifier si ton appareil est en ligne, Qwotable a besoin d\'accéder à l\'état du réseau.</string>
+</resources>

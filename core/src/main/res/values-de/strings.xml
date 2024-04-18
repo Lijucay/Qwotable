@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="qwotable">Qwotable</string>
+    <string name="sanctuary">Heiligtum</string>
+    <string name="renew">Erneuern</string>
+    <string name="about_random_quotes_title">Über zufällige Zitate</string>
+    <string name="about_random_quotes_message">Zufällige Zitate lädt zufällige Zitate aus den lokalen Daten, sowie von APIs, die es nutzt. Dieser Service ist derzeit nur in Englisch verfügbar.</string>
+    <string name="licenses">Lizenzen</string>
+    <string name="current_qwotable">Aktuelles Qwotable:</string>
+    <string name="edit_qwotable">Qwotable bearbeiten</string>
+    <string name="create_qwotable">Qwotable erstellen</string>
+    <string name="no_logs">Keine Logs</string>
+    <string name="logs">Logs</string>
+    <string name="detailed_logs">Detaillierte Logs</string>
+    <string name="save">Speichern</string>
+    <string name="share">Teilen</string>
+    <string name="favorites">Favoriten</string>
+    <string name="mine">Eigenes</string>
+    <string name="settings">Einstellungen</string>
+    <string name="quote_cannot_be_empty">Zitat kann nicht leer sein</string>
+    <string name="quote">Zitat</string>
+    <string name="author">Autor</string>
+    <string name="source">Quelle</string>
+    <string name="delete_qwotable">Qwotable löschen</string>
+    <string name="confirm">Bestätigen</string>
+    <string name="delete_qwotable_warning">Möchtest du dieses Qwotable wirklich löschen? Diese Aktion is entgültig</string>
+    <string name="unknown">Unbekannt</string>
+    <string name="english">Englisch</string>
+    <string name="german">Deutsch</string>
+    <string name="french">Französisch</string>
+    <string name="filter">Filter</string>
+    <string name="licenses_and_privacy">Lizenzen und Privatsphäre</string>
+    <string name="licenses_summary">Drittanbieterlizenzen anzeigen</string>
+    <string name="your_privacy">Deine Privatsphäre</string>
+    <string name="your_privacy_summary">Hier kannst du über die Privatsphäre deiner Daten lesen</string>
+    <string name="permissions">App-Berechtigungen</string>
+    <string name="permissions_summary">Hier kannst du über die Berechtigungen von Qwotable lernen</string>
+    <string name="default_language">German</string>
+    <string name="your_privacy_message">Qwotable wird niemals Daten von dir Sammeln</string>
+    <string name="back">Zurück</string>
+    <string name="error_server">Serverfehler. Wenn der Fehler bestehen bleibt, öffne bitte ein Ticket auf GitHub</string>
+    <string name="error_connecting">Verbindung zu %1$s fehlgeschlagen</string>
+    <string name="no_internet">Du bist nicht mit dem Internet verbunden</string>
+    <string name="permissions_messages">Internet:\nQwotable benötigt Internetzugriff, um Zitate aus Qwotables GitHub repository und aus den APIs zu laden.\n\nNetzwerkverbindungen abrufen:\nUm zu überprüfen, ob dein Gerät online ist, muss Qwotable zugriff auf deinen Netzwerkstatus haben</string>
+</resources>

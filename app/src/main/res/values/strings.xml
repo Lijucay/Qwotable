@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name" translatable="false">Qwotable</string>
+    <string name="open_app">Open app</string>
 </resources>

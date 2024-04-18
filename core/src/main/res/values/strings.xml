@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="qwotable" translatable="false">Qwotable</string>
+    <string name="qwotable">Qwotable</string>
     <string name="sanctuary">Sanctuary</string>
     <string name="renew">Renew</string>
     <string name="about_random_quotes_title">About random quotes</string>
@@ -36,10 +36,12 @@
     <string name="permissions">App permissions</string>
     <string name="permissions_summary">Learn about Qwotable\'s permission</string>
     <string name="default_language">English</string>
-    <string name="your_privacy_message">Qwotable does, and never will, collect any data. Qwotable is a free and open source app.</string>
+    <string name="your_privacy_message">Qwotable does, and never will, collect any data.</string>
     <string name="permissions_messages">Internet:\nQwotable needs access to the internet to load the quotes from a GitHub repository and from the APIs.\n\nAccess network state:\nIn order to check if your device is online, Qwotable needs to access the network state.</string>
     <string name="back">Back</string>
     <string name="error_server">Server error. If the issue remains, please open an issue ticket on GitHub</string>
     <string name="error_connecting">Couldn\'t connect to %1$s.</string>
     <string name="no_internet">You are not connected with the internet.</string>
+    <string name="no_quotes_available_widget_method">There are no quotes available to show. Please download the quotes first by opening the app and opening the \"Qwotable\" tab.</string>
+    <string name="open_app">Open app</string>
 </resources>
