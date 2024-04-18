@@ -38,6 +38,7 @@ class UncaughtExceptionHandler(
         val logWriter = StringWriter()
 
         e.printStackTrace(PrintWriter(logWriter))
+        e.printStackTrace()
 
         if (logs != null) {
             try {
