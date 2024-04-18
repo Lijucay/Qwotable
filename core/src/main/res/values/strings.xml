@@ -44,4 +44,5 @@
     <string name="no_internet">You are not connected with the internet.</string>
     <string name="no_quotes_available_widget_method">There are no quotes available to show. Please download the quotes first by opening the app and opening the \"Qwotable\" tab.</string>
     <string name="open_app">Open app</string>
+    <string name="example_quote">People can find ways to forget, but they can\'t undo what they\'ve done and there\'s no escaping the past.</string>
 </resources>
