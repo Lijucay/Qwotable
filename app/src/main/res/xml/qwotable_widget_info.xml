@@ -5,4 +5,5 @@
     android:minWidth="150dp"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
+    android:previewImage="@layout/widget_preview"
     />
