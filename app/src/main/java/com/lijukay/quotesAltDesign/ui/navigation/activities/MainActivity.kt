@@ -44,6 +44,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -61,6 +62,7 @@ import com.lijukay.quotesAltDesign.ui.navigation.screens.HomeScreen
 import com.lijukay.quotesAltDesign.ui.navigation.screens.OwnQwotablesScreen
 import com.lijukay.quotesAltDesign.ui.navigation.screens.QwotableScreen
 import com.lijukay.quotesAltDesign.data.model.Screens
+import com.lijukay.quotesAltDesign.ui.composables.widgets.openScreen
 import com.lijukay.quotesAltDesign.ui.dialogs.ErrorDialog
 import com.lijukay.quotesAltDesign.ui.dialogs.FilterBottomSheetDialog
 import com.lijukay.quotesAltDesign.ui.dialogs.InformationDialog
@@ -196,6 +198,12 @@ class MainActivity : ComponentActivity() {
                 }
                 composable(route = Screens.OwnQwotables.route) {
                     OwnQwotablesScreen(qwotableViewModel = qwotableViewModel, uiViewModel = uiViewModel)
+                }
+            }
+
+            intent?.getStringExtra("action")?.let { action ->
+                if(action == "download") {
+                    openScreen(Screens.Qwotable.route, navController)
                 }
             }
         }
