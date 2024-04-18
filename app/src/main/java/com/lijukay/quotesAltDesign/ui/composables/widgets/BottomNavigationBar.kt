@@ -31,16 +31,18 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.lijukay.quotesAltDesign.data.model.BottomNavigationItem
+import com.lijukay.quotesAltDesign.data.model.Screens
+
+private var navigationSelectedItem = mutableIntStateOf(value = 0)
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
-    var navigationSelectedItem: Int by remember { mutableIntStateOf(value = 0) }
     val context: Context = LocalContext.current
 
     NavigationBar {
         BottomNavigationItem().bottomNavigationItems(context = context).forEachIndexed { index, navigationItem ->
             NavigationBarItem(
-                selected = index == navigationSelectedItem,
+                selected = index == navigationSelectedItem.intValue,
                 label = { Text(text = navigationItem.label) },
                 icon = {
                     Icon(
@@ -49,7 +51,7 @@ fun BottomNavigationBar(navController: NavController) {
                     )
                 },
                 onClick = {
-                    navigationSelectedItem = index
+                    navigationSelectedItem.intValue= index
                     navController.navigate(route = navigationItem.route) {
                         popUpTo(id = navController.graph.findStartDestination().id) { saveState = true }
                         launchSingleTop = true
@@ -57,6 +59,19 @@ fun BottomNavigationBar(navController: NavController) {
                     }
                 }
             )
+        }
+    }
+}
+
+fun openScreen(route: String, navController: NavController) {
+    when (route) {
+        Screens.Qwotable.route -> {
+            navigationSelectedItem.intValue = 1
+            navController.navigate(Screens.Qwotable.route) {
+                popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                launchSingleTop = true
+                restoreState = true
+            }
         }
     }
 }
