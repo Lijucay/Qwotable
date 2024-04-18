@@ -18,7 +18,10 @@
 package com.lijukay.quotesAltDesign
 
 import android.content.Context
+import android.content.Intent
+import androidx.annotation.StringRes
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.glance.Button
@@ -35,6 +38,7 @@ import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.appwidget.lazy.items
 import androidx.glance.appwidget.provideContent
 import androidx.glance.appwidget.state.updateAppWidgetState
+import androidx.glance.appwidget.updateAll
 import androidx.glance.background
 import androidx.glance.currentState
 import androidx.glance.layout.Alignment
@@ -47,6 +51,7 @@ import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import com.lijukay.core.R
 import com.lijukay.core.database.Qwotable
+import com.lijukay.quotesAltDesign.ui.navigation.activities.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -54,16 +59,18 @@ import kotlinx.coroutines.withContext
 import java.util.Locale
 
 object QwotableWidget : GlanceAppWidget() {
-    val quoteKey = stringPreferencesKey(name = "quote")
+    private val quoteKey = stringPreferencesKey(name = "quote")
+    @StringRes val noQuotesStringId = R.string.no_quotes_available_widget_method
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
             GlanceTheme {
-                val quote = currentState(key = quoteKey).orEmpty()
-                if (quote.isEmpty()) { onFirstCreation(context = context, glanceId = id) }
+                onFirstCreation(context = context, glanceId = id)
+                val quote = currentState(key = quoteKey) ?: context.getString(noQuotesStringId)
                 val quotesArray = mutableListOf<String>()
                 quotesArray.add(quote)
                 quotesArray.add(context.getString(R.string.renew))
+                if (quote == context.getString(noQuotesStringId)) quotesArray.add(context.getString(R.string.open_app))
 
                 Column(
                     modifier = GlanceModifier
@@ -82,7 +89,7 @@ object QwotableWidget : GlanceAppWidget() {
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             items(quotesArray) { item ->
-                                if (item != context.getString(R.string.renew)) {
+                                if (item != context.getString(R.string.renew) && item != context.getString(R.string.open_app)) {
                                     Text(
                                         modifier = GlanceModifier
                                             .padding(16.dp)
@@ -90,13 +97,19 @@ object QwotableWidget : GlanceAppWidget() {
                                             .cornerRadius(12.dp),
                                         text = item,
                                         style = TextStyle(
-                                            fontSize = MaterialTheme.typography.titleMedium.fontSize
+                                            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                                            color = GlanceTheme.colors.primaryContainer
                                         )
                                     )
                                 } else {
                                     Button(
                                         text = item,
-                                        onClick = actionRunCallback(callbackClass = QuoteActionCallback::class.java)
+                                        onClick =
+                                        if (item != context.getString(R.string.open_app)) {
+                                            actionRunCallback<QuoteActionCallback>()
+                                        } else {
+                                            actionRunCallback<OpenAppActionCallback>()
+                                        }
                                     )
                                 }
                             }
@@ -108,32 +121,10 @@ object QwotableWidget : GlanceAppWidget() {
     }
 
     private fun onFirstCreation(context: Context, glanceId: GlanceId) {
-        CoroutineScope(context = Dispatchers.IO).launch {
-            val repository = (context.applicationContext as App).repository
-            val quotes = repository.getQwotables()
-            val randQuote = quotes[quotes.indices.random()].qwotable
-
-            withContext(Dispatchers.Main) {
-                updateAppWidgetState(context = context, glanceId = glanceId) { pref ->
-                    pref[quoteKey] = randQuote
-                }
-                QwotableWidget.update(context = context, id = glanceId)
-            }
-        }
+        updateQwotableWidget(context, glanceId)
     }
-}
 
-class SimpleQwotableWidgetReceiver: GlanceAppWidgetReceiver() {
-    override val glanceAppWidget: GlanceAppWidget
-        get() = QwotableWidget
-}
-
-class QuoteActionCallback: ActionCallback {
-    override suspend fun onAction(
-        context: Context,
-        glanceId: GlanceId,
-        parameters: ActionParameters
-    ) {
+    fun updateQwotableWidget(context: Context, glanceId: GlanceId) {
         CoroutineScope(context = Dispatchers.IO).launch {
             val repository = (context.applicationContext as App).repository
             val lang = Locale.getDefault().language
@@ -144,14 +135,53 @@ class QuoteActionCallback: ActionCallback {
                 else -> repository.getFilteredQwotables("English")
             }
 
-            val randQuote = quotes[quotes.indices.random()].qwotable
+            var randQuote = context.getString(R.string.no_quotes_available_widget_method)
+            if (quotes.isNotEmpty()) {
+                randQuote = quotes[quotes.indices.random()].qwotable
+            }
 
             withContext(context = Dispatchers.Main) {
                 updateAppWidgetState(context = context, glanceId = glanceId) { pref ->
-                    pref[QwotableWidget.quoteKey] = randQuote
+                    pref[quoteKey] = randQuote
                 }
                 QwotableWidget.update(context = context, id = glanceId)
             }
         }
     }
+
+    fun updateOnReboot(context: Context?) {
+        context?.let {
+            CoroutineScope(Dispatchers.IO).launch {
+                updateAll(it)
+            }
+        }
+    }
+}
+
+class QuoteActionCallback : ActionCallback {
+    override suspend fun onAction(
+        context: Context,
+        glanceId: GlanceId,
+        parameters: ActionParameters
+    ) {
+        QwotableWidget.updateQwotableWidget(context, glanceId)
+    }
+}
+
+class OpenAppActionCallback : ActionCallback {
+    override suspend fun onAction(
+        context: Context,
+        glanceId: GlanceId,
+        parameters: ActionParameters
+    ) {
+        val intent = Intent(context, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.putExtra("action", "download")
+        context.startActivity(intent)
+    }
+}
+
+class SimpleQwotableWidgetReceiver: GlanceAppWidgetReceiver() {
+    override val glanceAppWidget: GlanceAppWidget
+        get() = QwotableWidget
 }
