@@ -18,14 +18,22 @@
 package com.lijukay.quotesAltDesign.ui.navigation.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.Observer
+import com.lijukay.core.R
+import com.lijukay.core.database.Qwotable
 import com.lijukay.core.utils.QwotableViewModel
+import com.lijukay.quotesAltDesign.data.StringValue
 import com.lijukay.quotesAltDesign.data.UIViewModel
-import com.lijukay.quotesAltDesign.ui.composables.lists.QwotableList
-import com.lijukay.quotesAltDesign.ui.theme.QwotableTheme
+import com.lijukay.quotesAltDesign.ui.composables.item_cards.QwotableItemCard
 
 @Composable
 fun QwotableScreen(
@@ -33,13 +41,55 @@ fun QwotableScreen(
     qwotableViewModel: QwotableViewModel,
     uiViewModel: UIViewModel
 ) {
-    QwotableTheme {
-        Surface(
-            modifier = modifier
-                .fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            QwotableList(qwotableViewModel = qwotableViewModel, uiViewModel = uiViewModel)
+    val context = LocalContext.current
+    val qwotableState = remember { mutableStateOf(value = emptyList<Qwotable>()) }
+    val currentLanguage = remember {
+        mutableStateOf(
+            StringValue.Default.asString(context)
+                .ifEmpty { context.getString(R.string.default_language) }
+        )
+    }
+
+    LaunchedEffect(key1 = Unit) {
+        uiViewModel.selectedLanguage.value?.let {
+            currentLanguage.value = it.asString(context)
+        }
+
+        val observer = Observer { qwotables: List<Qwotable> ->
+            qwotableState.value = qwotables
+        }
+        qwotableViewModel.getFilteredQwotable(currentLanguage.value).observeForever(observer)
+    }
+
+    DisposableEffect(key1 = listOf(qwotableViewModel, uiViewModel)) {
+        val observer = Observer { qwotables: List<Qwotable> ->
+            qwotableState.value = qwotables
+        }
+
+        val languageObserver = Observer<StringValue> { language ->
+            currentLanguage.value = language.asString(context)
+            qwotableViewModel.getFilteredQwotable(language.asString(context))
+                .observeForever(observer)
+        }
+
+        qwotableViewModel.getFilteredQwotable(currentLanguage.value).observeForever(observer)
+
+        uiViewModel.selectedLanguage.observeForever(languageObserver)
+
+        onDispose {
+            qwotableViewModel.getFilteredQwotable(currentLanguage.value).removeObserver(observer)
+            uiViewModel.selectedLanguage.removeObserver(languageObserver)
+        }
+    }
+
+    val rememberQwotableState = remember(key1 = qwotableState) { qwotableState }
+
+    LazyColumn(modifier = modifier.fillMaxSize()) {
+        items(items = rememberQwotableState.value) { qwotable: Qwotable ->
+            QwotableItemCard(qwotable = qwotable) {
+                uiViewModel.setCurrentSelectedQwotable(qwotable)
+                uiViewModel.setShowQwotableOptionsBottomSheet(true)
+            }
         }
     }
 }

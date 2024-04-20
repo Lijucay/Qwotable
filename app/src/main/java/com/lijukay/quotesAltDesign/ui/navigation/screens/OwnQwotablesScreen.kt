@@ -17,15 +17,44 @@
 
 package com.lijukay.quotesAltDesign.ui.navigation.screens
 
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.Observer
+import com.lijukay.core.database.Qwotable
 import com.lijukay.core.utils.QwotableViewModel
 import com.lijukay.quotesAltDesign.data.UIViewModel
-import com.lijukay.quotesAltDesign.ui.composables.lists.OwnQwotableList
+import com.lijukay.quotesAltDesign.ui.composables.item_cards.QwotableItemCard
 
 @Composable
-fun OwnQwotablesScreen(qwotableViewModel: QwotableViewModel, uiViewModel: UIViewModel) {
-        Surface {
-            OwnQwotableList(qwotableViewModel = qwotableViewModel, uiViewModel = uiViewModel)
+fun OwnQwotablesScreen(
+    modifier: Modifier = Modifier,
+    qwotableViewModel: QwotableViewModel,
+    uiViewModel: UIViewModel
+) {
+    val qwotableList = remember { mutableStateOf(value = emptyList<Qwotable>()) }
+
+    DisposableEffect(key1 = qwotableViewModel) {
+        val observer = Observer { qwotables: List<Qwotable> ->
+            qwotableList.value = qwotables
+        }
+
+        qwotableViewModel.observedOwn.observeForever(observer)
+
+        onDispose { qwotableViewModel.observedOwn.removeObserver(observer) }
+    }
+
+    LazyColumn(modifier = modifier.fillMaxSize()) {
+        items(items = qwotableList.value) { qwotable: Qwotable ->
+            QwotableItemCard(qwotable = qwotable) {
+                uiViewModel.setCurrentSelectedQwotable(qwotable)
+                uiViewModel.setShowQwotableOptionsBottomSheet(true)
+            }
         }
     }
+}
