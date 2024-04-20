@@ -17,6 +17,7 @@
 
 package com.lijukay.quotesAltDesign.ui.dialogs
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,10 +31,12 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ContentCopy
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
+import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -46,11 +49,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.lijukay.core.database.Qwotable
-import com.lijukay.core.utils.QwotableViewModel
 import com.lijukay.core.R
+import com.lijukay.core.database.Qwotable
+import com.lijukay.core.utils.ClipboardUtil.Companion.copyToClipboard
+import com.lijukay.core.utils.QwotableViewModel
+import com.lijukay.core.utils.ShareUtil.Companion.shareExternally
 import com.lijukay.quotesAltDesign.ui.composables.item_cards.QwotableItemCard
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -72,6 +78,9 @@ fun ModalBottomSheetDialog(
     ) {
         val bottomPadding = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
         val isFavorite = remember { mutableStateOf(currentQwotable.isFavorite) }
+        val context = LocalContext.current
+        val composeView: @Composable () -> Unit =
+            { QwotableItemCard(qwotable = currentQwotable, onClick = null) }
 
         Column(
             modifier = modifier.padding(bottom = bottomPadding),
@@ -110,11 +119,23 @@ fun ModalBottomSheetDialog(
                     IconButton(onClick = {
                         onDeletionRequest(currentQwotable)
                     }) {
-                        Icon(
-                            imageVector = Icons.Rounded.Delete,
-                            contentDescription = null
-                        )
+                        Icon(imageVector = Icons.Rounded.Delete, contentDescription = null)
                     }
+                }
+                IconButton(
+                    onClick = {
+                        currentQwotable.qwotable.copyToClipboard(context)
+                        Toast.makeText(context, R.string.copied, Toast.LENGTH_SHORT).show()
+                    }
+                ) {
+                    Icon(imageVector = Icons.Rounded.ContentCopy, contentDescription = null)
+                }
+                IconButton(
+                    onClick = {
+                        currentQwotable.qwotable.shareExternally(context)
+                    }
+                ) {
+                    Icon(imageVector = Icons.Rounded.Share, contentDescription = null)
                 }
             }
             HorizontalDivider()
@@ -127,7 +148,7 @@ fun ModalBottomSheetDialog(
             Box(
                 modifier = modifier.verticalScroll(state = scrollState)
             ) {
-                QwotableItemCard(qwotable = currentQwotable, onClick = null)
+                composeView()
             }
         }
     }
