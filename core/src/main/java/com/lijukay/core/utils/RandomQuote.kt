@@ -37,7 +37,11 @@ class RandomQuote(
 ) {
     private val urls: List<Triple<URL, String, String>> = listOf(
         Triple(URL("https://api.kanye.rest/"), "quote", "Kanye API"),
-        Triple(URL("https://api.gameofthronesquotes.xyz/v1/random"), "sentence", "Game of Thrones API"),
+        Triple(
+            URL("https://api.gameofthronesquotes.xyz/v1/random"),
+            "sentence",
+            "Game of Thrones API"
+        ),
         Triple(URL("https://stoic.tekloon.net/stoic-quote"), "quote", "Tekloon Stoic Quotes API"),
         Triple(URL("https://www.jcquotes.com/api/quotes/random"), "text", "James Clear Quotes API"),
         Triple(URL("https://api.quotable.io/random"), "content", "Quotable API"),
@@ -51,6 +55,7 @@ class RandomQuote(
                     quote(it)
                 }
             }
+
             1 -> {
                 getRandomProgrammingQuote {
                     quote(it)
@@ -99,7 +104,7 @@ class RandomQuote(
             val reader = BufferedReader(InputStreamReader(raw))
             val jsonString = reader.readText()
 
-            val type = object : TypeToken<List<ProgrammingQuotes>>(){}.type
+            val type = object : TypeToken<List<ProgrammingQuotes>>() {}.type
             val objects: List<ProgrammingQuotes> = Gson().fromJson(jsonString, type)
             val randomNum = objects.indices.random()
 

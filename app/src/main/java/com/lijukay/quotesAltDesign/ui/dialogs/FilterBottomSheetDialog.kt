@@ -128,7 +128,9 @@ fun FilterBottomSheetDialog(
                             .fillMaxWidth()
                             .height(56.dp)
                             .selectable(
-                                selected = (StringValue.StringResource(language).asString(context) == currentLanguage.value),
+                                selected = (StringValue
+                                    .StringResource(language)
+                                    .asString(context) == currentLanguage.value),
                                 role = Role.RadioButton,
                                 onClick = {
                                     uiViewModel.setSelectedLanguageOption(language)
@@ -141,10 +143,14 @@ fun FilterBottomSheetDialog(
                                 start = 16.dp,
                                 end = 8.dp
                             ),
-                            selected = (StringValue.StringResource(language).asString(context) == currentLanguage.value),
+                            selected = (StringValue.StringResource(language)
+                                .asString(context) == currentLanguage.value),
                             onClick = null
                         )
-                        Text(text = stringResource(id = language), modifier = modifier.padding(start = 8.dp, end = 16.dp))
+                        Text(
+                            text = stringResource(id = language),
+                            modifier = modifier.padding(start = 8.dp, end = 16.dp)
+                        )
                     }
                 }
             }

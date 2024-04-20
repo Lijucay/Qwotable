@@ -38,5 +38,5 @@ data class JsonFile(
 )
 
 data class StringValueResponse(
-     @SerializedName("Quotes JSON Version") val quotesJsonVersion: Int
+    @SerializedName("Quotes JSON Version") val quotesJsonVersion: Int
 )

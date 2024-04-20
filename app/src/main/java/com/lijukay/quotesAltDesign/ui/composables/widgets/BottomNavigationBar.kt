@@ -23,43 +23,43 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.lijukay.quotesAltDesign.data.model.BottomNavigationItem
 import com.lijukay.quotesAltDesign.data.model.Screens
 
-private var navigationSelectedItem = mutableIntStateOf(value = 0)
+private var navigationSelectedItem = mutableIntStateOf(value = 1)
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val context: Context = LocalContext.current
 
     NavigationBar {
-        BottomNavigationItem().bottomNavigationItems(context = context).forEachIndexed { index, navigationItem ->
-            NavigationBarItem(
-                selected = index == navigationSelectedItem.intValue,
-                label = { Text(text = navigationItem.label) },
-                icon = {
-                    Icon(
-                        imageVector = navigationItem.icon,
-                        contentDescription = navigationItem.label
-                    )
-                },
-                onClick = {
-                    navigationSelectedItem.intValue= index
-                    navController.navigate(route = navigationItem.route) {
-                        popUpTo(id = navController.graph.findStartDestination().id) { saveState = true }
-                        launchSingleTop = true
-                        restoreState = true
+        BottomNavigationItem().bottomNavigationItems(context = context)
+            .forEachIndexed { index, navigationItem ->
+                NavigationBarItem(
+                    selected = index == navigationSelectedItem.intValue,
+                    label = { Text(text = navigationItem.label) },
+                    icon = {
+                        Icon(
+                            imageVector = navigationItem.icon,
+                            contentDescription = navigationItem.label
+                        )
+                    },
+                    onClick = {
+                        navigationSelectedItem.intValue = index
+                        navController.navigate(route = navigationItem.route) {
+                            popUpTo(id = navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
                     }
-                }
-            )
-        }
+                )
+            }
     }
 }
 

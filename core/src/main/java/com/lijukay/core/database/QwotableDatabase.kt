@@ -23,7 +23,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [Qwotable::class], version = 1, exportSchema = false)
-abstract class QwotableDatabase: RoomDatabase() {
+abstract class QwotableDatabase : RoomDatabase() {
     abstract fun qwotableDao(): QwotableDao
 
     companion object {

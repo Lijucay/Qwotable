@@ -59,7 +59,8 @@ import java.util.Locale
 
 object QwotableWidget : GlanceAppWidget() {
     private val quoteKey = stringPreferencesKey(name = "quote")
-    @StringRes val noQuotesStringId = R.string.no_quotes_available_widget_method
+    @StringRes
+    val noQuotesStringId = R.string.no_quotes_available_widget_method
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
@@ -180,7 +181,7 @@ class OpenAppActionCallback : ActionCallback {
     }
 }
 
-class SimpleQwotableWidgetReceiver: GlanceAppWidgetReceiver() {
+class SimpleQwotableWidgetReceiver : GlanceAppWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget
         get() = QwotableWidget
 }

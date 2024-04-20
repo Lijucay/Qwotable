@@ -32,7 +32,7 @@ sealed class StringValue {
     ) : StringValue()
 
     fun asString(context: Context?): String {
-        return when(this) {
+        return when (this) {
             is Default -> context?.getString(R.string.default_language) ?: "English"
             is DynamicString -> value
             is StringResource -> {

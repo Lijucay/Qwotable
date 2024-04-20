@@ -49,7 +49,7 @@ fun TopAppBar(
     showBackIcon: Boolean = true,
     uiViewModel: UIViewModel,
     callback: (() -> Unit)?
-    ) {
+) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val context = LocalContext.current
 
@@ -68,7 +68,14 @@ fun TopAppBar(
                 }
             }
             if (showSettingsIcon) {
-                IconButton(onClick = { context.startActivity(Intent(context, SettingsActivity::class.java)) }
+                IconButton(onClick = {
+                    context.startActivity(
+                        Intent(
+                            context,
+                            SettingsActivity::class.java
+                        )
+                    )
+                }
                 ) {
                     Icon(
                         imageVector = Icons.Rounded.Settings,

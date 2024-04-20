@@ -48,9 +48,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.lijukay.core.R
 import com.lijukay.core.database.Qwotable
 import com.lijukay.core.utils.QwotableViewModel
-import com.lijukay.core.R
 import com.lijukay.quotesAltDesign.data.UIViewModel
 
 @Composable
@@ -107,7 +107,7 @@ fun AddEditDialog(
     }
 
     Dialog(
-        onDismissRequest = {  },
+        onDismissRequest = { },
         properties = DialogProperties(decorFitsSystemWindows = false)
     ) {
         ElevatedCard(

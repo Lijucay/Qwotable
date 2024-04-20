@@ -23,18 +23,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.lijukay.core.database.Qwotable
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class QwotableViewModel(
     private val repository: QwotableRepository
-): ViewModel() {
-    val observedQwotables: LiveData<List<Qwotable>> = repository.allQwotables.asLiveData()
+) : ViewModel() {
     val observedFavorites: LiveData<List<Qwotable>> = repository.allFavorites.asLiveData()
     val observedOwn: LiveData<List<Qwotable>> = repository.allOwnQwotables.asLiveData()
-
-    private val allQwotables: LiveData<List<Qwotable>> = repository.allQwotables.asLiveData()
 
     init {
         refreshData()
@@ -65,14 +60,6 @@ class QwotableViewModel(
         }
     }
 
-    fun insert(qwotables: List<Qwotable>) = viewModelScope.launch {
-        repository.insert(qwotables)
-    }
-
-    fun getAllQwotables(): LiveData<List<Qwotable>> {
-        return allQwotables
-    }
-
     fun deleteSingleQwotable(qwotable: Qwotable) {
         viewModelScope.launch {
             repository.deleteSingleQwotable(qwotable)
@@ -84,7 +71,8 @@ class QwotableViewModel(
     }
 }
 
-class QwotableViewModelFactory(private val repository: QwotableRepository) : ViewModelProvider.Factory {
+class QwotableViewModelFactory(private val repository: QwotableRepository) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(QwotableViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST") return QwotableViewModel(repository) as T

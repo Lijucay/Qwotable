@@ -45,19 +45,19 @@ class UncaughtExceptionHandler(
                 val outputStream = context.openFileOutput("logs.txt", Context.MODE_PRIVATE)
                 outputStream.write(
                     (
-                        "------Message------\n\n" +
-                        "$e------Logs------\n\n" +
-                        "${logWriter.toString().replace(",", "\n")}\n\n" +
-                        "------App information------\n\n" +
-                        "Version Code: $versionCode\n" +
-                                "Version Name: $versionName" +
-                                "------Device information------\n\n" +
-                                "Android version: ${Build.VERSION.RELEASE}\n" +
-                                "Android SDK Integer: ${Build.VERSION.SDK_INT}\n" +
-                                "Device Manufacturer: ${Build.MANUFACTURER}" +
-                                "Device Brand: ${Build.BRAND}\n" +
-                                "Device Model: ${Build.MODEL}"
-                    ).toByteArray()
+                            "------Message------\n\n" +
+                                    "$e\n\n------Logs------\n\n" +
+                                    "${logWriter.toString().replace(",", "\n")}\n\n" +
+                                    "------App information------\n\n" +
+                                    "Version Code: $versionCode\n" +
+                                    "Version Name: $versionName" +
+                                    "\n\n------Device information------\n\n" +
+                                    "Android version: ${Build.VERSION.RELEASE}\n" +
+                                    "Android SDK Integer: ${Build.VERSION.SDK_INT}\n" +
+                                    "Device Manufacturer: ${Build.MANUFACTURER}\n" +
+                                    "Device Brand: ${Build.BRAND}\n" +
+                                    "Device Model: ${Build.MODEL}"
+                            ).toByteArray()
                 )
             } catch (e: IOException) {
                 e.printStackTrace()

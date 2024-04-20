@@ -52,7 +52,7 @@ fun ErrorDialog(
     message: String,
     onConfirmationRequest: () -> Unit,
     onDismissRequest: () -> Unit
-    ) {
+) {
     val scrollState = rememberScrollState()
 
     Dialog(onDismissRequest = onDismissRequest) {

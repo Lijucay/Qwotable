@@ -40,7 +40,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Observer
 import com.lijukay.core.R
 import com.lijukay.quotesAltDesign.data.UIViewModel
@@ -68,7 +67,6 @@ class SettingsActivity : ComponentActivity() {
         }
     }
 
-    @Preview
     @Composable
     fun SettingsPreferenceList(modifier: Modifier = Modifier) {
         val context = LocalContext.current
@@ -125,7 +123,8 @@ class SettingsActivity : ComponentActivity() {
                     iconVector = Icons.Rounded.GppMaybe
                 ) {
                     informationDialogTitle.value = context.getString(R.string.your_privacy)
-                    informationDialogMessage.value = context.getString(R.string.your_privacy_message)
+                    informationDialogMessage.value =
+                        context.getString(R.string.your_privacy_message)
                     uiViewModel.setShowInformationDialog(true)
                 }
                 Preference(
@@ -134,7 +133,8 @@ class SettingsActivity : ComponentActivity() {
                     iconVector = Icons.Rounded.GppGood
                 ) {
                     informationDialogTitle.value = context.getString(R.string.permissions)
-                    informationDialogMessage.value = context.getString(R.string.permissions_messages)
+                    informationDialogMessage.value =
+                        context.getString(R.string.permissions_messages)
                     uiViewModel.setShowInformationDialog(true)
                 }
             }

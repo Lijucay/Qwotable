@@ -22,9 +22,9 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.lijukay.core.R
 import com.lijukay.core.database.Qwotable
 import com.lijukay.core.utils.RandomQuote
-import com.lijukay.core.R
 import com.lijukay.quotesAltDesign.data.model.Screens
 
 class UIViewModel : ViewModel() {

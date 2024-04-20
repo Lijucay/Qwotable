@@ -68,9 +68,11 @@ fun InformationDialog(
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold
             )
-            Text(text = message, modifier = modifier
-                .padding(16.dp)
-                .verticalScroll(scrollState))
+            Text(
+                text = message, modifier = modifier
+                    .padding(16.dp)
+                    .verticalScroll(scrollState)
+            )
             Row(
                 modifier = modifier
                     .fillMaxWidth()
