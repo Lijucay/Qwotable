@@ -42,4 +42,12 @@
     <string name="error_connecting">Verbindung zu %1$s fehlgeschlagen</string>
     <string name="no_internet">Du bist nicht mit dem Internet verbunden</string>
     <string name="permissions_messages">Internet:\nQwotable benötigt Internetzugriff, um Zitate aus Qwotables GitHub repository und aus den APIs zu laden.\n\nNetzwerkverbindungen abrufen:\nUm zu überprüfen, ob dein Gerät online ist, muss Qwotable zugriff auf deinen Netzwerkstatus haben</string>
+    <string name="no_quotes_available_widget_method">Es gibt keine Zitate zum Anzeigen. Drücke auf \"App öffnen\", um die nötigen Daten herunterzuladen.</string>
+    <string name="open_app">App öffnen</string>
+    <string name="example_quote">Ursache und Wirkung sind zwei Seiten einer einzigen Tatsache.</string>
+    <string name="share_using">Teilen mit...</string>
+    <string name="success">Erfolgreich</string>
+    <string name="bug_message">Keine Angst, das ist nur ein Bug.\nDu kannst die Logs kopieren und in GitHub einfügen, oder als Datei anhängen, oder du ignorierst den Bug und startest die App neu.</string>
+    <string name="made_by_qwotable">Erstellt von Qwotable</string>
+    <string name="copied">Kopiert</string>
 </resources>

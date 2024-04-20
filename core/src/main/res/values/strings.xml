@@ -42,7 +42,12 @@
     <string name="error_server">Server error. If the issue remains, please open an issue ticket on GitHub</string>
     <string name="error_connecting">Couldn\'t connect to %1$s.</string>
     <string name="no_internet">You are not connected with the internet.</string>
-    <string name="no_quotes_available_widget_method">There are no quotes available to show. Please download the quotes first by opening the app and opening the \"Qwotable\" tab.</string>
+    <string name="no_quotes_available_widget_method">There are no quotes available to show. Please click on \"Open app\" to download the necessary data.</string>
     <string name="open_app">Open app</string>
     <string name="example_quote">People can find ways to forget, but they can\'t undo what they\'ve done and there\'s no escaping the past.</string>
+    <string name="share_using">Share using...</string>
+    <string name="success">Successful</string>
+    <string name="bug_message">Don\'t worry, it\'s just a bug. You can copy and paste the logs or attach the file on GitHub, or just ignore it and restart the app.</string>
+    <string name="made_by_qwotable">Made by Qwotable</string>
+    <string name="copied">Copied</string>
 </resources>
