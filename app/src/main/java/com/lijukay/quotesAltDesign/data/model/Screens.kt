@@ -19,7 +19,6 @@ package com.lijukay.quotesAltDesign.data.model
 
 sealed class Screens(val route: String) {
     data object Home : Screens("home_route")
-    data object Favorite : Screens("favorites_route")
     data object Qwotable : Screens("qwotable_route")
     data object OwnQwotables : Screens("own_qwotables_route")
 }

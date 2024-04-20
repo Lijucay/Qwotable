@@ -44,29 +44,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
-import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.lijukay.core.R
 import com.lijukay.core.database.Qwotable
 import com.lijukay.core.utils.QwotableViewModel
 import com.lijukay.core.utils.QwotableViewModelFactory
 import com.lijukay.quotesAltDesign.App
-import com.lijukay.core.R
 import com.lijukay.quotesAltDesign.data.UIViewModel
+import com.lijukay.quotesAltDesign.data.model.Screens
 import com.lijukay.quotesAltDesign.ui.composables.widgets.BottomNavigationBar
 import com.lijukay.quotesAltDesign.ui.composables.widgets.TopAppBar
-import com.lijukay.quotesAltDesign.ui.dialogs.AddEditDialog
-import com.lijukay.quotesAltDesign.ui.navigation.screens.FavoriteScreen
-import com.lijukay.quotesAltDesign.ui.navigation.screens.HomeScreen
-import com.lijukay.quotesAltDesign.ui.navigation.screens.OwnQwotablesScreen
-import com.lijukay.quotesAltDesign.ui.navigation.screens.QwotableScreen
-import com.lijukay.quotesAltDesign.data.model.Screens
 import com.lijukay.quotesAltDesign.ui.composables.widgets.openScreen
+import com.lijukay.quotesAltDesign.ui.dialogs.AddEditDialog
 import com.lijukay.quotesAltDesign.ui.dialogs.ErrorDialog
 import com.lijukay.quotesAltDesign.ui.dialogs.FilterBottomSheetDialog
 import com.lijukay.quotesAltDesign.ui.dialogs.InformationDialog
 import com.lijukay.quotesAltDesign.ui.dialogs.ModalBottomSheetDialog
+import com.lijukay.quotesAltDesign.ui.navigation.screens.HomeScreen
+import com.lijukay.quotesAltDesign.ui.navigation.screens.OwnQwotablesScreen
+import com.lijukay.quotesAltDesign.ui.navigation.screens.QwotableScreen
 import com.lijukay.quotesAltDesign.ui.theme.QwotableTheme
 import kotlinx.coroutines.launch
 
@@ -80,6 +78,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             QwotableTheme {
                 Surface(
@@ -96,7 +95,8 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun MainLayout(modifier: Modifier = Modifier) {
         val navController = rememberNavController()
-        val showEditorOptions = remember { mutableStateOf(false) } //Editor options: Delete Icon / Editing Icon in BSD, FAB in Screen
+        val showEditorOptions =
+            remember { mutableStateOf(false) } //Editor options: Delete Icon / Editing Icon in BSD, FAB in Screen
         val showFilterIcon = remember { mutableStateOf(false) }
         val showQwotableOptionsBottomSheet = remember { mutableStateOf(false) }
         val currentQwotable = remember { mutableStateOf<Qwotable?>(null) }
@@ -187,22 +187,22 @@ class MainActivity : ComponentActivity() {
                 startDestination = Screens.Home.route,
                 modifier = modifier.padding(paddingValues = contentPadding)
             ) {
-                composable(route = Screens.Home.route) {
-                    HomeScreen(uiViewModel = uiViewModel)
-                }
                 composable(route = Screens.Qwotable.route) {
                     QwotableScreen(qwotableViewModel = qwotableViewModel, uiViewModel = uiViewModel)
                 }
-                composable(route = Screens.Favorite.route) {
-                    FavoriteScreen(qwotableViewModel = qwotableViewModel, uiViewModel = uiViewModel)
+                composable(route = Screens.Home.route) {
+                    HomeScreen(uiViewModel = uiViewModel, qwotableViewModel = qwotableViewModel)
                 }
                 composable(route = Screens.OwnQwotables.route) {
-                    OwnQwotablesScreen(qwotableViewModel = qwotableViewModel, uiViewModel = uiViewModel)
+                    OwnQwotablesScreen(
+                        qwotableViewModel = qwotableViewModel,
+                        uiViewModel = uiViewModel
+                    )
                 }
             }
 
             intent?.getStringExtra("action")?.let { action ->
-                if(action == "download") {
+                if (action == "download") {
                     openScreen(Screens.Qwotable.route, navController)
                 }
             }
@@ -276,11 +276,11 @@ class MainActivity : ComponentActivity() {
 
             FilterBottomSheetDialog(
                 onDismissRequest = {
-                     scope.launch { sheetState.hide() }.invokeOnCompletion {
-                         if (!sheetState.isVisible) {
-                             uiViewModel.setShowFilterBottomSheet(false)
-                         }
-                     }
+                    scope.launch { sheetState.hide() }.invokeOnCompletion {
+                        if (!sheetState.isVisible) {
+                            uiViewModel.setShowFilterBottomSheet(false)
+                        }
+                    }
                 },
                 sheetState = sheetState,
                 uiViewModel = uiViewModel
