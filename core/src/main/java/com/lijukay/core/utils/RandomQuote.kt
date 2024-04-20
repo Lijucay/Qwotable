@@ -87,7 +87,7 @@ class RandomQuote(
                     if (quote != null) {
                         result("$quote\n\n~$apiName")
                     } else {
-                        result(context.getString(R.string.error_server, apiName, apiName))
+                        result(context.getString(R.string.error_server))
                     }
                 } else {
                     result(context.getString(R.string.error_connecting, apiUrl))
