@@ -7,4 +7,4 @@
     android:targetCellWidth="4"
     android:targetCellHeight="2"
     android:widgetCategory="home_screen"
-    android:previewImage="@layout/widget_preview" />
+    android:previewImage="@drawable/qwotable_ori_landscape"/>
