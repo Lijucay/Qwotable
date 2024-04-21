@@ -18,6 +18,8 @@
 package com.lijukay.quotesAltDesign.ui.composables.item_cards
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
@@ -45,7 +47,11 @@ fun QwotableItemCard(
     val qwotableAuthor = qwotable.author.ifEmpty { stringResource(id = R.string.unknown) }
     val qwotableSource = qwotable.source.ifEmpty { stringResource(id = R.string.unknown) }
 
-    AnimatedVisibility(visible = visible.value) {
+    AnimatedVisibility(
+        visible = visible.value,
+        enter = expandVertically(),
+        exit = shrinkVertically()
+    ) {
         Card(
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
             modifier = modifier
