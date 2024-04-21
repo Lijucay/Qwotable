@@ -24,6 +24,7 @@ import com.lijukay.core.database.QwotableDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import kotlin.jvm.Throws
 
 class QwotableRepository(
     private val qwotableDao: QwotableDao,
@@ -104,18 +105,24 @@ class QwotableRepository(
         }
     }
 
-    suspend fun checkForApiUpdates(viewModel: QwotableViewModel) {
+    @Throws(Exception::class)
+    suspend fun checkForApiUpdates(viewModel: QwotableViewModel, onUpdateCheckCompleted: (Boolean, Int) -> Unit) {
         withContext(Dispatchers.IO) {
+            val response = apiService.getVersionsFile()
+            val jsonFiles = response.jsonFiles
+            val qwotableJSONVersion = jsonFiles[0].qwotableJsonVersion
+            val apiVersionPreference = context.getSharedPreferences("Api", 0)
+            val apiVersion = apiVersionPreference.getInt("version", 0)
+
+            onUpdateCheckCompleted(apiVersion < qwotableJSONVersion, qwotableJSONVersion)
+
             try {
-                val response = apiService.getVersionsFile()
-                val jsonFiles = response.jsonFiles
-                val qwotableJSONVersion = jsonFiles[0].qwotableJsonVersion
-                val apiVersionPreference = context.getSharedPreferences("Api", 0)
-                val apiVersion = apiVersionPreference.getInt("version", 0)
+
 
                 if (qwotableJSONVersion > apiVersion) {
                     withContext(Dispatchers.Main) {
                         viewModel.updateFileUpdateAvailability(true, qwotableJSONVersion)
+                        onUpdateCheckCompleted
                     }
                 } else {
                     viewModel.updateFileUpdateAvailability(false)

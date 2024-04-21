@@ -52,4 +52,9 @@
     <string name="copied">Kopiert</string>
     <string name="update_available">Datei-Update verfügbar</string>
     <string name="update_message">Ein neueres Set an Zitaten ist online verfügbar. Möchtest du sie jetzt herunterladen?</string>
+    <string name="check_for_updates">Nach Updates suchen</string>
+    <string name="check_for_updates_summary">Checke, ob du die Zitaten-Datenbank aktualisieren kannst</string>
+    <string name="app_settings">App-Einstellungen</string>
+    <string name="no_update_available">Keine Updates verfügbar</string>
+    <string name="no_update_message">Es wurden keine Updates gefunden. Du hast bereits die neueste Version.</string>
 </resources>

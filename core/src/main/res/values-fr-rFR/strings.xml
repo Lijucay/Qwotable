@@ -52,4 +52,9 @@
     <string name="copied">Copié</string>
     <string name="update_available">Mise à jour de fichier disponible</string>
     <string name="update_message">Une nouvelle série de devis est disponible en ligne. Veux-tu les télécharger maintenant ?</string>
+    <string name="check_for_updates">Vérifier les mises à jour</string>
+    <string name="check_for_updates_summary">Vérfies si tu peux mettre à jour la base de données des devis.</string>
+    <string name="app_settings">Paramettres de l\'application</string>
+    <string name="no_update_available">Pas des mise à jour disponible</string>
+    <string name="no_update_message">Aucune mise à jour n\'a été trouvée. Tu dispose déjà de la dernière version.</string>
 </resources>

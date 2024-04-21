@@ -30,11 +30,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.GppGood
 import androidx.compose.material.icons.rounded.GppMaybe
 import androidx.compose.material.icons.rounded.LocalPolice
+import androidx.compose.material.icons.rounded.Update
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -42,15 +44,24 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.Observer
 import com.lijukay.core.R
+import com.lijukay.core.utils.QwotableViewModel
+import com.lijukay.core.utils.QwotableViewModelFactory
+import com.lijukay.quotesAltDesign.App
 import com.lijukay.quotesAltDesign.data.UIViewModel
 import com.lijukay.quotesAltDesign.ui.composables.preferences.Preference
 import com.lijukay.quotesAltDesign.ui.composables.preferences.PreferenceCategoryTitle
 import com.lijukay.quotesAltDesign.ui.composables.widgets.TopAppBar
 import com.lijukay.quotesAltDesign.ui.dialogs.InformationDialog
 import com.lijukay.quotesAltDesign.ui.theme.QwotableTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SettingsActivity : ComponentActivity() {
-    val uiViewModel: UIViewModel by viewModels()
+    private val uiViewModel: UIViewModel by viewModels()
+    private val qwotableViewModel: QwotableViewModel by viewModels {
+        QwotableViewModelFactory((application as App).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +84,12 @@ class SettingsActivity : ComponentActivity() {
         val informationDialogTitle = remember { mutableStateOf("") }
         val informationDialogMessage = remember { mutableStateOf("") }
         val showInformationDialog = remember { mutableStateOf(false) }
+        val showCancel = remember { mutableStateOf(false) }
+        val action: MutableState<() -> Unit> = remember { mutableStateOf(
+            {
+                showInformationDialog.value = false
+            }
+        ) }
 
         DisposableEffect(key1 = uiViewModel) {
             val observer = Observer<Boolean> { show ->
@@ -100,8 +117,37 @@ class SettingsActivity : ComponentActivity() {
             }
         ) { paddingValues ->
             Column(modifier = modifier.padding(paddingValues)) {
-                /*PreferenceCategoryTitle(title = stringResource(id = R.string.app_settings))
+                PreferenceCategoryTitle(title = stringResource(id = R.string.app_settings))
                 Preference(
+                    title = stringResource(id = R.string.check_for_updates),
+                    summary = stringResource(id = R.string.check_for_updates_summary),
+                    iconVector = Icons.Rounded.Update
+                ) {
+                    qwotableViewModel.checkForUpdates { updateAvailable ->
+                        if (updateAvailable) {
+                            informationDialogTitle.value = getString(R.string.update_available)
+                            informationDialogMessage.value = getString(R.string.update_message)
+                            showCancel.value = true
+                            action.value = {
+                                CoroutineScope(Dispatchers.IO).launch {
+                                    qwotableViewModel.updateQwotableDatabase()
+                                }.invokeOnCompletion {
+                                    showInformationDialog.value = false
+                                }
+                            }
+                        } else {
+                            informationDialogTitle.value = getString(R.string.no_update_available)
+                            informationDialogMessage.value = getString(R.string.no_update_message)
+                            showCancel.value = false
+                            action.value = {
+                                showInformationDialog.value = false
+                            }
+                        }
+
+                        showInformationDialog.value = true
+                    }
+                }
+                /*Preference(
                     title = stringResource(id = R.string.language),
                     summary = stringResource(id = R.string.current_language),
                     iconVector = Icons.Rounded.Language
@@ -144,9 +190,9 @@ class SettingsActivity : ComponentActivity() {
             InformationDialog(
                 title = informationDialogTitle.value,
                 message = informationDialogMessage.value,
-                showCancel = false,
+                showCancel = showCancel.value,
                 onDismissRequest = { uiViewModel.setShowInformationDialog(false) },
-                onConfirmationRequest = { uiViewModel.setShowInformationDialog(false) }
+                onConfirmationRequest = action.value
             )
         }
     }

@@ -24,7 +24,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.lijukay.core.database.Qwotable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class QwotableViewModel(
     private val repository: QwotableRepository
@@ -39,7 +42,7 @@ class QwotableViewModel(
 
     init {
         refreshData()
-        checkForUpdates()
+        checkForUpdates(onUpdateCheckCompleted = null)
     }
 
     private fun refreshData() {
@@ -69,9 +72,16 @@ class QwotableViewModel(
         }
     }
 
-    private fun checkForUpdates() {
+    fun checkForUpdates(onUpdateCheckCompleted: ((Boolean) -> Unit)?) {
         viewModelScope.launch {
-            repository.checkForApiUpdates(this@QwotableViewModel)
+            repository.checkForApiUpdates(this@QwotableViewModel) { updateAvailable, newVersion ->
+                CoroutineScope(Dispatchers.Main).launch {
+                    if (onUpdateCheckCompleted != null) {
+                        onUpdateCheckCompleted(updateAvailable)
+                    }
+                    updateFileUpdateAvailability(updateAvailable, newVersion)
+                }
+            }
         }
     }
 
