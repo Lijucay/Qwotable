@@ -50,4 +50,6 @@
     <string name="bug_message">Ne t\'inquiète pas, c\'est juste un bug.\nTu peux copier et coller les logs ou attacher le fichier sur GitHub, ou simplement l\'ignorer et redémarrer l\'application.</string>
     <string name="made_by_qwotable">Fait par Qwotable</string>
     <string name="copied">Copié</string>
+    <string name="update_available">Mise à jour de fichier disponible</string>
+    <string name="update_message">Une nouvelle série de devis est disponible en ligne. Veux-tu les télécharger maintenant ?</string>
 </resources>

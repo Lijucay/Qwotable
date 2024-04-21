@@ -18,6 +18,7 @@
 package com.lijukay.core.utils
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
@@ -28,6 +29,11 @@ import kotlinx.coroutines.launch
 class QwotableViewModel(
     private val repository: QwotableRepository
 ) : ViewModel() {
+    private val _qwotableFileUpdateAvailable = MutableLiveData(false)
+    private val _tempNewVersion: MutableLiveData<Int> = MutableLiveData(0)
+
+    val qwotableFileUpdateAvailable: LiveData<Boolean> = _qwotableFileUpdateAvailable
+
     val observedFavorites: LiveData<List<Qwotable>> = repository.allFavorites.asLiveData()
     val observedOwn: LiveData<List<Qwotable>> = repository.allOwnQwotables.asLiveData()
 
@@ -40,6 +46,15 @@ class QwotableViewModel(
         viewModelScope.launch {
             repository.refreshQwotable()
         }
+    }
+
+    fun updateFileUpdateAvailability(isUpdateAvailable: Boolean, newVersion: Int) {
+        _qwotableFileUpdateAvailable.value = isUpdateAvailable
+        _tempNewVersion.value = newVersion
+    }
+
+    fun updateFileUpdateAvailability(isUpdateAvailable: Boolean) {
+        _qwotableFileUpdateAvailable.value = isUpdateAvailable
     }
 
     fun insert(qwotable: Qwotable) {
@@ -56,7 +71,7 @@ class QwotableViewModel(
 
     private fun checkForUpdates() {
         viewModelScope.launch {
-            repository.checkForApiUpdates()
+            repository.checkForApiUpdates(this@QwotableViewModel)
         }
     }
 
@@ -68,6 +83,10 @@ class QwotableViewModel(
 
     fun getFilteredQwotable(language: String): LiveData<List<Qwotable>> {
         return repository.getFilteredQwotable(language).asLiveData()
+    }
+
+    suspend fun updateQwotableDatabase() {
+        repository.updateQwotableDatabase(_tempNewVersion.value!!, this)
     }
 }
 

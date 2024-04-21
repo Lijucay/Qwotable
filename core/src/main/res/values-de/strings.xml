@@ -50,4 +50,6 @@
     <string name="bug_message">Keine Angst, das ist nur ein Bug.\nDu kannst die Logs kopieren und in GitHub einfügen, oder als Datei anhängen, oder du ignorierst den Bug und startest die App neu.</string>
     <string name="made_by_qwotable">Erstellt von Qwotable</string>
     <string name="copied">Kopiert</string>
+    <string name="update_available">Datei-Update verfügbar</string>
+    <string name="update_message">Ein neueres Set an Zitaten ist online verfügbar. Möchtest du sie jetzt herunterladen?</string>
 </resources>

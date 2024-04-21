@@ -66,6 +66,8 @@ import com.lijukay.quotesAltDesign.ui.navigation.screens.HomeScreen
 import com.lijukay.quotesAltDesign.ui.navigation.screens.OwnQwotablesScreen
 import com.lijukay.quotesAltDesign.ui.navigation.screens.QwotableScreen
 import com.lijukay.quotesAltDesign.ui.theme.QwotableTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -104,6 +106,7 @@ class MainActivity : ComponentActivity() {
         val showDeletionWarningDialog = remember { mutableStateOf(false) }
         val showFilterDialog = remember { mutableStateOf(false) }
         val showInformationDialog = remember { mutableStateOf(false) }
+        val showUpdateDialog = remember { mutableStateOf(false) }
 
         DisposableEffect(key1 = uiViewModel) {
             val showBottomSheetObserver = Observer<Boolean> { showDialog ->
@@ -130,6 +133,9 @@ class MainActivity : ComponentActivity() {
             val showInformationDialogObserver = Observer<Boolean> { showDialog ->
                 showInformationDialog.value = showDialog
             }
+            val showUpdateInformationDialog = Observer<Boolean> { showDialog ->
+                showUpdateDialog.value = showDialog
+            }
 
             uiViewModel.showQwotableOptionsBottomSheet.observeForever(showBottomSheetObserver)
             uiViewModel.currentSelectedQwotable.observeForever(currentQwotableObserver)
@@ -139,6 +145,7 @@ class MainActivity : ComponentActivity() {
             uiViewModel.showErrorWarningDialog.observeForever(showWarningDialogObserver)
             uiViewModel.showFilterBottomSheet.observeForever(showFilterDialogObserver)
             uiViewModel.showInformationDialog.observeForever(showInformationDialogObserver)
+            qwotableViewModel.qwotableFileUpdateAvailable.observeForever(showUpdateInformationDialog)
 
             onDispose {
                 uiViewModel.showQwotableOptionsBottomSheet.removeObserver(showBottomSheetObserver)
@@ -149,6 +156,7 @@ class MainActivity : ComponentActivity() {
                 uiViewModel.showErrorWarningDialog.removeObserver(showWarningDialogObserver)
                 uiViewModel.showFilterBottomSheet.removeObserver(showFilterDialogObserver)
                 uiViewModel.showInformationDialog.removeObserver(showInformationDialogObserver)
+                qwotableViewModel.qwotableFileUpdateAvailable.removeObserver(showUpdateInformationDialog)
             }
         }
 
@@ -296,6 +304,22 @@ class MainActivity : ComponentActivity() {
             ) {
                 uiViewModel.setShowInformationDialog(false)
             }
+        }
+
+        if (showUpdateDialog.value) {
+            InformationDialog(
+                title = stringResource(id = R.string.update_available),
+                message = stringResource(id = R.string.update_message),
+                showCancel = true,
+                onDismissRequest = {
+                    qwotableViewModel.updateFileUpdateAvailability(false)
+                },
+                onConfirmationRequest = {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        qwotableViewModel.updateQwotableDatabase()
+                    }
+                }
+            )
         }
     }
 }

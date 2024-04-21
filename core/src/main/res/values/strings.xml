@@ -50,4 +50,6 @@
     <string name="bug_message">Don\'t worry, it\'s just a bug. You can copy and paste the logs or attach the file on GitHub, or just ignore it and restart the app.</string>
     <string name="made_by_qwotable">Made by Qwotable</string>
     <string name="copied">Copied</string>
+    <string name="update_available">File update available</string>
+    <string name="update_message">A newer set of quotes are available online. Do you want to download them now?</string>
 </resources>

@@ -18,7 +18,6 @@
 package com.lijukay.core.utils
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.util.Log
 import com.lijukay.core.database.Qwotable
 import com.lijukay.core.database.QwotableDao
@@ -101,15 +100,11 @@ class QwotableRepository(
                 } catch (e: Exception) {
                     Log.e(TAG, e.message.toString())
                 }
-            } else if (localData.isNotEmpty() && connectionUtil.isConnected) {
-                checkForApiUpdates()
-            } else {
-                Log.i(TAG, "Empty and not connected")
             }
         }
     }
 
-    suspend fun checkForApiUpdates() {
+    suspend fun checkForApiUpdates(viewModel: QwotableViewModel) {
         withContext(Dispatchers.IO) {
             try {
                 val response = apiService.getVersionsFile()
@@ -119,9 +114,11 @@ class QwotableRepository(
                 val apiVersion = apiVersionPreference.getInt("version", 0)
 
                 if (qwotableJSONVersion > apiVersion) {
-                    updateQwotableDatabase(apiVersionPreference, qwotableJSONVersion)
+                    withContext(Dispatchers.Main) {
+                        viewModel.updateFileUpdateAvailability(true, qwotableJSONVersion)
+                    }
                 } else {
-                    Log.i(TAG, "No update available")
+                    viewModel.updateFileUpdateAvailability(false)
                 }
             } catch (e: Exception) {
                 Log.e(TAG, e.message.toString())
@@ -129,12 +126,17 @@ class QwotableRepository(
         }
     }
 
-    private suspend fun updateQwotableDatabase(
-        apiVersionPreference: SharedPreferences,
-        newVersion: Int
+    suspend fun updateQwotableDatabase(
+        newVersion: Int,
+        viewModel: QwotableViewModel
     ) {
+        val apiVersionPreference = context.getSharedPreferences("Api", 0)
         val remoteData = apiService.getQwotables()
         qwotableDao.insert(remoteData)
         apiVersionPreference.edit().putInt("version", newVersion).apply()
+
+        withContext(Dispatchers.Main) {
+            viewModel.updateFileUpdateAvailability(false)
+        }
     }
 }
