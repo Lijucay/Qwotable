@@ -11,12 +11,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Qwotable"
+        android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
             android:name=".ui.navigation.activities.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.Qwotable"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,29 +27,33 @@
         <activity
             android:name=".ui.navigation.activities.SettingsActivity"
             android:exported="false"
-            android:theme="@style/Theme.Qwotable"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.navigation.activities.LogActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".ui.navigation.activities.LogActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.navigation.activities.LicensesActivity"
             android:exported="false"
-            android:theme="@style/Theme.Qwotable"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
-        <receiver android:name=".SimpleQwotableWidgetReceiver"
+
+        <receiver
+            android:name=".SimpleQwotableWidgetReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/qwotable_widget_info"
-                />
+                android:resource="@xml/qwotable_widget_info" />
         </receiver>
-        <receiver android:name=".service.WidgetRebootHelper"
+        <receiver
+            android:name=".service.WidgetRebootHelper"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
     </application>
