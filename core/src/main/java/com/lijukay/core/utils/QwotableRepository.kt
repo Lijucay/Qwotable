@@ -31,17 +31,11 @@ class QwotableRepository(
     private val apiService: QwotableApiService,
     private val context: Context
 ) {
-    private val TAG = this.javaClass.simpleName
+    private val tag = this.javaClass.simpleName
 
     val allQwotables = qwotableDao.getQwotablesFlow()
     val allFavorites = qwotableDao.getFavoritesQwotableFlow()
     val allOwnQwotables = qwotableDao.getOwnQwotableFlow()
-
-    suspend fun insert(qwotables: List<Qwotable>) {
-        withContext(Dispatchers.IO) {
-            qwotableDao.insert(qwotables)
-        }
-    }
 
     suspend fun insert(qwotable: Qwotable) {
         withContext(Dispatchers.IO) {
@@ -77,12 +71,6 @@ class QwotableRepository(
         return qwotableDao.getFilteredQwotableFlow(language)
     }
 
-    suspend fun getQwotables(): List<Qwotable> {
-        return withContext(Dispatchers.IO) {
-            return@withContext qwotableDao.getQwotables()
-        }
-    }
-
     suspend fun getFilteredQwotables(lang: String): List<Qwotable> {
         return withContext(Dispatchers.IO) {
             return@withContext qwotableDao.getFilteredQwotable(lang)
@@ -99,7 +87,7 @@ class QwotableRepository(
                     val remoteData = apiService.getQwotables()
                     qwotableDao.insert(remoteData)
                 } catch (e: Exception) {
-                    Log.e(TAG, e.message.toString())
+                    Log.e(tag, e.message.toString())
                 }
             }
         }
@@ -128,7 +116,7 @@ class QwotableRepository(
                     viewModel.updateFileUpdateAvailability(false)
                 }
             } catch (e: Exception) {
-                Log.e(TAG, e.message.toString())
+                Log.e(tag, e.message.toString())
             }
         }
     }

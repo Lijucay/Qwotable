@@ -230,31 +230,4 @@ class LogActivity : ComponentActivity() {
         }
     }
 
-    @Composable
-    private fun getAnnotatedString(): AnnotatedString {
-        val string = getString(R.string.bug_message)
-
-        return buildAnnotatedString {
-            val text = string.split(" ")
-            for (word in text) {
-                if (word.lowercase().trim() != "github") {
-                    append("$word ")
-                } else {
-                    pushStringAnnotation(
-                        tag = "github",
-                        annotation = "https://github.com/Lijucay/Qwotable/issues/new",
-                    )
-                    withStyle(
-                        style = SpanStyle(
-                            color = MaterialTheme.colorScheme.primary,
-                            textDecoration = TextDecoration.Underline
-                        )
-                    ) {
-                        append("$word ")
-                    }
-                    pop()
-                }
-            }
-        }
-    }
 }

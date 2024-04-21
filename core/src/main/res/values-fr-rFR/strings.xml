@@ -10,11 +10,8 @@
     <string name="edit_qwotable">Modifier Qwotable</string>
     <string name="create_qwotable">Créer Qwotable</string>
     <string name="no_logs">Pas de journaux</string>
-    <string name="logs">Journeaux</string>
-    <string name="detailed_logs">Journaux détaillés</string>
     <string name="save">Économiser</string>
     <string name="share">Partager</string>
-    <string name="favorites">Favoris</string>
     <string name="mine">Propre</string>
     <string name="settings">Paramètres</string>
     <string name="quote_cannot_be_empty">La devis ne peut être vide</string>
@@ -44,11 +41,9 @@
     <string name="permissions_messages">Internet:\nQwotable a besoin d\'un accès à Internet pour charger les citations à partir d\'un dépôt GitHub et des API.\n\nAccès à l\'état du réseau :\nAfin de vérifier si ton appareil est en ligne, Qwotable a besoin d\'accéder à l\'état du réseau.</string>
     <string name="no_quotes_available_widget_method">Il n\'y a pas de devis disponibles à afficher. Veuillez cliquer sur \"Ouvrir l\'application\" pour télécharger les données nécessaires.</string>
     <string name="open_app">Ouvir l\'application</string>
-    <string name="example_quote">Le pasé, c\'est douloureux, mais à mon sens on peut soit le fuir, soir tout en apprend.</string>
-    <string name="share_using">Partager avec...</string>
+    <string name="share_using">Partager avec…</string>
     <string name="success">Réussite</string>
     <string name="bug_message">Ne t\'inquiète pas, c\'est juste un bug.\nTu peux copier et coller les logs ou attacher le fichier sur GitHub, ou simplement l\'ignorer et redémarrer l\'application.</string>
-    <string name="made_by_qwotable">Fait par Qwotable</string>
     <string name="copied">Copié</string>
     <string name="update_available">Mise à jour de fichier disponible</string>
     <string name="update_message">Une nouvelle série de devis est disponible en ligne. Veux-tu les télécharger maintenant ?</string>
