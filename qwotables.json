@@ -1,229 +1,253 @@
 [
     {
+        "qwotable": "Books, she has found, are a way to live a thousand lives - or to find strength in a very long one",
+        "author": "V.E. Schwab",
+        "source": "The Invisible Life of Addie LaRue",
+        "language": "English"
+    },
+    {
+        "qwotable": "How many times can the same thing break your heart? As long as you love it.",
+        "author": "",
+        "source": "",
+        "language": "English"
+    },
+    {
+        "qwotable": "Tell your heart that the fear of suffering is worse than the suffering itself.",
+        "author": "Paulo Coelho",
+        "source": "The Alchemist",
+        "language": "English"
+    },
+    {
+        "qwotable": "I spent my life folded between the pages of books. In the absence of human relationships, I formed bonds with paper characters. I lived love and loss through stories threaled in history; I experienced adolescence by assosiation. My world is one interwoven web of words, stringing limb to limb, bone to sinew, thoughts and images all together. I am a being comprised of letters, a character created by sentences, a figment of imagination formed through fiction",
+        "author": "Tahereh Mafi",
+        "source": "Shatter me",
+        "language": "English"
+    },
+    {
       "qwotable": "If you make a promise, you keep it, if you make a mistake, you apologize... And if you give someone a dream, you defend it to the end.",
-      "author": "Childe",
+      "author": "miHoYo - Childe",
       "source": "Genshin Impact",
       "language": "English"
    },
    {
       "qwotable":"Der Mensch muss sein Dasein erfahren. Im Schmerz. Im Rausch. Im Scheitern. Im Höhenflug. Im Gefühl der vollständingen Machtfülle über die eigene Existenz. Über das eigenen Leben und den eigenen Tod.",
-      "author":"Moritz",
+      "author":"Juli Zeh - Moritz",
       "source":"Corpus Delicti",
       "language":"German"
    },
    {
       "qwotable":"Das Leben ist ein Angebot, das man auch ablehnen kann.",
-      "author":"Moritz",
+      "author":"Juli Zeh - Moritz",
       "source":"Corpus Delicti",
       "language":"German"
    },
    {
       "qwotable":"Nur wenn ich mich auch für den Tod entscheiden kann, besitzt die Entscheidung zugunsten des Lebens einen Wert.",
-      "author":"Moritz",
+      "author":"Juli Zeh - Moritz",
       "source":"Corpus Delicti",
       "language":"German"
    },
    {
       "qwotable":"People can find ways to forget, but they can't undo what they've done and there's no escaping the past.",
-      "author":"Unknown",
+      "author":"miHoYo",
       "source":"Genshin Impact",
       "language":"English"
    },
    {
       "qwotable":"Power isn't determined by your size, but the size of your heart and dreams!",
-      "author":"Monkey D. Luffy",
+      "author":"Eiichiro Oda - Monkey D. Luffy",
       "source":"One Piece",
       "language":"English"
    },
    {
       "qwotable":"If you don’t take risks, you can’t create a future",
-      "author":"Monkey D. Luffy",
+      "author":"Eiichiro Oda - Monkey D. Luffy",
       "source":"One Piece",
       "language":"English"
    },
    {
       "qwotable":"No matter how hard or how impossible it is, never lose sight of your goal",
-      "author":"Monkey D. Luffy",
+      "author":"Eiichiro Oda - Monkey D. Luffy",
       "source":"One Piece",
       "language":"English"
    },
    {
       "qwotable":"The wish of wanting everyone to be happy is merely a fairy tale!",
-      "author":"Archer",
-      "source":"Fate Stay Night",
+      "author":"Kinoko Nasu - Archer",
+      "source":"Fate/Stay Night",
       "language":"English"
    },
    {
       "qwotable":"If you walk down the path that you believe is right, you cannot be wrong.",
-      "author":"Shirou Emiya",
-      "source":"Fate Stay Night",
+      "author":"Kinoko Nasu - Shirou Emiya",
+      "source":"Fate/Stay Night",
       "language":"English"
    },
    {
       "qwotable":"That is why I will keep running for now. If I aim for the distance, there should come a day when I would be able to reach out to what I have been aiming for.",
-      "author":"Shirou Emiya",
-      "source":"Fate Stay Night",
+      "author":"Kinoko Nasu - Shirou Emiya",
+      "source":"Fate/Stay Night",
       "language":"English"
    },
    {
       "qwotable":"If you have a wish, don’t go back to the past and redo everything. If you want to change yourself, don’t change the past, but change who you are now!",
-      "author":"Shirou Emiya",
-      "source":"Fate Stay Night",
+      "author":"Kinoko Nasu - Shirou Emiya",
+      "source":"Fate/Stay Night",
       "language":"English"
    },
    {
       "qwotable":"People cannot change the past. All we can do, is accept our own actions. If you still wish to be burdened by your sins, let it show in your future actions. It is your choice how to perceive something that has already happened.",
-      "author":"Kirei Kotomine",
-      "source":"Fate Stay Night",
+      "author":"Kinoko Nasu - Kirei Kotomine",
+      "source":"Fate/Stay Night",
       "language":"English"
    },
    {
       "qwotable":"All things are impermanent and to exist is to suffer",
-      "author":"Xiao",
+      "author":"miHoYo - Xiao",
       "source":"Genshin Impact",
       "language":"English"
    },
    {
       "qwotable":"You are my sadness and my hope. But mostly, you're my love.",
-      "author":"Wanda Maximoff",
+      "author":"Disney - Wanda Maximoff",
       "source":"Wanda Vision",
       "language":"English"
    },
    {
       "qwotable":"There are rules in life. We can’t rush aging just because it’s convenient. And we can’t reverse death",
-      "author":"Wanda Maximoff",
+      "author":"Disney - Wanda Maximoff",
       "source":"Wanda Vision",
       "language":"English"
    },
    {
       "qwotable":"No one bad is every truly bad. And no one good is ever truly good.",
-      "author":"Loki",
+      "author":"Disney - Loki",
       "source":"Loki",
       "language":"English"
    },
    {
       "qwotable":"Freedom is life's great lie. Once you accept that, in your heart, you will know peace.",
-      "author":"Loki",
+      "author":"Disney - Loki",
       "source":"Loki",
       "language":"English"
    },
    {
       "qwotable":"I arrived only in time to hear her dying breath. Why did she go to Khaenri'ah first, and not I. Why did she keep me in the dark about it? Was it to shield me? [...] Facing the fact that she is gone is... unbearably painful",
-      "author":"Raiden Ei",
+      "author":"miHoYo - Raiden Ei",
       "source":"Genshin Impact",
       "language":"English"
    },
    {
       "qwotable":"For those that live too long, the friends of days gone by and scenes from their adventures live on in their memories. As such I have no regrets in meeting you, friend. Should the day ever come that we are not together, you will continue to shine like gold in my memories.",
-      "author":"Zhongli",
+      "author":"miHoYo - Zhongli",
       "source":"Genshin Impact",
       "language":"English"
    },
    {
       "qwotable":"Feelings are worth feeling, even if they hurt",
-      "author":"Eclipsa",
+      "author":"Disney - Eclipsa",
       "source":"Star vs. the forces of the evil",
       "language":"English"
    },
    {
       "qwotable":"You deserve the love you are trying to give to others all the time.",
-      "author":"Unknown",
+      "author":"",
       "source":"",
       "language":"English"
    },
    {
       "qwotable":"I will never apologize for my heart that breaks so easily but loves so strong",
-      "author":"Unknown",
+      "author":"",
       "source":"",
       "language":"English"
    },
    {
       "qwotable":"It may be that a perfect being does not exist at all in the whole world. Sometimes two people who appear to be completely opposite are actually two sides of the same coin and can only succeed when they work together.",
-      "author":"Itachi Uchiha",
+      "author":"Masashi Kishimoto - Itachi Uchiha",
       "source":"Naruto",
       "language":"English"
    },
    {
       "qwotable":"True change cannot be made if it is bound by laws and limitations, predictions and imagination",
-      "author":"Itachi Uchiha",
+      "author":"Masashi Kishimoto - Itachi Uchiha",
       "source":"Naruto",
       "language":"English"
    },
    {
       "qwotable":"The eyes sees only what the mind is prepared to comprehend",
-      "author":"Itachi Uchiha",
+      "author":"Masashi Kishimoto - Itachi Uchiha",
       "source":"Naruto",
       "language":"English"
    },
    {
       "qwotable":"Loneliness is dangerous. Once you know how addicting it is, you don't want to deal with people anymore.",
-      "author":"Itachi Uchiha",
+      "author":"Masashi Kishimoto - Itachi Uchiha",
       "source":"Naruto",
       "language":"English"
    },
    {
       "qwotable":"Use your insecurities to improve yourself, not to self-destruct and destroy others",
-      "author":"Itachi Uchiha",
+      "author":"Masashi Kishimoto - Itachi Uchiha",
       "source":"Naruto",
       "language":"English"
    },
    {
       "qwotable":"Sometimes you have to be the bad guy to do something good, or you have to be the good guy to do something bad.",
-      "author":"Itachi Uchiha",
+      "author":"Masashi Kishimoto - Itachi Uchiha",
       "source":"Naruto",
       "language":"English"
    },
    {
       "qwotable":"When the power of love overcomes the love for power, the world will know peace.",
-      "author":"Itachi Uchiha",
+      "author":"Masashi Kishimoto - Itachi Uchiha",
       "source":"Naruto",
       "language":"English"
    },
    {
       "qwotable":"Teachings that do not speak of pain have no meaning, for humankind cannot gain anything in return",
-      "author":"Itachi Uchiha",
+      "author":"Masashi Kishimoto - Itachi Uchiha",
       "source":"Naruto",
       "language":"English"
    },
    {
       "qwotable":"People's live don't end when they die. It ends when they lose faith",
-      "author":"Itachi Uchiha",
+      "author":"Masashi Kishimoto - Itachi Uchiha",
       "source":"Naruto",
       "language":"English"
    },
    {
       "qwotable":"Time doesn't heal anything. It just teaches us how to live with pain.",
-      "author":"Itachi Uchiha",
+      "author":"Masashi Kishimoto - Itachi Uchiha",
       "source":"Naruto",
       "language":"English"
    },
    {
       "qwotable":"No matter how good your heart is, eventually you have to start treating people the way they treat you.",
-      "author":"Itachi Uchiha",
+      "author":"Masashi Kishimoto - Itachi Uchiha",
       "source":"Naruto",
       "language":"English"
    },
    {
       "qwotable":"No single thing is perfect by itself. That's why we're born to attract other things to make up for what we lack. I think we start walking in the right direction only after we start getting our counterparts besides us.",
-      "author":"Itachi Uchiha",
+      "author":"Masashi Kishimoto - Itachi Uchiha",
       "source":"Naruto",
       "language":"English"
    },
    {
       "qwotable":"Each of us lives dependent and bound by our individual knowledge and our awareness. All that is what we call reality. However, both knowledge and awareness are equivocal. One's reality might be another's illusion. We all live inside our own fantasies.",
-      "author":"Itachi Uchiha",
+      "author":"Masashi Kishimoto - Itachi Uchiha",
       "source":"Naruto",
       "language":"English"
    },
    {
       "qwotable":"No matter who you are, you do not truly know what kind of man you will become until you reach the very end.",
-      "author":"Itachi Uchiha",
+      "author":"Masashi Kishimoto - Itachi Uchiha",
       "source":"Naruto",
       "language":"English"
    },
    {
       "qwotable":"Our actions are our own, but fate pushes us.",
-      "author":"Regina",
+      "author":"Disney - Regina",
       "source":"Once upon a time",
       "language":"English"
    },
@@ -325,7 +349,7 @@
    },
    {
       "qwotable":"Le passé, c'est douloureux, mais à mon sens on peut soit le fuir, soir tout en apprend.",
-      "author":"Rafiki",
+      "author":"Disney - Rafiki",
       "source":"Le roi lion",
       "language":"French"
    },
@@ -349,19 +373,19 @@
    },
    {
       "qwotable":"Even if I could redo the past, I must not take back what has already happened, because if I do that, everything would be a lie: those tears, that pain, those memories, that cold reality that hurts my heart, all of it. There were people who died in pain. There were people who risked their lives to save others. There were people who mourned for the deaths. But then, if everything were taken back and it did not happen, where would all of those go? The dead people would not come back. Reality cannot be overturned.",
-      "author":"Shirou Emiya",
-      "source":"Fate Stay Night",
+      "author":"Kinoko Nasu - Shirou Emiya",
+      "source":"Fate/Stay Night",
       "language":"English"
    },
    {
       "qwotable":"When the first wisp of wind brushed across the land, birds that yearned for the sky had wings but no way to fly.\nThey asked the Anemo God:\n\"How can we reach the heavens?\"\nTo which the Anemo God replied:\n\"You have yet to find that which is most important\"\nAs the god spoke, the wind thrust the seeds of a dandelion high into the sky. The birds thrust out their wings but the breeze was all to mild.\nLeaving them to stumble across the earth. So they went to the gorge where the wind showed off its wild and incomparable strength.\nThey threw themselves off the cliff and flapped their wings amongst the howling winds, until they where able to fly freely in the sky.\nTo the Anemo God they went, to gleefully say:\n\"We understand now! All we needed was a stronger wind to fly\"\nIn reply the Anemo God said: \"What you lacked was not wind, but courage. It is courage that has allowed you to become the first flying birds of this world.\"",
-      "author":"Unknown",
+      "author":"miHoYo",
       "source":"Genshin Impact",
       "language":"English"
    },
    {
       "qwotable":"Wake up to reality. Nothing ever goes as planned in this accursed world. The longer you live the more you will realize that the only things that truly exist in this reality are merely pain, suffering and futility.[...] Listen, everywhere you look in this world, wherever there is light, there will always be shadows to be found as well. As long as there is a concept of victors, the vanquished will also exist. The selfish intent of wanting to preserve peace initiates wars and hatred is born in order to protect love. There are nexuses, causual relationships that cannot be seperated.",
-      "author":"Madara Uchiha",
+      "author":"Masashi Kishimoto - Madara Uchiha",
       "source":"Naruto",
       "language":"English"
    },
@@ -379,7 +403,7 @@
    },
    {
       "qwotable":"Of course I'll hurt you. Of course you'll hurt me. Of course we will hurt each other. But this is the very condition of existence. To become spring, means accepting the risk of winter. To become presence, means accepting the risk of absence.",
-      "author":"The little prince",
+      "author":"Antoine de Saint-Exupéry",
       "source":"The little prince",
       "language":"English"
    },
