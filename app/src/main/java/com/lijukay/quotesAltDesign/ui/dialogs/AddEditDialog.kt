@@ -52,6 +52,9 @@ import com.lijukay.core.R
 import com.lijukay.core.database.Qwotable
 import com.lijukay.core.utils.QwotableViewModel
 import com.lijukay.quotesAltDesign.data.UIViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun AddEditDialog(
@@ -70,7 +73,7 @@ fun AddEditDialog(
     var saveButtonEnabled by remember { mutableStateOf(false) }
     var quoteError by remember { mutableStateOf(false) }
 
-    val quoteErrorMessage by remember { mutableStateOf(context.getString(R.string.quote_cannot_be_empty)) }
+    var quoteErrorMessage by remember { mutableStateOf(context.getString(R.string.quote_cannot_be_empty)) }
     val action: () -> Unit = {
         if (item.value != null) {
             val updatedItem = item.value!!.copy(
@@ -88,8 +91,18 @@ fun AddEditDialog(
                 language = "",
                 isOwn = true
             )
-            qwotableViewModel.insert(newItem)
-            onDismissRequest()
+            qwotableViewModel.insert(
+                qwotable = newItem,
+                onSuccess = {
+                    CoroutineScope(Dispatchers.Main).launch { onDismissRequest() }
+                },
+                onError = {
+                    if (it == "duplicate") {
+                        quoteError = true
+                        quoteErrorMessage = context.getString(R.string.duplicate_error)
+                    }
+                }
+            )
         }
     }
 
@@ -149,6 +162,7 @@ fun AddEditDialog(
                         if (input.isBlank()) {
                             quoteError = true
                             saveButtonEnabled = false
+                            quoteErrorMessage = context.getString(R.string.quote_cannot_be_empty)
                         } else {
                             quoteError = false
                             saveButtonEnabled = true
