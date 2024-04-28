@@ -27,6 +27,7 @@ import com.lijukay.core.database.Qwotable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class QwotableViewModel(
     private val repository: QwotableRepository
@@ -35,19 +36,21 @@ class QwotableViewModel(
     private val _tempNewVersion: MutableLiveData<Int> = MutableLiveData(0)
 
     val qwotableFileUpdateAvailable: LiveData<Boolean> = _qwotableFileUpdateAvailable
-
     val observedFavorites: LiveData<List<Qwotable>> = repository.allFavorites.asLiveData()
     val observedOwn: LiveData<List<Qwotable>> = repository.allOwnQwotables.asLiveData()
 
     init {
         refreshData()
-        checkForUpdates(onUpdateCheckCompleted = null)
     }
 
     private fun refreshData() {
         viewModelScope.launch {
-            repository.refreshQwotable()
+            repository.refreshQwotable(this@QwotableViewModel)
         }
+    }
+
+    suspend fun getFilteredQwotables(lang: String): List<Qwotable> {
+        return withContext(Dispatchers.IO) { repository.getFilteredQwotables(lang) }
     }
 
     fun updateFileUpdateAvailability(isUpdateAvailable: Boolean, newVersion: Int) {
@@ -59,9 +62,9 @@ class QwotableViewModel(
         _qwotableFileUpdateAvailable.value = isUpdateAvailable
     }
 
-    fun insert(qwotable: Qwotable) {
+    fun insert(qwotable: Qwotable, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
-            repository.insert(qwotable)
+            repository.insert(qwotable, onSuccess = onSuccess, onError = { onError(it) })
         }
     }
 
@@ -90,8 +93,8 @@ class QwotableViewModel(
         }
     }
 
-    fun getFilteredQwotable(language: String): LiveData<List<Qwotable>> {
-        return repository.getFilteredQwotable(language).asLiveData()
+    suspend fun getFavs(): List<Qwotable> {
+        return withContext(Dispatchers.IO) { repository.getFavs() }
     }
 
     suspend fun updateQwotableDatabase() {
