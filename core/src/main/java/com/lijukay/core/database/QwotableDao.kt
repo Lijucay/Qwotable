@@ -36,10 +36,13 @@ interface QwotableDao {
     suspend fun insert(qwotables: List<Qwotable>)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(qwotable: Qwotable)
+    suspend fun insert(qwotable: Qwotable): Long
 
     @Query("SELECT * FROM Qwotable WHERE isFavorite = 1")
     fun getFavoritesQwotableFlow(): Flow<List<Qwotable>>
+
+    @Query("SELECT * FROM Qwotable WHERE isFavorite = 1")
+    fun getFavoritesQwotable(): List<Qwotable>
 
     @Update(onConflict = OnConflictStrategy.IGNORE)
     fun updateQwotable(qwotable: Qwotable)
