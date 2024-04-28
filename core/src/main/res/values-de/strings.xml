@@ -52,4 +52,8 @@
     <string name="app_settings">App-Einstellungen</string>
     <string name="no_update_available">Keine Updates verfügbar</string>
     <string name="no_update_message">Es wurden keine Updates gefunden. Du hast bereits die neueste Version.</string>
+    <string name="to_github">Zu GitHub</string>
+    <string name="close_app">App schließen</string>
+    <string name="duplicate_error">Dasselbe Qwotable existiert bereits.</string>
+    <string name="favorites">Favoriten</string>
 </resources>

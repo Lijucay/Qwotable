@@ -52,4 +52,8 @@
     <string name="app_settings">Paramettres de l\'application</string>
     <string name="no_update_available">Pas des mise à jour disponible</string>
     <string name="no_update_message">Aucune mise à jour n\'a été trouvée. Tu dispose déjà de la dernière version.</string>
+    <string name="to_github">À GitHub</string>
+    <string name="close_app">Fermer l\'application</string>
+    <string name="duplicate_error">La même qwotable déjà existe.</string>
+    <string name="favorites">Favoris</string>
 </resources>
