@@ -1,0 +1,10 @@
+Qwotable's source code has been completely rewritten
+
+Changes:
+- Qwotable returns to a bottom navigation bar
+- Qwotable's home screen now shows the favorites on it
+
+New:
+- In the home screen, there is a card for random quotes, that is currently only working in English
+- A long awaited feature: Qwotable finally has an app widget that shows random quotes of Qwotable's database
+- Qwotable does now work offline too. Qwotables are now downloaded. If there is an update for the data, Qwotable will inform the user

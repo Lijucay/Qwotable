@@ -1,0 +1,13 @@
+<i>Qwotable</i> is an application, that has a ever growing collection of quotes.
+
+Qwotable is using Google's latest Material 3 design language and is written in Kotlin - Jetpack
+Compose.
+
+Features:
+<ul>
+<li>Copy and Share quotes
+<li>Mark quotes as favorite
+<li>Random quotes (for certain APIs inside of the app and only on English and for a local database
+on an app widget)
+<li>Add your own quotes (all previously named features available + they are also shown on the app
+widget)

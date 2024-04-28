@@ -1,0 +1,10 @@
+Der komplette Quellcode von Qwotable wurde von Grund auf neu geschrieben.
+
+Änderungen:
+- Qwotable kehrt zurück zur Navigationsleiste unten
+- Qwotables Home Screen zeigt nun die Favoriten an
+
+Neu:
+- Im Home Screen befindet sich eine Karte für zufällige Zitate, die aktuell nur auf Englisch funktioniert
+- Ein lang erwartetes Feature: Qwotable hat nun ein App Widget, welches zufällige Zitate von Qwotables eigenener Datenbank anzeigt
+- Qwotable funktioniert jetzt auch offline. Qwotables werden nun heruntergeladen. Bei einem Update der Daten wird der Nutzer informiert.
