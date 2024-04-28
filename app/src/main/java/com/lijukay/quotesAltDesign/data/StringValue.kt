@@ -26,10 +26,7 @@ sealed class StringValue {
 
     data object Default : StringValue()
 
-    class StringResource(
-        @StringRes val resId: Int,
-        vararg val args: Any
-    ) : StringValue()
+    class StringResource(@StringRes val resId: Int, vararg val args: Any) : StringValue()
 
     fun asString(context: Context?): String {
         return when (this) {
@@ -49,5 +46,4 @@ sealed class StringValue {
             }
         }
     }
-
 }

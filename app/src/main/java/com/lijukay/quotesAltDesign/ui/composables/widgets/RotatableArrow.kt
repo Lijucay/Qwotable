@@ -18,7 +18,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.lijukay.core.R
 
 @Composable
 fun RotatableArraw(
@@ -42,7 +44,7 @@ fun RotatableArraw(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = "Favorites") // Text in the row
+        Text(text = stringResource(id = R.string.favorites)) // Text in the row
         Icon(
             imageVector = Icons.Rounded.KeyboardArrowDown,
             contentDescription = null,

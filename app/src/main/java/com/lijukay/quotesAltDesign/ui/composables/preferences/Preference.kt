@@ -41,10 +41,7 @@ fun Preference(
     onClick: () -> Unit
 ) {
     Row(
-        modifier = modifier
-            .clickable {
-                onClick()
-            },
+        modifier = modifier.clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(

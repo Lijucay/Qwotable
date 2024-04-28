@@ -62,7 +62,7 @@ class SettingsActivity : ComponentActivity() {
     private val qwotableViewModel: QwotableViewModel by viewModels {
         QwotableViewModelFactory((application as App).repository)
     }
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
