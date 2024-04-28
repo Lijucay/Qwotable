@@ -22,9 +22,7 @@ import android.util.Log
 import com.lijukay.core.database.Qwotable
 import com.lijukay.core.database.QwotableDao
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
-import kotlin.jvm.Throws
 
 class QwotableRepository(
     private val qwotableDao: QwotableDao,
@@ -33,13 +31,20 @@ class QwotableRepository(
 ) {
     private val tag = this.javaClass.simpleName
 
-    val allQwotables = qwotableDao.getQwotablesFlow()
     val allFavorites = qwotableDao.getFavoritesQwotableFlow()
     val allOwnQwotables = qwotableDao.getOwnQwotableFlow()
 
-    suspend fun insert(qwotable: Qwotable) {
+    suspend fun getFavs(): List<Qwotable> {
+        return withContext(Dispatchers.IO) {
+            qwotableDao.getFavoritesQwotable()
+        }
+    }
+
+    suspend fun insert(qwotable: Qwotable, onSuccess: () -> Unit, onError: (String) -> Unit) {
         withContext(Dispatchers.IO) {
-            qwotableDao.insert(qwotable)
+            val result = qwotableDao.insert(qwotable)
+            if (result.toInt() == -1) onError("duplicate")
+            else onSuccess()
         }
     }
 
@@ -49,35 +54,17 @@ class QwotableRepository(
         }
     }
 
-    /*suspend fun deleteAllFavorites() {
-        withContext(Dispatchers.IO) {
-            qwotableDao.deleteAllFavorites()
-        }
-    }
-
-    suspend fun deleteAllOwn() {
-        withContext(Dispatchers.IO) {
-            qwotableDao.deleteAllOwn()
-        }
-    }*/
-
     suspend fun deleteSingleQwotable(qwotable: Qwotable) {
         withContext(Dispatchers.IO) {
             qwotableDao.deleteSingleQwotable(qwotable.id)
         }
     }
 
-    fun getFilteredQwotable(language: String): Flow<List<Qwotable>> {
-        return qwotableDao.getFilteredQwotableFlow(language)
-    }
-
     suspend fun getFilteredQwotables(lang: String): List<Qwotable> {
-        return withContext(Dispatchers.IO) {
-            return@withContext qwotableDao.getFilteredQwotable(lang)
-        }
+        return withContext(Dispatchers.IO) { qwotableDao.getFilteredQwotable(lang) }
     }
 
-    suspend fun refreshQwotable() {
+    suspend fun refreshQwotable(qwotableViewModel: QwotableViewModel) {
         withContext(Dispatchers.IO) {
             val localData = qwotableDao.getQwotables()
             val connectionUtil = ConnectionUtil(context)
@@ -86,9 +73,16 @@ class QwotableRepository(
                 try {
                     val remoteData = apiService.getQwotables()
                     qwotableDao.insert(remoteData)
+                    val newVersion = apiService.getVersionsFile().jsonFiles[0].qwotableJsonVersion
+
+                    updateFileVersion(newVersion)
                 } catch (e: Exception) {
                     Log.e(tag, e.message.toString())
                 }
+            } else if (connectionUtil.isConnected) {
+                qwotableViewModel.checkForUpdates(onUpdateCheckCompleted = null)
+            } else {
+                return@withContext
             }
         }
     }
@@ -105,8 +99,6 @@ class QwotableRepository(
             onUpdateCheckCompleted(apiVersion < qwotableJSONVersion, qwotableJSONVersion)
 
             try {
-
-
                 if (qwotableJSONVersion > apiVersion) {
                     withContext(Dispatchers.Main) {
                         viewModel.updateFileUpdateAvailability(true, qwotableJSONVersion)
@@ -125,13 +117,17 @@ class QwotableRepository(
         newVersion: Int,
         viewModel: QwotableViewModel
     ) {
-        val apiVersionPreference = context.getSharedPreferences("Api", 0)
         val remoteData = apiService.getQwotables()
         qwotableDao.insert(remoteData)
-        apiVersionPreference.edit().putInt("version", newVersion).apply()
+        updateFileVersion(newVersion)
 
         withContext(Dispatchers.Main) {
             viewModel.updateFileUpdateAvailability(false)
         }
+    }
+
+    private fun updateFileVersion(newVersion: Int) {
+        val apiPreference = context.getSharedPreferences("Api", 0)
+        apiPreference.edit().putInt("version", newVersion).apply()
     }
 }

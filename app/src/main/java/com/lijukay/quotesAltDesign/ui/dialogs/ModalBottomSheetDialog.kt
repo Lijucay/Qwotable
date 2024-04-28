@@ -46,6 +46,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -57,6 +58,7 @@ import com.lijukay.core.database.Qwotable
 import com.lijukay.core.utils.ClipboardUtil.Companion.copyToClipboard
 import com.lijukay.core.utils.QwotableViewModel
 import com.lijukay.core.utils.ShareUtil.Companion.shareExternally
+import com.lijukay.quotesAltDesign.data.UIViewModel
 import com.lijukay.quotesAltDesign.ui.composables.item_cards.QwotableItemCard
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -68,6 +70,7 @@ fun ModalBottomSheetDialog(
     showEditorOptions: Boolean,
     currentQwotable: Qwotable,
     qwotableViewModel: QwotableViewModel,
+    uiViewModel: UIViewModel,
     onEditingRequest: (Qwotable) -> Unit,
     onDeletionRequest: (Qwotable) -> Unit
 ) {
@@ -77,10 +80,16 @@ fun ModalBottomSheetDialog(
         sheetState = sheetState
     ) {
         val bottomPadding = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
-        val isFavorite = remember { mutableStateOf(currentQwotable.isFavorite) }
+        val isFavorite = remember { mutableStateOf(false) }
         val context = LocalContext.current
         val composeView: @Composable () -> Unit =
             { QwotableItemCard(qwotable = currentQwotable, onClick = null) }
+
+        LaunchedEffect(key1 = Unit) {
+            uiViewModel.isQwotableInFavorites(qwotableViewModel, currentQwotable) {
+                isFavorite.value = it
+            }
+        }
 
         Column(
             modifier = modifier.padding(bottom = bottomPadding),

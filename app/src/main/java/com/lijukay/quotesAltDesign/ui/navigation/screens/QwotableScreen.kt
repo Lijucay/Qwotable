@@ -22,7 +22,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -34,6 +33,9 @@ import com.lijukay.core.utils.QwotableViewModel
 import com.lijukay.quotesAltDesign.data.StringValue
 import com.lijukay.quotesAltDesign.data.UIViewModel
 import com.lijukay.quotesAltDesign.ui.composables.item_cards.QwotableItemCard
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun QwotableScreen(
@@ -50,42 +52,23 @@ fun QwotableScreen(
         )
     }
 
-    LaunchedEffect(key1 = Unit) {
-        uiViewModel.selectedLanguage.value?.let {
-            currentLanguage.value = it.asString(context)
-        }
-
-        val observer = Observer { qwotables: List<Qwotable> ->
-            qwotableState.value = qwotables
-        }
-        qwotableViewModel.getFilteredQwotable(currentLanguage.value).observeForever(observer)
-    }
-
     DisposableEffect(key1 = listOf(qwotableViewModel, uiViewModel)) {
-        val observer = Observer { qwotables: List<Qwotable> ->
-            qwotableState.value = qwotables
-        }
-
         val languageObserver = Observer<StringValue> { language ->
             currentLanguage.value = language.asString(context)
-            qwotableViewModel.getFilteredQwotable(language.asString(context))
-                .observeForever(observer)
+            CoroutineScope(Dispatchers.IO).launch {
+                qwotableState.value = qwotableViewModel.getFilteredQwotables(language.asString(context))
+            }
         }
-
-        qwotableViewModel.getFilteredQwotable(currentLanguage.value).observeForever(observer)
 
         uiViewModel.selectedLanguage.observeForever(languageObserver)
 
         onDispose {
-            qwotableViewModel.getFilteredQwotable(currentLanguage.value).removeObserver(observer)
             uiViewModel.selectedLanguage.removeObserver(languageObserver)
         }
     }
 
-    val rememberQwotableState = remember(key1 = qwotableState) { qwotableState }
-
     LazyColumn(modifier = modifier.fillMaxSize()) {
-        items(items = rememberQwotableState.value) { qwotable: Qwotable ->
+        items(items = qwotableState.value) { qwotable: Qwotable ->
             QwotableItemCard(qwotable = qwotable) {
                 uiViewModel.setCurrentSelectedQwotable(qwotable)
                 uiViewModel.setShowQwotableOptionsBottomSheet(true)

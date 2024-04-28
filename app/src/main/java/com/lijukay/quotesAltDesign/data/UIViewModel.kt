@@ -22,10 +22,13 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.lijukay.core.R
 import com.lijukay.core.database.Qwotable
+import com.lijukay.core.utils.QwotableViewModel
 import com.lijukay.core.utils.RandomQuote
 import com.lijukay.quotesAltDesign.data.model.Screens
+import kotlinx.coroutines.launch
 
 class UIViewModel : ViewModel() {
     private val _showFilterBottomSheet = MutableLiveData(false)
@@ -93,5 +96,13 @@ class UIViewModel : ViewModel() {
 
     fun setShowInformationDialog(show: Boolean) {
         _showInformationDialog.value = show
+    }
+
+    suspend fun isQwotableInFavorites(qwotableViewModel: QwotableViewModel, qwotable: Qwotable, onComplete: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val favs = qwotableViewModel.getFavs().map { qwotable -> qwotable.id}
+
+            onComplete(favs.contains(qwotable.id))
+        }
     }
 }
