@@ -97,8 +97,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun MainLayout(modifier: Modifier = Modifier) {
         val navController = rememberNavController()
-        val showEditorOptions =
-            remember { mutableStateOf(false) } //Editor options: Delete Icon / Editing Icon in BSD, FAB in Screen
+        val showEditorOptions = remember { mutableStateOf(false) }
         val showFilterIcon = remember { mutableStateOf(false) }
         val showQwotableOptionsBottomSheet = remember { mutableStateOf(false) }
         val currentQwotable = remember { mutableStateOf<Qwotable?>(null) }
@@ -163,7 +162,7 @@ class MainActivity : ComponentActivity() {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = stringResource(id = R.string.sanctuary),
+                    title = stringResource(id = R.string.qwotable),
                     showSettingsIcon = true,
                     showBackIcon = false,
                     showFilterIcon = showFilterIcon.value,
@@ -246,6 +245,7 @@ class MainActivity : ComponentActivity() {
                     showEditorOptions = showEditorOptions.value,
                     currentQwotable = current,
                     qwotableViewModel = qwotableViewModel,
+                    uiViewModel = uiViewModel,
                     onEditingRequest = {
                         scope.launch { sheetState.hide() }.invokeOnCompletion {
                             if (!sheetState.isVisible) {
