@@ -17,8 +17,6 @@
 
 package com.lijukay.quotesAltDesign.ui.composables.item_cards
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,7 +32,7 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Developer
@@ -44,14 +42,14 @@ import com.mikepenz.aboutlibraries.entity.License
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun LibraryItemCard(library: Library, modifier: Modifier = Modifier) {
-    val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
 
     Card(
         modifier = modifier
             .padding(all = 8.dp)
             .fillMaxWidth(),
         onClick = {
-            context.startActivity(Intent(Intent.ACTION_VIEW).setData(Uri.parse(library.website)))
+            library.website?.let { uriHandler.openUri(it) }
         }
     ) {
         Column(
