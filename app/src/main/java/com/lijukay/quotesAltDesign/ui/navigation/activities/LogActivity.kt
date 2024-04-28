@@ -26,16 +26,17 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ContentCopy
 import androidx.compose.material.icons.rounded.Save
 import androidx.compose.material.icons.rounded.Share
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -47,18 +48,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.lijukay.core.R
 import com.lijukay.core.utils.ClipboardUtil.Companion.copyToClipboard
 import com.lijukay.core.utils.FilesUtil.Companion.saveFile
@@ -164,7 +157,6 @@ class LogActivity : ComponentActivity() {
             },
             modifier = modifier.fillMaxSize()
         ) { paddingValues ->
-            // TODO: CHANGE THE LAYOUT OF THIS SCREEN TO SOMETHING MORE HUMANE LOL
             Column(
                 modifier = modifier
                     .padding(paddingValues = paddingValues)
@@ -180,54 +172,31 @@ class LogActivity : ComponentActivity() {
                         .width(150.dp)
                 )
 
-                val linkText = stringResource(id = R.string.bug_message).toAnnotatedLinkString(
-                    hyperLinks = mapOf("GitHub" to "https://github.com/Lijucay/Qwotable/issues/new"),
-                    linkTextColor = MaterialTheme.colorScheme.primary
-                )
                 val uriHandler = LocalUriHandler.current
 
-                ClickableText(
+                Text(
                     modifier = modifier.padding(16.dp),
-                    text = linkText,
-                    onClick = { offset ->
-                        linkText
-                            .getStringAnnotations("URL", offset, offset)
-                            .firstOrNull()?.let { stringAnnotation ->
-                                uriHandler.openUri(stringAnnotation.item)
-                            }
-                    },
-                    style = TextStyle(fontSize = 16.sp)
+                    text = stringResource(id = R.string.bug_message)
                 )
+                Spacer(modifier = modifier.height(20.dp))
+                Button(
+                    modifier = modifier.width(150.dp),
+                    onClick = {
+                        uriHandler.openUri("https://github.com/Lijucay/Qwotable/issues/new")
+                    }
+                ) {
+                    Text(text = stringResource(id = R.string.to_github))
+                }
+                Spacer(modifier = modifier.height(16.dp))
+                Button(
+                    modifier = modifier.width(150.dp),
+                    onClick = {
+                        this@LogActivity.finishAffinity()
+                    }
+                ) {
+                    Text(text = stringResource(id = R.string.close_app))
+                }
             }
         }
     }
-
-    private fun String.toAnnotatedLinkString(
-        hyperLinks: Map<String, String>,
-        linkTextColor: Color
-    ): AnnotatedString {
-        return buildAnnotatedString {
-            append(this@toAnnotatedLinkString)
-
-            for ((key, value) in hyperLinks) {
-                val startI = this@toAnnotatedLinkString.indexOf(key)
-                val endI = startI + key.length
-                addStyle(
-                    style = SpanStyle(
-                        color = linkTextColor,
-                        textDecoration = TextDecoration.Underline
-                    ),
-                    start = startI,
-                    end = endI
-                )
-                addStringAnnotation(
-                    tag = "URL",
-                    annotation = value,
-                    start = startI,
-                    end = endI
-                )
-            }
-        }
-    }
-
 }
