@@ -1,7 +1,7 @@
 # Qwotable
 Qwotable is a simple Android application filled with quotable stuff. Besides its own content, it provides 6 different APIs and one additional extra dataset.
 
-> ![important]
+> [!important]
 > Qwotable's functionality is currently not existing. There has been huge changes on how Qwotable deals with the data. A connection to online data is not possible due to changes of the username. Please stay patient for a new update, that fixes the issue
 
 ## APIs used:
