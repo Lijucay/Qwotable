@@ -30,8 +30,7 @@ class ConnectionUtil(private val context: Context) {
             val capabilities =
                 connectivityManager.getNetworkCapabilities(activeNetworks) ?: return false
 
-            return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) && capabilities.hasCapability(
-                NetworkCapabilities.NET_CAPABILITY_VALIDATED
-            )
+            return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                    && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
         }
 }
