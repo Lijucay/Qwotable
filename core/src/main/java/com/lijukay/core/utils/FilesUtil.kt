@@ -30,7 +30,8 @@ class FilesUtil {
                     context.contentResolver.openOutputStream(fileUri!!)
                 } else {
                     val path =
-                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                        Environment
+                            .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                             .toString()
                     val file = File(path, "$fileName.txt")
                     FileOutputStream(file)
@@ -47,7 +48,9 @@ class FilesUtil {
             if (logFile?.exists() == true) {
                 val fis = FileInputStream(logFile)
                 val fos =
-                    FileOutputStream("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)}/logs_${System.currentTimeMillis()}.txt")
+                    FileOutputStream(
+                        "${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)}/logs_${System.currentTimeMillis()}.txt"
+                    )
 
                 val buffer = ByteArray(1024)
                 var length: Int

@@ -46,24 +46,16 @@ class RandomQuote(private val context: Context) {
         Triple(URL("https://stoic-quotes.com/api/quote"), "text", "stoic-quotes.com")
     )
 
-    fun getRandomQuote(source: Int, quote: (String) -> Unit) {
+    fun getRandomQuote(quote: (String) -> Unit) {
         if (ConnectionUtil(context = context).isConnected) {
-            when (source) {
-                0 -> {
-                    getRandomAPIQuote {
-                        quote(it)
-                    }
-                }
+            val source = (0..1).random()
 
-                1 -> {
-                    getRandomProgrammingQuote {
-                        quote(it)
-                    }
-                }
+            when (source) {
+                0 -> { getRandomAPIQuote { result -> quote(result) } }
+                1 -> { getRandomProgrammingQuote { result -> quote(result) } }
             }
-        } else {
-            getRandomProgrammingQuote { quote(it) }
         }
+        else getRandomProgrammingQuote { result -> quote(result) }
     }
 
     private fun getRandomAPIQuote(result: (String) -> Unit) {
@@ -84,14 +76,10 @@ class RandomQuote(private val context: Context) {
 
                 bufferedReader.close()
 
-                if (quote != null) {
-                    result("$quote\n\n~$apiName")
-                } else {
-                    result(context.getString(R.string.error_server))
-                }
-            } else {
-                result(context.getString(R.string.error_connecting, apiUrl))
+                if (quote != null) result("$quote\n\n~$apiName")
+                else result(context.getString(R.string.error_server))
             }
+            else result(context.getString(R.string.error_connecting, apiUrl))
         }
     }
 

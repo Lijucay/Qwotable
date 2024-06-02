@@ -37,7 +37,6 @@
     <string name="back">Retour</string>
     <string name="error_server">Erreur de serveur. Si le problème persiste, ouvre un ticket sur GitHub</string>
     <string name="error_connecting">Impossible de se connecter à %1$s</string>
-    <string name="no_internet">Tu n\'es pas connecté à l\'internet</string>
     <string name="permissions_messages">Internet:\nQwotable a besoin d\'un accès à Internet pour charger les citations à partir d\'un dépôt GitHub et des API.\n\nAccès à l\'état du réseau :\nAfin de vérifier si ton appareil est en ligne, Qwotable a besoin d\'accéder à l\'état du réseau.</string>
     <string name="no_quotes_available_widget_method">Il n\'y a pas de devis disponibles à afficher. Veuillez cliquer sur \"Ouvrir l\'application\" pour télécharger les données nécessaires.</string>
     <string name="open_app">Ouvir l\'application</string>

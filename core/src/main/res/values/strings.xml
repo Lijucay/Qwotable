@@ -38,7 +38,6 @@
     <string name="back">Back</string>
     <string name="error_server">Server error. If the issue remains, please open an issue ticket on GitHub</string>
     <string name="error_connecting">Couldn\'t connect to %1$s.</string>
-    <string name="no_internet">You are not connected with the internet.</string>
     <string name="no_quotes_available_widget_method">There are no quotes available to show. Please click on \"Open app\" to download the necessary data.</string>
     <string name="open_app">Open app</string>
     <string name="share_using">Share using…</string>
@@ -56,4 +55,6 @@
     <string name="close_app">Close app</string>
     <string name="duplicate_error">The same qwotable does already exist.</string>
     <string name="favorites">Favorites</string>
+    <string name="no_internet">You are not connected to the internet.</string>
+    <string name="no_internet_message">Connect to the internet and then try again.</string>
 </resources>

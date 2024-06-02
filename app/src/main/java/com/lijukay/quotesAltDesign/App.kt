@@ -29,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class App : Application() {
     private val retrofitQwotable: Retrofit = Retrofit.Builder()
-        .baseUrl("https://lijucay.github.io/")
+        .baseUrl("https://lijucay.github.io")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

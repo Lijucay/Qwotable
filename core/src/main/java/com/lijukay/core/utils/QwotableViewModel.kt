@@ -93,8 +93,8 @@ class QwotableViewModel(
         }
     }
 
-    suspend fun getFavs(): List<Qwotable> {
-        return withContext(Dispatchers.IO) { repository.getFavs() }
+    suspend fun getFavorites(): List<Qwotable> {
+        return withContext(Dispatchers.IO) { repository.getFavorites() }
     }
 
     suspend fun updateQwotableDatabase() {

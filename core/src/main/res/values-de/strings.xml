@@ -37,7 +37,6 @@
     <string name="back">Zurück</string>
     <string name="error_server">Serverfehler. Wenn der Fehler bestehen bleibt, öffne bitte ein Ticket auf GitHub</string>
     <string name="error_connecting">Verbindung zu %1$s fehlgeschlagen</string>
-    <string name="no_internet">Du bist nicht mit dem Internet verbunden</string>
     <string name="permissions_messages">Internet:\nQwotable benötigt Internetzugriff, um Zitate aus Qwotables GitHub repository und aus den APIs zu laden.\n\nNetzwerkverbindungen abrufen:\nUm zu überprüfen, ob dein Gerät online ist, muss Qwotable zugriff auf deinen Netzwerkstatus haben</string>
     <string name="no_quotes_available_widget_method">Es gibt keine Zitate zum Anzeigen. Drücke auf \"App öffnen\", um die nötigen Daten herunterzuladen.</string>
     <string name="open_app">App öffnen</string>

@@ -34,30 +34,25 @@ class QwotableRepository(
     val allFavorites = qwotableDao.getFavoritesQwotableFlow()
     val allOwnQwotables = qwotableDao.getOwnQwotableFlow()
 
-    suspend fun getFavs(): List<Qwotable> {
-        return withContext(Dispatchers.IO) {
-            qwotableDao.getFavoritesQwotable()
-        }
+    suspend fun getFavorites(): List<Qwotable> {
+        return withContext(Dispatchers.IO) { qwotableDao.getFavoritesQwotable() }
     }
 
     suspend fun insert(qwotable: Qwotable, onSuccess: () -> Unit, onError: (String) -> Unit) {
         withContext(Dispatchers.IO) {
             val result = qwotableDao.insert(qwotable)
+
             if (result.toInt() == -1) onError("duplicate")
             else onSuccess()
         }
     }
 
     suspend fun updateQwotable(qwotable: Qwotable) {
-        withContext(Dispatchers.IO) {
-            qwotableDao.updateQwotable(qwotable)
-        }
+        withContext(Dispatchers.IO) { qwotableDao.updateQwotable(qwotable) }
     }
 
     suspend fun deleteSingleQwotable(qwotable: Qwotable) {
-        withContext(Dispatchers.IO) {
-            qwotableDao.deleteSingleQwotable(qwotable.id)
-        }
+        withContext(Dispatchers.IO) { qwotableDao.deleteSingleQwotable(qwotable.id) }
     }
 
     suspend fun getFilteredQwotables(lang: String): List<Qwotable> {
@@ -118,7 +113,10 @@ class QwotableRepository(
         viewModel: QwotableViewModel
     ) {
         val remoteData = apiService.getQwotables()
-        qwotableDao.insert(remoteData)
+
+        for (data in remoteData) {
+            qwotableDao.insert(data)
+        }
         updateFileVersion(newVersion)
 
         withContext(Dispatchers.Main) {

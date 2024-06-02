@@ -82,9 +82,8 @@ class UIViewModel : ViewModel() {
 
     fun getRandomQuote(context: Context) {
         _isLoadingRandomQuote.postValue(true)
-        val randomNum = (0..1).random()
 
-        RandomQuote(context).getRandomQuote(randomNum) { result ->
+        RandomQuote(context).getRandomQuote { result ->
             _randomQuote.postValue(result)
             _isLoadingRandomQuote.postValue(false)
         }
@@ -100,9 +99,9 @@ class UIViewModel : ViewModel() {
 
     suspend fun isQwotableInFavorites(qwotableViewModel: QwotableViewModel, qwotable: Qwotable, onComplete: (Boolean) -> Unit) {
         viewModelScope.launch {
-            val favs = qwotableViewModel.getFavs().map { qwotable -> qwotable.id}
+            val favorites = qwotableViewModel.getFavorites().map { qwotable -> qwotable.id}
 
-            onComplete(favs.contains(qwotable.id))
+            onComplete(favorites.contains(qwotable.id))
         }
     }
 }

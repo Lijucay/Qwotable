@@ -26,8 +26,8 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface QwotableDao {
-    @Query("SELECT * FROM Qwotable WHERE isOwn = 0")
-    fun getQwotablesFlow(): Flow<List<Qwotable>>
+    /*@Query("SELECT * FROM Qwotable WHERE isOwn = 0")
+    fun getQwotablesFlow(): Flow<List<Qwotable>>*/
 
     @Query("SELECT * FROM Qwotable")
     fun getQwotables(): List<Qwotable>
@@ -59,8 +59,8 @@ interface QwotableDao {
     @Query("DELETE FROM Qwotable WHERE id = :id")
     suspend fun deleteSingleQwotable(id: Int)
 
-    @Query("SELECT * FROM Qwotable WHERE language = :lang")
-    fun getFilteredQwotableFlow(lang: String): Flow<List<Qwotable>>
+    /*@Query("SELECT * FROM Qwotable WHERE language = :lang")
+    fun getFilteredQwotableFlow(lang: String): Flow<List<Qwotable>>*/
 
     @Query("SELECT * FROM Qwotable WHERE language = :lang")
     fun getFilteredQwotable(lang: String): List<Qwotable>

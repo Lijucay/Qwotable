@@ -17,10 +17,7 @@ class ShareUtil {
             intent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.qwotable))
             intent.putExtra(Intent.EXTRA_TEXT, this)
             context.startActivity(
-                Intent.createChooser(
-                    intent,
-                    context.getString(R.string.share_using)
-                )
+                Intent.createChooser(intent, context.getString(R.string.share_using))
             )
         }
 
@@ -61,12 +58,7 @@ class ShareUtil {
                 putExtra(Intent.EXTRA_STREAM, imageUri)
             }
 
-            context.startActivity(
-                Intent.createChooser(
-                    intent,
-                    context.getString(R.string.share_using)
-                )
-            )
+            context.startActivity(Intent.createChooser(intent, context.getString(R.string.share_using)))
         }
     }
 }
