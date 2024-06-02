@@ -44,6 +44,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.Observer
 import com.lijukay.core.R
+import com.lijukay.core.utils.ConnectionUtil
 import com.lijukay.core.utils.QwotableViewModel
 import com.lijukay.core.utils.QwotableViewModelFactory
 import com.lijukay.quotesAltDesign.App
@@ -123,27 +124,34 @@ class SettingsActivity : ComponentActivity() {
                     summary = stringResource(id = R.string.check_for_updates_summary),
                     iconVector = Icons.Rounded.Update
                 ) {
-                    qwotableViewModel.checkForUpdates { updateAvailable ->
-                        if (updateAvailable) {
-                            informationDialogTitle.value = getString(R.string.update_available)
-                            informationDialogMessage.value = getString(R.string.update_message)
-                            showCancel.value = true
-                            action.value = {
-                                CoroutineScope(Dispatchers.IO).launch {
-                                    qwotableViewModel.updateQwotableDatabase()
-                                }.invokeOnCompletion {
+                    if (ConnectionUtil(context = context).isConnected) {
+                        qwotableViewModel.checkForUpdates { updateAvailable ->
+                            if (updateAvailable) {
+                                informationDialogTitle.value = getString(R.string.update_available)
+                                informationDialogMessage.value = getString(R.string.update_message)
+                                showCancel.value = true
+                                action.value = {
+                                    CoroutineScope(Dispatchers.IO).launch {
+                                        qwotableViewModel.updateQwotableDatabase()
+                                    }.invokeOnCompletion {
+                                        showInformationDialog.value = false
+                                    }
+                                }
+                            } else {
+                                informationDialogTitle.value = getString(R.string.no_update_available)
+                                informationDialogMessage.value = getString(R.string.no_update_message)
+                                showCancel.value = false
+                                action.value = {
                                     showInformationDialog.value = false
                                 }
                             }
-                        } else {
-                            informationDialogTitle.value = getString(R.string.no_update_available)
-                            informationDialogMessage.value = getString(R.string.no_update_message)
-                            showCancel.value = false
-                            action.value = {
-                                showInformationDialog.value = false
-                            }
-                        }
 
+                            showInformationDialog.value = true
+                        }
+                    } else {
+                        informationDialogTitle.value = getString(R.string.no_internet)
+                        informationDialogMessage.value = getString(R.string.no_internet_message)
+                        showCancel.value = false
                         showInformationDialog.value = true
                     }
                 }
