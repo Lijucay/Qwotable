@@ -55,4 +55,8 @@
     <string name="close_app">App schließen</string>
     <string name="duplicate_error">Dasselbe Qwotable existiert bereits.</string>
     <string name="favorites">Favoriten</string>
+    <string name="no_internet">Du bist nicht mit dem Internet verbunden.</string>
+    <string name="no_internet_message">Verbinde dich mit dem Internet und versuche es erneut.</string>
+    <string name="json_exception">Es gab ein Problem beim Parsen der Daten. Wenn der Fehler bestehen bleibt, öffne bitte eine Meldung auf GitHub.\n\nAPI:\n%1$s\n\nFehlermeldung: %2$s</string>
+    <string name="no_message">Keine Fehlermeldung</string>
 </resources>

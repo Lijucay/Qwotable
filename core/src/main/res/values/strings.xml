@@ -57,4 +57,6 @@
     <string name="favorites">Favorites</string>
     <string name="no_internet">You are not connected to the internet.</string>
     <string name="no_internet_message">Connect to the internet and then try again.</string>
+    <string name="json_exception">There was a problem while parsing the result. If the error remains, please open an issue at GitHub.\n\nAPI:\n %1$s\n\nException-message: %2$s</string>
+    <string name="no_message">No error message</string>
 </resources>
