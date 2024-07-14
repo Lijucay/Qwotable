@@ -1,0 +1,3 @@
+Fixes:
+- Qwotable no longer crashes when an API is not available
+- Qwotable no longer crashes when the result of an API could not be parsed

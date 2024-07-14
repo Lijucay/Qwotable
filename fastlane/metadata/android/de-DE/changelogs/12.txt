@@ -1,0 +1,3 @@
+Fehlerbehebungen:
+- Qwotable stürzt nicht mehr ab, wenn eine API nicht erreichbar ist
+- Qwotable stürzt nicht mehr ab, wenn die Daten einer API nicht geladen werden können
