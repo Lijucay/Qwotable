@@ -14,11 +14,6 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".ui.navigation.activities.OnBoarding"
-            android:exported="false"
-            android:label="@string/title_activity_on_boarding"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".ui.navigation.activities.MainActivity"
             android:exported="true"
             android:theme="@style/AppTheme"
