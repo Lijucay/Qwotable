@@ -25,11 +25,13 @@ import com.lijukay.core.models.ProgrammingQuotes
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.json.JSONException
 import org.json.JSONObject
 import java.io.BufferedInputStream
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
+import java.net.UnknownHostException
 import javax.net.ssl.HttpsURLConnection
 
 class RandomQuote(private val context: Context) {
@@ -42,8 +44,8 @@ class RandomQuote(private val context: Context) {
         ),
         Triple(URL("https://stoic.tekloon.net/stoic-quote"), "quote", "Tekloon Stoic Quotes API"),
         Triple(URL("https://www.jcquotes.com/api/quotes/random"), "text", "James Clear Quotes API"),
-        Triple(URL("https://api.quotable.io/random"), "content", "Quotable API"),
-        Triple(URL("https://stoic-quotes.com/api/quote"), "text", "stoic-quotes.com")
+//        Triple(URL("https://api.quotable.io/random"), "content", "Quotable API"),
+//        Triple(URL("https://stoic-quotes.com/api/quote"), "text", "stoic-quotes.com")
     )
 
     fun getRandomQuote(quote: (String) -> Unit) {
@@ -63,23 +65,30 @@ class RandomQuote(private val context: Context) {
         val (apiUrl, jsonObjectKey, apiName) = urls[randomNum]
 
         CoroutineScope(Dispatchers.IO).launch {
-            val urlConnection = apiUrl.openConnection() as HttpsURLConnection
-            urlConnection.requestMethod = "GET"
+            try {
+                val urlConnection = apiUrl.openConnection() as HttpsURLConnection
+                urlConnection.requestMethod = "GET"
 
-            if (urlConnection.responseCode == HttpsURLConnection.HTTP_OK) {
-                val inputStream = BufferedInputStream(urlConnection.inputStream)
-                val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-                val jsonString = bufferedReader.readText()
+                if (urlConnection.responseCode == HttpsURLConnection.HTTP_OK) {
+                    val inputStream = BufferedInputStream(urlConnection.inputStream)
+                    val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+                    val jsonString = bufferedReader.readText()
 
-                val jsonObject = JSONObject(jsonString)
-                val quote: String? = jsonObject.getString(jsonObjectKey)
+                    val jsonObject = JSONObject(jsonString)
+                    val quote: String? = jsonObject.getString(jsonObjectKey)
 
-                bufferedReader.close()
+                    bufferedReader.close()
 
-                if (quote != null) result("$quote\n\n~$apiName")
-                else result(context.getString(R.string.error_server))
+                    if (quote != null) result("$quote\n\n~$apiName")
+                    else result(context.getString(R.string.error_server))
+                }
+            } catch (e: UnknownHostException) {
+                result(context.getString(R.string.error_connecting, apiUrl))
+            } catch (e: JSONException) {
+                val message = e.message ?: context.getString(R.string.no_message)
+
+                result(context.getString(R.string.json_exception, apiUrl, message))
             }
-            else result(context.getString(R.string.error_connecting, apiUrl))
         }
     }
 
