@@ -13,11 +13,13 @@ Stoic Quotes API: An API provided by Tek Loon (@tlcheah2). You can find the repo
 > [!caution]
 > Qwotable cannot use this API currently, as Qwotable needs to implement another way to deal with the result
 
+
 James Clear Quotes API: An API provided by Mauricio Robayo (@MauricioRobayo). You can find the repository [here](https://github.com/MauricioRobayo/jcquotes)
 
 Quotable API: An API provided by Luke Peavey (@lukePeavey). It is licensed under the MIT License. You can find the repository [here](https://github.com/lukePeavey/quotable)
 > [!caution]
 > Qwotable cannot use this API currently, as it seems to be unavailable
+
 
 Stoic Quotes API: An API, where I was not able to find the developer for unfortunately. You can visit the website [here](https://stoic-quotes.com/)
 
