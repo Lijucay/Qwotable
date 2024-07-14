@@ -2,7 +2,7 @@
 Qwotable is a simple Android application filled with quotable stuff. Besides its own content, it provides 6 different APIs and one additional extra dataset.
 
 > [!caution]
-> Qwotable's functionality is currently not existing for any version below version 2. There has been huge changes on how Qwotable deals with the data. A connection to online data is not possible due to changes of the username. Please stay patient for a new update, that fixes the issue
+> Qwotable does no longer work for any versions below Version 2.0. That includes any previously published apks, for example on FDroid. Currently, Qwotables newest version is not added to FDroid, I need to check what happened there. For now, you can install the release on GitHub. Thank you for your patience.
 
 ## APIs used:
 Kanye API: An archived API provided by Andrew Jazbec (@ajzbc). It is licensed under the MIT License. You can find the repository [here](https://github.com/ajzbc/kanye.rest)
