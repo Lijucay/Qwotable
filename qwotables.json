@@ -1,5 +1,11 @@
 [
     {
+        "qwotable": "Isn't it odd? We can only see our outsides, but nearly everything happens on the inside.",
+        "author":"Charlie Mackery",
+        "source":"The boy, the mole, the fox and the horse",
+        "language":"English"
+    },
+    {
         "qwotable": "Wenn Rache Gerechtigkeit ist, dann bringt Gerechtigkeit nur noch mehr Rache und wird so zu einem endlosen Kreislauf aus Hass.",
         "author": "Masashi Kishimoto - Pain",
         "source": "Naruto",
@@ -270,25 +276,25 @@
       "language":"English"
    },
    {
-      "qwotable":"Horse: \"You fell, but I have got you.\"",
+      "qwotable":"You fell, but I have got you.",
       "author":"Charlie Mackery",
       "source":"The boy, the mole, the fox and the horse",
       "language":"English"
    },
    {
-      "qwotable":"Horse: \"I know, tears fall for a reason, and are your strength, not weakness.\"",
+      "qwotable":"I know, tears fall for a reason, and are your strength, not weakness.",
       "author":"Charlie Mackery",
       "source":"The boy, the mole, the fox and the horse",
       "language":"English"
    },
    {
-      "qwotable":"Horse: \"Life is difficult, but you are loved.\"",
+      "qwotable":"Life is difficult, but you are loved.",
       "author":"Charlie Mackery",
       "source":"The boy, the mole, the fox and the horse",
       "language":"English"
    },
    {
-      "qwotable":"Fox: \"You know, sometimes, your minds plays tricks on you. It can tell you you are not good, that it's all hopeless, but I discovered this: You are loved and important, and you bring to this world things, that no one else can. So hold on.\"",
+      "qwotable":"You know, sometimes, your minds plays tricks on you. It can tell you you are not good, that it's all hopeless, but I discovered this: You are loved and important, and you bring to this world things, that no one else can. So hold on.",
       "author":"Charlie Mackery",
       "source":"The boy, the mole, the fox and the horse",
       "language":"English"
@@ -336,7 +342,7 @@
       "language":"German"
    },
    {
-      "qwotable":"Maulwurf: \"Eine unserer größten Freiheiten liegt darin, wie wir auf etwas reagieren.\"",
+      "qwotable":"Eine unserer größten Freiheiten liegt darin, wie wir auf etwas reagieren.",
       "author":"Charlie Mackery",
       "source":"The boy, the mole, the fox and the horse",
       "language":"German"
@@ -348,19 +354,19 @@
       "language":"German"
    },
    {
-      "qwotable":"Pferd: \"Du bist gefallen, aber ich bin da.\"",
+      "qwotable":"Du bist gefallen, aber ich bin da.",
       "author":"Charlie Mackery",
       "source":"The boy, the mole, the fox and the horse",
       "language":"German"
    },
    {
-      "qwotable":"Pferd: \"Ach was. Tränen haben immer einen Grund. Sie sind deine Stärke und keine Schwäche.\"",
+      "qwotable":"Ach was. Tränen haben immer einen Grund. Sie sind deine Stärke und keine Schwäche.",
       "author":"Charlie Mackery",
       "source":"The boy, the mole, the fox and the horse",
       "language":"German"
    },
    {
-      "qwotable":"Pferd: \"Das Leben ist nicht einfach, aber du wirst geliebt.\"",
+      "qwotable":"Das Leben ist nicht einfach, aber du wirst geliebt"",
       "author":"Charlie Mackery",
       "source":"The boy, the mole, the fox and the horse",
       "language":"German"
@@ -378,7 +384,7 @@
       "language":"German"
    },
    {
-      "qwotable":"Junge: \"Was ist das tapferste, was du jemals gesagt hast?\"\nPferd: \"Hilfe. Wenn du Hilfe bittest, gibst du nicht auf. Du weigerst dich, aufzugeben.\"",
+      "qwotable":"Wenn du Hilfe bittest, gibst du nicht auf. Du weigerst dich, aufzugeben.",
       "author":"Charlie Mackery",
       "source":"The boy, the mole, the fox and the horse",
       "language":"German"
@@ -414,7 +420,7 @@
       "language":"English"
    },
    {
-      "qwotable":"Boy: \"What is the bravest thing you've ever said?\"\nHorse: \"Help. Asking for help isn't giving up, it is to refusing to give up.\"",
+      "qwotable":"Asking for help isn't giving up, it is to refusing to give up.",
       "author":"Charlie Mackery",
       "source":"The boy, the mole, the fox and the horse",
       "language":"English"
@@ -426,7 +432,7 @@
       "language":"English"
    },
    {
-      "qwotable":"L'enfant: \"Quelle est la chose la plus courageuse que tu aies dite?\"\nLe cheval: \"C'est à l'aide. Demander de l'aide, ce n'est pas abandonner. C'est refuse d'abandonner.\"",
+      "qwotable":"Demander de l'aide, ce n'est pas abandonner. C'est refuse d'abandonner.",
       "author":"Charlie Mackery",
       "source":"L'enfant, la taupe, le renard et le cheval",
       "language":"French"
