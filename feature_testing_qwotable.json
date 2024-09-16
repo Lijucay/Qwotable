@@ -9,14 +9,24 @@
   },
   {
     "addedIn": 10,
-    "qwotable": "This qwotable is perfectly fine",
+    "lastChanged": 9,
+    "oldQwotable": "This qwotable is perfectly fine"
+    "qwotable": "This qwotable is perfectly fine lol",
     "author": "yeah",
     "language": "English"
   },
   {
     "addedIn": 10,
-    "qwotable": "something so beautiful like you are should not look at this file.",
-    "author": "mee",
+    "lastChanged": 11,
+    "oldQwotable": "something so beatiful like you are should not look at this file."
+    "qwotable": "Completely updated qwotable ^^",
+    "author": "You",
+    "language": "English"
+  },
+  {
+    "addedIn": 11,
+    "qwotable": "A quote",
+    "source": "you",
     "language": "English"
   }
 ]
