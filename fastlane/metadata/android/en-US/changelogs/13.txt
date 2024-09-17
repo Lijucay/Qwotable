@@ -1,0 +1,13 @@
+Changes:
+- The Random Quote and Qwotable Cards are now rounder and more vibrant
+- Dialogs are updated to bottom sheets, with overall UI changes
+
+Fixes:
+- The Random Quote Card no longer updates every time the home screen is accessed
+- Previously problematic APIs are now stable
+
+New:
+- Option to display local and/or user Qwotables in Random Quotes
+- Theme customization
+- Export/import own Qwotables
+- Customizable shared Qwotable info

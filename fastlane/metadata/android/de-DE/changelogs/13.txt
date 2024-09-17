@@ -1,0 +1,13 @@
+Änderungen:
+- Die Random Quote und Qwotable Karten sind jetzt runder und lebendiger
+- Dialoge wurden zu Bottom Sheets aktualisiert, mit allgemeinen UI-Änderungen
+
+Fehlerbehebungen:
+- Die Random Quote Karte aktualisiert sich nicht mehr bei jedem Aufruf des Startbildschirms
+- Zuvor problematische APIs funktionieren jetzt stabil
+
+Neu:
+- Option, lokale und/oder eigene Qwotables in Random Quotes anzuzeigen
+- Anpassbares Design
+- Export/Import eigener Qwotables
+- Anpassbare Informationen beim Teilen
