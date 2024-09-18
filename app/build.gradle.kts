@@ -1,8 +1,10 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
-    id("com.mikepenz.aboutlibraries.plugin")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.google.devtools.ksp)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.kotlin.plugin.compose)
+    alias(libs.plugins.aboutlibraries.plugin)
 }
 
 android {
@@ -13,8 +15,8 @@ android {
         applicationId = "com.lijukay.quotesAltDesign"
         minSdk = 24
         targetSdk = 34
-        versionCode = 12
-        versionName = "2.1"
+        versionCode = 13
+        versionName = "3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -56,32 +58,53 @@ android {
 }
 
 dependencies {
-    implementation(project(":core"))
-    implementation("androidx.navigation:navigation-compose:2.7.7")
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-    implementation("com.mikepenz:aboutlibraries-compose-m3:10.10.0")
-    implementation("com.mikepenz:aboutlibraries-core:10.10.0")
-    implementation("androidx.compose.material:material-icons-extended-android:1.6.8")
-    implementation("androidx.glance:glance-appwidget:1.1.0")
-    implementation("androidx.glance:glance-appwidget:1.1.0")
+    implementation(libs.androidx.material3.adaptive.navigation.suite)
+    implementation(libs.androidx.adaptive.navigation)
 
-    implementation("androidx.room:room-ktx:2.6.1")
-    implementation("com.google.android.material:material:1.12.0")
-    ksp("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.3")
-    implementation("androidx.activity:activity-compose:1.9.0")
-    implementation(platform("androidx.compose:compose-bom:2024.06.00"))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.06.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation(libs.gson)
+
+    // Room
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    // Dagger Hilt
+    implementation(libs.dagger.hilt)
+    ksp(libs.dagger.hilt.compiler)
+
+    // About Libraries
+    implementation(libs.aboutlibraries.compose.m3)
+    implementation(libs.aboutlibraries.core)
+
+    // OkHttp
+    implementation(libs.okhttp)
+
+    // Datastore
+    implementation(libs.androidx.datastore.preferences)
+
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.material.icons.extended.android)
+    implementation(libs.androidx.glance.appwidget)
+
+    implementation(libs.accompanist.systemuicontroller)
+
+    implementation(libs.material)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 }
