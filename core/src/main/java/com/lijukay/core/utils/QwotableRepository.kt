@@ -64,7 +64,7 @@ class QwotableRepository(
             val localData = qwotableDao.getQwotables()
             val connectionUtil = ConnectionUtil(context)
 
-            if (localData.isEmpty() && connectionUtil.isConnected) {
+            if (localData.toString().isEmpty() && connectionUtil.isConnected) {
                 try {
                     val remoteData = apiService.getQwotables()
                     qwotableDao.insert(remoteData)

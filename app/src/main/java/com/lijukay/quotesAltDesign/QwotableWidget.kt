@@ -48,9 +48,12 @@ import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.padding
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
-import com.lijukay.core.R
-import com.lijukay.core.database.Qwotable
-import com.lijukay.quotesAltDesign.ui.navigation.activities.MainActivity
+import com.lijukay.quotesAltDesign.data.local.model.LocalQwotable
+import com.lijukay.quotesAltDesign.data.repository.QwotableRepository
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
+import dagger.hilt.android.EntryPointAccessors
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -59,8 +62,13 @@ import java.util.Locale
 
 object QwotableWidget : GlanceAppWidget() {
     private val quoteKey = stringPreferencesKey(name = "quote")
-    @StringRes
-    val noQuotesStringId = R.string.no_quotes_available_widget_method
+    @StringRes val noQuotesStringId = R.string.no_quotes_available_widget_method
+
+    @EntryPoint
+    @InstallIn(SingletonComponent::class)
+    interface WidgetEntryPoint {
+        fun repository(): QwotableRepository
+    }
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
@@ -126,18 +134,19 @@ object QwotableWidget : GlanceAppWidget() {
         Log.e(javaClass.simpleName, "called uQW")
 
         CoroutineScope(context = Dispatchers.IO).launch {
-            val repository = (context.applicationContext as App).repository
+            val entryPoint = EntryPointAccessors.fromApplication<WidgetEntryPoint>(context)
+            val repository = entryPoint.repository()
             val lang = Locale.getDefault().language
 
-            val quotes: List<Qwotable> = when (lang) {
-                "de" -> repository.getFilteredQwotables("German")
-                "fr" -> repository.getFilteredQwotables("French")
-                else -> repository.getFilteredQwotables("English")
+            val quotes: List<LocalQwotable> = when (lang) {
+                "de" -> repository.loadLanguageFilteredQwotablesAsList("German")
+                "fr" -> repository.loadLanguageFilteredQwotablesAsList("French")
+                else -> repository.loadLanguageFilteredQwotablesAsList("English")
             }
 
             var randQuote = context.getString(R.string.no_quotes_available_widget_method)
             if (quotes.isNotEmpty()) {
-                quotes[quotes.indices.random()].qwotable.apply { randQuote = this }
+                quotes[quotes.indices.random()].quote.apply { randQuote = this }
             }
 
             withContext(context = Dispatchers.Main) {

@@ -18,6 +18,7 @@
 package com.lijukay.core.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -30,7 +31,19 @@ interface QwotableDao {
     fun getQwotablesFlow(): Flow<List<Qwotable>>*/
 
     @Query("SELECT * FROM Qwotable")
-    fun getQwotables(): List<Qwotable>
+    fun getQwotables(): Flow<List<Qwotable>>
+
+    @Query("SELECT * FROM Qwotable WHERE isFavorite = 1")
+    fun getFavoriteQwotables(): Flow<List<Qwotable>>
+
+    @Query("SELECT * FROM Qwotable WHERE isOwn = 1")
+    fun getOwnQwotables(): Flow<List<Qwotable>>
+
+    @Query("SELECT * FROM Qwotable")
+    suspend fun getQwotableList(): List<Qwotable>
+
+    @Delete
+    suspend fun deleteQwotable(qwotable: Qwotable): Int
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(qwotables: List<Qwotable>)
@@ -45,7 +58,7 @@ interface QwotableDao {
     fun getFavoritesQwotable(): List<Qwotable>
 
     @Update(onConflict = OnConflictStrategy.IGNORE)
-    fun updateQwotable(qwotable: Qwotable)
+    suspend fun updateQwotable(qwotable: Qwotable): Int
 
     @Query("SELECT * FROM Qwotable WHERE isOwn = 1")
     fun getOwnQwotableFlow(): Flow<List<Qwotable>>
@@ -57,11 +70,14 @@ interface QwotableDao {
     suspend fun deleteAllOwn()
 
     @Query("DELETE FROM Qwotable WHERE id = :id")
-    suspend fun deleteSingleQwotable(id: Int)
+    suspend fun deleteSingleQwotable(id: Int): Int
 
     /*@Query("SELECT * FROM Qwotable WHERE language = :lang")
     fun getFilteredQwotableFlow(lang: String): Flow<List<Qwotable>>*/
 
     @Query("SELECT * FROM Qwotable WHERE language = :lang")
     fun getFilteredQwotable(lang: String): List<Qwotable>
+
+    @Query("SELECT * FROM Qwotable WHERE language = :language")
+    fun getLanguageFilteredQwotables(language: String): Flow<List<Qwotable>>
 }

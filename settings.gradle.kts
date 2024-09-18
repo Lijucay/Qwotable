@@ -17,4 +17,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Qwotable"
 include(":app")
-include(":core")
