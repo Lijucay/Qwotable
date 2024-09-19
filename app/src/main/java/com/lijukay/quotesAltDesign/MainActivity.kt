@@ -18,7 +18,6 @@
 package com.lijukay.quotesAltDesign
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -36,7 +35,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.datastore.preferences.core.edit
 import com.lijukay.quotesAltDesign.data.local.model.OwnQwotable
-import com.lijukay.quotesAltDesign.data.local.model.ProgrammingQuote
 import com.lijukay.quotesAltDesign.presentation.dialogs.AddDialog
 import com.lijukay.quotesAltDesign.presentation.dialogs.EditDialog
 import com.lijukay.quotesAltDesign.presentation.dialogs.ErrorDialog

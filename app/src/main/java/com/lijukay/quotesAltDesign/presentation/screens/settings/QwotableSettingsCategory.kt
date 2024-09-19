@@ -17,14 +17,12 @@ import com.lijukay.quotesAltDesign.domain.util.dataStore
 import com.lijukay.quotesAltDesign.presentation.composables.preferences.Preference
 import com.lijukay.quotesAltDesign.presentation.composables.preferences.PreferenceCategoryTitle
 import com.lijukay.quotesAltDesign.presentation.composables.preferences.SwitchPreference
-import com.lijukay.quotesAltDesign.presentation.viewmodels.QwotableViewModel
 import com.lijukay.quotesAltDesign.presentation.viewmodels.UIViewModel
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 @Composable
 fun QwotableSettingsCategory(
-    qwotableViewModel: QwotableViewModel,
     uiViewModel: UIViewModel
 ) {
     val context = LocalContext.current

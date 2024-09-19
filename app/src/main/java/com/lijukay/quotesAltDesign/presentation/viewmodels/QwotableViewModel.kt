@@ -19,12 +19,11 @@ package com.lijukay.quotesAltDesign.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.lijukay.quotesAltDesign.R
-import com.lijukay.quotesAltDesign.data.local.model.DBQwotable
-import com.lijukay.quotesAltDesign.data.shared.DefaultQwotable
 import com.lijukay.quotesAltDesign.data.local.model.LocalQwotable
 import com.lijukay.quotesAltDesign.data.local.model.OwnQwotable
-import com.lijukay.quotesAltDesign.data.shared.Qwotable
 import com.lijukay.quotesAltDesign.data.repository.QwotableRepository
+import com.lijukay.quotesAltDesign.data.shared.DefaultQwotable
+import com.lijukay.quotesAltDesign.data.shared.Qwotable
 import com.lijukay.quotesAltDesign.data.utils.StringValue
 import com.lijukay.quotesAltDesign.domain.util.states.QwotableResult
 import dagger.hilt.android.lifecycle.HiltViewModel

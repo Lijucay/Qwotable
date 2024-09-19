@@ -69,26 +69,24 @@ fun HomeScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         item {
-            randomQuote?.let {
-                RandomQuoteCard(
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                    randomQuote = it,
-                    uiViewModel = uiViewModel,
-                    onLoadNewRandomQuote = {
-                        uiViewModel.setLoading(true)
-                        qwotableViewModel.getRandomQuote().invokeOnCompletion {
-                            uiViewModel.setLoading(false)
-                        }
-                    },
-                    showCard = (showRandomQuoteCard && preferenceLoaded),
-                    onShowInfoClicked = {
-                        uiViewModel.setInfoDialogTitle(context.getString(R.string.about_random_quote_title))
-                        uiViewModel.setInfoDialogMessage(context.getString(R.string.about_random_quote))
-                        uiViewModel.setInfoDialogAction(null)
-                        uiViewModel.setShowInfoDialog(true)
+            RandomQuoteCard(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                randomQuote = randomQuote,
+                uiViewModel = uiViewModel,
+                onLoadNewRandomQuote = {
+                    uiViewModel.setLoading(true)
+                    qwotableViewModel.getRandomQuote().invokeOnCompletion {
+                        uiViewModel.setLoading(false)
                     }
-                )
-            }
+                },
+                showCard = (showRandomQuoteCard && preferenceLoaded),
+                onShowInfoClicked = {
+                    uiViewModel.setInfoDialogTitle(context.getString(R.string.about_random_quote_title))
+                    uiViewModel.setInfoDialogMessage(context.getString(R.string.about_random_quote))
+                    uiViewModel.setInfoDialogAction(null)
+                    uiViewModel.setShowInfoDialog(true)
+                }
+            )
         }
 
         item {

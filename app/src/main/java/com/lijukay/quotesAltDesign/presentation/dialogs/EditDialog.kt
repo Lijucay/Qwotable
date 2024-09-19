@@ -50,9 +50,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.lijukay.quotesAltDesign.R
-import com.lijukay.quotesAltDesign.data.local.model.LocalQwotable
 import com.lijukay.quotesAltDesign.data.local.model.OwnQwotable
-import com.lijukay.quotesAltDesign.data.shared.Qwotable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

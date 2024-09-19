@@ -11,7 +11,6 @@ import com.google.gson.reflect.TypeToken
 import com.lijukay.quotesAltDesign.data.local.model.OwnQwotable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.BufferedReader

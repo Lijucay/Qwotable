@@ -9,14 +9,13 @@ import androidx.compose.material.icons.rounded.Update
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.lijukay.quotesAltDesign.R
 import com.lijukay.quotesAltDesign.domain.util.ConnectionHelperImpl
 import com.lijukay.quotesAltDesign.domain.util.PreferenceKey.DARK_MODE_KEY
-import com.lijukay.quotesAltDesign.domain.util.states.ThemeMode
 import com.lijukay.quotesAltDesign.domain.util.dataStore
+import com.lijukay.quotesAltDesign.domain.util.states.ThemeMode
 import com.lijukay.quotesAltDesign.presentation.composables.preferences.Preference
 import com.lijukay.quotesAltDesign.presentation.composables.preferences.PreferenceCategoryTitle
 import com.lijukay.quotesAltDesign.presentation.viewmodels.QwotableViewModel

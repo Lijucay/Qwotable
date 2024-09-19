@@ -19,7 +19,6 @@ package com.lijukay.quotesAltDesign.presentation.screens
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -35,7 +34,6 @@ import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.FilterAlt
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Upload
-import androidx.compose.material.icons.rounded.UploadFile
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
@@ -43,7 +41,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -60,13 +57,10 @@ import com.lijukay.quotesAltDesign.R
 import com.lijukay.quotesAltDesign.data.utils.Screens
 import com.lijukay.quotesAltDesign.domain.util.FileUtil.createBackupFile
 import com.lijukay.quotesAltDesign.domain.util.FileUtil.readFromBackupFile
-import com.lijukay.quotesAltDesign.presentation.composables.BottomNavigationBar
 import com.lijukay.quotesAltDesign.presentation.composables.NavigationScaffold
 import com.lijukay.quotesAltDesign.presentation.viewmodels.QwotableViewModel
 import com.lijukay.quotesAltDesign.presentation.viewmodels.UIViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

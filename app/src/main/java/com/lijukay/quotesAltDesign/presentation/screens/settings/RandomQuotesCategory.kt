@@ -18,7 +18,6 @@ import com.lijukay.quotesAltDesign.domain.util.PreferenceKey.INCLUDE_LOCAL_QWOTA
 import com.lijukay.quotesAltDesign.domain.util.PreferenceKey.INCLUDE_OWN_QWOTABLES
 import com.lijukay.quotesAltDesign.domain.util.PreferenceKey.SHOW_RANDOM_QUOTES
 import com.lijukay.quotesAltDesign.domain.util.dataStore
-import com.lijukay.quotesAltDesign.presentation.composables.preferences.PreferenceCategoryTitle
 import com.lijukay.quotesAltDesign.presentation.composables.preferences.SwitchPreference
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch

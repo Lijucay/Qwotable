@@ -1,8 +1,6 @@
 package com.lijukay.quotesAltDesign.domain.util
 
 import android.content.Context
-import android.util.Log
-import com.lijukay.quotesAltDesign.BuildConfig
 import com.lijukay.quotesAltDesign.domain.util.apis.QwotableAPI
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

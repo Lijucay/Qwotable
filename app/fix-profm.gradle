@@ -1,6 +1,7 @@
 // NB: when using build.gradle.kts instead of build.gradle, save this file as
 // app/fix-profm.gradle and add the following line to app/build.gradle.kts:
 //    apply(from = "fix-profm.gradle")
+//file:noinspection Annotator
 
 buildscript {
     repositories {

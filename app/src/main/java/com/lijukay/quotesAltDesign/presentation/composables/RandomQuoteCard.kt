@@ -19,12 +19,10 @@ package com.lijukay.quotesAltDesign.presentation.composables
 
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -40,14 +38,11 @@ import androidx.compose.material.icons.automirrored.rounded.HelpOutline
 import androidx.compose.material.icons.rounded.ContentCopy
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Share
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -61,8 +56,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.lijukay.quotesAltDesign.R
-import com.lijukay.quotesAltDesign.data.remote.model.RemoteQwotable
 import com.lijukay.quotesAltDesign.data.remote.model.JamesClearQuote
+import com.lijukay.quotesAltDesign.data.remote.model.RemoteQwotable
 import com.lijukay.quotesAltDesign.data.shared.Qwotable
 import com.lijukay.quotesAltDesign.domain.util.ClipboardUtil.copyToClipboard
 import com.lijukay.quotesAltDesign.domain.util.PreferenceKey

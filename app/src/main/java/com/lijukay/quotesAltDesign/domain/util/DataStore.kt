@@ -6,8 +6,6 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.lijukay.quotesAltDesign.R
-import com.lijukay.quotesAltDesign.data.utils.StringValue
 
 object PreferenceKey {
     val SHARE_PREFERENCE_KEY = intPreferencesKey("share_preference")

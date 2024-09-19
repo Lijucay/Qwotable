@@ -71,7 +71,7 @@ fun SettingsScreen(
                 .padding(paddingValues)
         ) {
             AppSettingsCategory(qwotableViewModel, uiViewModel)
-            QwotableSettingsCategory(qwotableViewModel, uiViewModel)
+            QwotableSettingsCategory(uiViewModel)
             RandomQuotesCategory()
             InfoCategory(onOpenLicenseScreen, uiViewModel)
         }

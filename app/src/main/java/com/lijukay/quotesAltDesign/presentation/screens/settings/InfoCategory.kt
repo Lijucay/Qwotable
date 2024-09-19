@@ -6,7 +6,6 @@ import androidx.compose.material.icons.rounded.GppGood
 import androidx.compose.material.icons.rounded.GppMaybe
 import androidx.compose.material.icons.rounded.LocalPolice
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.lijukay.quotesAltDesign.R
