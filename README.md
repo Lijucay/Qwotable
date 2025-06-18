@@ -1,3 +1,6 @@
+# Important note:
+Qwotable is currently sunset. Development is paused and it is unclear when it will be continued
+
 # Qwotable
 Qwotable is a simple Android application filled with quotable stuff. Besides its own content, it provides 6 different APIs and one additional extra dataset.
 
