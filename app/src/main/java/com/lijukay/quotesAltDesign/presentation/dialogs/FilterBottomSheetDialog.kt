@@ -37,7 +37,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -63,18 +62,16 @@ fun FilterBottomSheetDialog(
     val currentLanguage by uiViewModel.selectedLanguage.collectAsState()
 
     val languageOptions = listOf(Languages.ENGLISH, Languages.GERMAN, Languages.FRENCH)
-    var currentSelected by remember { mutableIntStateOf(
-        if (currentLanguage != Languages.DEFAULT) { currentLanguage.ordinal } else {
+    var currentSelected by remember { mutableStateOf(
+        if (currentLanguage != Languages.DEFAULT) { currentLanguage.name } else {
             when (currentLanguage.displayName.asString(context)) {
-                "English" -> Languages.ENGLISH.ordinal
-                "German" -> Languages.GERMAN.ordinal
-                "French" -> Languages.FRENCH.ordinal
-                else -> -1
+                "English" -> Languages.ENGLISH.name
+                "German" -> Languages.GERMAN.name
+                "French" -> Languages.FRENCH.name
+                else -> throw IllegalStateException("Language is invalid")
             }
         })
     }
-
-    val selectedLanguage by remember { mutableStateOf(currentLanguage) }
 
     ModalBottomSheet(
         sheetState = sheetState,
@@ -109,7 +106,7 @@ fun FilterBottomSheetDialog(
 
             IconButton(
                 onClick = {
-                    uiViewModel.setSelectedLanguageOption(selectedLanguage)
+                    uiViewModel.setSelectedLanguageOption(Languages.valueOf(currentSelected))
                 },
                 colors = IconButtonDefaults.iconButtonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
@@ -139,9 +136,9 @@ fun FilterBottomSheetDialog(
                     bottomEnd = if (index == (languageOptions.size - 1)) 24.dp else 4.dp,
                     bottomStart = if (index == (languageOptions.size - 1)) 24.dp else 4.dp
                 ),
-                selected = currentSelected == language.ordinal,
+                selected = currentSelected == language.name,
                 title = language.displayName.asString(context)
-            ) { currentSelected = language.ordinal }
+            ) { currentSelected = language.name }
         }
     }
 }
