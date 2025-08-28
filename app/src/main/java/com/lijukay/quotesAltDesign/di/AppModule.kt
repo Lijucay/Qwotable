@@ -81,15 +81,6 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideJCQuotesAPI(): JCQuotesAPI =
-        Retrofit.Builder()
-            .baseUrl("https://www.jcquotes.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create<JCQuotesAPI>()
-
-    @Singleton
-    @Provides
     fun provideTekloonStoicQuotesAPI(): TekloonStoicQuotesAPI =
         Retrofit.Builder()
             .baseUrl("https://stoic.tekloon.net/")
@@ -226,7 +217,6 @@ class AppModule {
         kanyeRestAPI: KanyeRestAPI,
         gameOfThronesAPI: GameOfThronesAPI,
         tekloonStoicQuotesAPI: TekloonStoicQuotesAPI,
-        jcQuotesAPI: JCQuotesAPI,
         stoicQuotesAPI: StoicQuotesAPI
     ): RandomQuote {
         return RandomQuoteImpl(
@@ -236,7 +226,6 @@ class AppModule {
             kanyeRestAPI,
             gameOfThronesAPI,
             tekloonStoicQuotesAPI,
-            jcQuotesAPI,
             stoicQuotesAPI
         )
     }

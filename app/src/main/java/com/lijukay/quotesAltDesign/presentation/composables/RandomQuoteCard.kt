@@ -56,7 +56,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.lijukay.quotesAltDesign.R
-import com.lijukay.quotesAltDesign.data.remote.model.JamesClearQuote
 import com.lijukay.quotesAltDesign.data.remote.model.RemoteQwotable
 import com.lijukay.quotesAltDesign.data.shared.Qwotable
 import com.lijukay.quotesAltDesign.domain.util.ClipboardUtil.copyToClipboard
@@ -66,6 +65,7 @@ import com.lijukay.quotesAltDesign.domain.util.dataStore
 import com.lijukay.quotesAltDesign.domain.util.states.SharePreferences
 import com.lijukay.quotesAltDesign.presentation.viewmodels.UIViewModel
 import kotlinx.coroutines.flow.map
+import androidx.core.net.toUri
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -123,7 +123,7 @@ fun RandomQuoteCard(
             }
 
             AnimatedVisibility(
-                visible = randomQuote.hasSource && randomQuote !is JamesClearQuote,
+                visible = randomQuote.hasSource,
                 enter = expandVertically(),
                 exit = shrinkVertically()
             ) {
@@ -206,7 +206,6 @@ fun RandomQuoteCard(
                         IconButton(
                             onClick = {
                                 val uri: String? = when (randomQuote) {
-                                    is JamesClearQuote -> randomQuote.source
                                     is RemoteQwotable -> randomQuote.apiSource
                                     else -> null
                                 }
@@ -215,7 +214,7 @@ fun RandomQuoteCard(
                                     context.startActivity(
                                         Intent(
                                             Intent.ACTION_VIEW,
-                                            Uri.parse(it)
+                                            it.toUri()
                                         )
                                     )
                                 }
