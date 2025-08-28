@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.lijukay.quotesAltDesign"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.lijukay.quotesAltDesign"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 13
         versionName = "3.0"
 
@@ -43,9 +43,6 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.10"
     }
     packaging {
         resources {
