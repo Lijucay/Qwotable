@@ -26,14 +26,12 @@ import com.lijukay.quotesAltDesign.data.local.QwotableDao
 import com.lijukay.quotesAltDesign.data.local.model.ProgrammingQuote
 import com.lijukay.quotesAltDesign.data.remote.model.RemoteQwotable
 import com.lijukay.quotesAltDesign.data.remote.model.responses.GameOfThronesAPIResponse.Companion.toQwotable
-import com.lijukay.quotesAltDesign.data.remote.model.responses.JCQuoteAPIResponse.Companion.toQwotable
 import com.lijukay.quotesAltDesign.data.remote.model.responses.KanyeRestAPIResponse.Companion.toQwotable
 import com.lijukay.quotesAltDesign.data.remote.model.responses.StoicQuotesAPIResponse.Companion.toQwotable
 import com.lijukay.quotesAltDesign.data.remote.model.responses.TekloonStoicQuotesAPIResponse.Companion.toQwotable
 import com.lijukay.quotesAltDesign.data.shared.Qwotable
 import com.lijukay.quotesAltDesign.data.utils.StringValue
 import com.lijukay.quotesAltDesign.domain.util.apis.GameOfThronesAPI
-import com.lijukay.quotesAltDesign.domain.util.apis.JCQuotesAPI
 import com.lijukay.quotesAltDesign.domain.util.apis.KanyeRestAPI
 import com.lijukay.quotesAltDesign.domain.util.PreferenceKey.INCLUDE_LOCAL_QWOTABLES
 import com.lijukay.quotesAltDesign.domain.util.PreferenceKey.INCLUDE_OWN_QWOTABLES
@@ -54,7 +52,6 @@ class RandomQuoteImpl @Inject constructor(
     private val kanyeRestAPI: KanyeRestAPI,
     private val gameOfThronesAPI: GameOfThronesAPI,
     private val tekloonStoicQuotesAPI: TekloonStoicQuotesAPI,
-    private val jcQuotesAPI: JCQuotesAPI,
     private val stoicQuotesAPI: StoicQuotesAPI
 ) : RandomQuote {
     override suspend fun getRandomQuote(): QwotableResult<out Qwotable> {
@@ -74,15 +71,16 @@ class RandomQuoteImpl @Inject constructor(
     }
 
     private suspend fun getRandomAPIQuote(): QwotableResult<RemoteQwotable> {
-        val randomNum = (0..4).random()
+        val randomNum = (0..3).random()
+
+        Log.e("iuasebgfoaisewlgnwer", randomNum.toString())
 
         return try {
             when (randomNum) {
                 0 -> return QwotableResult.Success(kanyeRestAPI.getRandomQuote().toQwotable())
                 1 -> return QwotableResult.Success(gameOfThronesAPI.getRandomQuote().toQwotable())
                 2 -> return QwotableResult.Success(tekloonStoicQuotesAPI.getRandomQuote().toQwotable())
-                3 -> return QwotableResult.Success(jcQuotesAPI.getRandomQuote().toQwotable())
-                4 -> return QwotableResult.Success(stoicQuotesAPI.getRandomQuote().toQwotable())
+                3 -> return QwotableResult.Success(stoicQuotesAPI.getRandomQuote().toQwotable())
                 else -> QwotableResult.Failure(
                     StringValue.StringResource(R.string.random_num_ex)
                 )
@@ -104,7 +102,7 @@ class RandomQuoteImpl @Inject constructor(
             .map { preferences -> preferences[INCLUDE_OWN_QWOTABLES] ?: false }
             .first()
 
-        val source = (0..2).random()
+        val source = (0..3).random()
 
         Log.e("Random Quote", "called with $source")
         Log.e("includeL", includeLocal.toString())
@@ -114,6 +112,8 @@ class RandomQuoteImpl @Inject constructor(
             getLocalQwotable()
         } else if (includeOwn && source == 2 && qwotableDao.getOwnQwotablesAsList().isNotEmpty()) {
             getOwnQwotable()
+        } else if (source == 3) {
+            getDWYLQuote()
         } else {
             getRandomProgrammingQuote()
         }
@@ -132,6 +132,34 @@ class RandomQuoteImpl @Inject constructor(
             val randomObject = objects[randomNum]
             QwotableResult.Success(
                 ProgrammingQuote(
+                    randomObject.quote,
+                    randomObject.author
+                )
+            )
+        } catch (e: Exception) {
+            QwotableResult.Failure(
+                e.message?.let {
+                    StringValue.DynamicString(it)
+                } ?: StringValue.StringResource(
+                    R.string.unknown_issue
+                )
+            )
+        }
+    }
+
+    private fun getDWYLQuote(): QwotableResult<Qwotable> {
+        return try {
+            val raw = context.resources.openRawResource(R.raw.quotes)
+            val reader = BufferedReader(InputStreamReader(raw))
+            val jsonString = reader.readText()
+
+            val type = object : TypeToken<List<DwylQuote>>() {}.type
+            val objects = Gson().fromJson<List<DwylQuote>>(jsonString, type)
+            val randomNum = objects.indices.random()
+
+            val randomObject = objects[randomNum]
+            QwotableResult.Success(
+                DwylQuote(
                     randomObject.quote,
                     randomObject.author
                 )
