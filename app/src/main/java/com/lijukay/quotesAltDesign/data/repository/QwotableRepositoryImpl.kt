@@ -26,7 +26,6 @@ import com.lijukay.quotesAltDesign.data.remote.model.responses.RemoteQwotable
 import com.lijukay.quotesAltDesign.data.shared.Qwotable
 import com.lijukay.quotesAltDesign.data.utils.StringValue
 import com.lijukay.quotesAltDesign.domain.util.ConnectionHelper
-import com.lijukay.quotesAltDesign.domain.util.DefUtils.ifNull
 import com.lijukay.quotesAltDesign.domain.util.DefUtils.isNotNullOrBlank
 import com.lijukay.quotesAltDesign.domain.util.QwotableFileUpdateUtil
 import com.lijukay.quotesAltDesign.domain.util.RandomQuote
@@ -150,7 +149,7 @@ class QwotableRepositoryImpl @Inject constructor(
         val converted = mutableListOf<DBQwotable>()
 
         qwotables.forEach { remoteQwotable ->
-            val lastChanged = remoteQwotable.lastChanged.ifNull { -1 }
+            val lastChanged = remoteQwotable.lastChanged ?: -1
             val addedIn = remoteQwotable.addedIn
 
             if (
@@ -169,8 +168,8 @@ class QwotableRepositoryImpl @Inject constructor(
                     qwotableDao.updateQwotable(
                         oldQwotable.copy(
                             quote = remoteQwotable.qwotable,
-                            author = remoteQwotable.author.ifNull { "" },
-                            source = remoteQwotable.source.ifNull { "" }
+                            author = remoteQwotable.author ?: "",
+                            source = remoteQwotable.source ?: ""
                         )
                     )
                 } else {
@@ -178,8 +177,8 @@ class QwotableRepositoryImpl @Inject constructor(
                     converted.add(
                         DBQwotable(
                             quote = remoteQwotable.qwotable,
-                            author = remoteQwotable.author.ifNull { "" },
-                            source = remoteQwotable.source.ifNull { "" },
+                            author = remoteQwotable.author ?: "",
+                            source = remoteQwotable.source ?: "",
                             language = remoteQwotable.language
                         )
                     )
@@ -188,8 +187,8 @@ class QwotableRepositoryImpl @Inject constructor(
                 converted.add(
                     DBQwotable(
                         quote = remoteQwotable.qwotable,
-                        author = remoteQwotable.author.ifNull { "" },
-                        source = remoteQwotable.source.ifNull { "" },
+                        author = remoteQwotable.author ?: "",
+                        source = remoteQwotable.source ?: "",
                         language = remoteQwotable.language
                     )
                 )
