@@ -19,18 +19,11 @@ package com.lijukay.quotesAltDesign
 
 import android.app.Application
 import android.content.Intent
-import com.lijukay.quotesAltDesign.domain.util.UncaughtExceptionHandler
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class QwotableApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        Thread.setDefaultUncaughtExceptionHandler(
-            UncaughtExceptionHandler(
-                context = this,
-                logIntent = Intent(this, LogActivity::class.java)
-            )
-        )
     }
 }

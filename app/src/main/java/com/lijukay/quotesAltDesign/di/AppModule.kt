@@ -33,7 +33,6 @@ import com.lijukay.quotesAltDesign.domain.util.QwotableFileUpdateUtilImpl
 import com.lijukay.quotesAltDesign.domain.util.RandomQuote
 import com.lijukay.quotesAltDesign.domain.util.RandomQuoteImpl
 import com.lijukay.quotesAltDesign.domain.util.apis.GameOfThronesAPI
-import com.lijukay.quotesAltDesign.domain.util.apis.JCQuotesAPI
 import com.lijukay.quotesAltDesign.domain.util.apis.KanyeRestAPI
 import com.lijukay.quotesAltDesign.domain.util.apis.QwotableAPI
 import com.lijukay.quotesAltDesign.domain.util.apis.StoicQuotesAPI
