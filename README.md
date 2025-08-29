@@ -14,8 +14,6 @@ Qwotable is a simple Android application filled with quotable stuff. Besides its
 
 * Stoic Quotes API: An API provided by Tek Loon (@tlcheah2). You can find the repository [here](https://github.com/tlcheah2/stoic-quote-lambda-public-api)
 
-* James Clear Quotes API: An API provided by Mauricio Robayo (@MauricioRobayo). You can find the repository [here](https://github.com/MauricioRobayo/jcquotes)
-
 * Quotable API: An API provided by Luke Peavey (@lukePeavey). It is licensed under the MIT License. You can find the repository [here](https://github.com/lukePeavey/quotable)
 > [!caution]
 > Qwotable cannot use this API currently, as it seems to be unavailable (Quotable API)
