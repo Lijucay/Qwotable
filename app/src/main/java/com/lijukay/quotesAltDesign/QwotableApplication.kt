@@ -19,11 +19,22 @@ package com.lijukay.quotesAltDesign
 
 import android.app.Application
 import android.content.Intent
-import dagger.hilt.android.HiltAndroidApp
+import com.lijukay.quotesAltDesign.di.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.KoinApplication
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
-@HiltAndroidApp
 class QwotableApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+
+        startKoin {
+            androidContext(this@QwotableApplication)
+            androidLogger(Level.DEBUG)
+
+            modules(appModule)
+        }
     }
 }

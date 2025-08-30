@@ -38,15 +38,13 @@ import com.lijukay.quotesAltDesign.domain.util.PreferenceKey.INCLUDE_OWN_QWOTABL
 import com.lijukay.quotesAltDesign.domain.util.apis.StoicQuotesAPI
 import com.lijukay.quotesAltDesign.domain.util.apis.TekloonStoicQuotesAPI
 import com.lijukay.quotesAltDesign.domain.util.states.QwotableResult
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import javax.inject.Inject
 
-class RandomQuoteImpl @Inject constructor(
-    @ApplicationContext private val context: Context,
+class RandomQuoteImpl(
+    private val context: Context,
     private val connectionHelper: ConnectionHelper,
     private val qwotableDao: QwotableDao,
     private val kanyeRestAPI: KanyeRestAPI,

@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.devtools.ksp)
-    alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlin.plugin.compose)
     alias(libs.plugins.aboutlibraries.plugin)
 }
@@ -55,6 +54,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.koin.androidx.compose)
+
     implementation(libs.androidx.material3.adaptive.navigation.suite)
     implementation(libs.androidx.adaptive.navigation)
 
@@ -67,10 +68,6 @@ dependencies {
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-
-    // Dagger Hilt
-    implementation(libs.dagger.hilt)
-    ksp(libs.dagger.hilt.compiler)
 
     // About Libraries
     implementation(libs.aboutlibraries.compose.m3)

@@ -19,12 +19,15 @@ package com.lijukay.quotesAltDesign.presentation.composables
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -46,10 +49,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -164,38 +170,41 @@ fun RandomQuoteCard(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                IconButton(
-                    modifier = Modifier.padding(bottom = 4.dp),
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.onTertiaryContainer,
-                        contentColor = MaterialTheme.colorScheme.tertiaryContainer
-                    ),
-                    onClick = onLoadNewRandomQuote,
-                    enabled = !isLoading
-                ) {
-                    AnimatedVisibility(
-                        visible = isLoading,
-                        enter = expandHorizontally(),
-                        exit = shrinkVertically()
-                    ) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(16.dp),
-                            color = MaterialTheme.colorScheme.tertiaryContainer,
-                            strokeWidth = 3.dp,
-                            strokeCap = StrokeCap.Round
-                        )
-                    }
-
-                    AnimatedVisibility(
-                        visible = !isLoading,
-                        enter = expandVertically(),
-                        exit = shrinkVertically()
-                    ) {
-                        Icon(
-                            tint = MaterialTheme.colorScheme.tertiaryContainer,
-                            imageVector = Icons.Rounded.Refresh,
-                            contentDescription = null
-                        )
+                AnimatedContent(
+                    targetState = isLoading
+                ) { loading ->
+                    if (loading) {
+                        Box(
+                            modifier = Modifier
+                                .padding(bottom = 4.dp, start = 4.dp)
+                                .size(40.dp)
+                                .clip(RoundedCornerShape(100))
+                                .background(color = MaterialTheme.colorScheme.onTertiaryContainer),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(24.dp),
+                                color = MaterialTheme.colorScheme.tertiaryContainer,
+                                strokeWidth = 3.dp,
+                                strokeCap = StrokeCap.Round
+                            )
+                        }
+                    } else {
+                        IconButton(
+                            modifier = Modifier.padding(bottom = 4.dp),
+                            colors = IconButtonDefaults.iconButtonColors(
+                                containerColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                                contentColor = MaterialTheme.colorScheme.tertiaryContainer
+                            ),
+                            onClick = onLoadNewRandomQuote,
+                            enabled = !isLoading
+                        ) {
+                            Icon(
+                                tint = MaterialTheme.colorScheme.tertiaryContainer,
+                                imageVector = Icons.Rounded.Refresh,
+                                contentDescription = null
+                            )
+                        }
                     }
                 }
 

@@ -190,12 +190,6 @@ fun MainScreen(
                     }
                 )
             },
-//        bottomBar = {
-//            BottomNavigationBar(
-//                navController = navController,
-//                uiViewModel = uiViewModel
-//            )
-//        },
             floatingActionButton = {
                 AnimatedVisibility(
                     visible = showEditorOptions,

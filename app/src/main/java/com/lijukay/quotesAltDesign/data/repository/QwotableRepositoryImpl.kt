@@ -32,9 +32,8 @@ import com.lijukay.quotesAltDesign.domain.util.RandomQuote
 import com.lijukay.quotesAltDesign.domain.util.apis.QwotableAPI
 import com.lijukay.quotesAltDesign.domain.util.states.QwotableResult
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
-class QwotableRepositoryImpl @Inject constructor(
+class QwotableRepositoryImpl(
     private val qwotableAPI: QwotableAPI,
     private val qwotableDao: QwotableDao,
     private val connectionHelper: ConnectionHelper,

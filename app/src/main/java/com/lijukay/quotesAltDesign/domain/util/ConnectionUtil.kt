@@ -3,15 +3,13 @@ package com.lijukay.quotesAltDesign.domain.util
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
 
 interface ConnectionHelper {
     val isConnected: Boolean
 }
 
-class ConnectionHelperImpl @Inject constructor(
-    @ApplicationContext private val context: Context
+class ConnectionHelperImpl(
+    private val context: Context
 ) : ConnectionHelper {
     override val isConnected: Boolean
         get() {

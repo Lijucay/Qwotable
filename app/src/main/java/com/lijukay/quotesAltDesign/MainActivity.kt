@@ -53,15 +53,14 @@ import com.lijukay.quotesAltDesign.domain.util.dataStore
 import com.lijukay.quotesAltDesign.domain.util.states.Languages
 import com.lijukay.quotesAltDesign.domain.util.states.ThemeMode
 import com.lijukay.quotesAltDesign.presentation.dialogs.SharePreferenceDialog
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val uiViewModel: UIViewModel by viewModels()
-    private val qwotableViewModel: QwotableViewModel by viewModels()
+    private val qwotableViewModel: QwotableViewModel by viewModel()
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {

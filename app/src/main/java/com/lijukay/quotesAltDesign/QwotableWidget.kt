@@ -18,7 +18,6 @@
 package com.lijukay.quotesAltDesign
 
 import android.content.Context
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.unit.dp
@@ -27,6 +26,8 @@ import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
 import androidx.glance.ImageProvider
+import androidx.glance.action.actionStartActivity
+import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.components.CircleIconButton
@@ -47,25 +48,16 @@ import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import com.lijukay.quotesAltDesign.data.local.model.LocalQwotable
 import com.lijukay.quotesAltDesign.data.repository.QwotableRepository
-import dagger.hilt.EntryPoint
-import dagger.hilt.InstallIn
-import dagger.hilt.android.EntryPointAccessors
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.core.context.GlobalContext.get
 import java.util.Locale
 
 object QwotableWidget : GlanceAppWidget() {
     private val quoteKey = stringPreferencesKey(name = "quote")
     @StringRes val noQuotesStringId = R.string.no_quotes_available_widget_method
-
-    @EntryPoint
-    @InstallIn(SingletonComponent::class)
-    interface WidgetEntryPoint {
-        fun repository(): QwotableRepository
-    }
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
@@ -79,7 +71,9 @@ object QwotableWidget : GlanceAppWidget() {
                         .padding(bottom = 12.dp),
                     titleBar = {
                         TitleBar(
-                            modifier = GlanceModifier.padding(end = 16.dp),
+                            modifier = GlanceModifier
+                                .clickable(actionStartActivity(MainActivity::class.java))
+                                .padding(end = 16.dp),
                             startIcon = ImageProvider(R.drawable.ic_launcher_foreground),
                             title = context.getString(R.string.app_name),
                             actions = {
@@ -122,11 +116,8 @@ object QwotableWidget : GlanceAppWidget() {
     }
 
     fun updateQwotableWidget(context: Context, glanceId: GlanceId) {
-        Log.e(javaClass.simpleName, "called uQW")
-
         CoroutineScope(context = Dispatchers.IO).launch {
-            val entryPoint = EntryPointAccessors.fromApplication<WidgetEntryPoint>(context)
-            val repository = entryPoint.repository()
+            val repository = get().get<QwotableRepository>()
             val lang = Locale.getDefault().language
 
             val quotes: List<LocalQwotable> = when (lang) {
@@ -159,6 +150,5 @@ object QwotableWidget : GlanceAppWidget() {
 }
 
 class SimpleQwotableWidgetReceiver : GlanceAppWidgetReceiver() {
-    override val glanceAppWidget: GlanceAppWidget
-        get() = QwotableWidget
+    override val glanceAppWidget: GlanceAppWidget = QwotableWidget
 }

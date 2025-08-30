@@ -103,7 +103,7 @@ object FileUtil {
 
                     val gson = Gson()
                     val listType = object : TypeToken<List<OwnQwotable>>() {}.type
-                    gson.fromJson<List<OwnQwotable>>(jsonText, listType)
+                    gson.fromJson(jsonText, listType)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

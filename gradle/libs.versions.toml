@@ -1,8 +1,9 @@
 [versions]
 accompanistSystemuicontroller = "0.36.0"
 adaptiveNavigation = "1.0.0"
-agp = "8.12.1"
+agp = "8.12.2"
 datastorePreferences = "1.1.2"
+koinAndroidxCompose = "4.1.0"
 kotlin = "2.0.10"
 
 aboutlibrariesComposeM3 = "10.10.0"
@@ -53,6 +54,7 @@ androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroidxCompose" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 

@@ -2,8 +2,7 @@ package com.lijukay.quotesAltDesign.domain.util
 
 import android.content.Context
 import com.lijukay.quotesAltDesign.domain.util.apis.QwotableAPI
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
+import androidx.core.content.edit
 
 interface QwotableFileUpdateUtil {
     fun updateLocalVersionNumber(newVersion: Int)
@@ -11,13 +10,13 @@ interface QwotableFileUpdateUtil {
     suspend fun isUpdateAvailable(): Boolean
 }
 
-class QwotableFileUpdateUtilImpl @Inject constructor(
-    @ApplicationContext private val context: Context,
+class QwotableFileUpdateUtilImpl(
+    private val context: Context,
     private val qwotableAPI: QwotableAPI
 ) : QwotableFileUpdateUtil {
     override fun updateLocalVersionNumber(newVersion: Int) {
         val apiPreference = context.getSharedPreferences("api", Context.MODE_PRIVATE)
-        apiPreference.edit().putInt("version", newVersion).apply()
+        apiPreference.edit { putInt("version", newVersion) }
     }
 
     override fun getLocalVersionNumber(): Int {
