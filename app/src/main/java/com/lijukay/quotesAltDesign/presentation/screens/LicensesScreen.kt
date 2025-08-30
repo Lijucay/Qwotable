@@ -42,6 +42,8 @@ import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.entity.Scm
 import com.mikepenz.aboutlibraries.util.withContext
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.persistentSetOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -76,14 +78,14 @@ fun LicensesScreen(
                 name = "kanye.rest API",
                 description = "A free REST API for random Kanye West quotes (Kanye as a Service).\nBuilt with Cloudflare Workers.",
                 website = "https://github.com/ajzbc/kanye.rest",
-                developers = listOf(Developer(name = "Andrew Jazbec", organisationUrl = null)),
+                developers = persistentListOf(Developer(name = "Andrew Jazbec", organisationUrl = null)),
                 organization = null,
                 scm = Scm(
                     connection = null,
                     developerConnection = null,
                     url = "https://github.com/ajzbc/kanye.rest?tab=MIT-1-ov-file"
                 ),
-                licenses = setOf(
+                licenses = persistentSetOf(
                     License(
                         name = "MIT license",
                         url = "https://opensource.org/license/mit",
@@ -98,14 +100,14 @@ fun LicensesScreen(
                 name = "quotable",
                 description = "Quotable is a free, open source quotations API.",
                 website = "https://github.com/lukePeavey/quotable",
-                developers = listOf(Developer(name = "Luke Peavey", organisationUrl = null)),
+                developers = persistentListOf(Developer(name = "Luke Peavey", organisationUrl = null)),
                 organization = null,
                 scm = Scm(
                     connection = null,
                     developerConnection = null,
                     url = "https://github.com/lukePeavey/quotable?tab=MIT-1-ov-file"
                 ),
-                licenses = setOf(
+                licenses = persistentSetOf(
                     License(
                         name = "MIT license",
                         url = "https://opensource.org/license/mit",
